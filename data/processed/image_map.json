@@ -1,0 +1,548 @@
+[
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 0,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p0_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: eg Wha” 7; - wt; >; i \" x CRALE C/ * -; soperne em Pe... a ee > < ee; Wie S 4) / > atcew kg >.. Caption: a picture of a mountain with a flag"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 0,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p0_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: sae ee ae eh: ays 6) ~~ A.B. 1308 es yy Ae rm 2; SD — <——=; Q M5) 4 UNIVERSITA DEGLI STUDI; MCCS DI PERUGIA. Caption: the logo for the city of sarajevo"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 0,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p0_i2.jpg",
+    "is_diagram": false,
+    "caption": "Labels: Fondamenti di Internet; Error Control Protocols; Page 0 Gianluca Reali. Caption: fondanti internet - logo - blue"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 1,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p1_i0.jpg",
+    "is_diagram": false,
+    "caption": "Labels: Classificazione delle strategie di controllo di errore; Strategie di; controllo di errore. Caption: a white background with a blue and orange text"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 1,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p1_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Codici a correzione Forward error Automatic repeat) Codicia rivelazione; di errore control, FEC request, ARQ di errore. Caption: a diagram of the different types of the different types of the different types of the different types of the different"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 1,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p1_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Page 1. Caption: a diagram of a block diagram"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 2,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p2_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Protocolli Stop & Wait; T; tempo di Tx di una trama (s) —)——_ |; T:-tamno di Ty di iin riscontro (se) rr _. Caption: a diagram of a camera with a camera attached to it"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 2,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p2_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Tp: tempo di elaborazione di una UI (s); tT: tempo di propagazione (s) 7:; C: frequenza di cifra sul link (bit/s) c; L,:lunghezza di una trama (bit) 7; L,: lunghezza di un riscontro (bit) Tr; d: estensione del link (m) °; v. velocita di propagazione (m/s); a=7/T;: tempo di propagazione normalizzato. Caption: a diagram of a single - pole with a single - pole"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 2,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p2_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Page 2. Caption: a diagram showing the direction of a line"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 3,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p3_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Protocolli Stop & Wait; Ipotesi di assenza di errori; Efficienza del protocollo S&W: xo i | B; = : = P. Caption: a diagram of a network with a route"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 3,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p3_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: T, Ty 1 Ty; Qo oa ST a ee; Py we 2 +27 +27 T,+2t 1+2a Tt; a P tf 7; :; Tt; ts. Caption: a diagram of a straight line with a straight line at the end"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 3,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p3_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Page 3. Caption: a diagram showing the direction of a line"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 4,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p4_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Protocolli Stop & Wait; Ipotesi di presenza di errori; meccanismo del time-out T; errore nel riscontro errore nella trama; 7~ a | re | D A ee | Rg. Caption: a diagram of the process of a process"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 4,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p4_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: 22; eS t=; |S. Caption: a diagram showing the different angles of the two different angles"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 4,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p4_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: fp 27, +27, + 27 T>2r set, =T, = 0. Caption: the two - dimensional structures of the two - dimensional structures are shown in blue and white"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 5,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p5_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Protocolli Stop & Wait; Ipotesi di presenza di errori; p: probabilita di errore di bit; P: probabilita che una trama non sia trasmessa con successo > probabilita di errore (o perdita) di trama; was: anaeydadntb teremeiooinees wiscomkea: af a«xcimner: Beeston. Caption: a letterhead with the words procolo y y y y y y y y y y y y"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 5,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p5_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: ba So MYMANTA CFOADEETOOIMT IY PIAL CAME Ett i CE eA; N,:numero medio di tentativi di trasmissione per trama; LptL; p—1_—(— nV tte. Caption: the equation of the equation of the equation of the equation of the equation of the equation of the equation of"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 5,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p5_i2.jpg",
+    "is_diagram": false,
+    "caption": "Labels: 7 i rs; “Wap. py pit __ py wp); Nt AP (I-P)=(1 PY =(I PLP =>; Page 5. Caption: the equation of the fourier equation"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 6,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p6_i0.jpg",
+    "is_diagram": false,
+    "caption": "Labels: Protocolli Stop & Wait. Caption: the logo for procolopia"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 6,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p6_i1.jpg",
+    "is_diagram": false,
+    "caption": "Labels: Efficienza del protocollo S&W:; n= ff; (Vv, -1)7, +7 )+7,+7, +27, +20; SE; Tr ~~ TT s2IOT L2.oaor. Caption: the following diagram of the two - dimensional system"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 6,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p6_i2.jpg",
+    "is_diagram": false,
+    "caption": "Labels: ~ es; _ Py _ _ 7,Q-P) _a-P); (7, +7, +27, +27), T,+7,+27,+2r 14+2a; Page 6. Caption: the number of the two columns in the same column"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 7,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p7_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Protocolli Continuous ARQ; yj oy.. Caption: a diagram of a network with a network and a network with a network"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 7,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p7_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: - NUMeCFO TINO Al DIT Per 1; numerare trame e ACK; - | Numerazione ciclica = ACK 1; - ACK cumulativi 3; - Memoria di ritrasmissione ACK 2; - | Memoria di ricezione 4 nee s; - Strategie di ritrasmissione 5; a) Go-Back-N (GBN) ACK 4; hh) Calartiva Rananrt (CPR) c. Caption: the diagram shows the different types of the different types of the different types of the different types of the different"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 7,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p7_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: et Arn inn ean A ~~; ACK 5; F 7; ACK i ; ACK 6; NACKi; ACK 7; Ipotesi di assenza di errori; Page 7. Caption: a diagram of the two different types of the two - dimensional structure"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 8,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p8_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Protocolli Continuous ARQ; Go-Back-N Selective repeat; aj =. « —+__mf- a= jp:. Caption: a diagram of the protocol protocol"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 8,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p8_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: 1 u; 2 2 2; ACK 1 ACK 1 ACK 1; 3 3 =; ACK 2 ACK 2 ACK 2; 4 4 4; ACK 3 ACK 3 ACK 3; 5 5 5; ACK 4; 6 6 6; NACK 4 NACK 4. Caption: the three different types of the two - dimensional structures"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 8,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p8_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: 7 7, 7; u NACK 5; 4 4 oO; 5 0 5; ACK 4 ACK 7; 6 1 4; ACK 5 ACK 0 ACK 0; v 2 1; Page 8. Caption: the three different types of the two different types of the two different types of the two different types of the"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 9,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p9_i0.jpg",
+    "is_diagram": false,
+    "caption": "Labels: Lezione 9; Protocolli Continuous ARQ; Efficienza dei protocolli; mm a r, _ 1. Caption: the cover of the book procolt construct"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 9,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p9_i1.jpg",
+    "is_diagram": false,
+    "caption": "Labels: MY fa ~Apey Cf i; NT, N,; Caso Selective repeat 1; N, =——; 1 D. Caption: the equation of the two equations"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 9,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p9_i2.jpg",
+    "is_diagram": false,
+    "caption": "Labels: yn =1-P. Caption: a diagram of the two - dimensional system"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 10,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p10_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Protocolli Continuous ARQ; Caso Go-Back-N;; sia K il numero medio di trame consecutive che devono essere ritrasmesse in seguito a un errore; —_ 4 fe i ey a =~ \\ x . Por «5 artim =~ \\ x. Caption: a certificate for a professional"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 10,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p10_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Ve FIT LF JT VA Tipe UTE Jr .. TA TIL UT Je...; N,=> (Kk +1)P'(1-P)= 0 iKP ‘(1- P)+. P‘- P)=; i=0 i=0 i=0; = KP (I= PY Pe = PYY Pt = KP = PY P= PY; i=0 i=0 i=0 i=0; KP. 14+(K-1)P ne. Caption: the equation of the fourier equation"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 10,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p10_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: = 1-P Tris a a ee ol puo assumere per ft corretto Tunzionamento der Protocolo cne; Ty; =a KT , =T, +27, ovvero K =1+2a; KT; ACK; ‘ mancante 1 1-P; 7] a); Page 10 N, 1 + 2aP. Caption: the diagram shows the current currents and currents"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 11,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p11_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Controllo di Flusso a Finestra; Generalmente occorre limitare il numero di trame trasmesse consecutivamente senza; riscontro per evitare la saturazione del buffer in ricezione.. Caption: control fuo a fio"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 11,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p11_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Il controllo di flusso sliding window consiste nello specificare due finestre, una in; trasmissione, Ws, e una in ricezione, W,. Caption: a white background with a black and orange text"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 11,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p11_i2.jpg",
+    "is_diagram": false,
+    "caption": "Labels: W~,indica il numero di trame consecutive che possono essere accettate fuori sequenza dal; ricevitore.; Page 11. Caption: a white background with a quote that says, ' i ' m '"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 12,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p12_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Controllo di Flusso a Finestra; trame trame trame trame; confermate in attesa che possono che non possono; di conferma essere trasmesse ancora essere; 1 1 traacmacena. Caption: cono fuso - fiesta - screenshoto fuso - fiesta - screenshoto - screenshoto - screenshoto - screenshoto - screenshoto - screenshoto - screenshoto - screenshoto - screenshoto"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 12,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p12_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: W,; n; pH 889; t n; Tame | trame; ranfarmata WAL. Caption: a diagram showing the number of different types of the different types of the different types of the different types of"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 12,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p12_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Wwe Sows Sree vr fuori sequenza; trame attese che non possono; Se nie accettate; fs —— a tt SR; n; Trame accettate; fuori sequenza; Page 12. Caption: a diagram showing the time of the day"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 13,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p13_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Section Summary; La numerazione delle PDU é ciclica ;; * k bit di numerazione _—_t+w_ W. Caption: a white background with a blue and white logo"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 13,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p13_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: ~ TUPMCTaaiVile THUUUIO 2” ft 0 4 .; 3 bit di; numerazione 6 1; W,=3; We1; ral ff. Caption: a diagram of a surfboard with the measurements of the paddle"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 13,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p13_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: ww &; Set /. Caption: a diagram of a horse ' s head"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 14,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p14_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: TX trasmette RX riceve TX riceve W,=3; latrama0 la trama 0 e invia ack (1) ack (1) W,=1; , \\ 7 0 7 0; 6 1 6 \\ P \\' Y. Caption: a diagram of the different types of the wave"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 14,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p14_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: 5 2 / 5 2 y 5 2; Se 4 3 4 3; TX trasmette RX riceve RX riceve; le trame 1,2,3 le trame 2,3 la trama 1 e invia ack (2). Caption: the diagram shows the different phases of the human body"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 14,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p14_i2.jpg",
+    "is_diagram": false,
+    "caption": "Caption: a diagram of a circular shape with a red line and blue line"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 15,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p15_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: TX riceve TX ritrasmette RX riceve le; ack (2) trame2 e3 trame 2 e 3 e invia ack(4); 7 0 7 0 7 i); 6 1 6 1 6 1; | JT. -. Caption: a diagram of the different types of the wave"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 15,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p15_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: 5 PB 5 7? 5 2; 4 3 4 3 ~~ 3; TX riceve ack(4) TX trasmette le RX riceve le trame 4, 5; trame 4,5e6 e 6 in invia ack(7); y tN at ee. Caption: the three different types of the wave"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 15,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p15_i2.jpg",
+    "is_diagram": false,
+    "caption": "Labels: (J) | 7 | —; Page 15 = , = : -. Caption: a diagram of the three different types of the wave"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 16,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p16_i0.jpg",
+    "is_diagram": false,
+    "caption": "Labels: Possibile situazione ambigua nel Selective Repeat. Caption: the logo for the public and local local report"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 16,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p16_i1.jpg",
+    "is_diagram": false,
+    "caption": "Labels: Ee». Caption: a drawing of a surfboard with a red line"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 16,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p16_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: In caso di ritrasmissione della trama 4 il ricevitore é indotto all’errore; Page 16. Caption: a drawing of a face with a red line"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 17,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p17_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Controllo di Flusso a Finestra; La ciclicita della numerazione delle trame potrebbe generare ambiguita nella numerazione delle; stesse, soprattutto se si usano riscontri cumulativi. Per evitare cid occorre imporre dei limiti; all’apertura delle finestre.. Caption: a white sheet with the words cono fuso"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 17,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p17_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Nel caso Go-Back-N necessariamente W,=1. Per evitare ambiguita occorre che sia W.SN-1, con; N=2° il modulo di numerazione delle trame.; Nel caso selective repeat, occorre evitare che la finestra in ricezione, ruotando per aver ricevuto; delle trame in sequenza si sovrapponga con quella in trasmissione. Quindi occorre imporre che; W.+W.SN. La scelta ottimale é la seguente: Ws=W=N/2. Caption: a letter from the italian language department"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 17,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p17_i2.jpg",
+    "is_diagram": false,
+    "caption": "Labels: Page 17. Caption: a diagram of a computer with a line of code"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 18,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p18_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Controllo di Flusso a Finestra. Caption: cono fuso fiza"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 18,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p18_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: wh 2c|! ACK 0 2c ACK 0; ACK 1 ACK 1; P 2; ACK 2; 3; ae ACK 2; ACK 3. Caption: a diagram of a single - pole structure"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 18,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p18_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: W,=4 W,=2; Si vede che per ottenere la massima utilizzazione del link occorre che; WT, 2T,+2T,  ovvero W,21+2a; Page 18. Caption: the equation of the fourier equation"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 19,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p19_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Controllo di Flusso a Finestra; Efficienza dei protocolli Continuous ARQ in presenza; del controllo di flusso a finestra scorrevole. Caption: control fusea"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 19,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p19_i1.jpg",
+    "is_diagram": false,
+    "caption": "Labels: siaT, =T, =0; In assenza di errori; [i W,>1+2a, a<(W,-1)/2; WY — WT. a 7 , a — .. Caption: the equation of the fourier equation"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 19,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p19_i2.jpg",
+    "is_diagram": false,
+    "caption": "Labels: “Esw —_—.,, W, < 1+2a, a>W,-Iji2; T,+2t; Page 19. Caption: the diagram shows the number of the two different types of the two different types"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 20,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p20_i0.jpg",
+    "is_diagram": false,
+    "caption": "Labels: Controllo di Flusso a Finestra; In presenza di errori; se W,21+2a. Caption: a white sheet with a black and orange text that reads, ' covoluo cuo a ne"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 20,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p20_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: ; 1-P, SR —., SR; 7] T sw Ty N , GBN N, 1+ 2aP; : : 1+2aP —————, GBN; 1-P; W 14+2; SG — a (w.-P); 1] W iT. W | 1.9%, °? SR. Caption: two different types of the same number of each"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 20,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p20_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: =o. = = — ee SS ow; N, (%,+2r)N, (l+2a)N, _ WA-P) GEN; (1+ 2a )[1+ 2aP |; Dove N, é il numero medio di trame trasmesse per riuscire a trasmettere; Page 20 una trama con successo. Caption: a diagram of the fourier equation"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 21,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p21_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Controllo di Flusso a Finestra; ARQ - Ls = 256, La = 48, p = 10°®; 1.0 pl; q . : awee\\ 4 L. Caption: control fuse a fuse"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 21,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p21_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: = 0.8; S \\ \\ 3N; 20.6 — SN; g \\ Us \\; 0.4 — eee Nr. Caption: the diagram shows the number of the different phases"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 21,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p21_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Fred CS ea r a; S 0.2 — \\ — \\ Bee a; 0.0 = pororrrriy a | bore rr rry =; 0.1 1 10 100 1000; > Ritardo di propagazione normalizzato, a; age _.. Caption: the plot of the fourier plot is shown in the diagram"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 22,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p22_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Controllo di Flusso a Finestra; ARQ - L¢ = 256, La = 48, p = 104; 1.0 SS ee; 1 oral : \\SR W, = 64 r. Caption: control fuse area"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 22,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p22_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: =- 08 (SSS SS Sa oe eo Sei; re) \\ \\ ( | 2A \\; 5 S \\ W, = 127 \\; s a a aN a a I; a \\ \\ \\; © 0.4 ‘caine, Gael: Ga dea Wan, Gee; oO . \\ q. Caption: the diagram shows the different phases of the phases"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 22,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p22_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Oo ~ IOP & Vall N % I; = - \\\\ NX L; wo 0.2 — - ‘ =; 1 . . St; x NN; a a ~ 5; 4 ae ee 5; 0.0 5 i) tot a | t i] rrery i] i) tt — Tr -; 0.1 1 10 100 1000; Page Ritardo di propagazione normalizzato, a. Caption: the diagram shows the effect of the blue line on the left side of the image"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 23,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p23_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Efficienza del collegamento; Esempio di collegamento terrestre, lunghezza dei riscontri di 48 bit; ARQ - La = 48, p = 104, t= 5 ms, C = 64 kbit/s; \"0 1 saree || t. Caption: the diagram of the electric motor"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 23,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p23_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: = 08 - oo; Maa - - ---2- 9 -----------94-=--------; oO V.=7 f; oe oe. Caption: the wavelength of a wave is shown in the diagram below"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 23,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p23_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: x Aff \\; x 4 ‘; & 024 4 N; x; a x; s; N; 0.0 S; 10! 102 103 104 105; Page 23 Lunghezza della trama, Lr. Caption: the plot of the fourier plot is shown in the diagram"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 24,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p24_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Efficienza del collegamento; Esempio di collegamento satellitare, lunghezza dei riscontri di 48 bit; ARQ - L, = 48, p = 10-4, t = 250 ms, C = 64 kbit/s; an 1] 7 rene ree | Pe ere | a ety oul Freres |. Caption: the cover of the book elo delmentoo"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 24,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p24_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: = 08 a |; g |; 5 06 Ph; Zo i; sat ya | i \\. Caption: the diagram shows the number of the two different types of the fourier"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 24,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p24_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: 2 4 GBN SRW.=4 L; ce] 7 W, = 127 I; 5 02 - ye z; 1 gor\" a7 GBN r; = eet W,=7 me ,; 0.0 Re ny ea Eta; 10! 102 103 104 105; Pagei24 Lunghezza della trama, Ls. Caption: the flow of the hf1 - 1 antibody is shown in this image"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 25,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p25_i0.jpg",
+    "is_diagram": true,
+    "caption": "Labels: Efficienza del collegamento; Esempio di collegamento satellitare, BER bassa, riscontri di 48 bit; ARQ - La = 48, p = 10-6, t= 250 ms, C = 64 kbit/s; 1.0 Sa Ean L; j pou eesaese yu Poo. Caption: the diagram of the fourier of a particle"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 25,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p25_i1.jpg",
+    "is_diagram": true,
+    "caption": "Labels: - ost fF fff; s icp w.-64 / spw.=4; s | /; 2 0.6 er a; & GBN i SBN /; 37 O04  ~ f  ~f ff. Caption: a diagram of the two phases of the same phase"
+  },
+  {
+    "source_pdf": "Lecture 02 - Error Control Protocols .pdf",
+    "page": 25,
+    "image_path": "data/processed/images/Lecture 02 - Error Control Protocols _p25_i2.jpg",
+    "is_diagram": true,
+    "caption": "Labels: — - é Zé -; o; <= J Fd ,; G 02- / 2A =; 4 “a “ 5; a aoe L; 0.0 5 —— Sa | rororrrrrny tot es; 10! 102 103 104 105; Page 25 Lunghezza della trama, Lr. Caption: the diagram shows the effect of the two - dimensional curves"
+  }
+]
