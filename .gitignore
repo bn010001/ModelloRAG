@@ -1,0 +1,8 @@
+# File modelli locali (LLM)
+*.gguf
+
+# Cache temporanea OCR
+data/tmp/
+
+# Ambiente virtuale
+.venv/
