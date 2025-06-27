@@ -1,0 +1,26 @@
+chunk_size: [1000, 2000]
+chunk_overlap: [100, 200]
+k: [3, 5, 10]
+
+prompt_templates:
+  - name: base
+    text: |
+      Contesto:
+      {context}
+
+      Domanda: {query}
+      Risposta:
+
+  - name: cite
+    text: |
+      Usa solo le informazioni seguenti per rispondere in modo preciso:
+      {context}
+
+      Domanda: {query}
+      Risposta (specifica e documentata):
+
+temperature: [0.0, 0.7]
+max_tokens: [128, 256]
+stop_sequences:
+  - "\n\n"
+  - "Fine risp."

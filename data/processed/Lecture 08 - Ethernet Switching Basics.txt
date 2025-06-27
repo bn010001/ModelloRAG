@@ -1,0 +1,1104 @@
+) Foreword
+Page 1
+Data transmission on networks must comply with certain standards. Ethernet protocols
+define how data frames are transmitted over an Ethernet network. Understanding
+Ethernet protocols is the basis for fully understanding communication at the data link
+layer. An Ethernet switch is the main device for implementing data link layer
+communication. It is essential to understand how an Ethernet switch works.
+This course describes the concepts related to Ethernet protocols, MAC address types,
+and working process and mechanism of Layer 2 switches.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Objectives
+¢ On completion of this course, you will be able to:
+© Describe the basic concepts of an Ethernet network.
+o Distinguish MAC address types.
+o Get familiar with the working process of a Layer 2 switch.
+© Get familiar with the structure and generation process of a MAC address table.
+Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. Overview of Ethernet Protocols
+2. Overview of Ethernet Frames
+3. Overview of Ethernet Switches
+4
+Process of Data Communication Within a Network Segment
+Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) ) Ethernet Protocols
+Page 4
+The Ethernet networks are the most popular local networks
+Ethernet was born in the early 1970s at the Xerox research laboratory in
+California
+In 1982 the standard became Ethernet II (also called DIX - Digital, Intel,
+Xerox)
+In 1983 the standard was placed under the control of the IEEE (in group
+802).
+The two versions, IEEE and Ethernet II, are currently present
+
+) ) Ethernet Protocols
+evolution
+Ethernet
+Standard Fast Gigabit Ten-Gigabit
+Ethernet Ethernet Ethernet Ethernet
+Page 5
+
+Ga) ) The IEEE 802 standard
+LLC: Logical link control
+MAC: Media access control
+Upper layers Upper layers LLC PDU
+2 2 Upper-layer
+a
+———— A] A [Control data
+LLC p |p
+Data link layer
+Ethernet Token Ring Token Bus !
+MAC MAC MAC i MAC MAC load
+—---+ header Payloa
+Ethernet .
+Physical layer physical layers yoken ete joken Bus 200 MAC frame
+ave) physical layer physical layer
+0 Jiansinission medium )
+OSI or Internet model IEEE Standard
+¢ 802.1 definisce le caratteristiche generali degli standard per le reti locali e metropolitane e
+per l'interoperabilita
+ 
+tra reti diverse.
+
+Ethernet Topologies
+ohOH~ ohWHaTH—T)
+LAN Switch
+SN
+Tl
+|
+jm)
+Page 7
+
+[=| ) Ethernet Protocols
+e Ethernet is the most common communication protocol standard used by existing local area networks
+(LANs). It defines the cable types and signal processing methods that are used on a LAN.
+e An Ethernet network is a broadcast network built based on the carrier sense multiple access/collision
+detection (CSMA/CD) mechanism.
+a: ) i: :
+= Se CHCR
+HostC Host D
+» Go Ba:
+Host A Host B
+Early Ethernet Switch Networking
+Page 8
+¢ Early Ethernet:
+« Ethernet networks are broadcast networks established based on the CSMA/CD
+mechanism. Collisions restrict Ethernet performance. Early Ethernet devices such
+as hubs work at the physical layer, and cannot confine collisions to a particular
+scope. This restricts network performance improvement.
+¢ Switch networking:
+2 Working at the data link layer, switches are able to confine collisions to a particular
+scope. Switches help improve Ethernet performance and have replaced hubs as
+mainstream Ethernet devices. However, switches do not restrict broadcast traffic on
+the Ethernet. This affects Ethernet performance.
+
+CSMA/CD
+Set collision
+number to zero
+(N=0)
+>
+Sense the carrier
+Wait back off time
+(k x Time slot)
+a»
+GSMA / CD Procedure Inter Frame Gap
+Select Random Number
+in the range[0, 2TM1] I
+a
+No
+Limit Increment
+Reached? eee Send Jam Signal
+Success
+Page 9
+¢ binary exponential backoff: K=2“(n-1), with n=min(m,10), m number of collisions.
+
+[=| ) Collision Domain
+¢ Acollision domain is a set of nodes connected to the same shared medium. All nodes in a collision domain compete for
+the same bandwidth. Packets (unicast, multicast, or broadcast) sent by a node can be received by other nodes.
+Host B
+Ch
+="
+Host A
+Ch
+=
+Collision
+2 ee
+Host C Host D
+Early Ethernet
+One Collision Domain
+On a traditional Ethernet network, multiple nodes on the same
+medium share the link bandwidth and compete for the right to use
+the link. As a result, collision occurs.
+The probability that collision occurs increases when more nodes
+[ Sotton CSMA/CD
+Separating collision domains
+_—
+cvich ntworsng LI LI
+Five Collision Domains “==
+Host C Host D
+The switch interfaces used to send and receive data are
+independent of each other and belong to different collision
+domains. Therefore, collisions do not occur between hosts (or
+networks) connected through switch interfaces.
+are deployed on a shared medium.
+Page 10
+¢ Ona shared network, the Ethernet uses the CSMA/CD technology to avoid collisions. The
+CSMA/CD process is as follows:
+a A terminal continuously detects whether the shared line is idle.
+» If the line is idle, the terminal sends data.
+= Ifthe line is in use, the terminal waits until the line becomes idle.
+s |f two terminals send data at the same time, a collision occurs on the line, and
+signals on the line become unstable.
+« After detecting the instability, the terminal immediately stops sending data.
+= The terminal sends a series of disturbing pulses. After a period of time, the terminal
+resumes the data transmission. The terminal sends disturbing pulses to inform other
+terminals, especially the terminal that sends data at the same time, that a collision
+occurred on the line.
+¢ The working principle of CSMA/CD can be summarized as follows: listen before send,
+listen while sending, stop sending due to collision, and resend after random delay.
+
+[=| ) Broadcast Domain
+The entire access scope of broadcast packets is called a Layer 2 broadcast domain, which is also called a broadcast
+domain. All hosts in the same broadcast domain can receive broadcast packets.
+Host A Host B
+Chk Broadcast ij packet
+al | o7 | | 7 Ci Ci Switch B
+= = Host A Host B J, \
+mi Ck Switch Networking Chk C |k
+Early Ethernet One Broadcast Domain Host c Host D
+One Broadcast Domain
+Switch A
+Broadcast oy | ~,
+On a traditional Ethernet network, multiple nodes on the same
+medium share a link. The broadcast packets sent by a device can be
+received by all the other devices.
+A switch forwards broadcast packets to all interfaces. Therefore,
+the nodes connected to all interfaces of the switch belong to the
+same broadcast domain.
+Page 11
+¢ Anall-1 MAC address (FF-FF-FF-FF-FF-FF) is a broadcast address. All nodes process
+data frames with the destination address being a broadcast address. The entire access
+range of the data frames is called a Layer 2 broadcast domain, which is also called a
+broadcast domain.
+Note that a MAC address uniquely identifies a network interface card (NIC). Each network
+adapter requires a unique MAC address.
+
+[=| ) Ethernet NIC
+e A network interface card (NIC) is a Key component that connects a network device (such as a computer, a
+switch, or a router) to an external network.
+Computer * Network Port
+aan Packet Bit Stream j
+= (-TCpnp | ° Anetwork port is also called a network
+1 '
+LJ i Network | NIC interface, interface, or port.
+——+
+Computer anna Packet Bit Stream - NIC
+° Each network port corresponds to a
+Switch NIC.
+“Other NICs that , . .
+| transfer data to | Frame Bit Stream Acomputer or switch forwards data
+oe sin through a NIC
+—_—_ ' Other NICs on the | . :
+— 1 local host , Frame Bit Stream
+— i “Other NICS that ~: ;
+. | transfer data to | Frame Bit Stream
+Switch \__ the local host __!* Nic
+' Other NICs on the |
+|__ localhost | Frame Bit Stream
+Page 12
+« There are many types of NICs. In this document, all the NICs mentioned are Ethernet
+NICs.
+« The switches mentioned in this document are Ethernet switches. The NICs used by each
+network port on a switch are Ethernet NICs.
+
+) Contents
+1. Overview of Ethernet Protocols
+2. Overview of Ethernet Frames
+3. Overview of Ethernet Switches
+4
+Process of Data Communication Within a Network Segment
+Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+somecwicmeicia@ MAC address Ethernet frame type
+[=] ) Ethernet Frame Format
+e« The frames used by Ethernet technology are referred to as Ethernet frames.
+e Ethernet frames are in two formats: Ethernet_ll and IEEE 802.3.
+Total length of a data frame: 64-1518 bytes
+A
+‘4 \
+6B 6B 2B 46-1500B 4B
+Ethernet_II format | D.MAC | S.MAC | Type | User data | FCS |
+6B 6B 2B 3B 5B 38-1492B 4B
+IEEE 802.3format| D.MAC | SMAC | Length | LLC SNAP Userdata | FCS |
+3B 2B
+Org
+Code Type
+Type (DIX): Indicates the Network layer protocol exchanging the payload (data), as IP (0800), Novell IPX
+(8137), AppleTalk (809B), ARP (0806)
+Preamble: bit di 0 e 1 che si alternano
+Page 14
+« Frame is the unit of data that is transmitted between network nodes on an Ethernet
+network. Ethernet frames are in two formats, namely, Ethernet_ll and IEEE 802.3, as
+illustrated in the figure shown in this slide.
+* Ethernet ll frame:
+2 DMAC:6 bytes, destination MAC address. This field identifies which MAC address
+should receive the frame.
+«2 SMAC: 6 bytes, source MAC address. This field identifies which MAC address
+should send the frame.
+2 Type: 2 bytes, protocol type. Common values are as follows:
+= 0Qx0800: Internet Protocol Version 4 (IPv4)
+= 0Qx0806: Address Resolution Protocol (ARP)
+« IEEE 802.3 LLC Ethernet frame:
+2 Logical link control (LLC) consists of the destination service access point (DSAP),
+source service access point (SSAP), and Control field.
+= DSAP: 1 byte, destination service access point. If the subsequent type is IP,
+the value is set to Ox06. The function of a service access point is similar to the
+Type field in an Ethernet II frame or the port number in TCP/UDP.
+= SSAP: 1 byte, source service access point. If the subsequent type is IP, the
+value is set to Ox06.
+= Ctrl: 1 byte. This field is usually set to 0x03, indicating unnumbered IEEE
+802.2 information of a connectionless service.
+= The Subnetwork Access Protocol (SNAP) field consists of the Org Code field and
+the Type field.
+= The three bytes of the Org Code field are all Os.
+
+Ethernet Frame Format MAC address Ethernet frame type
+[=] ) What Is a MAC Address?
+¢ A media access control (MAC) address uniquely identifies a NIC on a network. Each NIC must
+have a globally unique MAC address.
+What is a MAC address? MAC Address
+Each NIC has a number, that is, a
+MAC address, to identify itself, just
+address when |
+leave the factory. Name: NIC as each person has an ID card
+MAC address/Ethemet number to identify himself/herself.
+address/Physical address:
+(axa)
+| have a MAC
+Page 15
+* AMAC address, as defined and standardized in IEEE 802, indicates the position of a
+network device. All Ethernet NICs that comply with the IEEE 802 standard must have a
+MAC address. The MAC address varies according to the NIC.
+
+Ethernet Frame Format MAC address Ethernet frame type
+[=| ) IP Address Vs. MAC Address
+Each Ethernet device has a unique MAC address before delivery. When the device accesses the network,
+it assigns an IP address to each host. Why?
+Characteristics of IP addresses:
+Host 1 Host 2
+IP addresses are unique.
+IP addresses are changeable.
+NIC NIC ;
+MAC1 MAC2 2 |P addresses are assigned based on
+network topology.
+| pt | Ip2 Can a network
+Ps PA device have either
+| | Characteristics of MAC addresses: a MAC address or
+an IP address?
+2 MAC addresses are unique. e i
+NIC NIC 2 MAC addresses cannot be changed.
+MAC3 MAC4 SS
+2 MAC addresses are assigned based on
+Host 3 Host 4 the manufacturer. il
+Page 16
+Each Ethernet device has a unique MAC address before delivery. Then, why is an IP
+address assigned to each host? In other words, if each host is assigned a unique IP
+address, why does a unique MAC address need to be embedded in a network device
+(such as a NIC) during production?
+The main causes are as follows:
+2 IP addresses are assigned based on the network topology, and MAC addresses are
+assigned based on the manufacturer. If route selection is based on the
+manufacturer, this solution is not feasible.
+2 When two-layer addressing is used, devices are more flexible and easy to maintain.
+= For example, if an Ethernet NIC is faulty, you can replace it without changing
+its IP address. If an IP host is moved from one network to another, a new IP
+address can be assigned to the IP host with no need for replacing the NIC
+with a new one.
+Conclusion:
+a An IP address uniquely identifies a network node. Data on different network
+segments can be accessed using IP addresses.
+«2 A MAC address uniquely identifies a NIC. Data on a single network segment can be
+accessed using MAC addresses.
+
+Ethernet Frame Format MAC address
+[=| ) MAC Address Presentation
+¢ AMAC address is 48 bits (6 bytes) in length.
+Ethernet frame type
+As typically represented, MAC addresses are recognizable as six groups of two hexadecimal digits,
+separated by hyphens, colons, or without a separator.
+For example, 00-1E-10-DD-DD-02 or 001E-10DD-DD02
+Binary 0000 0000 0001 1110 0001 0000 1101 1101 1101 1101 0000 0010 48-bit
+[oor ooo n-ne 2-H ---1 98 92 91 9° 98 22 9! 29
+' Conversion : Power
+| between 8 4 2 1 8 4 2 1
+| hexadecimal and
+p ELLE Bit 0 0 0 1 1 1 1 0
+=1 = 8+4+2=14=E
+Page 17
+A MAC Address, which is 48 bits (6 bytes) in length, is a 12-digit hexadecimal number.
+
+MAC Address Composition and
+Classification
+¢ Organizationally unique identifier (OUI): a 24-bit (3-byte) number. It is a globally unique identifier assigned
+by the IEEE.
+¢ Company ID (CID): a 24-bit (3-byte) number. It is assigned by a manufacturer.
+e MAC address classification:
+OUI
+I
+Example
+f 1
+Unicast MAC address XXXXXXX XXXXXXX XXXXXXX XXXXXXX XXXXXXX XXXXXXX_ 00-1E-10-DD-DD-02
+0 X X X xX X
+f : 1
+Multicast MAC address XXXXXXX XXXXXXX XXXXXXX XXXXXXX XXXXXXX XXXXXXX 01-80-C2-00-00-01
+1 X » 4 4 » 4 4
+Non-OUI
+f 1
+Broadcast MAC address 11111111 | 11111111 11111111 11111111 11111111 11111111.) FF-FF-FF-FF-FF-FF
+multicast bit
+Page 18
+¢ A manufacturer must register with the IEEE to obtain a 24-bit (8-byte) vendor code, which
+is also called OUI, before producing a NIC.
+¢ The last 24 bits are assigned by a vendor and uniquely identify a NIC produced by the
+vendor.
+« MAC addresses fall into the following types:
+2 Unicast MAC address: is also called the physical MAC address. A unicast MAC
+address uniquely identifies a terminal on an Ethernet network and is a globally
+unique hardware address.
+= Aunicast MAC address identifies a single node on a link.
+« A frame whose destination MAC address is a unicast MAC address is sent to
+a single node.
+» A unicast MAC address can be used as either the source or destination
+address.
+= Note that unicast MAC addresses are globally unique. When two terminals
+with the same MAC address are connected to a Layer 2 network (for example,
+due to incorrect operations), a communication failure occurs (for example, the
+two terminals fail to communicate with each other). The communication
+between the two terminals and other devices may also fail.
+= Broadcast MAC address: an all-1 MAC address (FF-FF-FF-FF-FF-FF), which
+indicates all terminals on a LAN.
+= A broadcast MAC address can be considered as a special multicast MAC
+address.
+
+) ) Unicast Ethernet Frame
+: . : HostA Host B
+« Aunicast Ethernet frame is also called a unicast
+= i i
+¢« The destination MAC address of a unicast frame
+is a unicast MAC address. | Unicast |
+| Frame
+a Lik
+D.MAC:
+00-1E-10-DD-DD-02 S.MAC DATA —
+Host C Host D
+000000000001111000010000110111011101110100000010
+00- 1E- 10- DD- DD- 02
+Page 19
+« Frames onaLAN can be sent in three modes: unicast, broadcast, and multicast.
+« In unicast mode, frames are sent from a single source to a single destination.
+«= Each host interface is uniquely identified by a MAC address. In the OUI of a MAC
+address, the eighth bit of the first byte indicates the address type. For a host MAC
+address, this bit is fixed at 0, indicating that all frames with this MAC address as the
+destination MAC address are sent to a unique destination.
+Ethernet Frame Format MAC address Ethernet frame type
+
+Ethernet Frame Format MAC address Ethernet frame type
+@) >) Broadcast Ethernet Frame
+Host A Host B
+A broadcast Ethernet frame ia also called a
+= =
+broadcast frame. [| =
+The destination MAC address of a broadcast JK
+frame is a broadcast MAC address. | Broadcast T
+| Frame
+Chk Lik
+D.MAC:
+FF-FF-FF-FF-FF-FF S.MAC DATA
+Host C Host D
+1114111111111111111111111111111111111111111111111
+FF- FF- FF- FF- FF- FF
+Page 20
+¢ In broadcast mode, frames are sent from a single source to all hosts on the shared
+Ethernet.
+s The destination MAC address of a broadcast frame is a hexadecimal address in the
+format of FF-FF-FF-FF-FF-FF. All hosts that receive the broadcast frame must
+receive and process the frame.
+2 In broadcast mode, a large amount of traffic is generated, which decreases the
+bandwidth utilization and affects the performance of the entire network.
+= The broadcast mode is usually used when all hosts on a network need to receive
+and process the same information.
+
+) ) Multicast Ethernet Frame
+. . Host
+ 
+A
+« Amulticast Ethernet frame is also called a —
+multicast frame. [|
+* The destination MAC address of a multicast JK
+frame is a multicast MAC address.
+Ethernet Frame Format
+| | Multicast
+Frame
+MAC address Ethernet frame type
+Host B
+|
+D.MAC:
+01-80-C2-00-00-01 S.MAC
+DATA
+5g |
+Chi
+Host C
+000000011000000011000010000000000000000000000001
+01- 80- C2- 00-
+Page 21
+00- 01
+¢ The multicast mode is more efficient than the broadcast mode.
+2 Multicast forwarding can be considered as selective broadcast forwarding.
+Specifically, a host listens for a specific multicast address, and receives and
+processes frames whose destination MAC address is the multicast MAC address.
+«= A multicast MAC address and a unicast MAC address are distinguished by the
+eighth bit in the first byte. The eighth bit of a multicast MAC address is 1.
+= The multicast mode is used when a group of hosts (not all hosts) on the network
+need to receive the same information and other hosts are not affected.
+
+) Contents
+1. Overview of Ethernet Protocols
+2. Overview of Ethernet Frames
+3. Overview of Ethernet Switches
+4
+Process of Data Communication Within a Network Segment
+Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) ) Typical Architecture of a Campus Network
+Egress
+layer
+Core layer
+Aggregation
+layer
+Access
+layer
+Page 23
+« Atypical campus network consists of different devices, such as routers, switches, and
+firewalls. Generally, a campus network adopts the multi-layer architecture which includes
+the access layer, aggregation layer, core layer, and egress layer.
+
+Ga) ) Layer 2 Ethernet switch
+Internet Internet
+Layer 2 Ethernet switches forward data
+through Ethernet interfaces and can
+address and forward data only according |
+to the MAC address inaLayer 2header = = §©
+(Ethernet frame header). | l
+Layer 2 Ethernet
+Switch
+Page 24
+« Layer 2 Ethernet switch:
+«2 Onacampus network, a switch is the device closest to end users and is used to
+connect terminals to the campus network. Switches at the access layer are typically
+Layer 2 switches.
+a A Layer 2 switch works at the second layer of the TCP/IP model, which is the data
+link layer, and forwards data packets based on MAC addresses.
+« Layer 3 Ethernet switch:
+= Routers are required to implement network communication between different LANs.
+As data communication networks expand and more services emerge on the
+networks, increasing traffic needs to be transmitted between networks. Routers
+cannot adapt to this development trend because of their high costs, low forwarding
+performance, and small interface quantities. New devices capable of high-speed
+Layer 3 forwarding are required. Layer 3 switches are such devices.
+¢ Note that the switches involved in this course refer
+ 
+to Layer 2 Ethernet switches.
+
+[=| ) MAC Address Table
+¢ Each switch has a MAC address table that stores the mapping between MAC addresses and
+switch interfaces.
+~~)
+\
+S
+Ss
+Host 1 & Host 2
+Ik GE 0/0/1 GE 0/0/2 ik
+1s Pj
+IP4 Switch IP2
+MAC1 MAC2
+VY
+MAC Address Interface
+MAC1 GE 0/0/1
+MAC2 GE 0/0/2
+Page 25
+* AMAC address table records the mapping between MAC addresses and interfaces of
+other devices learned by a switch. When forwarding a frame, the switch looks up the MAC
+address table based on the destination MAC address of the frame. If the MAC address
+table contains the entry corresponding to the destination MAC address of the frame, the
+frame is directly forwarded through the outbound interface in the entry. If the MAC
+address table does not contain the entry corresponding to the destination MAC address of
+the frame, the switch floods the frame on all interfaces except the interface that receives
+the frame.
+
+Ga) ) Working Principles of Switches
+e)
+S
+iS)
+Host 1 & Host 2
+| lj GE 0/0/1 GE 0/0/2 lj
+IP1: 192.168.1.1 Switch IP2: 192.168.1.2
+MAC1: 0050-5600-0001 MAC2: 0050-5600-0002
+Frame sent by host 1
+Source MAC address: Destination MAC address: After receiving a frame, the switch learns
+MAC1 MAC2 the source MAC address of the frame,
+» searches the \VIAC address table for the
+Source IP address: Destination IP address: destination MAC address (MAC2: 0050-
+IP1 |IP2 5600-0002 in this example) of the frame,
+and forwards the frame through the
+Payload corresponding interface.
+Page 26
+« Layer 2 switches work at the data link layer and forward frames based on MAC
+addresses. Switch interfaces used to send and receive data are independent of each
+other. Each interface belongs to a different collision domain, which effectively isolates
+collision domains on the network.
+« Layer 2 switches maintain the mapping between MAC addresses and interfaces by
+learning the source MAC addresses of Ethernet frames. The table that stores the mapping
+between MAC addresses and interfaces is called a MAC address table. Layer 2 switches
+look up the MAC address table to determine the interface to which frames are forwarded
+based on the destination MAC address.
+
+[=] ) Three Frame Processing Behaviors of a Switch
+e Aswitch processes the frames entering an interface over a transmission mediumin three ways:
+Switch
+Flooding
+Port 1 Port 2 Port 3 Port 4
+Switch .
+Forwarding
+Port 1 Port 2 Port 3 Port 4
+‘<) SOE Discarding
+Port 1 Port 2 Port 3 Port 4
+t | Frame
+Page 27
+¢ A switch forwards each frame that enters an interface over a transmission medium. The
+basic function of a switch is to forward frames.
+¢ A switch processes frames in three ways: flooding, forwarding, and discarding.
+2 Flooding: The switch forwards the frames received from an interface to all other
+interfaces.
+= Forwarding: The switch forwards the frames received from an interface to another
+interface.
+« Discarding: The switch discards the frames received from an interface.
+
+Flooding
+Ye)
+Host 1 & Host 2
+— GE 0/0/14 GE 0/0/2 —
+—_> —_>
+IP1: 192.168.1.1 Switch IP2: 192.168.1.2
+MAC1: 0050-5600-0001 MAC2: 0050-5600-0002
+Unknown
+4) Frame sent by host 1 MAC address table ; Frame processing ; unicast frame
+searched by the switch behavior of the switch
+Source MAC: MAC1 MAC Address Interface + Ifa unicast frame is received:
+Destination MAC: MAC2 MAC1 GE 0/0/1 If the switch cannot find the destination
+MAC address of the frame in the MAC
+address table, the switch floods the
+or unicast frame.
+If a broadcast frame is received:
+Source MAC: MAC1
+ae . The switch directly floods the broadcast
+Peo
+ 
+bi al abe FAO
+ 
+* frame without searching the MAC address
+table.
+Page 28
+« Ifa unicast frame enters a switch interface over a transmission medium, the switch
+searches the MAC address table for the destination MAC address of the frame. If the
+MAC address cannot be found, the switch floods the unicast frame.
+« Ifa broadcast frame enters a switch interface over a transmission medium, the switch
+directly floods the broadcast frame instead of searching the MAC address table for the
+destination MAC address of the frame.
+¢ As shown in this figure:
+2 Scenario 1: Host 1 wants to access host 2 and sends a unicast frame to the switch.
+After receiving the unicast frame, the switch searches the MAC address table for the
+destination MAC address of the frame. If the destination MAC address does not
+exist in the table, the switch floods the frame.
+s Scenario 2: Host 1 wants to access host 2 but does not know the MAC address of
+host 2. Host 1 sends an ARP Request packet, which is a broadcast frame to the
+switch. The switch then floods the broadcast frame.
+
+Ga) ) Forwarding
+Host 2
+~)
+S
+is)
+Host 1 &
+—S GE 0/0/1 GE 0/0/2
+—_— —_—
+Switch
+IP1: 192.168.1.1
+MAC1: 0050-5600-0001
+MAC address table
+=
+IP2: 192.168.1.2
+MAC2: 0050-5600-0002
+Frame processing
+1 ) Frame sent by host 1 searched by the switch behavior of the switch
+If a unicast frame is received:
+Source MAC: MAC1 MAC Address Interface
+Destination MAC: MAC2 MAC1 GE 0/0/1 If the switch finds the destination MAC
+address of the frame in the MAC address
+MAC2 GE 0/0/2 table and the interface number in the table
+is not the number of the interface through
+which the frame enters over the
+transmission medium, the switch forwards
+the unicast frame.
+Page 29
+« Ifa unicast frame enters a switch interface over a transmission medium, the switch
+searches the MAC address table for the destination MAC address of the frame. If the
+corresponding entry is found in the MAC address table, the switch checks whether the
+interface number corresponding to the destination MAC address is the number of the
+interface through which the frame enters the switch over the transmission medium. If not,
+the switch forwards the frame to the interface corresponding to the destination MAC
+address of the frame in the MAC address table. The frame is then sent out from this
+interface.
+« As shown in this figure,
+2 host 1 wants to access host 2 and sends a unicast frame to the switch. After
+receiving the unicast frame, the switch finds the corresponding entry in the MAC
+address table and forwards the frame in point-to-point mode.
+
+Ga) ) Discarding
+Page 30
+we IP2: 192.168.1.2
+MAC2: 0050-5600-0002
+Host 1
+||
+L_lj;—
+IP1: 192.168.1.1
+MAC1: 0050-5600-0001
+Switch 1
+Switch 2
+MAC address table Frame processing
+@ Frame sent by host 1 queried by switch 2 behavior of the switch
+Source MAC: MAC1 MAC Address Interface + Ifaunicast frame is received:
+Destination MAC: MAC2 MAC2 GE 0/0/1 + The switch finds the destination MAC address of
+the frame in the MAC address table, but the
+interface number in the table is the number of the
+interface through which the frame enters the
+switch over the transmission medium. In this case,
+the switch discards the unicast frame.
+« Ifa unicast frame enters a switch interface over a transmission medium, the switch
+searches the MAC address table for the destination MAC address of the frame. If the
+corresponding entry is found in the MAC address table, the switch checks whether the
+interface number corresponding to the destination MAC address in the MAC address
+table is the number of the interface through which the frame enters the switch over the
+transmission medium. lf yes, the switch discards the frame.
+¢ As shown in this figure:
+a
+Host 1 wants to access host 2 and sends a unicast frame to switch 1. After receiving
+the unicast frame, switch 1 searches the MAC address table for the destination
+MAC address of the frame. If the destination MAC address does not exist in the
+table, switch 1 floods the frame.
+After receiving the frame, switch 2 finds that the interface corresponding to the
+destination MAC address is the interface that receives the frame. In this case,
+switch 2 discards the frame.
+
+Ga) ) MAC Address Learning on a Switch (1)
+o>
+Ss
+Host 1 oy Host 2
+Chk GE 0/0/1 GE 0/0/2 Ti
+De) =|
+IP1: 192.168.1.1 Switch IP2: 192.168.1.2
+MAC1: 0050-5600-0001 MAC2: 0050-5600-0002
+MAC address table
+of the switch 4)
+MAC Interf. Initially, the MAC address
+Address ntertace table of the switch is empty.
+Page 31
+« In the initial state, a switch does not know the MAC address of a connected host.
+Therefore, the MAC address table is empty.
+
+Ga) ) MAC Address Learning on a Switch (2)
+we)
+\S
+Host 1 oy Host 2
+= GE 0/0/1 GE 0/0/2 =
+—_—
+IP1: 192.168.1.1 Switch IP2: 192.168.1.2
+MAC1: 0050-5600-0001 MAC2: 0050-5600-0002
+MAC address table
+Frame sent by host 1 searched by the switch 2)
+Source MAC: MAC1 MAC « Host 1 sends a frame to host 2.
+Interface
+Destination MAC: MAC2 Address + After the frame is received on the
+switch's GE 0/0/1, the switch searches
+the MAC address table for the
+(Assume that host 1 has obtained destination MAC address of the frame. If
+the MAC address of host 2.) no matching entry is found, the switch
+considers the frame an unknown unicast
+frame.
+Page 32
+¢ If host 1 wants to send data to host 2 (assume that host 1 has obtained the IP address
+and MAC address of host 2), host 1 encapsulates the frame with its own source IP
+address and source MAC address.
+¢ After receiving the frame, the switch searches its own MAC address table. If no matching
+entry is found in the table, the switch considers the frame an unknown unicast frame.
+
+Ga) ) MAC Address Learning on a Switch (3)
+we)
+ry
+Host 1 ©) Host 2
+Chk GE 0/0/1 GE 0/0/2 lk
+—_—— —_—
+IP1: 192.168.1.1 Switch IP2: 192.168.1.2
+MAC1: 0050-5600-0001 MAC2: 0050-5600-0002
+MAC address table
+Frame sent by host 1 searched by the switch 3}
+Source MAC: MAC1 MAC interface ¢ Ifthe corresponding entry is not found in
+Destination MAC: MAC2 » Address the MAC address table, the switch floods
+MAC1 GE 0/0/1 the unicast frame.
+At the same time, the switch learns the
+source \V\AC address of the frame,
+creates the corresponding MAC address
+entry, and associates the MAC address
+entry with GE 0/0/1.
+Page 33
+¢« The switch floods the received frame because it is an unknown unicast frame.
+¢ In addition, the switch records the source MAC address and interface number of the
+received frame in the MAC address table.
+¢ Note that the dynamically learned entries in a MAC address table are not always valid.
+Each entry has a lifespan. If an entry is not updated within the lifespan, the entry will be
+deleted. This lifespan is called the aging time. For example, the default aging time of
+Huawei S series switches is 300s.
+
+Ga) ) MAC Address Learning on a Switch (4)
+we)
+Ss
+Host 1 oy Host 2
+Chk GE 0/0/1 GE 0/0/2 ij
+—_—_—
+IP1: 192.168.1.1 Switch IP2: 192.168.1.2
+MAC1: 0050-5600-0001 MAC2: 0050-5600-0002
+4) Frame sent by host 2
+The frame is also received by the hosts Source MAC: MAC2
+connected to other interfaces on the a
+Destination MAC: MAC1
+switch. These hosts, however, discard estinanion
+the frame.
+Host 2 receives and processes the
+frame, responds to host 1, and sends the
+frame to the switch.
+Page 34
+¢ All hosts on a broadcast network receive the frame, but only host 2 processes the frame
+because the destination MAC address is the MAC address of host 2.
+¢ Host 2 sends a reply frame, which is also a unicast data frame, to host 1.
+
+Ga) ) MAC Address Learning on a Switch (5)
+o>
+Ss
+Host 1 oy Host 2
+Chk GE 0/0/1 GE 0/0/2 ij
+—_—_—_ —_—_—_—
+IP1: 192.168.1.1 Switch IP2: 192.168.1.2
+MAC1: 0050-5600-0001 MAC2: 0050-5600-0002
+MAC address table
+searched by the switch Frame sent by host 2
+MAC Address Interface Source MAC: MAC2
+MAC1 GE 0/0/1 < Destination MAC: MAC1
+MAC2 GE 0/0/2
+If the switch finds the corresponding entry in the MAC address table, the switch forwards
+the unicast frame through GE 0/0/1.
+At the same time, the switch learns the source MAC address of the frame, creates the
+corresponding MAC address entry, and associates the MAC address entry with GE 0/0/2.
+Page 35
+¢ After receiving the unicast frame, the switch checks its MAC address table. If a matching
+entry is found, the switch forwards the frame through the corresponding interface.
+¢ In addition, the switch records the source MAC address and interface number of the
+received frame in the MAC address table.
+
+) Contents
+1. Overview of Ethernet Protocols
+2. Overview of Ethernet Frames
+3. Overview of Ethernet Switches
+4
+Process of Data communication Within a Network Segment
+Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Process of Data Communication Within a
+Network Segment
+¢ Scenario description:
+o Task: Host 1 wants to access host 2.
+. Host: The host is in the initialized state and only knows its own IP address and MAC address (assume that the IP
+address of the peer host has been obtained).
+a Switch: The switch is just powered on and in the initialized state.
+)
+s
+Host 1 & Host 2
+_|k GE 0/0/1 GE 0/0/2 Ij
+IP1: 192.168.1.1 Switch IP2: 192.168.1.2
+MAC1: 0050-5600-0001 MAC2: 0050-5600-0002
+Page 37
+
+) ) Data Encapsulation Process
+Host 1 Host 2
+Application Layer Data Data Application Layer
+Transport Layer Data Data Transport Layer
+Network layer Data Data Network layer
+Data Link Layer ma Data i | Data BH Data Link Layer
+SJUUL
+Physical layer © Physical layer
+SUMMA IPheader CP User data Ethernet tail
+header header
+¢ Information that needs to be
+encapsulated:
+« Source MAC address
+« Destination MAC address
+Page 38
+Before sending a packet, host 1 needs to encapsulate information, including the source
+and destination IP addresses and the source and destination MAC addresses, into the
+packet.
+
+) ) Initialization
+RY
+Host 1 oy Host 2
+Chk GE 0/0/1 GE 0/0/2 ij
+IP1: 192.168.1.1 Switch IP2: 192.168.1.2
+MAC1: 0050-5600-0001 MAC2: 0050-5600-0002
+ARP cache table of host 1 MAC address table of the switch
+Host 1>arp -a
+InternetAddress Physical Address Type
+[Switch]display mac-address verbose
+MAC address table of slot 0:
+MAC
+EE ET Address Port Type
+Page 39
+* To encapsulate packet, host 1 searches the local ARP cache table. In the initial state, the
+ARP cache table of host 1 is empty.
+¢ For the switch that is just powered on, in the initial state, the MAC address table is also
+empty.
+
+Ga) ) Flooding Frames
+S
+Ss
+Host 1 oy VA
+ 
+MWY] Host 2
+= GE 0/0/1 GE 0/0/2 =
+Sad Sa
+oo 4 m% m% ot
+IP1: 192.168.1.1 Switch IP2: 192.168.1.2
+MAC1: 0050-5600-0001 MAC2: 0050-5600-0002
+ARP Request packet sent by host 1 MAC address table of the switch
+Source MAC address: Destination MAC address:
+MAC1 FF-FF-FF-FF-FF-FF [Switch]display mac-address verbose
+: MAC address table of slot 0:
+SOMO US Teele Destination IP address: IP2
+IP1 MAC
+Operation type: ARP Request Address Port Type
+Sender's MAC address: MAC1
+Sender's IP address: IP1
+Destination MAC address: 00-00-00-00-00-00
+Destination IP address: IP2
+Page 40
+* Host 1 sends an ARP Request packet to request for the destination MAC address.
+¢ After receiving a frame, the switch searches the MAC address table. If no matching entry
+is found in the table, the switch floods the frame to other interfaces other than the
+interface receiving the frame.
+
+Ga) ) MAC Address Learning
+S
+Ss
+Host 1 oy VA
+ 
+MWY] Host 2
+= GE 0/0/1 GE 0/0/2 =
+Sad Sa
+on m% % 1
+IP1: 192.168.1.1 Switch IP2: 192.168.1.2
+MAC 1: 0050-5600-0001 MAC2: 0050-5600-0002
+ARP Request packet sent by host 1 MAC address table of the switch
+Source MAC address: Destination MAC address:
+MAC1 FF-FF-FF-FF-FF-FF
+Source IP address:
+IP1
+[Switch]display mac-address verbose
+MAC address table of slot 0:
+Destination IP address: IP2
+MAC Address Port Type
+Operation type: ARP Request
+Sender's MAC address: MAC1
+Sender's IP address: IP1
+Destination MAC address: 00-00-00-00-00-00
+Destination IP address: IP2
+0050-5600-0001 GE0/0/1 dynamic
+Page 41
+« The switch records the source MAC address and interface number of the received frame
+in the MAC address table.
+
+e)
+Ss
+Host 1 oy
+= GE 0/0/1
+—_—_—
+a m%
+IP1: 192.168.1.1 Switch
+MAC1: 0050-5600-0001
+MAC address table of the switch
+[Switch]display mac-address verbose
+MAC address table of slot 0:
+MAC Address Port Type
+0050-5600-0001 GEO0/0/1 dynamic
+0050-5600-0002 GEO/0/2 dynamic
+Page 42
+Reply of the Target Host
+Host 2
+Ci
+wa =
+IP2: 192.168.1.2
+MAC2: 0050-5600-0002
+ARP Reply packet sent by host 2
+Source MAC address: Destination MAC address:
+MAC2 MAC1
+Source IP address: !|P2 Destination IP address: IP1
+Operation type: ARP Reply
+Sender's MAC address: MAC2
+Sender's IP address: IP2
+Destination MAC address: MAC1
+Destination IP address: IP1
+After receiving the ARP Request packet, host 2 processes the packet and sends an ARP
+Reply packet to host 1.
+After receiving a frame, the switch searches the MAC address table. If the corresponding
+entry is found in the table, the switch forwards the frame to the corresponding interface
+and records the source MAC address and interface number of the received frame in the
+MAC address table.
+After receiving the ARP Reply packet from host 2, host 1 records the corresponding IP
+address and MAC address in its ARP cache table and encapsulates its packets to access
+host 2.
+
+[Figura da Pag.1] Labels: ) Foreword; ¢ Data transmission on networks must comply with certain standards. Ethernet protocols; define how data frames are transmitted over an Ethernet network. Understanding. Caption: (errore caption)
+[Figura da Pag.1] Labels: Ethernet protocols is the basis for fully understanding communication at the data link; layer. An Ethernet switch is the main device for implementing data link layer; communication. It is essential to understand how an Ethernet switch works.; ¢ This course describes the concepts related to Ethernet protocols, MAC address types,; and working nrocrece and mechanicm of | aver 2 ewitrthec. Caption: (errore caption)
+[Figura da Pag.1] Labels: a; Page 1 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.2] Labels: oF ) Objectives; ¢ Oncompletion of this course, you will be able to:; © Describe the basic concepts of an Ethernet network.. Caption: (errore caption)
+[Figura da Pag.2] Labels: © Distinguish MAC address types.; © Get familiar with the working process of a Layer 2 switch.; © Get familiar with the structure and generation process of a MAC address table.. Caption: (errore caption)
+[Figura da Pag.2] Labels: Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.3] Labels: ) Contents; 1. Overview of Ethernet Protocols; 2. Overview of Ethernet Frames. Caption: (errore caption)
+[Figura da Pag.3] Labels: 3. Overview of Ethernet Switches; 4. Process of Data Communication Within a Network Segment. Caption: (errore caption)
+[Figura da Pag.3] Labels: Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.4] Labels: Ethernet Protocols; ¢ The Ethernet networks are the most popular local networks. Caption: (errore caption)
+[Figura da Pag.4] Labels: e Ethernet was born in the early 1970s at the Xerox research laboratory in; California; ¢ In 1982 the standard became Ethernet II (also called DIX - Digital, Intel,; Xerox). Caption: (errore caption)
+[Figura da Pag.4] Labels: ¢ In 1983 the standard was placed under the control of the IEEE (in group; 802).; e The two versions, IEEE and Ethernet II, are currently present; Page 4. Caption: (errore caption)
+[Figura da Pag.5] Labels: Ethernet Protocols; [s Ethernet—té«<SW. Caption: (errore caption)
+[Figura da Pag.5] Labels: evolution; Standard Fast Gigabit Ten-Gigabit; Ethernet Ethernet Ethernet Ethernet. Caption: (errore caption)
+[Figura da Pag.5] Labels: Page 5. Caption: (errore caption)
+[Figura da Pag.6] Labels: The IEEE 802 standard; heonare baie _ rol; Upper layers Upper layers _ LLC PDU. Caption: (errore caption)
+[Figura da Pag.6] Labels: S e Upper-layer; 77 Control .; AJA; Data link layer ' '; Ethernet Token Ring Token Bus o 1; MAC MAC MAC MAC nae lead RES; a header Payloa; Ethernet .; Physical layer physical layers Token Ring Token Bus MAC frame; (Several) physical layer physical layer; ()iTransmissionmeciim,) iccccccsssssnnmmasbCANSMISSION MCC |; OSI or Internet model IEEE Standard. Caption: (errore caption)
+[Figura da Pag.7] Labels: Ethernet Topologies. Caption: (errore caption)
+[Figura da Pag.7] Labels: | | | |; ee; i J; m=N PE. Caption: (errore caption)
+[Figura da Pag.7] Labels: L/. Caption: (errore caption)
+[Figura da Pag.8] Labels: Ethernet Protocols; ¢ Ethernet is the most common communication protocol standard used by existing local area networks; (LANs). It defines the cable types and signal processing methods that are used ona LAN.. Caption: (errore caption)
+[Figura da Pag.8] Labels: ¢ An Ethernet network is a broadcast network built based on the carrier sense multiple access/collision; detection (CSMA/CD) mechanism.; HostA Host B Switch A; se Tk Tk Switch B. Caption: (errore caption)
+[Figura da Pag.8] Labels: Ci ij HostA Host B; = = | |; Host C Host D Cj Cj; HostC HostD; Early Ethernet Switch Networking; Page 8. Caption: (errore caption)
+[Figura da Pag.9] Labels: Set collision; number to zero; (N=0); Sense the carrier. Caption: (errore caption)
+[Figura da Pag.9] Labels: Wait back off time; (kK x Time slot); Yes; CSMA / CD Procedure Inter Frame Gap; Select Random Number; in the range[0, 2™1]. Caption: (errore caption)
+[Figura da Pag.9] Labels: Transmit Frame; No; Increment Yes; collision number Send Jam Signal; (N++); Yes No; Page 9. Caption: (errore caption)
+[Figura da Pag.10] Labels: ¢ Accollision domain is a set of nodes connected to the same shared medium. All nodes in a collision domain compete for; the same bandwidth. Packets (unicast, multicast, or broadcast) sent by a node can be received by other nodes.; Separating collision domains. Caption: (errore caption)
+[Figura da Pag.10] Labels: | Collision a Ci Ci Switch 8; = 7 = Host A Host B Y/, \; ee (ae. Caption: (errore caption)
+[Figura da Pag.10] Labels: TIVol TIVol WV | ee — lI! |; Early Ethernet Five Collision Domains i é — a; One Collision Domain; = On a traditional Eihemet network, multiple nodesion _ Same The switch interfaces used to send and receive data are; medium share the link bandwidth and compete for the right to use - ~ oe; - a independent of each other and belong to different collision; the link. As a result, collision occurs. : at; = 2 : domains. Therefore, collisions do not occur between hosts (or; * The probability that collision occurs increases when more nodes ee; 5 networks) connected through switch interfaces.; are deployed on a shared medium.; Page 10. Caption: (errore caption)
+[Figura da Pag.11] Labels: Broadcast Domain; ¢ The entire access scope of broadcast packets is called a Layer 2 broadcast domain, which is also called a broadcast; domain. All hosts in the same broadcast domain can receive broadcast packets.. Caption: (errore caption)
+[Figura da Pag.11] Labels: Fost Host B Switch A; ie a Broadcast; Ci Broadcast Ci packet —_ | —; ____l__ Ci Ci Switch B; = ~~ me YN; ars a Guslénh Matunrkina kh be. Caption: (errore caption)
+[Figura da Pag.11] Labels: TIVslw TIVst it my blll | Pel |; Early Ethernet One Broadcast Domain "aie —; One Broadcast Domain; On a traditional Ethernet network, multiple nodes on the same A switch forwards broadcast packets to all interfaces. Therefore,; medium share a link. The broadcast packets sent by a device can be the nodes connected to all interfaces of the switch belong to the; received by all the other devices. same broadcast domain.; Page 11. Caption: (errore caption)
+[Figura da Pag.12] Labels: Ethernet NIC; ¢ Anetwork interface card (NIC) is a key component that connects a network device (such as a computer, a; switch, or a router) to an external network.; Camnititar ee ee at ae. Caption: (errore caption)
+[Figura da Pag.12] Labels: —— °  WeEIWOTK FOTl; zo--o--; ~~ [Packet Bit Stream :; = TCP/IP | ~——_ » Anetwork port is also called a network; ' Network ; NIC interface, interface, or port.; sill 1 layer; Computer cam | Backel Bit Stream * NIC; * Each network port corresponds to a; Switch NIC.; “Other NiCs that ~ i F j; mcthenNicsinaty § = |rame Bit Stream Acomputer or switch forwards data. Caption: (errore caption)
+[Figura da Pag.12] Labels: Pensa NIC through a NIC.; | Other NICs on the ;——____—.; | __Iecalhost | Frame Bit Stream; 1 Other NICs that“! ,; . 1 transfer cone 4 Frame Bit Stream; Switch the local host __<————; minnie NIC; ' Other NICs on the |; 1 __lecalhost | [Frame Bit Stream; Page 12. Caption: (errore caption)
+[Figura da Pag.13] Labels: ) Contents; 1. Overview of Ethernet Protocols; 2. Overview of Ethernet Frames. Caption: (errore caption)
+[Figura da Pag.13] Labels: 3. Overview of Ethernet Switches; 4. Process of Data Communication Within a Network Segment. Caption: (errore caption)
+[Figura da Pag.13] Labels: Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.14] Labels: MAC address Ethernet frame type; Ethernet Frame Format; ¢ The frames used by Ethernet technology are referred to as Ethernet frames.; e Ethernet frames are in two formats: Ethernet_Il and IEEE 802.3.. Caption: (errore caption)
+[Figura da Pag.14] Labels: Total length of a data frame: 64-1518 bytes; 6B 6B 2B 46-1500B 4B; 6B 6B 2B 3B 5B 38-1492B 4B; IEEE 802.3 format D.MAC S.MAC Length SNAP. Caption: (errore caption)
+[Figura da Pag.14] Labels: vb p42); fe); Type (DIX): Indicates the Network layer protocol exchanging the payload (data), as IP (0800), Novell IPX; (8137), AppleTalk (809B), ARP (0806); Preamble: bit di 0 e 1 che si alternano; Page 14. Caption: (errore caption)
+[Figura da Pag.15] Labels: Ethernet Frame Format Ethernet frame type; What Is a MAC Address?; ¢« Amedia access control (MAC) address uniquely identifies a NIC on a network. Each NIC must; have a globally unique MAC address.. Caption: (errore caption)
+[Figura da Pag.15] Labels: What is a MAC address? MAC Address; Each NIC has a number, that is, a; ana MAC address, to identify itself, just; leave the factory. Name: NIC as each person has an ID card. Caption: (errore caption)
+[Figura da Pag.15] Labels: MAG address/ethemet _ number to identify himself/herself.; address/Physical address:; Page 15. Caption: (errore caption)
+[Figura da Pag.16] Labels: Ethernet Frame Format Ethernet frame type; IP Address Vs. MAC Address; ¢ Each Ethernet device has a unique MAC address before delivery. When the device accesses the network,; it assigns an IP address to each host. Why?. Caption: (errore caption)
+[Figura da Pag.16] Labels: Characteristics of IP addresses:; Host 1 Host 2 ;; » |P addresses are unique.; » |P addresses are changeable.; NIC NIC -; MAC1 MAC2 » |P addresses are assigned based on; network topology.; IPA 2 Can a network; device have either. Caption: (errore caption)
+[Figura da Pag.16] Labels: | ee | sis Characteristics of MAC addresses: a MAC address or; an IP address?; » MAC addresses are unique.; NIC NIC 2 MAC addresses .; MAC3 MAC4; 2 MAC addresses are assigned based on; Host 3 Host 4 the 2; Page 16. Caption: (errore caption)
+[Figura da Pag.17] Labels: Ethernet Frame Format Ethernet frame type; MAC Address Presentation; ¢ AMAC address is 48 bits (6 bytes) in length.; ¢ As typically represented, MAC addresses are recognizable as six groups of two hexadecimal digits,. Caption: (errore caption)
+[Figura da Pag.17] Labels: separated by hyphens, colons, or without a separator.; For example, 00-1E-10-DD-DD-02 or 001E-10DD-DD02; Binary 0000 0000 0001 1110 0001 0000 1101 1101 1101 1101 00000010 48-bit; proc otro e ccc cence nn 93 92 91 950 93 92 91 90. Caption: (errore caption)
+[Figura da Pag.17] Labels: Conversion rower _ _ _ -_ _ -_ -_ _; between 8 4 2 1 8 4 2 1; hexadecimal and; binary digits Bit 0 0 0 1 1 1 1 0; Page 17. Caption: (errore caption)
+[Figura da Pag.18] Labels: Ethernet Frame Format Ethernet frame type; MAC Address Composition and; Classification; ¢ Organizationally unique identifier (OUI): a 24-bit (3-byte) number. It is a globally unique identifier assigned; by the IEEE.; RY. 8 Lk 9 Lee cee Uh te te be ee eg. Caption: (errore caption)
+[Figura da Pag.18] Labels: _ VMITIVOaITYy iW wih’). a ahrvit \w vy) PIMIver,. I to Qeovlygiteu My CAA TIGAaArPInaVlureor.; ¢ MAC address classification:; oul; _ Example; Unicast MAC address XXXXXXX  XXXXXXX -XXXXXXX_ _00-1E-10-DD-DD-02; x x x Xx x. Caption: (errore caption)
+[Figura da Pag.18] Labels: St; Multicast MAC address XXXXXXX  XXXXXXX = XXXXXXX  -XXXXXXX = XXXXXXX -XXXXXXX 01-80-C2-00-00-01; 1 x x x x x; Non-OUI; -———_. Y>NAA#{AUA; Broadcast MAC address 11111111 11111111 11111111 11111111 11111111 91111111. FF-FF-FF-FF-FF-FF; Page 18 multicast bit. Caption: (errore caption)
+[Figura da Pag.19] Labels: Ethernet Frame Format MAC address; Unicast Ethernet Frame; ¢ Aunicast Ethernet frame is also called a unicast Host A Host B; Areas Cc ca. Caption: (errore caption)
+[Figura da Pag.19] Labels: * The destination MAC address of a unicast frame Lh Lh; is a unicast MAC address. Unicast; Frame; Chi Ci; D.MAC:; 00-1E-10-DD-DD-02 S.MAC DATA = =; Host C Host D. Caption: (errore caption)
+[Figura da Pag.19] Labels: 0000000 0001111000010000110111011101110100000010; 00- 1E- 10- DD- DD- 02; Page 19. Caption: (errore caption)
+[Figura da Pag.20] Labels: Ethernet Frame Format MAC address; Broadcast Ethernet Frame; *  Abroadcast Ethernet frame ia also called a Host A Host B; eneniamenas Cc ca. Caption: (errore caption)
+[Figura da Pag.20] Labels: * The destination MAC address of a broadcast Lh Lh; frame is a broadcast MAC address. Broadcast; Frame; Ci Ci; D.MAC:; FF-FF-FF-FF-FF-FF S.MAC DATA = =; Host C Host D. Caption: (errore caption)
+[Figura da Pag.20] Labels: 11111111 14141111711 1141417171141 114141114171 14114141111 1114111711; FF- FF- FF- FF- FF- FF; Page 20. Caption: (errore caption)
+[Figura da Pag.21] Labels: Ethernet Frame Format MAC address; Multicast Ethernet Frame; « Amulticast Ethernet frame is also called a Host A Host B. Caption: (errore caption)
+[Figura da Pag.21] Labels: * The destination MAC address of a multicast Lh Lh; frame is a multicast MAC address. Multicast; Frame; Chk Chi; D.MAC:; 01-80-C2-00-00-01 S.MAC DATA = =; Host C Host D. Caption: (errore caption)
+[Figura da Pag.21] Labels: 0000000 10000000110000100000000000000000000000041; 01- 80- C2- 00- 00- 01; Page 21. Caption: (errore caption)
+[Figura da Pag.22] Labels: ) Contents; 1. Overview of Ethernet Protocols; 2. Overview of Ethernet Frames. Caption: (errore caption)
+[Figura da Pag.22] Labels: 3. Overview of Ethernet Switches; 4. Process of Data Communication Within a Network Segment. Caption: (errore caption)
+[Figura da Pag.22] Labels: Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.23] Labels: Typical Architecture of a Campus Network. Caption: (errore caption)
+[Figura da Pag.23] Labels: bylvyses rR b~<; layer VY VY; mm ae; 2; Core layer . wx =>. Caption: (errore caption)
+[Figura da Pag.23] Labels: Aggregation; layer; Access; layer; Page 23. Caption: (errore caption)
+[Figura da Pag.24] Labels: Layer 2 Ethernet switch; Internet Internet; Layer 2 Ethernet switches forward data |. Caption: (errore caption)
+[Figura da Pag.24] Labels: through Ethernet interfaces and can COs; address and forward data only according | |; to the MAC address in a Layer 2 header eee; (Ethernet frame header).; |7—_-—s}_ 1. Caption: (errore caption)
+[Figura da Pag.24] Labels: " c > ™; Layer 2 Ethernet; Switch; Page 24. Caption: (errore caption)
+[Figura da Pag.25] Labels: MAC Address Table; ¢« Each switch has a MAC address table that stores the mapping between MAC addresses and; itch interf: :; switch interfaces oo /. Caption: (errore caption)
+[Figura da Pag.25] Labels: SO,; is); Host 1 & Host 2; - GE 0/0/1 GE 0/0/2 i; IP4 Switen IP2; MAC1 MAC2; VY; BAA? A olen SSIES RMS cee ete nay. Caption: (errore caption)
+[Figura da Pag.25] Labels: MAC1 GE 0/0/1; MAC2 GE 0/0/2; Page 25. Caption: (errore caption)
+[Figura da Pag.26] Labels: Working Principles of Switches. Caption: (errore caption)
+[Figura da Pag.26] Labels: (kk GE 0/0/1 F=3 GE 0/0/2 | i; IP1: 192.168.1.1 Suiteh IP2: 192.168.1.2; MAC1: 0050-5600-0001 MAC2: 0050-5600-0002; VY; Frame sent by host 1; ' ‘nati ; After receiving a frame, the switch learns; Source MAC address: Destination MAC address: paeeaide Inge te eg he. Caption: (errore caption)
+[Figura da Pag.26] Labels: MAC1 MAC2 Leptoe ea tee thes ace lal en cnet Reread aa hy temelaletaos J; , searches the for the; Source IP address: Destination IP address: destination MAC address (MAC2: 0050-; IP1 IP2 5600-0002 in this example) of the frame,; and the frame through the; Payload corresponding interface.; Page 26. Caption: (errore caption)
+[Figura da Pag.27] Labels: Three Frame Processing Behaviors of a Switch; ¢ Aswitch processes the frames entering an interface over a transmission mediumin three ways:; ee xo Switch Elandina. Caption: (errore caption)
+[Figura da Pag.27] Labels: Port 1 Port 2 Port 3 Port 4; 4 4 ); Switch |; _— E™ Forwarding; Port 1 Port 2 Port 3 Port 4; | | i. Caption: (errore caption)
+[Figura da Pag.27] Labels: Switch Discarding; Port 1 Port 2 Port 3 Port 4; | l | Frame; Page 27. Caption: (errore caption)
+[Figura da Pag.28] Labels: i;; Host 1 & // Host 2; —_—_ Mo NINIA Mo NnInIn —_—_. Caption: (errore caption)
+[Figura da Pag.28] Labels: | } berszi.cee i asdobesic ee ee; = =; IP1: 192.168.1.1 Switch IP2: 192.168.1.2; MAC1: 0050-5600-0001 MAC2: 0050-5600-0002; Unknown; MAC address table Frame processing unicast frame; F it by host 1; oO Fame sent by nes 2) searched by the switch 3 behavior of the switch; Source MAC: MAC1 MAC Address Interface + Ifa unicast frame is received:; Destination MAC: MAC2 MAC1 GE 0/0/41 If the switch cannot find the destination; MAC address of the frame in the MAC. Caption: (errore caption)
+[Figura da Pag.28] Labels: agaress table, the switcn mooas tne; or unicast frame.; + Ifa broadcast frame is received:; Source MAC: MAC1; a The switch directly floods the broadcast; Destination MAC: frame without searching the MAC address; table.; Page 28. Caption: (errore caption)
+[Figura da Pag.29] Labels: Forwarding; y; Host 1 & Host 2; —_—_ Mo NINIA Mo NnInIn —_—_. Caption: (errore caption)
+[Figura da Pag.29] Labels: | } berszi.cee i asdobesic ee ee; = =; IP1: 192.168.1.1 Switch IP2: 192.168.1.2; MAC1: 0050-5600-0001 MAC2: 0050-5600-0002; MAC address table Frame processing; 4) Frame sent by host 1 Oscarchea by the switch 8 behavior of the switch; Source MAC: MAC1 MAC Address Interface + Ifa unicast frame is received:; Destination MAC: MAC2 MAC1 GE 0/0/1 If the switch finds the destination MAC; address of the frame in the MAC address; RAACY) mo ninin Ga TSS ELUT” aDT“ LIL pe OSU OL ntne nncs SC”) ue DO. Caption: (errore caption)
+[Figura da Pag.29] Labels: ee ——e MAMIE AI TIE HEALS HUTTE HT LIS Lave; is not the number of the interface through; which the frame enters over the; transmission medium, the switch forwards; the unicast frame.; Page 29. Caption: (errore caption)
+[Figura da Pag.30] Labels: i IP2: 192.168.1.2; MAC2: 0050-5600-0002; —-_ a Host 2. Caption: (errore caption)
+[Figura da Pag.30] Labels: L_]} —; IP4: 192.168.1.1 Switch 1 Sy,; MAC1: 0050-5600-0001 SQ O%; Switch 2; MAC address table Frame processing; 1] Frame:sent by‘host'] (2) queried by switch 2 3] behavior of the switch. Caption: (errore caption)
+[Figura da Pag.30] Labels: Source MAC: MAC1 MAC Address Interface + Ifa unicast frame is received:; Destination MAC: MAC2 MAC2 GE 0/0/1 « The switch finds the destination MAC address of; the frame in the MAC address table, but the; interface number in the table is the number of the; interface through which the frame enters the; switch over the transmission medium. In this case,; the switch discards the unicast frame.; Page 30. Caption: (errore caption)
+[Figura da Pag.31] Labels: MAC Address Learning on a Switch (1); Host 1 f Host 2; —_—_ RE NINA RE NINO —_—_. Caption: (errore caption)
+[Figura da Pag.31] Labels: IP1: 192.168.1.1 Switch IP2: 192.168.1.2; MAC1: 0050-5600-0001 MAC2: 0050-5600-0002; MAC address table; of the switch 4); MAC Interf: Initially, the MAC address; Address ce table of the switch is empty.. Caption: (errore caption)
+[Figura da Pag.31] Labels: Page 31. Caption: (errore caption)
+[Figura da Pag.32] Labels: MAC Address Learning on a Switch (2); Host 1 f Host 2; —_—_ RE NINA RE NINO —_—_. Caption: (errore caption)
+[Figura da Pag.32] Labels: ji —"_ _&=y_—=~SO Li; = =; IP1: 192.168.1.1 Switch IP2: 192.168.1.2; MAC1: 0050-5600-0001 MAC2: 0050-5600-0002; MAC address table; Frame sent by host 1 searched by the switch 2 }; Source MAC: MAC1 MAC + Host 1 sends a frame to host 2.; Interface; Destination MAC: MAC2 Address + After the frame is received on the; switch's GE 0/0/1, the switch searches; Ce rR ie. Caption: (errore caption)
+[Figura da Pag.32] Labels: (Assume that host 1 has obtained destination MAC address of the frame. If; the MAC address of host 2.) no matching entry is found, the switch; considers the frame an unknown unicast; frame.; Page 32. Caption: (errore caption)
+[Figura da Pag.33] Labels: MAC Address Learning on a Switch (3); Host 1 J Vi Host 2; —_—_ ae nina RE nino —_—_. Caption: (errore caption)
+[Figura da Pag.33] Labels: = =; IP1: 192.168.1.1 Switch IP2: 192.168.1.2; MAC1: 0050-5600-0001 MAC2: 0050-5600-0002; MAC address table; Frame sent by host 1 searched by the switch (3); Source MAC: MAC1 MAC Interf: + — Ifthe corresponding entry is not found in; a . Address he the MAC address table, the switch floods; Destination MAC: MAC2 » eterna more; MAC1 GE 0/0/1 .; _ ee ye Ra a neenteeeaey | pirabeeyeym. | cay boenpe beay Soy peseonmar pear \ Santen. Caption: (errore caption)
+[Figura da Pag.33] Labels: source address of the frame,; creates the corresponding MAC address; entry, and associates the MAC address; entry with :; Page 33. Caption: (errore caption)
+[Figura da Pag.34] Labels: MAC Address Learning on a Switch (4); Host 1 f Host 2; —_—_ RE NINA RE NINO —_—_. Caption: (errore caption)
+[Figura da Pag.34] Labels: I =r —; = =; IP1: 192.168.1.1 Switch IP2: 192.168.1.2; MAC1: 0050-5600-0001 MAC2: 0050-5600-0002; (4) Frame sent by host 2; + The frame is also received by the hosts Source MAC: MAC2; connected to other interfaces on the aati p; switch. These hosts, however, discard DIESHINEIeIn INCE MIA; the frame.. Caption: (errore caption)
+[Figura da Pag.34] Labels: + Host 2 receives and processes the; frame, responds to host 1, and sends the; frame to the switch.; Page 34. Caption: (errore caption)
+[Figura da Pag.35] Labels: MAC Address Learning on a Switch (5); Host 1 f Host 2; —_—_ RE NINA RE NINO —_—_. Caption: (errore caption)
+[Figura da Pag.35] Labels: = =; IP1: 192.168.1.1 Switch IP2: 192.168.1.2; MAC1: 0050-5600-0001 MAC2: 0050-5600-0002; MAC address table; searched by the switch Frame sent by host 2; MAC Address Interface Source MAC: MAC2; MAC1 GE 0/0/1 < Destination MAC: MAC1; MAC2 GE 0/0/2. Caption: (errore caption)
+[Figura da Pag.35] Labels: + — Ifthe switch finds the corresponding entry in the MAC address table, the switch forwards; the unicast frame through GE 0/0/1.; «+ Atthe same time, the switch learns the source MAC address of the frame, creates the; corresponding MAC address entry, and associates the MAC address entry with GE 0/0/2.; Page 35. Caption: (errore caption)
+[Figura da Pag.36] Labels: ) Contents; 1. Overview of Ethernet Protocols; 2. Overview of Ethernet Frames. Caption: (errore caption)
+[Figura da Pag.36] Labels: 3. Overview of Ethernet Switches; 4. Process of Data communication Within a Network Segment. Caption: (errore caption)
+[Figura da Pag.36] Labels: Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.37] Labels: Process of Data Communication Within a; Network Segment; ¢ Scenario description:; o Task: Host 1 wants to access host 2.. Caption: (errore caption)
+[Figura da Pag.37] Labels: . Host: The host is in the initialized state and only knows its own IP address and MAC address (assume that the IP; address of the peer host has been obtained).; o Switch: The switch is just powered on and in the initialized state.; 2; iy; Host 1 & Host 2; ——=_ a. Caption: (errore caption)
+[Figura da Pag.37] Labels: | ; GE 0/0/1 k=J GE 0/0/2 | i; IP1: 192.168.1.1 Switch IP2: 192.168.1.2; MAC1: 0050-5600-0001 MAC2: 0050-5600-0002; Page 37. Caption: (errore caption)
+[Figura da Pag.38] Labels: Data Encapsulation Process; Application oe Data Data 1 Septet Layer. Caption: (errore caption)
+[Figura da Pag.38] Labels: Transport Layer Data Data Transport Layer; Network layer Data Data Network layer; Data Link Layer | pate [] [| nae [] Data Link Layer; Physical layer Physical layer. Caption: (errore caption)
+[Figura da Pag.38] Labels: etiemet IP header TEP User data Ethernet tail; header header; + Information that needs to be; encapsulated:; + Source MAC address; + Destination MAC address; Page 38. Caption: (errore caption)
+[Figura da Pag.39] Labels: Initialization; th; Host 1 eg Host 2; —_—_ RE NINA RE NINO —_—_. Caption: (errore caption)
+[Figura da Pag.39] Labels: IP1: 192.168.1.1 Switch IP2: 192.168.1.2; MAC1: 0050-5600-0001 MAC2: 0050-5600-0002; ARP cache table of host 1 MAC address table of the switch; Host 1>arp -a [Switch]display mac-address verbose; InternetAddress Physical Address Type MAC addrace tahle af clot 0-. Caption: (errore caption)
+[Figura da Pag.39] Labels: | wanna anna nnn nn === === -------- MAC; | Address Port Type; Page 39. Caption: (errore caption)
+[Figura da Pag.40] Labels: Flooding Frames; Host 1 f Vi, Host 2; —_—_ RE NINA RE NINO —_—_. Caption: (errore caption)
+[Figura da Pag.40] Labels: a —_— oO  —-—~SF; IP1: 192.168.1.1 Switch IP2: 192.168.1.2; MAC1: 0050-5600-0001 MAC2: 0050-5600-0002; ARP Request packet sent by host 1 MAC address table of the switch; Source MAC address: Destination MAC address:; MAC1 FF-FF-FF-FF-FF-FF [Switch]display mac-address verbose; nce 1 oe MAC addrece tahle of clint 0-. Caption: (errore caption)
+[Figura da Pag.40] Labels: a Destination IP address: IP2 ee; IP1 eee = MAG; Operation type: ARP Request Address Port Type; Sender's MAC address: MAC1 a; Sender's IP address: IP1; Destination MAC address: 00-00-00-00-00-00 SSS; Destination IP address: IP2; Page 40. Caption: (errore caption)
+[Figura da Pag.41] Labels: MAC Address Learning; Host f / Host 2; —_—_ RE NINA RE NINO —_—_. Caption: (errore caption)
+[Figura da Pag.41] Labels: i —__ —&y —_—OS; IP1: 192.168.1.1 Switch IP2: 192.168.1.2; MAC1: 0050-5600-0001 MAC2: 0050-5600-0002; ARP Request packet sent by host 1 MAC address table of the switch; Source MAC address: Destination MAC address: a f; MAC1 FF_FF_FF-FF_-FF_-FF [Switch]display mac-address verbose; a oy : MAC address table of slot 0:. Caption: (errore caption)
+[Figura da Pag.41] Labels: IPt es Destination IP address: IP2 wanna nanan na - oa 88 -n = 88a no-no n; MAC Address Port Type; Operation type: ARP Request a; Sender's MAC address: MAC1 dynamic; Sender's IP address: IP1; Destination MAC address: 00-00-00-00-00-00; Destination IP address: IP2; Page 41. Caption: (errore caption)
+[Figura da Pag.42] Labels: Reply of the Target Host; Host 1 Z Host 2; —_—_— RE NINA RE NINO —_—_. Caption: (errore caption)
+[Figura da Pag.42] Labels: a >; IP1: 192.168.1.1 Switch IP2: 192.168.1.2; MAC1: 0050-5600-0001 MAC2: 0050-5600-0002; MAC address table of the switch ARP Reply packet sent by host 2; , . Source MAC address: Destination MAC address:; [Switch]display mac-address verbose MAC2 MAC1; MAC address table of slot 0:; Qniirnrog ID adAracc:- I1DYD Nactinatinn ID andrArocec- 1D4. Caption: (errore caption)
+[Figura da Pag.42] Labels: MAC Address Port Type Operation type: ARP Reply; ann nanan anna nnn nanan nanan Sender's MAC address: MAC2; 0050-5600-0001 GEO/0/1 dynamic Sender's IP address: |P2; dynamic Destination MAC address: MAC1; SE Ope ETO Destination IP address: IP1; Page 42. Caption: (errore caption)

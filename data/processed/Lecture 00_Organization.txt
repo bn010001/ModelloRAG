@@ -1,0 +1,36 @@
+Page 0
+Fondamenti di Internet
+Class Organization
+Gianluca Reali
+
+Page 1
+⚫Lecturer:  Gianluca Reali
+⚫The class is aimed at understanding how the Internet works, to understand its potential 
+and limits. Lessons of both theoretical and experimental nature will be held, for the 
+acquisition of basic skills for the configuration and use of Internet equipment. 
+⚫Students will acquire technical skills for the comparative evaluation of different 
+implementation solutions and the ability to understand the technical literature of the 
+sector. 
+Organization
+
+Page 2
+⚫Study materials: https://www.unistudium.unipg.it/
+⚫Textbooks and reference materials:
+Achille Pattavina, Internet e Reti – Fondamenti, Amazon
+Huawei, Data Communications and Network Technologies 
+https://link.springer.com/book/10.1007/978-981-19-3029-4 (open access)
+James F. Kurose, Keith W. Ross, Reti di Calcolatori e Internet, Pearson
+Handouts
+Organization
+
+Page 3
+⚫Class schedule
+Tuesday 08.30 - 11.30 
+Thursday 10.30 - 13.30 
+Friday 8.30 - 10.30 
+⚫Student reception: Thursday, 9:00 am.
+ 
+⚫Exams
+Organization
+
+[Figura da Pag.1] Labels: = hatte y go BU Nea {wees —; eR ee yee 2; © Ss ~ eb .; Q, 97 ~~ UNIVERSITA DEGLI STUDI; MCCS DI PERUGIA. Caption: (errore caption)

@@ -1,0 +1,1129 @@
+Page 0
+Fondamenti di Internet
+Typical Campus Network Architectures and Practices
+-~
+Prof. Gianluca Reali
+
+Page 1
+) Foreword
+A broad range of places, such as campuses, office spaces, and shopping malls, are
+covered by networks. You can access internal resources of your school, access internal
+printers of your company to print documents, or access the Internet to browse news
+through the networks.
+These networks belong to campus networks and are generally constructed by
+enterprises or organizations. Campus networks not only improve the operational
+efficiency of enterprises, but also provide network access services for external users.
+This chapter describes the basic architecture of a campus network and details how to
+build a campus network.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Objectives
+¢ Upon completion of this course, you will be able to:
+s Understand the definition of campus networks.
+° Understand the typical networking architectures of campus networks.
+s Master the planning and design methods of small campus networks.
+> Master the deployment and implementation methods of small campus networks.
+s Understand the small campus network O&M concepts.
+s Understand the small campus network optimization concepts.
+> Independently complete a campus network project.
+Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. Basic Concepts of Campus Networks
+2. Typical Campus Network Construction Process
+Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 4
+Ga) ) What Is a Campus Network?
+Outside a
+campus
+Inside a
+campus
+Typical
+scenario
+| Other campuses Remote access user
+| Private and public clouds
+Internet/Wide area network (WAN)
+|
+Demilitarized zone Campus egress layer >
+Core layer
+| ; Network
+Aggregation layer ] security
+Access layer ]
+Terminal layer | )
+Factory Government
+A campus network is a local area network (LAN) that connects people and things in a specified area. Typically, a campus
+network has only one management entity. If there are multiple management entries in an area, the area is considered to have
+multiple campus networks.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+The campus network scale is flexible depending on actual requirements. It can be a small
+office home office (SOHO), a school campus, enterprise campus, park, or shopping center.
+However, the campus network cannot be scaled out infinitely. Typically, large campuses, such
+as university campuses and industrial campuses, are limited within several square kilometers.
+Such campus networks can be constructed using local area network (LAN) technology. A
+campus network beyond this scope is usually considered as a metropolitan area network
+(MAN) and is constructed using the WAN technology.
+Typical LAN technologies used on campus networks include IEEE 802.3-compliant Ethernet
+(wired) technologies and IEEE 802.1 1-compliant Wi-Fi (wireless) technologies.
+
+Ga) ) Typical Campus Network Architecture
+Internet WAN
+Branch campus
+Network management zone
+of
+Traveling
+employees iMaster NCE
+Core layer
+Data center
+Aggregation
+layer
+INecose Typically, a campus network is designed in a
+layer hierarchical and modular manner.
+Gy Cy Gy * Campus networks can be classified into small,
+GE! IP soa midsize, and large campus networks based on the
+| i LJ gees | number of terminals or NEs.
+= Cc) 7s Cc) oe
+Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Typical layers and areas of a campus network:
+= Core layer: is the backbone area of a campus network, which is the data switching core.
+It connects various parts of the campus network, such as the data center, management
+center, and campus egress.
+« Aggregation layer: is a middle layer of a campus network, and completes data
+aggregation or switching. Some fundamental network functions, such as routing, QoS,
+and security, are also provided at this layer.
+« Access layer: As the edge of a campus network, this layer connects end users to the
+campus network.
+« Egress area: As the edge that connects a campus network to an external network, this
+area enables mutual access between the two networks. Typically, a large number of
+network security devices, such as intrusion prevention system (IPS) devices, anti-DDoS
+devices, and firewalls, are deployed in this area to defend against attacks from external
+networks.
+« Data center area: has servers and application systems deployed to provide data and
+application services for internal and external users of an enterprise.
+a Network management area: Network management systems, including the SDN
+controller, WAC, and eLog (log server), are deployed in this area to manage and monitor
+the entire campus network.
+
+Ga) ) Typical Architecture of Small Campus Networks
+* Small campus networks are typically deployed in
+scenarios where the number of access users is
+small (several or dozens of users). A small campus
+network can cover only one location, has a simple
+architecture, and is constructed to enable mutual
+access between internal resources.
+“ « Characteristics
+ 
+of small campus networks:
+y) 0
+Small number of users Number of
+. < 200
+; terminals
+° Only one location
+Number of NEs < 25
+e Simple network architecture
+Network topology of a chain cafe ; ;
+Simple network requirements
+Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Egress layer
+Core layer
+Network topology of a foreign trade company
+Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Ga) ) Typical Architecture of Midsize Campus Networks
+« Amidsize campus network supports access of
+hundreds to thousands of users.
+¢« The modular design is introduced to midsize
+campus networks, that is, the networks can be
+partitioned by function. However, the number of
+function modules is small. In most cases, a midsize
+campus network is flexibly partitioned based on
+service requirements.
+¢ Characteristics of midsize campus networks:
+« Midsize network scale Number of 200 to
+terminals 2000
+Most | d
+ost commonly use Number of os to 100
+Function partition NEs
+° Typical three-layer network architecture: core,
+aggregation, and access
+
+Cloud DC Traveling
+employees
+HQ campus Branch campus
+Network
+management
+Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Ga) ) Typical Architecture of Large Campus Networks
+Alarge campus network can cover multiple buildings
+and connect to multiple campuses in a city through
+WANs. Typically, a large campus network provides
+access services and allows traveling employees to
+access their company's internal network through
+technologies such as Virtual Private Network (VPN).
+Characteristics of large campus networks:
+e Wide coverage
+Number of
+* Large number of users umber © > 2000
+terminals
+2 Complex network requirembiutsber of NEs > 100
+* Comprehensive function modules
+* Complex network architecture
+
+ry) Main Protocols and Technologies of Campus Networks
+ewan Common
+protocols/technologies
+WLAN
+protocols/technologies
+NAT, OSPF, static routing, and PPPoE
+Egress zone
+SNMP/
+NETCONF
+Stacking, OSPF, static routing, and ACL
+Core layer
+DHCP, stacking, link aggregation,
+spanning tree protocol, OSPF, and
+static routing Aggregation layer
+VLAN, spanning tree, link aggregation,
+and AAA
+Access layer
+Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. Basic Concepts of Campus Networks
+2. Campus Network Project Practice
+Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+° A
+[=| ) Networking Requirements
+company (with about 200 employees) plans to build a brand-new campus network to
+meet service development requirements. The network requirements are as follows:
+o
+Page 11
+Meet the current services requirements of the company.
+Use a simple network topology for easy O&M.
+Provide wired access for employees and wireless access for guests.
+Implement simple network traffic management.
+Ensure network security.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Campus Network Project Lifecycle
+4) Planning and design 2) Deployment and implementation
+Device model selection * Device installation
+Physical topology + Single UPS commissioning
+Logical topology * Joint commissioning test
+Technologies and * — Network migration and integration
+protocols
+© Network O&M 4) Network optimization
+Routine maintenance * — Network security improvement
+Software and configuration backup ¢ Software and configuration backup
+Centralized monitoring via the « User experience improvement
+network management system (NMS)
+Software upgrade
+Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢« Acampus network project starts from network planning and design. Comprehensive and
+detailed network planning will lay a solid foundation for subsequent project implementation.
+¢ Project implementation is a specific operation procedure for engineers to deliver projects.
+Systematic management and efficient process are critical to successful project implementation.
+« Routine O&M and troubleshooting are required to ensure the normal running of network
+functions and support smooth provisioning of user services.
+« As.users' services develop, the users’ requirements on network functions increase. If the
+current network cannot meet service requirements, or potential problems are found while the
+network is running, the network needs to be optimized.
+
+Ga) ) Small Campus Network Design
+- Disinabeldau) 2. Network design 3. Security design Se hepeahelle h Ss
+solution design management design
+Basic network
+Device model selection Basic service Egress security
+management
+Physical topology WLAN Intranet wired security Intelligent O&M
+Intranet wireless
+Layer 2 loop prevention security
+Network reliability
+Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Networking Solution Design
+The physical topology is designed upon Naming and interface selection rules
+full consideration of the budget and Internet - The names should be easy to
+GE0/0/0 remember and can be extended.
+service requirements. The following
+¢ The interfaces should meet the
+figure shows the topology. bandwidth requirements of services.
+Ei GE0/0/1
+AC1
+E0/0/1 E0/0/1
+AP1 AP2 Bielconen Printer Administrator
+Guest reception center R&D department Marketing department Administrative department
+Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+The entire network uses a three-layer architecture.
+2 The S3700 is deployed as the access switch to provide 100 Mbit/s network access for
+employees’ PCs and printers.
+«= The $5700 is deployed at the aggregation layer as the gateway of the Layer 2 network.
+2 The AR2240 is deployed at the core and egress of a campus network.
+Note: Agg is short for aggregation, indicating a device at the aggregation layer. Acc is short for
+Access, indicating an access device.
+
+Planning and Deployment and Network
+Implementation DERE GRE, Optimization
+|) Basic Service Design: VLAN Design
+« You are advised to assign consecutive VLAN IDs to ensure proper use of VLAN resources.
+« VLANs can be classified into service VLANs, management VLANs, and interconnection VLANs as required.
+¢ Typically, VLANs are assigned based on interfaces.
+Service VLAN design Management VLAN design
+VLAN assignment by
+geographic area
+VLAN assignment by
+logical area
+VLAN assignment by
+personnel structure
+VLAN assignment by
+service type
+Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+VEANIF 100
+192.168:100.254
+VLANIF 100
+192.168.100.1
+VLANIF 100
+Management 192.168.100.2
+VLAN 100
+In most cases, Layer 2 switches use VLANIF interface addresses as
+management addresses. It is recommended that all switches on the
+same Layer 2 network use the same management VLAN and their
+management IP addresses be on the same network segment.
+
+Planning and Deployment and Network
+Implementation DERE GRE, Optimization
+[=| ) VLAN Planning
+« Amanagement VLAN is reserved for Layer 2 devices.
+« VLANs are classified into the guest VLAN, R&D department VLAN, marketing department VLAN, and administrative
+department VLAN.
+« Layer 3 switches need to be connected to routers through VLANIF interfaces. Therefore, interconnection VLANs need to
+be reserved.
+« AVLAN is established for CAPWAP tunnels between APs and ACs.
+VLAN ID VLAN Description
+1 Guest VLAN or WLAN service VLAN
+2 R&D department VLAN
+3 Marketing department VLAN
+4 Administrative department VLAN
+100 Management VLAN of Layer 2 devices
+101 Management VLAN of WLAN services
+102 Interconnection VLAN between Agg-S1 and CORE-R1
+Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+@) >) Basic Service Design: IP Address Design
+Service IP address Management IP address
+192.168.1.254
+192.168.5.254
+192.168.100.254
+VEANIF 100
+192.168.100.254
+VLANIF 100 VLANIF 100
+192.168.100.1 Management 192.168.100.2
+VLAN 100
+Employee Partner Guest : :
+192.168.1.0/24 192 168.5.0/24 192.168.100.0/24 Layer 2 devices use VLANIF interface IP addresses as the management
+IP addresses. It is recommended that all Layer 2 switches connected to a
+gateway use on the same network segment.
+The service IP addresses are the IP addresses of servers, hosts, or
+gateways. ’ ’ ’
+* — Itis recommended that the gateway IP addresses use the same IP address for network device interconnection
+rightmost digits, such as .254.
+* The IP address ranges of different services must be clearly
+distinguished.
+ 
+The IP addresses of each type of service terminals It is recommended that the interconnection IP addresses use a
+must be continuous and can be aggregated. hi .
+» _AnIP address segment with a 24-bit mask is recommended. 30-bit mask, and core devices use smaller host IP addresses.
+Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Planning and Deployment and Network
+Implementation DERE GRE, Optimization
+[=| ) IP Address Planning
+* Reserve sufficient IP addresses based on the number of clients to be accessed and plan network segments and gateway addresses for
+each type of service.
+« Plan network segments for management IP addresses.
+* Divide network segments for interconnection IP addresses.
+Page 18
+IP Network
+Segment/Mask Gateway Address Network Segment Description
+192.168.1.0/24
+192.168.2.0/24
+192.168.3.0/24
+192.168.4.0/24
+192.168.100.0/24
+192.168.101.0/24
+192.168.102.0/30
+1.1.1.1/32
+192.168.1.254
+192.168.2.254
+192.168.3.254
+192.168.4.254
+192.168.100.254
+N/A
+N/A
+N/A
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Network segment to which wireless access guests belong, with
+the gateway located on Agg-S1
+Network segment to which the R&D department belongs, with
+the gateway located on Agg-S1
+Network segment to which the marketing department belongs,
+with the gateway located on Agg-S1
+Network segment to which the administrative department
+belongs, with the gateway located on Agg-S1
+Management network segment of Layer 2 devices, with the
+gateway located on Agg-S1
+Management network segment of WLAN services
+Network segment between Agg-S1 and CORE-R1
+Loopback interface address on CORE-R1, which is used as
+the management IP address
+
+Ga) Basic Service Design: IP Address Allocation Mode
+Design
+Egress gateway Devices such as servers and printers
+It is recommended that servers and special terminals (such
+as punch-card machines, printing servers, and IP video
+Internet surveillance devices) use statically bound IP addresses.
+device
+WAN interface: static IP Internet
+address, DHCP, or PPPoE
+Egress Egress
+It is recommended that IP
+atewa t
+S J gateway addresses of end users
+— are allocated by gateways
+IP addresses of WAN interfaces are assigned by the AP through DHCP.
+carrier in static, DHCP, or PPPoE mode. The IP
+addresses of the egress gateways need to be obtained > y
+from the carrier in advance. L J []
+Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢« Dynamic IP address assignment or static IP address binding can be used for IP address
+assignment. On a small or midsize campus network, IP addresses are assigned based on the
+following principles:
+« IP addresses of WAN interfaces on egress gateways are assigned by the carrier in static,
+DHCP, or PPPoE mode. The IP addresses of the egress gateways need to be obtained from
+the carrier in advance.
+¢ It is recommended that servers and special terminals (such as punch-card machines, printing
+servers, and IP video surveillance devices) use statically bound IP addresses.
+¢ User terminal: It is recommended that the DHCP server be deployed on the gateway to
+dynamically assign IP addresses to user terminals such as PCs and IP phones using DHCP.
+
+=| ) IP Address Allocation Mode Planning
+« The egress gateway obtains an IP address through PPPoE.
+« Allterminals obtain IP addresses through DHCP. The servers and printers are assigned fixed IP addresses.
+« |P addresses of all network devices (except APs) are statically configured.
+bee Allocation Mode Allocation Mode Description
+Segment/Interface
+192.168.1.0/24
+192.168.2.0/24 DHCP fixed P adelioses to fina deviees such
+192.168.3.0/24 as servers and printers
+192.168.4.0/24 _
+192.168.100.0/24 Static Device management IP addresses, which
+are statically configured
+IP addresses of ACs are statically
+192.168.101.0/24 DHCP configured, and IP addresses of APs are
+allocated by Agg-S1.
+4192.168.102.0/30 Static Interconnection IP address, which is
+statically configured
+GE0/0/0 on CORE-R1 PPPoE IP address assigned by the carrier
+Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Basic Service Design: Routing Design
+« Routing design inside a campus network:
+* Intra-network segment: After an IP address is allocated
+using DHCP, a default route is generated by default and
+Internet Agg-S1 functions as a Layer 3 gateway.
+¢ Inter-network segment: The current network topology is
+simple. You can deploy static routes on all devices that
+need to forward Layer 3 data to meet the requirements.
+No complex routing protocol needs to be deployed.
+Layer 3 network ; ; ;
+es — | ae } oe « Routing design at the campus egress: Configure
+static default routes.
+FTP server Printer Administrator
+Guest reception center R&D department Marketing department Administrative department
+Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+The routing design of a small or midsize campus network includes design of internal routes
+and the routes between the campus egress and the Internet or WAN devices.
+The internal routing design of a small or midsize campus network must meet the
+communication requirements of devices and terminals on the campus network and enable
+interaction with external routes. As the campus network is small in size, the network structure
+is simple.
+« AP: After an IP address is assigned through DHCP, a default route is generated by
+default.
+= Switch and gateway: Static routes can be used to meet requirements. No complex
+routing protocol needs to be deployed.
+The egress routing design meets the requirements of intranet users for accessing the Internet
+and WAN. When the egress device is connected to the Internet or WAN, you are advised to
+configure static routes on the egress device.
+
+Planning and Deployment and Network O&M Network
+Design Implementation Optimization
+Ga) ) WLAN Design
+DHCP server AC Network
+AC Network 4
+I
+192.168.101.1/24 zl
+= I
+a! User data
+I
+at —
+= I
+192.168.101.X/24 192.168.101.¥/24 aj Control data
+4 es >
+I
+I
+I
+e Based on the IP addresses of the AC and APs and whether
+data traffic passes through the AC, the networking can be
+divided into: Control packets and data packets are transmitted on a WLAN
+Inline Layer 2 networkin ° .
+. Bypass Layer 2 networking a Control packets are forwarded through CAPWAP tunnels.
+a User data packets are forwarded in tunnel or direct mode.
+a Inline Layer 3 networking . . :
+a Bypass Layer 3 networking « This example uses the direct forwarding mode.
+e This example uses the bypass Layer 2 networking.
+Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ In addition to planning the networking and data forwarding mode, you also need to perform the
+following operations:
+« Network coverage design: You need to design and plan areas covered by Wi-Fi
+signals to ensure that the signal strength in each area meets user requirements and to
+minimize co-channel interference between neighboring APs.
+a Network capacity design: You need to design the number of APs required based on
+the bandwidth requirements, number of terminals, user concurrency rate, and per-AP
+performance. This ensures that the WLAN performance can meet the Internet access
+requirements of all terminals.
+«> AP deployment design: Based on the network coverage design, modify and confirm
+the actual AP deployment position, deployment mode, and power supply cabling
+principles based on the actual situation.
+2 In addition, WLAN security design and roaming design are required.
+
+Planning and Deployment and Network
+Implementation DERE GRE, Optimization
+ry) ) WLAN Data Plan
+item
+ 
+Va
+Management VLAN for APs VLAN 101
+Service VLAN for STAs VLAN 1
+DHCP server Agg-S1 functions as a DHCP server to allocate IP addresses to APs and STAs. The default
+gateway address of STAs is 192.168.1.254.
+IP address pool for APs 192.168.101.2 to 192.168.101.253/24
+IP address pool for STAs 192.168.1.1 to 192.168.1.253/24
+Source interface address of Wy ANE 401: 192.168.101.1/24
+the AC
+AP group Name: ap-group1
+Referenced profiles: VAP profile WLAN-Guest and regulatory domain profile default
+Name: default
+Country code: CN
+Name: WLAN-Guest
+SSID name: WLAN-Guest
+Name: WLAN-Guest
+Security profile Security policy: WPA-WPA2+PSK+AES
+Password: WLAN@Guest123
+Regulatory domain profile
+SSID profile
+Name: WLAN-Guest
+Forwarding mode: direct forwarding
+Service VLAN: VLAN 1
+Referenced profiles: SSID profile WLAN-Guest and security profile WLAN-Guest
+VAP profile
+Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Reliability Design
+¢ Port-level reliability:
+Internet Eth-Trunk is used to improve reliability between access
+switches and aggregation switches and increase link
+bandwidth.
+« Device-level reliability
+iStack or cluster switch system (CSS) technology can
+be used, which is not involved in this networking.
+FTP server Printer Administrator
+Guest reception center R&D department Marketing department Administrative department
+Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Internet
+FTP server
+Guest reception center R&D department
+Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Ga) ) Layer 2 Loop Prevention
+Marketing department
+Network
+Optimization
+Planning and
+Design
+Deployment and
+Implementation DERE GRE,
+Question: Although no redundant link is introduced to the
+current network segment, how can we prevent Layer 2
+network loops caused by misoperations of office
+personnel?
+Suggestion: Use spanning tree technology on the Layer 2
+network to prevent loops. In addition, you are advised to
+manually configure Agg-S1 as the root bridge.
+Administrator
+Administrative department
+
+Ga) ) Egress NAT Design
+Planning and
+Network
+Optimization
+Deployment and
+Implementation NEMO Sh
+Design
+Static NAT Dynamic NAT NAPT and Easy IP
+1.2.3.4
+Internet
+Network egress
+NAT mapping table
+1
+1
+'
+HePrivate IP Address|Public IP Address
+i)
+i
+i
+1
+i
+i
+i)
+1
+192.168.1.1 1.2.3.1
+192.168.1.2 1.2.3.2
+* Static NAT applies to scenarios where a large
+number of static IP addresses are configured and
+clients need to use fixed IP addresses.
+r
+1.2.3.4
+Network egress Internet
+| NAT address pool '
+I
+' 1
+1.2.3.1 Notin use
+1
+| 1.2.3.2 Not
+ 
+in use
+' 1
+1.3.3.3 Notin use '
+1
+Dynamic NAT introduces the address pool
+concept. Available IP addresses in the address
+pool are allocated to clients for Internet access.
+1.2.3.4
+Network egress
+Internet
+&
+Public
+ 
+IP
+!
+!
+Private IP H
+Address:Port 1
+!
+i)
+i]
+i)
+!
+Number
+192.168.1.10:80 1.2.3.4:10335
+NAPT translates port numbers based on dynamic
+NAT to improve public address usage.
+Easy IP applies to scenarios where IP addresses
+of outbound network interfaces are dynamically
+allocated.
+NAT Server
+z 1.2.3.4
+Network egress
+Server providing
+services externally
+Internet
+1
+1
+1
+1
+1
+Private IP Public IP '
+Address:PortNumber | Address:Port Number !
+1
+i
+1
+1
+192.168.1.1:10321 1.2.3.4:1025
+192.168.1.2:17087 1.2.3.4:1026
+The NAT server applies to scenarios
+where a server on the intranet needs to
+externally provide services.
+Page 26
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Security Design
+Internet Internal traffic
+_
+4
+department G uest data .
+a
+‘
+Marketing _—_> LAN *S< Guest network
+department °>=.
+A 4. 4.
+Administrative 4 4 a
+department +---%---; i U U
+Internal network
+* Different departments can access each other but cannot access
+the Internet.
+* Guests can access the Internet but cannot access the internal
+network.
+* Youcan use technologies such as traffic policing and traffic
+filtering to isolate the internal network from the external network
+and use NAT to control the internal network's access to the
+Internet.
+Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Network
+DERE GRE, Optimization
+Planning and Deployment and
+Design Implementation
+Traffic Control DHCP Security
+“> > | Trusted port See
+=]
+DHCP-enabled home router Access switch DHCP server
+*« Onacampus network, employees often connect unauthorized
+DHCP-enabled wireless routers to the network, causing private
+address disorders, address conflicts, and Internet access failures.
+* Inmost cases, DHCP snooping is enabled on access switches to
+prevent this issue.
+Network Management Security
+« When network devices are managed through Telnet or the
+web system, you can use access control list (ACL) technology
+to allow only users with fixed IP addresses to log in to the
+devices.
+¢ For the centralized NMS, SNMPv3 supports identity
+authentication and encryption, significantly enhancing the
+NMS security.
+Note: Security design in this case is implemented depending only on routers or switches.
+
+@)>) Network O&M and Management Design
+Traditional Device Management Management Based on iMaster NCE
+wy,
+Ke Wy
+SSH/Telnet Jelemetry o
+LAN Network a)
+iMaster NCE
+\4
+g ow
+Kg ZS
+3 <A
+¢ When the network administrator and devices’ IP
+addresses are routable to each other, you can manage ¢ In addition to the SNMP-based traditional NMS, Huawei
+the devices through Telnet, the web system or SSH. iMaster NCE can also be used for network management
+* When there are a large number of devices on a network, and O&M to implement autonomous network driving.
+you can deploy an SNMP-based unified NMS for network
+O&M and management.
+Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Network
+Optimization
+Small Campus Network Deployment and
+Implementation
+« The project deployment and implementation process must include:
+« Solution formulation
+¢ Device installation
+s Network commissioning
+¢ Network migration and integration
+> Transfer-to-maintenance (ETM) training
+« Project acceptance
+« The specific process is determined based on the actual situation.
+Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Configuration Scheme (1)
+Planning and Deployment and Network
+Design Implementation DERE GRE, Optimization
+1. Connect network devices using physical cables, configure link aggregation, and add interface description.
+For details, see the following two tables.
+Acc-S1
+Acc-S2
+Acc-S3
+Acc-S4
+AC1
+CORE-R1
+Page 30
+Eth-trunk 1
+E0/0/10
+E0/0/11
+Eth-trunk 1
+Eth-trunk 1
+Eth-trunk 1
+GE0/0/1
+GE0/0/1
+Mode: LACP-static
+Trunkport: GE0/0/1, GE0/0/2, GE0/0/3
+Description: to Agg-S1's eth-trunk 1
+Description: to AP1
+Description: to AP2
+Mode: LACP-static
+Trunkport: GE0/0/1, GE0/0/2, GE0/0/3
+Description: to Agg-S1's eth-trunk 2
+Mode: LACP-static
+Trunkport: GE0/0/1, GE0/0/2, GE0/0/3
+Description: to Agg-S1's eth-trunk 3
+Mode: LACP-static
+Trunkport: GE0/0/1, GE0/0/2, GE0/0/3
+Description: to Agg-S1's eth-trunk 4
+Description: to Agg-S1's GE0/0/2
+Description: to Agg-S1's GE0/0/1
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Agg-S1
+Eth-trunk 1
+Eth-trunk 2
+Eth-trunk 3
+Eth-trunk 4
+GE0/0/1
+GE0/0/2
+Mode: LACP-static
+Trunkport: GE0/0/3, GE0/0/7, GE0/0/8
+Description: to Acc-S1's eth-trunk 1
+Mode: LACP-static
+Trunkport: GE0/0/4, GE0/0/9, GE0/0/10
+Description: to Acc-S2's eth-trunk 1
+Mode: LACP-static
+Trunkport: GE0/0/5, GE0/0/11, GE0/0/12
+Description: to Acc-S3's eth-trunk 1
+Mode: LACP-static
+Trunkport: GE0/0/6, GE0/0/13, GE0/0/14
+Description: to Acc-S4's eth-trunk 1
+Description:
+ 
+to
+ 
+CORE-R1's GE0/0/1
+Description: to AC1's GE0/0/1
+
+Planning and Deployment and Network
+Design Implementation DERE GRE, Optimization
+Ga) ) Configuration Scheme (2)
+2. Assign VLANs based on interfaces. For details, see the following two tables.
+PVID:100 PVID:100
+Eth-trunk 4 Allow-pass VLAN 1, 100, 101 Eth-trunk 1 Trunk Allow-pass VLAN 1, 100, 101
+Acc-S1 Trunk
+E0/0/10 PVID:101 Eth-trunk 2 Trunk PVID:100
+0/0/11 Allow-pass VLAN 1, 101 run ran Allow pass VLAN 2, 100
+PVID:100 PVID:100
+Acoso Pe runk 1 Trunk Allow pass VLAN 2, 100 Eth-trunk 3 Trunk Allow pass VLAN 3, 100
+Agg-S1
+Other ports Access Default VLAN 2 99 PVID:100
+Eth-trunk 4 Trunk :
+PVID:100 Allow pass VLAN 4, 100
+Eth-trunk 1 Trunk allow pass VLAN 3, 100
+Acc-S3 GE0/0/2 Access Default VLAN 101
+Other ports Access Default VLAN 3
+. GEO0/0/1 Access __ Default VLAN 102
+Eth-trunk 1 Trunk PVID:100
+Allow pass VLAN 4, 100
+Acc-S4
+AC1 GEO/0/1 Access _ Default VLAN 101
+Other ports Access _ Default VLAN 4
+Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Configuration Scheme (3)
+Planning and
+Design
+Deployment and Network O&M
+Implementation
+3. Allocate IP addresses to STAs and APs using DHCP and statically configure IP addresses for network
+Page 32
+devices. For details, see the following two tables.
+VLANIF 1
+VLANIF 2
+VLANIF 3
+VLANIF 4
+VLANIF 100
+VLANIF 101
+VLANIF 102
+GEO/0/1
+Agg-S1
+CORE-R1 GE0/0/0
+LoopbackO
+192.168.1.254/24
+192.168.2.254/24
+192.168.3.254/24
+192.168.4.254/24
+192.168.100.254/24
+192.168.101.254/24
+192.168.102.2/30
+192.168.102.1/30
+Automatic obtaining via
+PPPoE
+1.1.1.1/32
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Acc-S1
+Acc-S2
+Acc-S3
+Acc-S4
+AC1
+VLANIF 100
+VLANIF 100
+VLANIF 100
+VLANIF 100
+VLANIF 101
+192.168.100.1/24
+192.168.100.2/24
+192.168.100.3/24
+192.168.100.4/24
+192.168.1.101/24
+Network
+Optimization
+
+Page 33
+Ga) ) Configuration Scheme (4)
+Planning and Deployment and Network O&M
+Design Implementation
+4. Configure the IP address allocation mode. For details about DHCP, see the following table.
+Gateway:192.168.1.254
+192.168.1.0/24 DNS:192.168.1.254
+Gateway:192.168.2.254
+192.168.2.0/24 DNS:192.168.2.254
+Gateway:192.168.3.254
+192.168.3.0/24 DNS:192.168.3.254
+Gateway:192.168.4.254
+192.168.3.0/24 DNS:192.168.4.254
+192.168.101.0/24 N/A
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Agg-S1 functions as a DHCP server.
+Agg-S1 functions as a DHCP server.
+Fixed IP addresses are allocated to printer (1)
+and the FTP server.
+Agg-S1 functions as a DHCP server.
+A fixed IP address is allocated to printer (2).
+Agg-S1 functions as a DHCP server.
+Fixed IP addresses are allocated to printer (3)
+and the network administrator.
+Agg-S1 functions as a DHCP server.
+The IP address (192.168.101.1) occupied by
+the AC is not allocated.
+Network
+Optimization
+
+Planning and Deployment and Network
+Design Implementation DERE GRE, Optimization
+Ga) ) Configuration Scheme (5)
+5. Configure routes. Static routes are used because the network scale is small and the number of NEs is
+also small. For details, see the following table.
+Acc-S1
+Acc-S2 Route that enables the network administrator to
+0.0.0.0 0 192.168.100.254 access Layer 2 switches across network
+Acc-S3 segments.
+Acc-S4
+AC1 0.0.0.0 0 192.168.101.254 Route that enables the administrator to access
+AC1 across network segments.
+Agg-S1 0.0.0.0 0 192.168.1021 Route that matches the traffic destined for the
+Internet
+192.168.0.0 20 192.168.1022 Aggregated route for the core router to access
+the intranet
+CORE-R1
+Route pointing to an interface on the external
+Default route network
+Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 35
+Ga) ) Configuration Scheme (6)
+6.
+Planning and Deployment and Network O&M
+Design Implementation
+Configure network management. Set the network management mode to Telnet-based remote management and
+authentication mode to Authentication, Authorization, and Accounting (AAA). For details, see the following table.
+Acc-S1
+Acc-S2
+Acc-S3
+Acc-S4 Telnet AAA
+Agg-S1
+CORE-R1
+AC1
+AP1&AP2 Centralized control and
+management by the AC N/A
+Network egress configuration
+The user name and password must be
+complex and different. In addition, record
+them.
+N/A
+CORE-R1 GE0/0/0 PPPoE Easy IP
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+User name: PPPoEUser123
+Password: Huawei@123
+Network
+Optimization
+
+Planning and Deployment and Network
+Design Implementation DERE GRE, Optimization
+Ga) ) Configuration Scheme (7)
+8. Configure the WLAN as planned.
+9. Perform security-related configurations. For details, see the following table.
+| Module Related Technology Configuration
+1. Configure an advanced ACL to block the traffic from 192.168.1.0/24 to
+the service network segment on the intranet and allow other traffic to
+pass through. Configure a traffic filtering policy to reference this ACL
+Traffic monitoring Traffic policy, NAT, and ACL and apply the policy to an interface.
+2. Configure a basic ACL to permit only the traffic from 192.168.1.0/24
+and apply this ACL to the NAT configuration on an outbound network
+interface.
+Network Configure a basic ACL to permit only the packets whose source IP
+management AAA and ACL address is the administrator's IP address and wildcard mask is 0, and
+security apply the ACL to the VTY interfaces of all managed devices.
+DHCP security DHCP snooping Enable DHCP snooping on all access switches and configure the uplink
+interfaces as trusted interfaces.
+Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+@)>) Small Campus Network Commissioning
+1. Connectivity Test 2. High 5 eliability 3. Service Performance Test
+Commissioning
+Basic link interconnection test Loop prevention function test Service traffic test
+Layer 2 interoperability test Path switchover test Access control test
+Layer 3 interoperability test Hot Standby (HSB) test
+Page 37 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Planning and Deployment and Network
+Design Implementation SEO Optimization
+=| ) Small Campus Network 0&M
+« After a small campus network is provisioned, it enters the O&M phase. Common O&M
+methods include:
+« Device environment check
+2 Basic device information check
+2 Device running status check
+2 Service check
+2 Alarm handling
+« When the network scale reaches a certain level, the network management software can
+be used for network management and O&M to improve efficiency.
+Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+|) Small Campus Network Optimization
+¢ Network optimization can comprehensively improve the reliability and robustness of
+networks and better support the development of enterprise services. Common network
+optimization solutions include but are not limited to:
+2 Device performance optimization, such as hardware upgrade and software version update
+2 Basic network optimization, such as network architecture optimization and routing protocol
+adjustment
+2 Service quality optimization, such as preferential forwarding of voice and video services
+¢ Formulate an appropriate network optimization solution based on network requirements
+and actual conditions.
+Page 39 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[Figura da Pag.1] Labels: eg Wha” 7; - wt; >; i " x CRALE C/ * -; soperne em Pe... a ee > < ee; Wie S 4) / > atcew kg >.. Caption: (errore caption)
+[Figura da Pag.1] Labels: sae ee ae eh: ays 6) ~~ A.B. 1308 es yy Ae rm 2; SD — <——=; Q M5) 4 UNIVERSITA DEGLI STUDI; MCCS DI PERUGIA. Caption: (errore caption)
+[Figura da Pag.1] Labels: Fondamenti di Internet; Typical Campus Network Architectures and Practices; Page 0 Prof. Gianluca Reali. Caption: (errore caption)
+[Figura da Pag.2] Labels: ) Foreword; ¢ A broad range of places, such as campuses, office spaces, and shopping malls, are; covered by networks. You can access internal resources of your school, access internal. Caption: (errore caption)
+[Figura da Pag.2] Labels: printers of your company to print documents, or access the Internet to browse news; through the networks.; « These networks belong to campus networks and are generally constructed by; enterprises or organizations. Campus networks not only improve the operational; efficiency of enterorises. but also provide network access services for external users.. Caption: (errore caption)
+[Figura da Pag.2] Labels: ¢ This chapter describes the basic architecture of a campus network and details how to; build a campus network.; Page 1 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.3] Labels: oF ) Objectives; ¢ Upon completion of this course, you will be able to:; e Understand the definition of campus networks.. Caption: (errore caption)
+[Figura da Pag.3] Labels: e Understand the typical networking architectures of campus networks.; e Master the planning and design methods of small campus networks.; e Master the deployment and implementation methods of small campus networks.; e Understand the small campus network O&M concepts.. Caption: (errore caption)
+[Figura da Pag.3] Labels: 2 Understand the small campus network optimization concepts.; e Independently complete a campus network project.; Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.4] Labels: Contents; 1. Basic Concepts of Campus Networks; 2. Typical Campus Network Construction Process. Caption: (errore caption)
+[Figura da Pag.4] Caption: (errore caption)
+[Figura da Pag.4] Labels: Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.5] Labels: What Is a Campus Network?; Outside a; (ee gare Sf Cn Coe Sean ae. GY oe fe. Caption: (errore caption)
+[Figura da Pag.5] Labels: Hee VV Ie atom MOWVUIR AVVENIND; Inside a Demilitarized zone Campus egress layer; DMZ; ggregation layer security; management Terminal layer. Caption: (errore caption)
+[Figura da Pag.5] Labels: cea <P of a =; scenario Ede Edacation srr Enterprise Pee; Office building Campus Factory Government Enterprise Bank; A campus network is a local area network (LAN) that connects people and things in a specified area. Typically, a campus; network has only one management entity. If there are multiple management entries in an area, the area is considered to have; multiple campus networks.; Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.6] Labels: Typical Campus Network Architecture; Internet WAN _ uppes ry Branch campus; ‘ O—O— eto ~; i Network management zone +33. Caption: (errore caption)
+[Figura da Pag.6] Labels: —— ed ae “ Egress zone Bek peK; Traveling . aa -z etd Fj ll; employees iMaster NCE — ae: ee . yc ye PDS]; 33 BK BK Be q D; ac El 3s fog ------0g ps Li ees ENS be; —s—; E———— SS; eLog Ha <p, <p, = Core layer E i P . nD); Pw : ’; . 7 Data center @ ae; \\ <5 Li boat 2038. Caption: (errore caption)
+[Figura da Pag.6] Labels: —_ >< LS ><; D q p q W; BN Br Ng BN; Nocera ory eee eco + Typically, a campus network is designed in a; layer hierarchical and modular manner.; * Campus networks can be classified into small,; GEE 1p, ~ ag * midsize, and large campus networks based on the; ami 1 CJ sos) Ci] 0 number of terminals or NEs.; = jo) = Cc) oa on; Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.7] Labels: Typical Architecture of Small Campus Networks; Mintek * Small campus networks are typically deployed in; | enanararine \ashara tha nitp~mhar nf annnce jiceare ic. Caption: (errore caption)
+[Figura da Pag.7] Labels: small (several or dozens of users). A small campus; & network can cover only one location, has a simple; architecture, and is constructed to enable mutual; access between internal resources.; = -; > ((p) = (p) . “— ¢ Characteristics of small campus networks:; dw = y) 0; . Fatar 4 Small number of users Number of; 7 ma umber 0; 0) a | 0 tarminals < 200. Caption: (errore caption)
+[Figura da Pag.7] Labels: E E ° Only one location oO; Number of NEs < 25; ° Simple network architecture; Network topology of a chain cafe . .; ° Simple network requirements; Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.8] Labels: Typical Architecture of Midsize Campus Networks; intemet + Amidsize campus network supports access of; ra hundreds to thousands of users.. Caption: (errore caption)
+[Figura da Pag.8] Labels: E , “E, ra *« |The modular design ts introduced to midsize; gress layer af 7 Fy campus networks, that is, the networks can be; — partitioned by function. However, the number of; Core layer a= sa i function modules is small. In most cases, a midsize; Se campus network is flexibly partitioned based on; “VY? service requirements.; = Mie ve vie; paatoaatien (ey fF Ei * Characteristics of midsize campus networks:; AC; | “E ne a a Nimmber of INN to. Caption: (errore caption)
+[Figura da Pag.8] Labels: “ ~ WHUMSILeS HOW VUIN SOvVale rs OB; 0 terminals 2000; Access layer 4 2 Most commonly used; ap Number of 35 to 100; i i i 5 i im 0 ° Function partition NEs; ° Typical three-layer network architecture: core,; Network topology of a foreign trade company aggrssation, and access; Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.9] Labels: Typical Architecture of Large Campus Networks; + Alarge campus network can cover multiple buildings; Cloud. DC ) sncioye! and connect to multiple campuses in a city through. Caption: (errore caption)
+[Figura da Pag.9] Labels: WANs. Typically, a large campus network provides; Internet/WAN . .; meme access services and allows traveling employees to; HQ campus Branch campus | _:; access their company's internal network through; © Network © technologies such as Virtual Private Network (VPN).; =z, L management =; a e c OHSS * Characteristics of large campus networks:; Ei te Ld Ci Ci ° Wide coverage; ~ ~ Number of oo. Caption: (errore caption)
+[Figura da Pag.9] Labels: 0 © Large number of users terminals 7 £UUU; q * Complex network requirembiutsiber of NEs > 100; 5 Ci Ci Ci Ci im 0 2 Comprehensive function modules; 0 ~ _— — — ; « Complex network architecture; Network topology of a large enterprise; Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.10] Labels: Main Protocols and Technologies of Campus Networks; ENCES THANE alg wan Common; En ) protocols/technologies. Caption: (errore caption)
+[Figura da Pag.10] Labels: AC NAT, OSPF, static routing, and PPPoE; 35, 5B Egress zone; SNMP/ = BI aaa; NETCONF > a; eee ¢ eee Stacking, OSPF, static routi d ACL; nh ae acking, , static routing, an core layer; Sh DHCP, stacki link ti; — Seas . stacking, link aggregation,; f | as ~ spanning tree protocol, OSPF, and. Caption: (errore caption)
+[Figura da Pag.10] Labels: static routing Aggregation layer; VLAN, spanning tree, link aggregation,; and AAA; Access layer; Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.11] Labels: Contents; 1. Basic Concepts of Campus Networks; 2. Campus Network Project Practice. Caption: (errore caption)
+[Figura da Pag.11] Caption: (errore caption)
+[Figura da Pag.11] Labels: Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.12] Labels: Networking Requirements; « A company (with about 200 employees) plans to build a brand-new campus network to; meet service development requirements. The network requirements are as follows:. Caption: (errore caption)
+[Figura da Pag.12] Labels: c Meet the current services requirements of the company.; e Use a simple network topology for easy O&M.; e Provide wired access for employees and wireless access for guests.; 2 Implement simple network traffic management.. Caption: (errore caption)
+[Figura da Pag.12] Labels: © EHSOure HeWwOrk sOCurily.; Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.13] Labels: Campus Network Project Lifecycle; ah Plannina and decian C) B® nasciasicscce SRA imsclamanrating. Caption: (errore caption)
+[Figura da Pag.13] Labels: ee ae Se a ee ae; + Device model selection + Device installation; + — Physical topology + Single UPS commissioning; + — Logical topology + Joint commissioning test; + — Technologies and + Network migration and integration; protocols; 3) Network O&M 4) Network optimization; rt [eS ane Eee ee See en ee ee a ea amraelos Ree tse:. Caption: (errore caption)
+[Figura da Pag.13] Labels: UN NA OO _—~_ ee; + — Software and configuration backup O + Software and configuration backup; + — Centralized monitoring via the + User experience improvement; network management system (NMS); + Software upgrade; Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.14] Labels: Small Campus Network Design; 1. Networking : , : 4. Network O&M and. Caption: (errore caption)
+[Figura da Pag.14] Labels: Device model selection Basic service Egress security Basicnewolk; management; Physical topology WLAN Intranet wired security Intelligent O&M; . Intranet wireless; Layer 2 loop prevention ;; security; Network reliability. Caption: (errore caption)
+[Figura da Pag.14] Labels: Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.15] Labels: Networking Solution Design; The physical topology is designed upon; full consideration of the budget and Internet + The names should be easy to; Tl AenAinin ee, a es a cen ene |. Caption: (errore caption)
+[Figura da Pag.15] Labels: . CORE-R1 &® + The interfaces should meet the; figure shows the topology. CEG bandwidth requirements of services.; GEO/0/1; GE0/0/2 FREY; =i GEO/O/1 Aon ee; GEOIOI3 E006; ACI oo; oS S00,; EO/0/1 —_ iC) 5 EO/0/1 EO/O/1; oO Cf]. Caption: (errore caption)
+[Figura da Pag.15] Labels: Acc-S1 Acc-S2R "4 \_ Acc-S3 Acc-S4 > 7 _\; E0/0/10 0/0/11 —> Printer; GE0/0/0 GE0/0/0 Printer; a ra); «© Bie ys ae feo; AP1 AP2 ieeenen Printer Administrator; Guest reception center R&D department Marketing department Administrative department; Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.16] Labels: Basic Service Design: VLAN Design; + You are advised to assign consecutive VLAN IDs to ensure proper use of VLAN resources.; + VLANs can be classified into service VLANs, management VLANs, and interconnection VLANs as required.. Caption: (errore caption)
+[Figura da Pag.16] Labels: ¢ Typically, VLANS are assigned based on interfaces.; Service VLAN design Management VLAN design; : VEANIF 100; MALES) SSL SIME) 192.168:100.254; geographic area; lanical area nerannnal ctriictiira oo Management rs. Caption: (errore caption)
+[Figura da Pag.16] Labels: —_— SS i——? | i——? | ad & <s; VLAN assignment by In most cases, Layer 2 switches use VLANIF interface addresses as; service type management addresses. It is recommended that all switches on the; same Layer 2 network use the same management VLAN and their; management IP addresses be on the same network segment.; Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.17] Labels: VLAN Planning; «+ Amanagement VLAN is reserved for Layer 2 devices.; + VLANs are classified into the guest VLAN, R&D department VLAN, marketing department VLAN, and administrative; danartmant \/| AN. Caption: (errore caption)
+[Figura da Pag.17] Labels: + Layer 3 switches need to be connected to routers through VLANIF interfaces. Therefore, interconnection VLANs need to; be reserved.; *« AVLAN is established for CAPWAP tunnels between APs and ACs.; VLAN ID VLAN Description; 1 Guest VLAN or WLAN service VLAN; 2 R&D department VLAN. Caption: (errore caption)
+[Figura da Pag.17] Labels: K Marketing department VLAN; 4 Administrative department VLAN; 100 Management VLAN of Layer 2 devices; 101 Management VLAN of WLAN services; 102 Interconnection VLAN between Agg-S1 and CORE-R1; Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.18] Labels: Basic Service Design: IP Address Design. Caption: (errore caption)
+[Figura da Pag.18] Labels: 192.168.100.254 ee; 192.168:100.254; VLANIF 100 VLANIF 100; 192.168.100.1 Management 192.168.100.2; eee VLAN 100; Employee Partner Guest ; ;; 192.168.1.0/24 192.168.5.0/24 192.168.100.0/24 Layer 2 devices use VLANIF interface IP addresses as the management; IP addresses. It is recommended that all Layer 2 switches connected to a; datewav use on the same network seaqment.. Caption: (errore caption)
+[Figura da Pag.18] Labels: The service IP addresses are the IP addresses of servers, hosts, or; gateways. : : :; * — Itis recommended that the gateway IP addresses use the same IP address for network device interconnection; rightmost digits, such as .254.; + The IP address ranges of different services must be clearly; distinguished. The IP addresses of each type of service terminals It is recommended that the interconnection IP addresses use a; must be continuous and can be aggregated. bi .; .  AnIP address segment with a 24-bit mask is recommended. 30-bit mask, and core devices use smaller host IP addresses.; Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.19] Labels: BED SS ReinEA CN ane n; * Reserve sufficient IP addresses based on the number of clients to be accessed and plan network segments and gateway addresses for; each type of service.; « Plan network segments for management IP addresses.. Caption: (errore caption)
+[Figura da Pag.19] Labels: * Divide network segments for interconnection IP addresses.; Jel Tos ety. Gateway Address Network Segment Description; Segment/Mask; 192.168.1.0/24 192.168.1.254 Network segment to which wireless access guests belong, with; the gateway located on Agg-S1; 192. 168.2.0/24 192.168.2.254 Network segment to which the R&D department belongs, with; the gateway located on Agg-S1; 192 168.3.0/24 192. 168.3.254 Network segment to which the marketing department belongs,; with the gateway located on Agg-S1. Caption: (errore caption)
+[Figura da Pag.19] Labels: 192 168.4.0/24 192.168.4.254 Network segment to which the administrative department; belongs, with the gateway located on Agg-S1; 192.168.100.0/24 192.168.100.254 Management network segment of Layer 2 devices, with the; gateway located on Agg-S1; 192.168.101.0/24 N/A Management network segment of WLAN services; 192.168.102.0/30 N/A Network segment between Agg-S1 and CORE-R1; 1.1.1.4/32 NIA Loopback interface address on CORE-R1, which is used as; the management IP address; Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.20] Labels: Basic Service Design: IP Address Allocation Mode; Design; It is recommended that servers and special terminals (such; as punch-card machines, printing servers, and IP. video. Caption: (errore caption)
+[Figura da Pag.20] Labels: Internet SUTVElanCe GEVICES) USE stduiCally DOUNG IF dQaresses.; OD cove Fess; device; WAN interface: static IP Internet; address, DHCP, or PPPoE; & Egress ‘> Egress; & It is recommended that IP; gateway gateway nitiiinceme rai new woerc. Caption: (errore caption)
+[Figura da Pag.20] Labels: are allocated by gateways; IP addresses of WAN interfaces are assigned by the \ /| AP through DHCP.; carrier in static, DHCP, or PPPoE mode. The IP; addresses of the egress gateways need to be obtained yy ); from the carrier in advance. | | 0); Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.21] Labels: IP Address Allocation Mode Planning; + The egress gateway obtains an IP address through PPPoE.; + Allterminals obtain IP addresses through DHCP. The servers and printers are assigned fixed IP addresses.. Caption: (errore caption)
+[Figura da Pag.21] Labels: « IPF addresses of all network devices (except Ars) are statically configured.; Le Oe lets Allocation Mode Allocation Mode Description; Segment/Interface; 192.168.1.0/24 Allocated by Agg-S1. Agg-S1 allocates; ieee 2 Oi DHCP fixed IP addresses to fixed devices such; dpanlestsoie as servers and printers; 192.168.4.0/24 P ;; 192.168.100.0/24 Static Device management IP addresses, which. Caption: (errore caption)
+[Figura da Pag.21] Labels: ee ee ee eee ee; IP addresses of ACs are statically; 192.168.101.0/24 DHCP configured, and IP addresses of APs are; allocated by Agg-S1.; 192.168.102.0/30 Static Interconnection IP address, which is; statically configured; GE0/0/0 on CORE-R1 PPPoE IP address assigned by the carrier; Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.22] Labels: Basic Service Design: Routing Design; * Routing design inside a campus network:; * Intra-network segment: After an IP address is allocated; using DHCP, a default route is generated by default and; Internet Agg-S$1 functions as a Layer 3 gateway.. Caption: (errore caption)
+[Figura da Pag.22] Labels: * Inter-network segment: The current network topology is; & simple. You can deploy static routes on all devices that; need to forward Layer 3 data to meet the requirements.; No complex routing protocol needs to be deployed.; Layer 3 network vie ; . ;; wenn renee renee ene e nee e eee = 4 a" < Ge + Routing design at the campus egress: Configure; Layer 2 network static default routes.; — > CL] —_— —_— =e; —S — om — — = em. Caption: (errore caption)
+[Figura da Pag.22] Labels: Printer Printer; A A; G L_\; ry ES as ES Gs; FTP server Printer Administrator; Guest reception center R&D department Marketing department Administrative department; Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.23] Labels: WLAN Design; WLAN networking design WLAN data forwarding design; DHCP server AC Ei} -+3— Network; | >=] on yc ——_—; AC: | Natwark ry. Caption: (errore caption)
+[Figura da Pag.23] Labels: 1; 192.168.101.1/24 Zl; 5; Fad User data; <! ———>; S!; 192.168.101.X/24 192.168.101./24 a] Control data; @) ! soccc--->; 1 a; 1; 1; e Based on the IP addresses of the AC and APs and whether. Caption: (errore caption)
+[Figura da Pag.23] Labels: data traffic passes through the AC, the networking can be; Gudea mic Control packets and data packets are transmitted on a WLAN; Inline Layer 2 networkin ° .; ° Bypass Layer 2 networking a Control packets are forwarded through CAPWAP tunnels.; = Inline Layer 3 networking ao User data packets are forwarded in tunnel or direct mode.; = Bypass Layer 3 networking e This example uses the direct forwarding mode.; « This example uses the bypass Layer 2 networking.; Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.24] Labels: ey Timplomentatn Network O8M optimization; Pte va; Management VLAN for APs VLAN 101; Service VLAN for STAs VLAN 1; ee Aqa-S1 functions as a DHCP server to allocate IP addresses to APs and STAs. The default. Caption: (errore caption)
+[Figura da Pag.24] Labels: DONE SEIVer gateway address of STAs is 192.168.1.254.; IP address pool for APs 192.168.101.2 to 192.168.101.253/24; IP address pool for STAs 192.168.1.1 to 192.168.1.253/24; Source interface address of VLANIF 101: 192.168.101.1/24; the AC; AP grou Name: ap-group1; group Referenced profiles: VAP profile WLAN-Guest and regulatory domain profile default; Regulatory domain profile Name-default; 9 y P Country code: CN; ae _ Name: WLAN-Guest. Caption: (errore caption)
+[Figura da Pag.24] Labels: een Prowe SSID name: WLAN-Guest; Name: WLAN-Guest; Security profile Security policy: WPA-WPA2+PSK+AES; Password: WLAN@Guest123; Name: WLAN-Guest; - Forwarding mode: direct forwarding; VAP profile Service VLAN: VLAN 1; Referenced profiles: SSID profile WLAN-Guest and security profile WLAN-Guest; Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.25] Labels: Reliability Design; + Port-level reliability:; Internet Eth-Trunk is used to improve reliability between access; switches and aggregation switches and increase link; | bandwidth.. Caption: (errore caption)
+[Figura da Pag.25] Labels: & + Device-level reliability; ve iStack or cluster switch system (CSS) technology can; =d an be used, which is not involved in this networking.; = =< =o — =— fal,; =) Sue Ss Sa; Printer Printer. Caption: (errore caption)
+[Figura da Pag.25] Labels: & A; wo 5; BAA CY &; FTP server Printer Administrator; Guest reception center R&D department Marketing department Administrative department; Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.26] Labels: Layer 2 Loop Prevention; * Question: Although no redundant link is introduced to the; current network segment, how can we prevent Layer 2; Internet network loops caused by misoperations of office. Caption: (errore caption)
+[Figura da Pag.26] Labels: personnel?; & + Suggestion: Use spanning tree technology on the Layer 2; network to prevent loops. In addition, you are advised to; =F vi manually configure Agg-S1 as the root bridge.; e; as; ra a = =; =. Caption: (errore caption)
+[Figura da Pag.26] Labels: WHSCOMMECUOT ee On; Printer Printer; a A; ry ED as ES ts; FTP server Printer Administrator; Guest reception center R&D department Marketing department Administrative department; Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.27] Labels: —@) SS ReinEA CN ane n; Static NAT Dynamic NAT NAPT and Easy IP; 1.2.3.4 1.2.3.4; ® Wetwokegmes nterne & Network egress Internet & NSE GOIEES Internet. Caption: (errore caption)
+[Figura da Pag.27] Labels: PS or a ee poss eee; H H pocccr rrr ccc ccc ereeenes f 5; | NAT mapping table ; | NAT address pool ; | NAT mapping table; TD ' Ose soccer reer ' ' Pri i, I; 1 = ~ 1 f 1 rivate IP Public IP; 1 Private IP Address|Public IP Address ! i 1234 Notiruse ' ! Address:Port Address:Port |; 1 1 4 1 1 Number Number '; 1 192.168.1.1 1.2.3.1 ' t 7548 ‘i ; ; 1; i i ' otiniuse 1 i 192.168.1.10:80 1.2.3.4:10335 J; i) i) 1 ST; 1 192.168.1.2 1.2.3.2 ! 1333 Notin use 1; Cee! L___-____-__-- eee! +  NAPT translates port numbers based on dynamic; * — Static NAT applies to scenarios where a large + — Dynamic NAT introduces the address pool A MAT Teta Pera areag ana PSHE BESaE; number of static IP addresses are configured and concept. Available IP addresses in the address of outbound network interfaces are dynamicall; clients need to use fixed IP addresses. pool are allocated to clients for Internet access. allocated Yu y; 2222. Caption: (errore caption)
+[Figura da Pag.27] Labels: NAT Server; | NAT mapping table; '; [enna 1 , ,; E & 1.2.3.4 internat SSeS ee The NAT server applies to scenarios; Network egress fm Address:PortNumber | Address:PortNumber [if where a server on the intranet needs to; Server providing '  492.168.1.1:10321 4.2.3.4:1025 ; externally provide services.; : ; ;; services externally ' 492.168.1.2:17087 1.2.3.4:1026 '; i dea; Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.28] Labels: Security Design; ‘a Internet Internal traffic rs Fad trusted port Pei |. Caption: (errore caption)
+[Figura da Pag.28] Labels: R&D A Guesta oJ —_, Game; department uest data - DHCP-enabled home router Access switch DHCP server; = —————=a; eo I; ‘; Marketing LAN ‘Me Cuestinetwork + Onacampus network, employees often connect unauthorized; department “t= 4 A DHCP-enabled wireless routers to the network, causing private; a) address disorders, address conflicts, and Internet access failures.; ae + In most cases, DHCP snooping is enabled on access switches to; prevent this issue.; Administrative 4 4 ty; department +--%---: U U U. Caption: (errore caption)
+[Figura da Pag.28] Labels: . howe oe can access each other but cannot access * When network devices are managed through Telnet or the; e interme. . web system, you can use access control list (ACL) technology; + Guests can access the Internet but cannot access the internal ae :; RGtWOTK to allow only users with fixed IP addresses to log in to the; + Youcan use technologies such as traffic policing and traffic devices. ;; filtering to isolate the internal network from the external network + Forthe centralized NMS, SNMPv3 supports identity; and use NAT to control the internal network's access to the authentication and encryption, significantly enhancing the; Internet. NMS security.; Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.29] Labels: Network O&M and Management Design; eT «| EWA o.. Caption: (errore caption)
+[Figura da Pag.29] Labels: VY SY;; SSH/Telnet Telemetry of; LAN Network ————*"¥; iMaster NCE; «; e Zs; Lge ee; * When the network administrator and devices’ IP 7 7 .; oe len wepdsditome te Hon CORIBADLSE teow fomsdittmccnt RIGA bias. Caption: (errore caption)
+[Figura da Pag.29] Labels: adaresses are routabie to each other, you can manage passant gay Beat Neamyromng., Riocwneny gy patterning aatinceirnes!) sievamcsier—; the devices through Telnet, the web system, or SSH. iMaster NCE can also be used for network management; + When there are a large number of devices on a network, and O&M to implement autonomous network driving.; you can deploy an SNMP-based unified NMS for network; O&M and management.; Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.30] Labels: Small Campus Network Deployment and; Implementation; « The project deployment and implementation process must include:; « Solution formulation. Caption: (errore caption)
+[Figura da Pag.30] Labels: « Device installation; e Network commissioning; e Network migration and integration; e Transfer-to-maintenance (ETM) training. Caption: (errore caption)
+[Figura da Pag.30] Labels: 2 Project acceptance; « The specific process is determined based on the actual situation.; Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.31] Labels: Configuration Scheme (1); 1. Connect network devices using physical cables, configure link aggregation, and add interface description.; For details, see the following two tables.. Caption: (errore caption)
+[Figura da Pag.31] Labels: SS OE ee aos» ———SS=Sae_a-—> ee SSSSsssnmoaOrm; Mode: LACP-static Mode: LACP-static; Eth-trunk 1 Trunkport: GE0/0/1, GE0/0/2, GE0/0/3 Eth-trunk 1 Trunkport: GE0/0/3, GE0/0/7, GE0/0/8; Acc-S1 Description: to Agg-S1's eth-trunk 1 Description: to Acc-S1's eth-trunk 1; E0/0/10 Description: to AP1 Mode: LACP-static; 7 Eth-trunk 2 Trunkport: GE0/0/4, GE0/0/9, GE0/0/10; Eo/0/11 Description: to AP2 Description: to Acc-S2's eth-trunk 1; Mode: LACP-static Mode: LACP-static; ecS2 Eth-trunkil, | “Trunkport: GEO/O0/, GEOI0/2, CEOIO/S Agg-S1 —Eth-trunk 3 Trunkport: GEO/0/5, GEO/0/11, GEO/0/12; Description: to Agg-S1's eth-trunk 2 Description: to Acc-S3's eth-trunk 1; Mode: LACP-static Mode: LACP-static; Aare Eth trink 4 Trhinknat: RENINI4 RENINID REN/IN/2 a a aes EO one ome en Kamm BO. Caption: (errore caption)
+[Figura da Pag.31] Labels: en nina Tages, p mech igwa inn eye Hiowenparry Eth-trunk 4 Irunkport: GEU/U/O, GEU/U/15, GEU/U/IT4; Description: to Agg-S1's eth-trunk 3 Description: to Acc-S4's eth-trunk 1; Mode: LACP-static 5 ati '; GE0/0/1 D tion: to CORE-R1's GE0/0/1; Acc-S4 Eth-trunk 1 Trunkport: GEO/0/1, GE0/0/2, GEO/0/3 Se s; Description: to Agg-S1's eth-trunk 4 GE0/0/2 Description: to AC1's GE0/0/1; AC1 GE0/0/1 Description: to Agg-S1's GE0/0/2; CORE-R1 GEO0/0/1 Description: to Agg-S1's GE0/0/1; Page 30 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.32] Labels: Configuration Scheme (2); 2. Assign VLANs based on interfaces. For details, see the following two tables.; SCAR AAT aan. Caption: (errore caption)
+[Figura da Pag.32] Labels: ome ee ee ee; Ethtrunk 4 Allow-pass VLAN 1, 100, 101 Ethtrunk1 Trunk Atlow-pass VLAN 1, 100, 104; Acc-S1 Trunk; E0/0/10 PVID-101 Eth-trunk2 Trunk PV!0:100; 0/0/11 Allow-pass VLAN 1, 101 trun run Allow pass VLAN 2, 100; PVID:100 PVID:100; Aces? Fuvtunk 1 Trunk allow pass VLAN 2, 100 Eth-trunk3 Trunk atiow pass VLAN 3, 100; Agg-S1; Other ports Access Default VLAN 2 79 PVID:100; Eth-trunk 4 Trunk ”; PVID:100 Allow pass VLAN 4, 100; Ethtrunk 1 Trunk allow pass VLAN 3, 100; Acc-S3 GEO/0/2 Access Default VLAN 101. Caption: (errore caption)
+[Figura da Pag.32] Labels: MUTED POIs FACCESS VEIAuIl VLAAIN oO; inark i amie PVID:100 GEO0/0/1 Access Default VLAN 102; Faun un Allow pass VLAN 4, 100; Acc-S4; AC1 GE0/0/1 Access Default VLAN 101; Other ports Access Default VLAN 4; Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.33] Labels: Configuration Scheme (3); 3. Allocate IP addresses to STAs and APs using DHCP and statically configure IP addresses for network; devices. For details, see the following two tables.; | Device | Interface | Address/Mask § [MMM Device| Interface | Address/Mask = |. Caption: (errore caption)
+[Figura da Pag.33] Labels: VLANIF 1 192.168.1.254/24 Acc-S1 VLANIF 100 192.168.100.1/24; VLANIF 2 192.168.2.254/24 Acc-S2_ VLANIF 100 =192.168.100.2/24; VLANIF 3 192.168.3.254/24 Acc-S3_ VLANIF 100 = =192.168.100.3/24; Agg-S1 VLANIF 4 192.168.4.254/24 Acc-S4  VLANIF 100 = 192.168.100.4/24; VLANIF 100 192.168.100.254/24 AC1 VLANIF 101 = 192.168.1.101/24; VLANIF 101 192.168.101.254/24; VLANIF 102 192.168.102.2/30. Caption: (errore caption)
+[Figura da Pag.33] Labels: SEY 1W92.100.1U2. 1/00; Automatic obtaining via; CORE-R1 GE0/0/0 PPPoE; LoopbackO 1.1.1.1/32; Page 32 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.34] Labels: neem Network O&M ane n; Configuration Scheme (4); 4. Configure the IP address allocation mode. For details about DHCP, see the following table.; | NetworkSegment | OtherParameters | Remarks o6§8= |} |. Caption: (errore caption)
+[Figura da Pag.34] Labels: Gateway:192.168.1.254 '; 192.168.1.0/24 DNS:192.168.1.254 Agg-S1 functions as a DHCP server.; . Agg-S1 functions as a DHCP server.; 192.168.2.0/24 Gateway:192.168.2.254 Fixed IP addresses are allocated to printer (1); DNS:192.168.2.254; and the FTP server.; 192.168.3.0/24 Gateway:192.168.3.254 Agg-S1 functions as a DHCP server.; a DNS:192.168.3.254 A fixed IP address is allocated to printer (2).; Agg-S1 functions as a DHCP server.; Gateway:192.168.4.254 : .; 192.168.3.0/24 NIG.AG GEE A EA Fixed IP addresses are allocated to printer (3). Caption: (errore caption)
+[Figura da Pag.34] Labels: ees and the network administrator.; Agg-S1 functions as a DHCP server.; 192.168.101.0/24 N/A The IP address (192.168.101.1) occupied by; the AC is not allocated.; Page 33 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.35] Labels: neem Network O&M ane n; Configuration Scheme (5); 5. Configure routes. Static routes are used because the network scale is small and the number of NEs is; also small. For details, see the following table.; |. Caption: (errore caption)
+[Figura da Pag.35] Labels: a a; Acc-S1; Acc-S2 Route that enables the network administrator to; 0.0.0.0 0 192.168.100.254 access Layer 2 switches across network; Acc-S3 segments.; Acc-S4; ACI 0.0.0.0 0 192.168.101.254 Route that enables the administrator to access; AC1 across network segments.; Aaa-81 0.0.0.0 0 192.168.102.1 Route that matches the traffic destined for the. Caption: (errore caption)
+[Figura da Pag.35] Labels: — MME rNet; 192.168.0.0 20 192.168.1022 Aggregated route for the core router to access; the intranet; CORE-R1; Route pointing to an interface on the external; Default route; network; Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.36] Labels: @} ~ - ~; 6. Configure network management. Set the network management mode to Telnet-based remote management and; authentication mode to Authentication, Authorization, and Accounting (AAA). For details, see the following table.. Caption: (errore caption)
+[Figura da Pag.36] Labels: FALLOT; Acc-S2; InGCS3 The user name and password must be; Acc-S4 Telnet AAA complex and different. In addition, record; Agg-S1 them.; CORE-R1; AC1; Apigap2 Centralized controland yp NIA. Caption: (errore caption)
+[Figura da Pag.36] Labels: ene ee eee ee; 7. Network egress configuration; User name: PPPoEUser123; CORE-R1 GE0/0/0 PPPoE Easy IP Password: Huawei@123; Page 35 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.37] Labels: neem Network O&M ane n; Configuration Scheme (7); 8. Configure the WLAN as planned.; 9. Perform security-related configurations. For details, see the following table.. Caption: (errore caption)
+[Figura da Pag.37] Labels: [Module | Related Technology || Configuration |; 1. Configure an advanced ACL to block the traffic from 192.168.1.0/24 to; the service network segment on the intranet and allow other traffic to; pass through. Configure a traffic filtering policy to reference this ACL; Traffic monitoring Traffic policy, NAT, and ACL and apply the policy to an interface.; 2. Configure a basic ACL to permit only the traffic from 192.168.1.0/24; and apply this ACL to the NAT configuration on an outbound network; interface.. Caption: (errore caption)
+[Figura da Pag.37] Labels: Network Configure a basic ACL to permit only the packets whose source IP; management AAA and ACL address is the administrator's IP address and wildcard mask is 0, and; security apply the ACL to the VTY interfaces of all managed devices.; DHCP security DHCP snooping Enable DHCP snooping on all access switches and configure the uplink; interfaces as trusted interfaces.; Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.38] Labels: neem Network O&M ane n; Small Campus Network Commissioning. Caption: (errore caption)
+[Figura da Pag.38] Labels: Basic link interconnection test Loop prevention function test Service traffic test; Layer 2 interoperability test Path switchover test Access control test; Layer 3 interoperability test Hot Standby (HSB) test. Caption: (errore caption)
+[Figura da Pag.38] Labels: Page 37 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.39] Labels: Small Campus Network O&M; ¢ After a small campus network is provisioned, it enters the O&M phase. Common O&M; methods include:. Caption: (errore caption)
+[Figura da Pag.39] Labels: e Device environment check; e Basic device information check; e Device running status check; e Service check. Caption: (errore caption)
+[Figura da Pag.39] Labels: So PALATE TanQHihg; « When the network scale reaches a certain level, the network management software can; be used for network management and O&M to improve efficiency.; Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.40] Labels: Small Campus Network Optimization; ¢« Network optimization can comprehensively improve the reliability and robustness of; networks and better support the development of enterprise services. Common network. Caption: (errore caption)
+[Figura da Pag.40] Labels: optimization solutions include but are not limited to:; e Device performance optimization, such as hardware upgrade and software version update; e Basic network optimization, such as network architecture optimization and routing protocol; adjustment; « Service quality optimization. such as preferential forwardina of voice and video services. Caption: (errore caption)
+[Figura da Pag.40] Labels: ¢« Formulate an appropriate network optimization solution based on network requirements; and actual conditions.; Page 39 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)

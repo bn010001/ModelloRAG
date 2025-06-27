@@ -1,0 +1,2266 @@
+Esercizi svolti
+1
+
+Esercizio 1
+• Si consideri un collegamento tra le entità A e B con funzioni di recupero
+d'errore del tipo Go-Back-N. La dimensione della finestra di trasmissione in 
+A sia pari a 3. Si assuma che:
+– le trame emesse da A abbiano lunghezza costante;
+– tempi di propagazione siano di durata pari a 1/4 del tempo di 
+trasmissione di una trama;
+– siano trascurabili i tempi di elaborazione delle trame in B e i tempi di 
+trasmissione dei riscontri da B verso A; 
+– l'entità B riscontri immediatamente trame di A rivelate senza errori;
+– si usino esclusivamente riscontri positivi.
+2
+
+Considerando il trasferimento unidirezionale di 4 trame
+di A numerate modulo 4 ed assumendo che la trama
+numero 2 arrivi errata in B, si chiede di indicare
+l'evoluzione delle finestre di trasmissione e di ricezione
+in A e B rispettivamente come segue:
+– Si indichino, per l'entità A, i limiti inferiore e superiore 
+della finestra di trasmissione in corrispondenza degli istanti 
+di emissione delle trame. Si indichi invece, per l'entità B, il 
+valore della finestra di ricezione in vigore immediatamente 
+prima degli istanti di ricezione delle trame.
+3
+
+A
+B
+t=0
+0
+1
+2
+3
+ack(0)
+(0,2)
+(0)
+ack(1)
+(1)
+(0,2)
+(1,3)
+(2)
+(2,0)
+2
+ack(1)
+(2,0)
+(2)
+(2)
+ack(2)
+3
+ack(3)
+(3)
+0
+(0)
+(2,0)
+(0,2)
+tempo t
+Consideranto una numerazione
+modulo 4, nel caso Go-back-N la 
+finestra in trasmissione ha 
+dimensione 3
+Chiusura della
+finestra in 
+trasmissione
+timer
+Ritrasmissione
+delle trame
+1
+(3,1)
+4
+
+Esercizio 2
+•
+Si consideri un’interfaccia di livello 2 (data-link) tra un’entità trasmittente A e 
+un’entità ricevente B in cui si implementa un protocollo di recupero di errore di 
+tipo Stop&Wait. Si assuma che: i) non si verificano mai errori; ii) la capacità di 
+trasferimento dell’interfaccia sia asimmetrica, in particolare sia C1= 100 Kbit/s 
+nel verso A->B per il trasferimento delle unità informative e C2 (incognita) nel 
+verso B->A per il trasferimento dei riscontri; iii) il ritardo di propagazione sia     
+ =2 ms in entrambi i versi; iv) le unità informative siano di dimensione pari a 
+Lf=400 byte mentre i riscontri siano di dimensione pari a La=30 byte; v) l’entità 
+ricevente emetta soltanto riscontri positivi; vi) l’intestazione presente nelle 
+unità informative sia di lunghezza trascurabile.
+•
+Si chiede di:
+– calcolare il valore minimo della capacità C2 del canale di ritorno B->A tale 
+per cui l’efficienza del protocollo in assenza di errori sia ≥ 0.5;
+– supponendo di utilizzare un meccanismo di finestra in trasmissione al posto 
+del protocollo Stop&Wait, determinare il valore minimo della finestra 
+misurato in numero di unità informative che consente di ottenere una 
+trasmissione continua di unità informative in assenza di errori con il valore 
+di C2 determinato. 
+5
+
+C1=100kbs
+C2=?
+ = 2ms
+Lf = 400 byte
+La = 30 byte
+6
+
+Esercizio 3
+Sia assegnato un blocco di indirizzi IP in classe C 199.10.10.0, per eseguire il cablaggio 
+di una rete collocata in un edificio scolastico come indicato in figura.
+ 
+Volendo realizzare una sottorete per ogni aula elencare l'indirizzo IP per ogni host della 
+rete rappresentata.  
+segreteria
+7
+
+Soluzione
+8
+
+Esercizio 4
+Determinare l'indirizzo di rete, la lunghezza del 
+suo prefisso e la maschera di sottorete, 
+necessari per individuare la subnet che contiene 
+il seguente intervallo di indirizzi IP
+200.110.12.32 - 200.110.12.63. 
+9
+
+Soluzione
+.  ssshhhhh
+10
+
+Esercizio 5
+Dopo aver verificato che i due indirizzi 
+130.37.23.100 e 130.37.22.150, subnet mask 
+255.255.254.0, appartengono alla stessa subnet, 
+determinare gli host con indirizzo di valore 
+numerico maggiore e quello con valore minore 
+della subnet e l'indirizzo di broadcast della 
+stessa. 
+11
+
+130.37.23.100 and 255.255.254.0 = 130.37.22.0
+130.37.22.150 and 255.255.254.0 = 130.37.22.0
+Indirizzo di broadcast: 130.37.22.0 or 0.0.1.255=130.37.23.255
+indirizzo di valore numerico maggiore= 130.37.23.254
+indirizzo di valore numerico minore= 130.37.22.0 or 0.0.0.1=130.37.22.1
+12
+
+Esercizio 6
+• Indicare l’indirizzo del 14°  host della 10a rete 
+dell’indirizzo 194.126.9.0 in cui 4 bit sono 
+utilizzati per identificare gli host e i rimanenti 
+per le subnet.
+13
+
+Soluzione
+Rete di default in classe C, subnet mask: 255.255.255.0
+Con 4 bit per gli host , quindi 16-2 = 14 interfacce IP identificabili  
+Con 4 bit per le subnet fino a 24= 16 reti identificabili
+formato dell’indirizzo VLSM:
+194.126.9. ssss hhhh
+La 10ma rete è la rete n°9 => 1001 in binario,
+194.126.9.10010000  => 135.12.9.144   (indirizzo di rete decima)
+Range degli host: da 194.126.9.145 a 194.126.9.158
+In particolare, il 14° host è rappresentabile in binario 1110, 
+194.126.9.10011110  => 194.126.9.158 (host 14 della rete 9)
+14
+
+Esercizio 7
+Indicare l’indirizzo del 30° host della 14a subnet 
+relativa all’indirizzo di rete 150.180.0.0 con 
+subnet mask 255.255.248.0
+15
+
+Soluzione
+È chiaramente un indirizzo di classe B di default e il 3° ottetto (248=1111 1000) della s.m. ci fa 
+capire che 5 bit sono riservate alle subnet e i rimanenti 11 (8+3) agli host:
+subnet mask: 255.255.1111 1000. 0000 0000 
+Gli indirizzi avranno il seguente formato: 150.180.ssss shhh.hhhh hhhh  quindi le subnet 
+saranno:
+150.180.0000 0hhh.hhhh hhhh  
+Fino a
+150.180.1111 1hhh.hhhh hhhh
+La 14° rete sarà la rete n. 13 (si parte da 0) => (13)10 = (1101)2
+=>   150.180.0110 1000.0000 0000 =>  150.180.104.0  (14° rete)
+Per il numero di host il conteggio parte da uno => è l’host numero 30, quindi in binario: 11110
+=>   150.180.0110 1000.0001 1110  => 150.180.104.30 (host 30 della rete 14)
+16
+
+Esercizio 8
+Per una Intranet si ha a disposizione la rete in classe B 
+129.174.0.0. Nella Intranet occorre installare almeno 15 reti 
+locali collegate mediante dei router; descrivere come possono 
+essere ricavati gli indirizzi per le sotto-reti e dire quanti host al 
+massimo possono contenere le sotto-reti. Infine, dire a quali 
+sottoreti appartengono i seguenti indirizzi specificando se si 
+tratta di indirizzi utilizzabili per gli host o di indirizzi speciali.
+129.174.28.66
+129.174.99.122
+129.174.130.255
+129.174.191.255
+17
+
+Soluzione (1/2)
+La rete 129.174.0.0 ha un campo “network” di 16 bit e un campo 
+“host” di 16 bit. Se occorre creare 15 sottoreti, allora bisogna 
+estendere la netmask di 4 bit (24=16). La nuova netmask (netmask 
+originale+netmask di sottorete) sarà quindi lunga 20 bit (20 “1” 
+consecutivi nelle prime 20 posizioni e 12 “0” finali).
+La maschera sarà dunque:
+binario: 11111111.11111111.11110000.00000000, decimale: 
+255.255.240.0
+18
+
+Soluzione (2/2)
+La figura di seguito mostra tutti gli indirizzi delle 16 sottoreti create
+Essendo la nuova netmask di 20 bit, rimangono 12 bit per il campo host, quindi il numero 
+massimo di indirizzi di host disponibile per ciascuna delle 16 sottoreti sarà: 212-2 =4094
+Per capire a quale sottorete appartengono gli indirizzi proposti, si può fare riferimento alla 
+figura. Si deve poi verificare se gli indirizzi proposti siano o meno indirizzi speciali (indirizzi di 
+rete o indirizzi di broadcast diretto). 
+129.174.28.66 net-id 129.174.16.0/20 (host)
+129.174.99.122 net-id 129.174.96.0/20 (host)
+129.174.130.255 net-id 129.174.128.0/20 (host)
+129.174.191.255 net-id 129.174.176.0/20 (broadcast)
+19
+
+Esercizio 9
+• Ad un  ISP è stato assegnato il blocco di indirizzi 
+140.250.0.0/16, l’ISP vuole usarlo per allocare indirizzi a più 
+sottoreti attraverso la tecnica del Classless Inter-Domain 
+Routing. Nella figura viene fornito un grafico della 
+suddivisione della rete.
+• Per arrivare a questa suddivisione il primo passo è quello di 
+dividere la rete di base in 8 sotto reti della stessa dimensione. 
+Successivamente la Sottorete #1 viene divisa in 32 sottoreti 
+della stessa dimensione e la sottorete #6 divisa in 16 sottoreti 
+della stessa dimensione.
+• La sottorete #6-14 è ulteriormente suddivisa in 8 sottoreti 
+sempre della stessa dimensione.
+20
+
+140.250.0.0/16
+#0    #1    #2    #3                        #4    #5    #6    #7
+#0     #1  …………….  #30   #31
+#0     #1 ……………...  #14   #15
+#0     #1 ………………  #6   #7
+21
+
+•
+Specificare le 8 sottoreti di 140.25.0.0/16 nella 
+notazione puntata decimale CIDR
+•
+Elencare gli indirizzi (“minimo” e “massimo”) degli 
+host che possono essere assegnati alla sottorete #3
+•
+Identificare l’indirizzo broadcast per la sottorete #3
+•
+Specificare le 16 sottoreti della rete#6
+•
+Specificare le 8 sottoreti della sottorete #6-14 
+•
+Elencare gli indirizzi (“minimo” e “massimo”) degli 
+host che possono essere assegnati alla sottorete 
+#6-14-2 
+22
+
+140.250.0.0/16
+#0    #1    #2    #3                        #4    #5    #6    #7
+le 8 sottoreti di 140.25.0.0/16 nella notazione puntata decimale CIDR
+#0  140.250.0.0/19
+#1  140.250.32.0/19
+#2  140.250.64.0/19
+#3  140.250.96.0/19
+#4  140.250.128.0/19
+#5  140.250.160.0/19
+#6  140.250.192.0/19
+#7  140.250.224.0/19
+Terzo byte
+Conteggio per multipli di 25=32
+indirizzi (“minimo” e “massimo”) degli host che possono essere assegnati alla sottorete #3
+min  140.250.96.1 – max  140.250.127.254
+indirizzo broadcast per la sottorete #3
+140.250.127.255
+23
+
+140.250.0.0/16
+#0    #1    #2    #3                        #4    #5    #6    #7
+#0
+#1 ……………. #30
+#31
+#0     #1 ……………...  #14   #15
+16 sottoreti della rete#6
+#0  140.250.192.0/23
+#1  140.250.194.0/23
+#2  140.250.196.0/23
+#3  140.250.198.0/23
+#4  140.250.200.0/23
+#5  140.250.202.0/23
+#6  140.250.204.0/23
+#7  140.250.206.0/23
+#8  140.250.208.0/23
+#9  140.250.210.0/23
+#10 140.250.212.0/23
+#11 140.250.214.0/23
+#12 140.250.216.0/23
+#13 140.250.218.0/23
+#14 140.250.220.0/23
+#15 140.250.222.0/23
+Terzo byte
+Conteggio per multipli di 21=2
+24
+
+140.250.0.0/16
+#0    #1    #2    #3                        #4    #5    #6    #7
+#0     #1  …………….  #30   #31
+#0     #1 ……………...  #14   #15
+#0     #1 ………………  #6   #7
+le 8 sottoreti della sottorete #6-14
+#0 140.250.220.0/26
+#1 140.250.220.64/26
+#2 140.250.220.128/26
+#3 140.250.220.192/26
+#4 140.250.221.0/26
+#5 140.250.221.64/26
+#6 140.250.221.128/26
+#7 140.250.221.192/26
+Terzo byte
+Conteggio per multipli di 26=64
+Quarto byte
+indirizzi (“minimo” e “massimo”) degli host che possono essere assegnati alla sottorete 
+#6-14-2 
+min140.250.220.129       max 140.250.220.190
+25
+
+Esercizio 10
+• A una rete IP è assegnato il blocco di indirizzi in classe B 
+209.0.0.0. 
+• Occorre partizionare la rete in modo da servire anche una rete 
+locale di circa 4000 host. 
+• Individuare quanto segue:
+– Netmask per la rete locale
+– Insieme delle net-id associabili alla rete locale
+– Numero di reti ulteriori servibili se ognuna include 64 host
+26
+
+Partiamo da 209.0.0.0/16
+4000 host → /20 – 255.255.240.0
+Net-id (4 bit, da /16 a /20):
+#0 209.0.0.0/20
+#1 209.0.16.0/20
+#2 209.0.32.0/20
+…
+#15 209.0.240.0/20
+Ulteriori 15 reti /20 servibili
+- 64 host, occorrono almeno  66 combinazioni binarie, 67 se consideriamo anche il 
+gateway, quindi occorrono subnet /25.
+- Ogni /20 è partizionabile in 2^5=32 subnet /25
+27
+
+Esercizio 11
+Definire un piano di indirizzamento senza classi per la rete in figura, 
+utilizzando prima l'intervallo di indirizzi 192.168.0.0/22, poi l'intervallo di 
+indirizzi 192.168.4.0/23. Gli intervalli di indirizzi assegnati alle subnet 
+dovrebbe formare uno spazio contiguo; considerare anche non è previsto 
+alcun aumento del numero di host.
+28
+
+Soluzione
+Nel caso in cui l'intervallo di indirizzi è 192.168.0.0/22 (ovvero 1024 indirizzi), 
+la soluzione è semplice. Infatti, possiamo usare 512 indirizzi per la subnet con 
+300 host (/23), 128 indirizzi per la subnet con 120 host (una rete /25) e 4 
+indirizzi per il collegamento punto-punto. Il numero totale di indirizzi allocati 
+è pari a 644, che è inferiore rispetto al numero totale di indirizzi disponibili 
+nella subnet /22. 
+192.168.0.0/22
+•
+192.168.0.0/23
+•
+192.168.2.0/23
+•
+192.168.2.0/25
+•
+192.168.3.0/25
+•
+192.168.3.128/25
+•
+192.168.3.128/30
+192.168.3.128/30
+.3.129
+.3.130
+29
+
+Soluzione
+•
+192.168.4.0/23
+•
+192.168.4.0/24
+•
+192.168.5.0/24
+•
+192.168.5.0/25
+•
+192.168.5.128/25
+•
+192.168.5.128/26
+•
+192.168.5.192/26
+•
+192.168.5.192/30
+•
+…
+192.168.5.192/30
+192.168.5.128/26
+192.168.4.0/24 +
+192.168.5.0/25
+Nel caso in cui l'intervallo di indirizzi è 
+192.168.4.0/23 il numero di indirizzi 
+disponibili non è sufficiente per gestire la rete 
+con lo stesso piano di indirizzamento della 
+soluzione precedente. Abbiamo infatti 512 
+indirizzi, mentre il piano di indirizzamento 
+sarebbero richiesti 512+128+4(riservaati, rete 
+e broadcast)+2 (router)= 646 indirizzi. Una 
+possibile soluzione è partizionare la subnet 
+con 300 host in due subnet distinte, una con 
+253 host e l'altro con i restanti 47. 
+La prima subnet sarà configurato con una rete 
+/24 (253 host, un indirizzo per il router più i 
+due indirizzi riservati). 
+Per la seconda subnet, possiamo usare una 
+rete /26 rete (64 indirizzi), in cui verranno 
+effettivamente utilizzati 50 indirizzi (47 host, 
+un indirizzo per il router e i due indirizzi 
+riservati questa rete e broadcast). Il numero di 
+indirizzi necessari a questa soluzione sarà pari 
+a 256+64 (per la subnet con 300 host), più 128 
+(per la rete con 120 host) e 4 (per il 
+collegamento punto-punto), che risulta in 452 
+indirizzi. 
+30
+
+Soluzione
+Poiché l'esercizio richiede che lo 
+spazio degli indirizzi occupato 
+totale sia contiguo, è preferibile 
+assegnare gli spazi degli indirizzi 
+alle subnet in ordine (inverso) di 
+dimensione, iniziando l'allocazione 
+dall rete più grande. 
+La subnet con 300 host sarà quindi 
+gestito da due blocchi non 
+contigui: Il blocco /24 assegnato 
+alla prima porzione della rete di 
+300 host dovrebbe essere seguito 
+dal blocco /25 assegnato alla 
+subnet con 120 host, seguito 
+ulteriormente dal blocco /26 
+utilizzato per completare la 
+copertura dei 300 host.
+•
+192.168.4.0/23
+•
+192.168.4.0/24
+•
+192.168.5.0/24
+•
+192.168.5.0/25
+•
+192.168.5.128/25
+•
+192.168.5.128/26
+•
+192.168.5.192/26
+•
+192.168.5.192/30
+•
+…
+192.168.5.192/30
+192.168.5.128/26
+192.168.4.0/24 +
+192.168.5.0/25
+31
+
+Soluzione
+•
+Vale la pena notare che, anche se sarebbe possibile suddividere le 
+LAN originali in parti ancora più piccole porzioni (ad esempio la rete 
+con 300 host potrebbe essere suddivisa in 253 + 29 + 13 + 5, 
+ovvero, a /26 + /27 + /28 +/29 network), questa non è una buona 
+idea in quanto aggiunge più complessità. In effetti, il 
+partizionamento di una subnet in più subnet deve essere visto 
+come una tecnica di ultima istanza essere utilizzati quando abbiamo 
+un numero insufficiente di indirizzi disponibili. 
+•
+Uno dei problemi riguarda l'efficienza durante l'inoltro dei dati da 
+un host a un altro: gli host in due diverse subnet non possono 
+comunicare direttamente a strato 2, ma occorre usare il routing. Di 
+conseguenza, il pacchetto attraversa la LAN due volte, con l'effetto 
+di raddoppiare il traffico su quel segmento di rete. 
+32
+
+Esercizio 12
+Una rete LAN interconnette le seguenti entità:
+•
+10 terminali di utente
+•
+1 server di e-mail
+•
+1 server DNS
+•
+1 server WEB
+•
+1 server DHCP
+•
+1 gateway per la connessione ad Internet
+I server devono essere raggiungibili dall’esterno. 
+Gli utenti devono poter accedere ai server e navigare in Internet. 
+L’amministratore della rete ha a disposizione il seguente blocco di indirizzi IP: 
+141.250.40.0/28.
+Si chiede di individuare una strategia di allocazione degli indirizzi IP alle interfacce 
+interconnesse rete e una modalità operativa per la configurazione delle interfacce 
+stesse, ossia come gli indirizzi IP sono effettivamente associati alle interfacce di rete 
+quando le macchine vengono accese. 
+33
+
+• IP: 141.250.40.0/28 16 combinazioni binarie
+• Ne servono 17 → per i terminali di utente utilizziamo 
+indirizzi IP privati
+• Server: 141.250.40.1-6 (VLAN1 – gateway compreso)
+• Host: 192.168.0.1-11 (VLAN2 – gateway compreso)
+• In alternativa usare sub IP
+34
+
+Esercizio 13
+Un router ha la seguente tabella di routing. E’ possibile ridurne la dimensione? Se sì, come?
+Destinazione 
+Netmask  
+Next Hop
+131.175.132.0 
+255.255.255.0 
+131.123.124.125
+131.175.21.0 
+255.255.255.0 
+131.124.123.121
+131.175.20.0 
+255.255.255.0 
+131.124.123.121
+131.175.133.0 
+255.255.255.0 
+131.123.124.125
+131.175.134.0 
+255.255.255.0 
+131.123.124.130
+131.175.135.0 
+255.255.255.0 
+131.123.124.125
+131.175.50.0 
+255.255.254.0 
+131.123.124.126
+0.0.0.0 
+ 
+0.0.0.0 
+ 
+131.123.124.126
+35
+
+Soluzione (1/2)
+In generale le regole da seguire per l’aggregazione sono:
+1. Si possono aggregare gruppi di reti contigue che hanno lo stesso next-hop. 
+Ovviamente il numero di reti deve essere una potenza di 2 (gruppi di 2, 4, 8, … 
+reti). Il gruppo è sostituito da un’unica riga che contiene l’aggregato (ottenuto 
+accorciando la netmask)
+2. Si possono aggregare reti contigue come nella prima regola anche se per alcune il 
+next-hop è diverso. In questo caso il gruppo è sostituito da un’unica riga che 
+contiene l’aggregato, più una riga per ciascuna delle righe del gruppo con diverso 
+next-hop (eccezioni) che sono lasciate inalterate.
+3. Si possono aggregare reti contigue come nella prima regola anche se mancano nella 
+tabella alcune reti. In questo caso il gruppo è sostituito da un’unica riga che 
+contiene l’aggregato, più una riga per ciascuna delle reti mancanti con next-hop 
+pari a quello della rotta di default. Se le reti mancanti non esistono, inserire una 
+rotta verso un black hole per ciascuna di esse o un loro aggregato.
+4. Si possono eliminare tutte le reti con next-hop pari alla rotta di default.
+36
+
+Soluzione (2/2)
+N.B. 132=10000100
+         133=10000101
+         134=10000110
+         135=10000111
+37
+
+Esercizio 14
+Si consideri l’invio di un datagramma contenente una risposta 
+UDP da 3000 byte, su un collegamento  che ha una MTU di 500 
+byte. Si assuma che il datagramma originario sia marcato con 
+l’identificatore 422.
+Determinare:
+-
+ il numero di frammenti che vengono generati;
+-
+ per ogni frammento, i campi di interesse ai fini della 
+frammentazione
+(lunghezza, identificatore, Flag, Offset).
+38
+
+•
+MTU di 500 byte (20 HIP + 480 pay IP)
+•
+480 pay IP = 8 HUDP + 472 pay_max UDP
+•
+3000 byte= 6*472 + 168 byte –> 7 frammenti
+Pacchetto 1: ID: 422; lungh. 500; Flag: MF=1, DF=0; offset: 0
+Pacchetto 2: ID: 422; lungh. 500; Flag: MF=1, DF=0; offset: 480
+Pacchetto 3: ID: 422; lungh. 500; Flag: MF=1, DF=0; offset: 960
+Pacchetto 4: ID: 422; lungh. 500; Flag: MF=1, DF=0; offset: 1440
+Pacchetto 5: ID: 422; lungh. 500; Flag: MF=1, DF=0; offset: 1920
+Pacchetto 6: ID: 422; lungh. 500; Flag: MF=1, DF=0; offset: 2400
+Pacchetto 7: ID: 422; lungh. 196; Flag: MF=0, DF=0; offset: 2880
+39
+
+Esercizio 15
+• Si consideri la LAN in figura.
+• Si assuma che la stazione S1 invii un messaggio alla stazione 
+S2 e che il bridge abbia la tabella in figura (le interfacce del 
+bridge sono numerate da sinistra verso destra da 1 a 8). 
+Indicare, elencandoli, su quali collegamenti della rete viene 
+inoltrato il messaggio. Inoltre si aggiorni, se necessario, la 
+tabella del bridge.
+• Successivamente, la stazione S8 invia un messaggio alla 
+stazione S4: si indichi su quali collegamenti della rete viene 
+inoltrato il messaggio e si aggiorni, se necessario, la tabella del 
+bridge.
+• Infine, la stazione S3 invia un messaggio alla stazione S8: si 
+indichi su quali collegamenti della rete viene inoltrato il 
+messaggio e si aggiorni, se necessario, la tabella del bridge. 
+40
+
+S1
+S2
+S3
+S4
+S5
+S6
+S7
+S8
+S9
+Bridge
+Hub
+Hub
+Hub
+L1
+L2
+L3
+L4
+L5
+L6
+L7
+L8
+L9
+L10
+L11
+L12
+
+41
+
+S1
+S2
+S3
+S4
+S5
+S6
+S7
+S8
+S9
+Bridge
+Hub
+Hub
+Hub
+L1
+L2
+L3
+L4
+L5
+L6
+L7
+L8
+L9
+L10
+L11
+L12
+
+S1->S2
+indrizzo
+interfaccia
+S1
+1
+S2
+1
+S9
+8
+42
+
+S1
+S2
+S3
+S4
+S5
+S6
+S7
+S8
+S9
+Bridge
+Hub
+Hub
+Hub
+L1
+L2
+L3
+L4
+L5
+L6
+L7
+L8
+L9
+L10
+L11
+L12
+
+S8->S4
+indrizzo
+interfaccia
+S1
+1
+S2
+1
+S9
+8
+S8
+8
+43
+
+S1
+S2
+S3
+S4
+S5
+S6
+S7
+S8
+S9
+Bridge
+Hub
+Hub
+Hub
+L1
+L2
+L3
+L4
+L5
+L6
+L7
+L8
+L9
+L10
+L11
+L12
+
+S3->S8
+indrizzo
+interfaccia
+S1
+1
+S2
+1
+S9
+8
+S8
+8
+S3
+1
+44
+
+Esercizio 16
+L’Università dei Mari e dei Monti possiede il seguente spazio 
+di indirizzamento IP: 135.155.64.0/22 
+La rete complessiva è rappresentata in figura.
+Definire un piano di indirizzamento in grado di supportare il 
+numero di host indicato nella figura.
+Indicare le sottoreti IP graficamente nella figura (evidenziare i 
+confini e assegnare una lettera identificativa). Per ciascuna 
+sottorete definire l’indirizzo di rete, la netmask, e l’indirizzo di 
+broadcast diretto.
+Scrivere la tabella di instradamento del router R5 nel modo più 
+compatto possibile dopo aver assegnato opportunamente 
+degli indirizzi ai router a cui R5 è connesso direttamente.
+45
+
+46
+
+Soluzione (1/4)
+Rete A: 200 host, 8 bit nella parte di host dell’indirizzo
+Rete B: 180 host, 8 bit nella parte di host dell’indirizzo
+Reti C, D, E: 100 host, 7 bit nella parte di host dell’indirizzo
+Rete F: 50 host, 6 bit nella parte di host dell’indirizzo
+Rete G: 25 host, 5 bit nella parte di host dell’indirizzo
+Pp1, pp2, pp3, pp4: 2 host, 2 bit nella parte di host dell’indirizzo
+Indirizzo iniziale: 135.155.64.0/22
+47
+
+Soluzione (2/4)
+Allungando di 2 bit la netmask, si ottengono 4 sottoreti con 8 bit di host-id, quindi in grado di
+indirizzare 254 host (28-2=254). Posso usare una delle quattro sottoreti per indirizzare gli host di
+Rete A ed usare un’altra sottorete per indirizzare gli host di Rete B.
+Rete A: 135.155.64.0/24, broadcast diretto: 135.155.64.255
+Rete B: 135.155.65.0/24, broadcast diretto: 135.155.65.255
+Rimangono due sottoreti per ulteriore partizionamento:
+135.155.66.0/24
+135.155.67.0/24
+Allungando di 1 bit la netmask per entrambe le sottoreti rimaste, definisco 4 sottoreti con 7 bit 
+nella parte di host, quindi in grado di indirizzare 126 host (27-2=126). Posso usare tre delle 
+quattro sottoreti per indirizzare gli host di Rete C, Rete D e Rete E.
+Rete C: 135.155.66.0/25, broadcast diretto: 135.155.66.127
+Rete D: 135.155.66.128/25, broadcast diretto: 135.155.66.255
+Rete E: 135.155.67.0/25, broadcast diretto: 135.155.67.127
+Rimane una sotterete per ulteriore partizionamento:
+135.155.67.128/25
+48
+
+Soluzione (3/4)
+Allungando di 1 bit la netmask di 135.155.67.128/25, si hanno 2 sottoreti con 6 bit nella 
+parte di host, quindi in grado di indirizzare 62 host (26-2=62). Usiamone una per 
+indirizzare gli host di Rete F.
+Rete F: 135.155.67.128/26, broadcast diretto: 135.155.67. 191
+Rimane una sotterete per ulteriore partizionamento: 135.155.67.192/26
+Allungando di 1 bit la netmask, si hanno 2 sottoreti con 5 bit di host-id, quindi in grado di
+indirizzare 30 host (25-2=30). Una delle due è usata per indirizzare gli host di Rete G.
+Rete G: 135.155.67.192/27, broadcast diretto: 135.155.67.223
+Rimane una sotterete per ulteriore partizionamento: 135.155.67.224/27
+Allungando di 3 bit la netmask, si hanno 8 sottoreti con 2 bit nella parte di host, quindi in 
+grado di indirizzare 2 host (22-2=2). Quattro delle otto sottoreti sono usate per indirizzare 
+gli host di pp1, pp2, pp3, pp4
+Pp1: 135.155.67.224/30, broadcast diretto: 135.155.67.227
+Pp2: 135.155.67.228/30, broadcast diretto: 135.155.67.231
+Pp3: 135.155.67.232/30, broadcast diretto: 135.155.67.235
+Pp4: 135.155.67.236/30, broadcast diretto: 135.155.67.239
+49
+
+Soluzione (4/4)
+Il router R5 ha due interfacce di rete su Rete E e pp2. E’ sufficiente una tabella di routing 
+con un’unica riga per raggiungere tutte le reti IP non direttamente connesse. Supponendo 
+che l’indirizzo IP dell’interfaccia di R5 collegata a pp2 sia 131.155.67.230, allora la tabella 
+di routing di R5 più compatta possibile è:
+Dest 
+ 
+Netmask  
+Next-Hop
+135.155.67.0
+255.255.255.128
+diretto
+0.0.0.0            
+0.0.0.0     
+131.155.67.229
+50
+
+Esercizio 17
+•
+Con riferimento alla rete in figura, riempire la tabella di instradamento 
+del ROUTER 1, evitando di riportare l’indirizzo di loopback e quello 
+multicast
+Destinazione
+Next hop
+Netmask
+Interface
+51
+
+Router 4
+151.100.1.121
+141.250.40.0/24
+141.250.40.121
+151.100.2.253
+160.80.22.16
+52
+
+Destinazione
+Next hop
+Netmask
+Interface
+195.168.17.0
+diretto
+255.255.255.128
+eth0
+195.168.17.128
+diretto
+255.255.255.128
+eth1
+197.68.14.0
+diretto
+255.255.255.0
+eth2
+141.250.40.0
+197.68.14.253
+255.255.255.0
+eth2
+151.100.0.0
+197.68.14.253
+255.255.0.0
+eth2
+0.0.0.0
+197.68.14.254
+0.0.0.0
+eth2
+53
+
+• Si compili la tabella di istradamento del router X in modo da 
+inoltrare tutto il traffico verso le sotto-reti indicate in figura 
+attraverso il router Y, tranne il traffico verso l’host evidenziato 
+che deve transitare per il router Z. 
+Esercizio 18
+54
+
+Destination
+Gateway
+Netmask
+Interface
+151.100.45.0
+134.90.1.1
+255.255.255.128
+Eth1 (verso Y)
+134.90.1.0
+134.90.1.2 (diretto)
+255.255.255.252
+Eth1
+134.90.11.0
+134.90.11.1 (diretto)
+255.255.255.252
+Eth2
+134.90.9.0
+134.90.9.1 (diretto)
+255.255.255.252
+Eth3 (verso Z)
+151.100.45.192
+134.90.1.1
+255.255.255.240
+Eth1
+151.100.45.224
+134.90.1.1
+255.255.255.240
+Eth1
+151.100.45.160
+134.90.1.1
+255.255.255.240
+Eth1
+151.100.45.163
+134.90.9.2
+255.255.255.255
+Eth3
+0.0.0.0
+134.90.11.2
+0.0.0.0
+Eth2
+Si può fare di meglio?
+55
+
+Esercizio 19
+•
+Data la porzione di tabella di routing di un router R (riportata sotto) ed un 
+pacchetto IP con indirizzo di destinazione 141.250.40.162, si descriva in 
+modo dettagliato la procedura svolta da R per decidere su quale 
+interfaccia istradare il pacchetto, si stabilisca qual è il nodo verso cui esso 
+sarà rilanciato e la rete di destinazione più appropriata. Illustrare i 
+passaggi. 
+Rete di Destinazione
+Gateway
+Interfaccia
+141.250.0.0/16
+118.16.29.3
+eth0
+141.128.0.0/9
+118.16.29.7
+eth0
+141.160.0.0/11
+118.16.30.6
+tk1
+141.250.16.0/20
+118.16.29.3
+eth0
+118.10.3.0/21
+118.10.3.7
+eth2
+141.250.32.0/20
+118.16.29.3
+eth0
+141.250.48.0/20
+118.16.29.3
+eth0
+141.250.40.128/25
+118.16.29.5
+eth0
+56
+
+1 0 0 0 1 1 0 1 . 1 1 1 1 1 0 1 0 . 0 0 1 0 1 0 0 0 . 1 0 1 0 0 0 1 0
+/16 1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 . 0 0 0 0 0 0 0 0 . 0 0 0 0 0 0 0 0 141.250.0.0
+/9   1 1 1 1 1 1 1 1 . 1 0 0 0 0 0 0 0 . 0 0 0 0 0 0 0 0 . 0 0 0 0 0 0 0 0 141.128.0.0
+/11 1 1 1 1 1 1 1 1 . 1 1 1 0 0 0 0 0 . 0 0 0 0 0 0 0 0 . 0 0 0 0 0 0 0 0 141.224.0.0
+/20 1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 . 1 1 1 1 0 0 0 0 . 0 0 0 0 0 0 0 0 141.250.32.0
+/21 1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 . 1 1 1 1 1 0 0 0 . 0 0 0 0 0 0 0 0 141.250.40.0
+/25 1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 . 1 0 0 0 0 0 0 0 141.250.40.128
+Rete di Destinazione
+Gateway
+Interfaccia
+141.250.0.0/16
+118.16.29.3
+eth0
+141.128.0.0/9
+118.16.29.7
+eth0
+141.160.0.0/11
+118.16.30.6
+tk1
+141.250.16.0/20
+118.16.29.3
+eth0
+118.10.3.0/21
+118.10.3.7
+eth2
+141.250.32.0/20
+118.16.29.3
+eth0
+141.250.48.0/20
+118.16.29.3
+eth0
+141.250.40.128/25
+118.16.29.5
+eth0
+141.250.40.162
+57
+
+Esercizio 20
+• Si consideri la rete mostrata in figura.
+58
+
+Si chiede di:
+•
+Indicare nella tabella sottostante una possibile maschera di rete (netmask),  
+per gli host mostrati in figura, compatibile con gli indirizzi mostrati. 
+•
+Si determini la tabella di instradamento (routing) del router R;
+•
+Si indichi  quali modifiche si avrebbero sulla tabella di routing se gli host E ed H 
+si scambiassero di posizione conservando il proprio indirizzo IP; → Nessuna
+HOST
+Netmask
+Host A
+255.255.255.128
+Host F
+255.255.255.128
+Host E
+255.255.255.0
+Host D
+255.255.255.0
+Host H
+255.255.255.0
+Host C
+255.255.255.0
+Destination
+Gateway
+Netmask
+Interfaccia
+10.253.4.128
+141.250.40.0
+diretto
+diretto
+255.255.255.128
+255.255.255.0
+Eth1
+Eth2
+59
+
+Con riferimento alla figura, si chiede di:
+•
+Identificare le singole sottoreti
+•
+Si consideri il seguente blocco di indirizzi di classe C: 195.168.13.0/24. 
+Utilizzando la tecnica del subnetting, si chiede di assegnare le net-id alle 
+sottoreti e gli indirizzi IP ai router della figura. 
+•
+Individuare la tabella di routing del router R3
+Esercizio 21
+60
+
+• 195.168.13.0/24  -> 4 sottoreti, host:
+– LAN1 (80), R1-R2 (2), LAN2 (25), LAN3 (7)
+– Combinazioni binarie necessarie 
+• LAN1 (83), R1-R2 (4), LAN2 (29), LAN3 (10)
+• /25              /30             /27             /28
+61
+
+– 195.168.13.0/24  → 195.168.13.0/25 (LAN1)
+                               → 195.168.13.128/25
+– 195.168.13.128/25 
+→195.168.13.128/27 (LAN2)
+→195.168.13.160/27 (altre)
+→ 195.168.13.192/27
+→195.168.13.224/27
+- 195.168.13.160/27 → 195.168.13. 160/28 (LAN3)
+                            → 195.168.13.176/28
+195.168.13.176/28 → 195.168.13.176/30 (R1-R2)
+                               → 195.168.13.180/30 
+                               → 195.168.13.184/30
+                               → 195.168.13.188/30
+62
+
+Esercizio 22
+INTERNET
+INTERNET
+LAN A
+LAN A
+LAN B
+LAN B
+LAN D
+LAN D
+LAN C
+LAN C
+R3
+R1
+R2
+195.168.1.0/28
+eth0: 195.168.1.7
+eth2: 195.168.1.2
+eth1: 133.1.95.7
+eth0
+eth1
+eth1
+eth2
+eth0
+Sia data la seguente struttura di rete.
+63
+
+DESTINATION
+GATEWAY
+NETMASK
+INTERFACE
+Si chiede di:
+•assegnare gli indirizzi IP alle LAN, assumendo che ciascuna 
+LAN contenga 40 host, e ai router R1 e R2, nello spazio 
+definito da 95.169.0.0/24.
+•compilare la tabella di instradamento del router R1.
+40 host → 6 bit host-id con i restanti 2 bit formiamo 4 subnet:
+95.169.0.0/26 (A); 95.169.0.64/26 (B); 95.169.0.128/26 (C); 95.169.0.192/26 (D)
+64
+
+DESTINATION
+GATEWAY
+NETMASK
+INTERFACE
+95.169.0.0/26 
+Diretto
+255.255.255.192
+eth0
+95.169.0.64/26
+Diretto
+255.255.255.192
+eth1
+195.168.1.0
+Diretto
+255.255.255.240
+eth0
+95.169.0.128/26
+95.169.0.66 
+255.255.255.192 (IP 
+eth0 R2)
+eth1
+95.169.0.192/26 
+95.169.0.66
+255.255.255.192 (IP 
+eth0 R2)
+eth1
+0.0.0.0
+195.168.1.7
+0.0.0.0
+eth2
+40 host → 6 bit host-id con i restanti 2 bit formiamo 4 subnet:
+95.169.0.0/26 (A); 95.169.0.64/26 (B); 95.169.0.128/26 (C); 95.169.0.192/26 (D)
+tabella di instradamento del router R1
+Si può fare di meglio?
+65
+
+Esercizio 23
+Si consideri la rete in figura. 
+141.23.0.130
+45:45:45:00:11:22
+R1
+141.23.0.128/27
+141.23.0.131
+45:45:45:00:31:22
+141.23.0.132
+45:45:45:04:11:22
+111.8.0.0/16
+230.4.4.64/26
+0.0.0.0/0
+11.2.3.128/25
+89.13.0.0/24
+49.22.22.0/24
+R2
+R3
+R4
+eth0
+eth0
+eth0
+eth0
+eth1
+eth1
+eth1
+eth1
+eth2
+eth2
+66
+
+Determinare:
+• La tabella di instradamento del router R1;
+• Le informazioni presenti nella tabella di ARP del router R1,
+  relative agli altri router, a regime.
+A tal fine, si riportano i seguenti dati:
+•R1:
+•eth0: 230.4.4.65 – 45:45:45:88:88:88
+•eth1: 141.23.0.129 – 45:45:45:66:66:66
+•eth2: 11.2.3.129 – 45:45:45:55:55:77
+•R2:
+•eth0: 230.4.4.66 – 45:45:45:33:77:11
+•eth1: 89.13.0.18 – 45:45:45:34:34:f0
+•R3:
+•eth0: 11.2.3.134 – 45:45:45:ff:e3:a0
+•eth1: 8.88.8.8 – 45:45:45:b6:a8:b6
+•eth2: 49.22.22.8 – 45:45:45:a7:a7:b1
+•R4:
+•eth0: 49.22.22.32 – d2:33:33:a7:a8:b8
+•eth1: 111.8.8.129 – d3:d3:d3:66:33:66
+67
+
+DESTINATION
+GATEWAY
+NETMASK
+INTERFACE
+141.23.0.128
+diretto
+255.255.255.224
+eth1
+230.4.4.64
+diretto
+255.255.255.192
+eth0
+11.2.3.128
+diretto
+255.255.255.128
+eth2
+111.8.0.0
+11.2.3.134
+255.255.0.0
+eth2
+49.22.22.0
+11.2.3.134
+255.255.255.0
+eth2
+89.13.0.0
+230.4.4.66
+255.255.255.0
+eth0
+0.0.0.0
+11.2.3.134
+0.0.0.0
+eth2
+IP
+MAC
+11.2.3.134
+45:45:45:ff:e3:a0
+230.4.4.66
+45:45:45:33:77:11
+…
+…
+68
+
+Esercizio 24
+• Alla rete in figura è assegnato il blocco di indirizzi 
+141.250.40.0/23
+internet
+R1
+R2
+R3
+R4
+R5
+R6
+Bridge
+A: 150 host
+B: 60 host
+C: 55 host
+D: 57 host
+E: 61 host
+F
+G
+H
+I
+L
+69
+
+• Indicare un adeguato partizionamento del blocco assegnato e 
+la netmask per ogni sottorete in figura
+• Proporre degli indirizzi IP per le interfacce dei router
+• Scrivere la tabella di routing per i router
+70
+
+Partiamo da 141.250.40.0/23
+141.250.40.0/23
+141.250.40.0/24
+141.250.41.0/24
+141.250.40.0/26
+141.250.40.64/26
+141.250.40.128/26
+141.250.40.192/26
+Rete A+B di 210 host → /24  141.250.41.0/24 - R3:141.250.41.1 
+Rete C di 55 host  → /26  141.250.40.0/26 – R4: 141.250.40.1
+Rete D di 57 host → /26 141.250.40.64/26 – R5: 141.250.40.65
+Rete E di 61 host → /26 141.250.40.128/26 – R6: 141.250.40.129
+71
+
+Partizioniamo 141.250.40.192/26 in 16 /30 
+#0   141.250.40.192/30 link G R2: 141.250.40.193 – R1 141.250.40.194
+#1   141.250.40.196/30 link F R2: 141.250.40.197 – R6 141.250.40.198
+#2   141.250.40.200/30 link L R2: 141.250.40.201 – R5 141.250.40.202
+#3   141.250.40.204/30 link I R2: 141.250.40.205 – R4 141.250.40.206
+#4   141.250.40.208/30 link H R2: 141.250.40.209 – R3 141.250.40.210
+#5   141.250.40.212/30
+#6   141.250.40.216/30
+#7   141.250.40.220/30
+#8   141.250.40.224/30
+#9   141.250.40.228/30
+#10 141.250.40.232/30
+#11 141.250.40.236/30
+#12 141.250.40.240/30
+#13 141.250.40.244/30
+#14 141.250.40.248/30
+#15 141.250.40.252/30
+72
+
+DESTINATION
+GATEWAY
+NETMASK
+INTERFACE
+141.250.40.192
+diretto
+255.255.255.252
+G
+141.250.40.196
+diretto
+255.255.255.252
+F
+141.250.40.200
+diretto
+255.255.255.252
+L
+141.250.40.204
+diretto
+255.255.255.252
+I
+141.250.40.208
+diretto
+255.255.255.252
+H
+141.250.41.0
+141.250.40.210
+255.255.255.0
+H
+141.250.40.0
+141.250.40.206
+255.255.255.192
+I
+141.250.40.64
+141.250.40.202
+255.255.255.192
+L
+141.250.40.128
+141.250.40.198
+255.255.255.192
+F
+0.0.0.0
+141.250.40.194
+0.0.0.0
+G
+Router R2 → da aggregare?
+73
+
+DESTINATION
+GATEWAY
+NETMASK
+INTERFACE
+141.250.40.128
+diretto
+255.255.255.192
+E
+141.250.40.196
+diretto
+255.255.255.252
+F
+0.0.0.0
+141.250.40.197
+0.0.0.0
+F
+Router R6
+DESTINATION
+GATEWAY
+NETMASK
+INTERFACE
+141.250.41.0
+diretto
+255.255.255.0
+B
+141.250.40.208
+diretto
+255.255.255.252
+H
+0.0.0.0
+141.250.40.209
+0.0.0.0
+H
+Router R3
+DESTINATION
+GATEWAY
+NETMASK
+INTERFACE
+141.250.40.64
+diretto
+255.255.255.192
+D
+141.250.40.200
+diretto
+255.255.255.252
+L
+0.0.0.0
+141.250.40.201
+0.0.0.0
+L
+Router R5
+74
+
+DESTINATION
+GATEWAY
+NETMASK
+INTERFACE
+141.250.40.0
+diretto
+255.255.255.192
+C
+141.250.40.204
+diretto
+255.255.255.252
+I
+0.0.0.0
+141.250.40.205
+0.0.0.0
+I
+Router R4
+Router R1
+DESTINATION
+GATEWAY
+NETMASK
+INTERFACE
+141.250.40.192
+diretto
+255.255.255.252
+G
+141.250.40.0
+141.250.40.193
+255.255.254.0
+G
+0.0.0.0
+?
+0.0.0.0
+internet
+75
+
+Esercizio 25
+•
+Definire un piano di indirizzamento 
+senza classi per la rete nella figura 
+seguente utilizzando l'intervallo di 
+indirizzi 192.168.0.0/23.
+•
+Gli intervalli di indirizzi assegnati 
+alla rete dovrebbero formare uno 
+spazio contiguo; considerare anche 
+che nessuna espansione (in termini 
+di numero di host) sarà necessaria 
+in futuro, ad eccezione della rete in 
+fondo (come mostrata in figura)
+76
+
+Soluzione
+•
+Identifichiamo le subnet
+–
+Subnet A: 73 combinazioni binarie -> \25
+–
+Subnet B: 203 combinazioni binarie -> \24
+–
+Subnet C: 73 combinazioni binarie -> \25
+–
+link fra i router -> \30
+•
+Suddividiamo 192.168.0.0/23.
+–
+192.168.0.0/24 (Subnet B)
+–
+192.168.1.0/24 da suddividere
+•
+Se suddividiamo la /24 rimanente in 
+due /25 non abbiamo gli indirizzi per i 
+link. Spazio insufficiente. Come 
+procediamo?
+Subnet A
+Subnet B
+Subnet C 
+L12
+L13
+L23
+192.168.0.0/24
+77
+
+Soluzione
+Lo spazio degli indirizzi allocato non è sufficientemente ampio per 
+gestire la rete senza ulteriori partizioni di almeno una rete IP in più 
+sottoreti per utilizzare i blocchi di indirizzi con maggiore efficacia. Le 
+due reti con 70 host sono i migliori candidati per tale operazione 
+perché “sprecano” una grande quantità di indirizzi (infatti farebbero 
+uso di soli 73 indirizzi su 128 disponibili, lasciando inutilizzati 55 
+indirizzi). Tuttavia, la rete sotto il router R3 potrebbe essere necessaria 
+un'espansione futura; quindi sarebbe preferibile non partizionare 
+questa rete per lasciare spazio a future espansioni. Per questo motivo 
+inizieremo con la partizione della prima rete con 70 host (quella 
+collegata al router R1), verificando successivamente se questo è 
+sufficiente oppure dobbiamo implementare qualche altra partizione 
+per risparmiare gli indirizzi. Nel nostro caso nessuna ulteriore 
+partizione è necessaria, come il numero di indirizzi IP necessari dopo la 
+suddetta partizione della rete con 70 host rientra nello spazio degli 
+indirizzi disponibile. 
+78
+
+Soluzione
+•
+Identifichiamo le subnet
+–
+Subnet A: 73 combinazioni binarie -> \25
+–
+Subnet B: 203 combinazioni binarie -> \24
+–
+Subnet C: 73 combinazioni binarie -> \25
+–
+link fra i router -> \30
+•
+Suddividiamo 192.168.0.0/23.
+–
+192.168.0.0/24 (Subnet B)
+–
+192.168.1.0/24 da suddividere
+•
+Usiamo la 192.168.1.0/24
+–
+192.168.1.0/25 (Subnet C), con possibilità di 
+espansione 
+–
+192.168.1.128/25 da utilizzare
+•
+Suddividiamo la 192.168.1.128/25 in 
+–
+192.168.1.128/26 (61 bin in subnet A + gateway 1 
+in subnet A)
+–
+192.168.1.192/27 (sufficiente per completare la 
+subnet A, 9 host + 1 gateway)
+–
+192.168.1.224/27 (8* /30 da sudduvidere per i 
+link
+–
+192.168.1.224/30 (L12)
+–
+192.168.1.228/30 (L13)
+–
+192.168.1.232/30 (L23)
+Subnet A
+Subnet B
+Subnet C 
+L12
+L13
+L23
+192.168.0.0/24
+192.168.1.0/25
+192.168.1.128/26 + 
+192.168.1.192/27
+192.168.1.128/26 (61 bin in subnet A + gateway 1 in subnet A)
+192.168.1.192/27 (sufficiente per completare la subnet A, 9 host + 1 gateway)
+79
+
+Soluzione
+Allocazione indirizzi IP ai router
+80
+
+Esercizio 26
+Si supponga, come mostrato in figura, che il proprietario dell'host H1 
+abbia configurato in modo errato gli indirizzi IP sul suo dispositivo; in 
+particolare sono stati invertiti i valori del gateway predefinito e 
+dell'indirizzo IP. Descrivere il comportamento della rete quando è 
+presente tale errore, supponendo che tutti i gli host presenti nella 
+topologia generano traffico.
+81
+
+Soluzione
+L'host H1 appare isolato dal mondo esterno. Può raggiungere qualsiasi destinazione locale (ovvero indirizzi IP 
+appartenenti al suo intervallo di indirizzi), ma non può raggiungerne altri destinazioni al di fuori di 130.192.16.0/24 
+poiché ha un indirizzo errato per il gateway predefinito. Per esempio, l'indirizzo 130.192.16.81 (che rappresenta il 
+gateway predefinito per l'host H1) non dovrebbe essere presente affatto su quella rete, poiché avrebbe dovuto 
+essere assegnato dall'amministratore di rete per ospitare H1.
+Per gli host H2 e H3 la situazione è più complessa. Il problema è che l'indirizzo del default gateway (130.192.16.1) è 
+presente due volte nella rete: ogni richiesta ARP per l'indirizzo 130.192.16.1, necessario per scoprire l'indirizzo MAC 
+del router, riceverà due risposte, una da R1 e l'altro da H1, perché entrambi sono all'indirizzo 130.192.16.1. 
+Sfortunatamente non lo è possibile sapere a priori quale risposta verrà utilizzata dall'host che ha inviato la Richiesta 
+ARP, perché la scelta è del tutto casuale (ad esempio, l'host dovrebbe utilizzare l'indirizzo MAC dalla prima risposta 
+ARP ricevuta). In questo caso si possono verificare due situazioni:
+• l'host sceglie l'indirizzo MAC del router: il traffico Internet per e verso questo host lo farà scorrere senza problemi.
+• l'host sceglie l'indirizzo MAC di H1: verrà inviato il traffico in uscita verso Internet a H1, che eliminerà quei 
+pacchetti. È comunque interessante notare che la direzione opposta (traffico da Internet a H2-H3) verrà consegnato 
+senza alcun problema.
+Si noti che questo comportamento può variare nel tempo: quando la cache ARP relativa all'indirizzo 130.192.16.1 
+scade negli host H2-H3, il processo ARP ricomincia, portando a uno dei due possibili esiti mostrato in precedenza. 
+Così un host può essere in grado di comunicare in modo intermittente con Internet, creando la diagnosi del guasto 
+molto più problematica.
+Infine, dobbiamo menzionare che molti sistemi operativi sono in grado di rilevare un conflitto relativo a un indirizzo 
+IP duplicato; questo viene fatto inviando una richiesta ARP con il proprio indirizzo IP come destinazione, prima di 
+attivare lo stack di protocollo IP. Se si riceve una risposta, è presente un indirizzo duplicato in rete; in questo caso, la 
+maggior parte dei sistemi operativi disabilita lo stack del protocollo IP e visualizza un errore messaggio all'utente.
+82
+
+Esercizio 27
+Un’azienda deve realizzare un piano di indirizzamento IP. L'azienda possiede 
+un blocco di indirizzi IPv4 222.138.12.0/24 e un blocco 121.130.21.0/26. 
+L'azienda include diverse postazioni di utente ripartite in tre dipartimenti, 
+come segue. Il Dipartimento_1 include 150 utenti, il Dipartimento_2 
+include 5000 utenti e il Dipartimento_3 include 220 utenti. Questi 
+dipartimenti sono accessibili attraverso un'interfaccia dedicata a ciascuno 
+di essi di un Router A, che svolge la funzione di gateway. Gli utenti dei tre 
+dipartimenti devono poter solamente navigare in Internet. La rete 
+aziendale include due ulteriori server farm, che contengono dei server che 
+devono essere accessibili dall'esterno. La Server Farm_1 è composta da 10 
+server, mentre la Server Farm_2 è composta da 28 server. Ciascuna server 
+farm è accessibile mediante una interfaccia dedicata dello stesso Router A.  
+La rete risultante è illustrata in figura.
+83
+
+H
+Dipartimento_2
+Dipartimento_3
+Server Farm_1
+Server Farm_2
+Dipartimento_1
+E
+Si proponga un piano di indirizzamento
+Si specifichino gli indirizzi IP delle interfacce del router/gateway
+Si individui la tabella di routing del router A
+Destination
+Gateway
+Netmask
+Interface
+…
+84
+
+Dipartimento_1 include 150 utenti,
+Dipartimento_2 include 5000 utenti, 
+Dipartimento_3 include 220 utenti. 
+Server Farm_1 è composta da 10 server, 
+Server Farm_2 è composta da 28 server
+7 interfacce dei router
+Totale  5415 Interfacce di rete da configurare
+I due blocchi /24 e /26 includono 253+62 combinazioni utilizzabili. Per gli utenti, 
+che devono solo poter navigare in Internet, usiamo indirizzi IP privati, così come per 
+il collegamento fra i router 
+Dipartimento_1 blocco 192.168.0.0/24, indirizzi sequenziali da 192.168.0.1 (interfaccia D) 
+fino a 192.168.0.151 
+Dipartimento_2 blocco 10.0.0.0/19, indirizzi da sequenziali da 10.0.0.1 (interfaccia T) a 
+10.0.19.137 – (00010011 e 10001001 ossia 19 e 37 in decimale, formano 5001 in binario)
+Dipartimento_3 blocco 192.168.1.0/24, indirizzi sequenziali da 192.168.1.1 (interfaccia P) 
+a 192.169.1.221. 
+Collegamento fra i router: 192.168.2.0/30, 192.168.2.1 (interfaccia H) e 192.168.2.2 
+(interfaccia E) 
+85
+
+DESTINATION
+GATEWAY
+NETMASK
+INTERFACE
+192.168.0.0
+Diretto
+255.255.255.0
+D
+10.0.0.0
+Diretto
+255.255.240.0
+T
+192.168.1.0
+Diretto
+255.255.255.0
+P
+192.168.2.0
+Diretto
+255.255.255.252
+H
+121.130.21.0
+Diretto
+255.255.255.224
+121.130.21.32
+Diretto
+255.255.255.240
+0.0.0.0
+192.168.2.2
+0.0.0.0
+H
+Server Farm_2,  28 server, 1 router, quindi 31 combinazioni binarie, quindi /27, 
+121.130.21.0/26 -> 121.130.21.0/27 (Server Farm_1) e 121.130.21.32/27
+Server Farm_1 , 10 server, 1 router, quindi 13 combinazioni binarie, quindi /28
+121.130.21.32/27 -> 121.130.21.32/28 (Server Farm_2) e 121.130.21.48/28 risparmiato
+Il blocco 222.138.12.0/24 è interamente risparmiato
+86
+
+Esercizio 28
+Data la rete in figura, identificare gli errori di configurazione e gli effetti 
+generati da questi
+87
+
+Soluzione
+Gli errori presenti sono i seguenti: 
+• 1. Il server DNS non ha alcuna configurazione per il gateway 
+predefinito; questo impedisce all'host di poter contattare 
+qualsiasi host al di fuori dell'intervallo 130.192.86.0/27. 
+• 2. Gli spazi di indirizzamento delle reti N1 e N2 si 
+sovrappongono, anche se gli indirizzi IP associati agli host 
+non sono duplicati. Infatti, l'intervallo di indirizzi 
+130.192.86.24/29 (utilizzato in N2) appartiene all'intervallo 
+di indirizzi 130.192.86.0/27, utilizzato in N1. 
+• 3. Gli indirizzi IP assegnati ai dispositivi della rete N3 sono 
+errati, perché rappresentano gli indirizzi di rete e broadcast 
+dell'intervallo di indirizzi 130.192.86.32/30. Gli indirizzi 
+corretti sono 130.192.86.33 e 130.192.86.34.
+88
+
+Esercizio 29
+Considerando la rete rappresentata in figura, il comando 
+"ping www.myserver.com" 
+digitato sull'host H1 è eseguito con successo? Perché?
+89
+
+Soluzione
+Il comando è eseguito con successo. Infatti, l'host H1, il router R1 e il server WWW 
+possono comunicare poiché essi appartengono alla stessa subnet 130.192.86.0/24 e si 
+trovano nella stessa LAN. Inoltre, il router R1 può comunicare con il DNS perché 
+entrambi hanno un'interfaccia collegata alla stessa LAN e avere indirizzi IP 
+“compatibili” (130.192.85.8 appartiene alla rete 130.192.85.0/27, che è lo spazio degli 
+indirizzi configurato nel router). Anche il contrario è possibile sible: il DNS può 
+comunicare con il router perché l'indirizzo 130.192.85.1 di R1 appartiene alla rete IP 
+130.192.85.0/28 configurata nel server DNS. Pertanto, l'host H1 è in grado di risolvere 
+il nome www.mioserver.it utilizzando il DNS, e poi può raggiungere il server WWW con 
+un pacchetto ICMP Echo Request. 
+Vale la pena notare che, anche se in questo caso particolare la rete agisce 
+correttamente, la rete presenta un errore di configurazione: in realtà l'interfaccia più a 
+destra del router R1 e il server DNS hanno maschere di rete diverse. Mentre nel caso 
+in esame non emergono problematiche, un malfunzionamento può comparire per un 
+diverso insieme di destinazioni; per esempio, un ipotetico host H2 con indirizzo 
+130.192.85.25/27, connesso a quella LAN, sarebbe raggiungibile da R1 ma non dal 
+DNS.
+90
+
+Esercizio 30
+Si usi l’algoritmo di Dijkstra per calcolare il percorso più breve dal router B 
+verso tutti i router della rete, mostrando in tabella i passi intermedi; si tracci 
+in figura l’albero a costo minimo ottenuto e il costo per raggiungere i nodi. 
+A
+B
+C
+D
+E
+F
+G
+H
+I
+L
+M
+6
+6
+2
+2
+1
+5
+1
+2
+9
+4
+1
+5
+5
+7
+2
+1
+4
+91
+
+A
+B
+C
+D
+E
+F
+G
+H
+I
+L
+M
+6
+6
+2
+2
+1
+5
+1
+2
+9
+4
+1
+5
+5
+7
+2
+1
+4
+Passo 1
+Passo 2
+Passo 3
+Passo 4
+Passo 5
+Passo 6
+Passo 7
+M
+B (0)
+B (0) M(1) B (0)M(1)
+C(2) 
+B (0)M(1)
+C(2)  F(2)
+B(0)M(1)
+C(2) F(2) 
+A(2)
+B(0)M(1)
+C(2) F(2) 
+A(2) I(2)
+B(0)M(1)
+C(2) F(2) 
+A(2) I(2)
+D(3)
+V(M)
+A(2) C(2) 
+F(2) E(9) 
+G(5) 
+M(1)
+A(2) C(2) 
+F(2) E(9) 
+G(5)
+H(6) 
+I(2),L(6)
+A(2) F(2) 
+E(9) G(5)
+H(6) 
+I(2),L(6)
+A(2) E(9) 
+G(5)
+H(6) 
+I(2),L(6),
+D(3)
+E(9) G(5)
+H(6) 
+I(2),L(6),
+D(3)
+E(6) G(4)
+H(6),L(6)
+D(3)
+E(6) G(4)
+H(6),L(6)
+Nodo 
+prescelto
+M(1)
+C(2) 
+F(2)
+A(2) 
+I(2)
+D(3)
+G(4)
+92
+
+Passo 7
+Passo 8
+Passo 9
+Passo 10
+Passo 11
+M
+B(0)M(1)
+C(2) F(2) 
+A(2) I(2)
+D(3)
+B(0)M(1)
+C(2) F(2) 
+A(2) I(2)
+D(3) G(4)
+B(0)M(1)
+C(2) F(2) 
+A(2) I(2)
+D(3) G(4)
+E(6)
+B(0)M(1)
+C(2) F(2) 
+A(2) I(2)
+D(3) G(4)
+E(6) H(6)
+B(0)M(1)
+C(2) F(2) 
+A(2) I(2)
+D(3) G(4)
+E(6) H(6)
+L(6)
+V(M)
+E(6) G(4)
+H(6),L(6)
+E(6) 
+H(6),L(6)
+H(6),L(6)
+L(6)
+Nodo 
+prescelto
+G(4)
+E(6)
+H(6)
+L(6)
+A
+B
+C
+D
+E
+F
+G
+H
+I
+L
+M
+6
+6
+2
+2
+1
+5
+1
+2
+9
+4
+1
+5
+5
+7
+2
+1
+4
+93
+
+Esercizio 31
+•
+Si consideri una connessione TCP tra due calcolatori utilizzata per trasferire un file 
+di 2*106 byte. Si assuma che:
+•
+il protocollo TCP si comporti in accordo con le specifiche della versione Reno;
+•
+il valor medio del RTD sia di 100 ms;
+•
+i tempi di trasmissione/elaborazione dei pacchetti nei sistemi terminali siano 
+trascurabili rispetto al RTD;
+•
+la finestra di congestione (Congwin) riesca ad operare senza perdite per valori 
+inferiori a 20 MSS; raggiunto tale valore, si verifichi un evento di perdita per buffer 
+overflow nella rete;
+•
+il valore iniziale della threshold sia pari a 16 MSS;
+•
+il valore del tasso di errore per bit sia trascurabile;
+•
+il valore del MSS sia pari a 1460 byte;
+•
+il valore della finestra comunicata dal ricevitore sia sempre pari a RcvWindow = 
+49640 byte;
+•
+il ricevitore invii un ACK per ogni pacchetto arrivato al destinatario senza errori.
+94
+
+In queste condizioni, stimare: 
+• il massimo valore di portata, allo strato protocollare IP, 
+raggiungibile sulla rete da questa connessione;
+• il tempo necessario per trasferire il file trascurando il 
+contributo associato al transitorio iniziale, giustificando 
+opportunamente questa approssimazione.
+• Ripetere il calcolo nel caso in cui il valore della finestra 
+RcvWindow fosse dimezzato.
+• Infine, calcolare l’overhead (in byte) associato al protocollo 
+TCP per il trasferimento del file in oggetto, trascurando 
+soltanto i contributi associati ai pacchetti persi per buffer 
+overflow nella rete.
+95
+
+Dim file = 2*106 byte
+RTDave=100 ms
+Tx=Tp≈0
+Congwin(0 perdite)= < 20 MSS
+Threshold=16 MSS
+Pe ≈0
+1MSS=1460 byte
+Rcvwin=49640 byte = 49640/1460 MSS= 34 MSS
+TxWinmax=min(Rcvwin, Congwinmax)=20 MSS
+Portatamax=TxWinmax/RTDave=20*1460/100=292 kbyte/s
+96
+
+RTD
+Congwin
+1
+1     2    3      4      5    6    7     8      9    10  11  12   13 14  15  16  17  18 19 
+2
+4
+8
+16
+20
+10
+…
+Dopo la breve fase esponenziale di 4 ms la portata media 
+è uguale a 15*1460/100=219 kbyte/s, quindi in tempo trasmissione del file è circa
+T=2*106/(219*103)=9.13 s
+97
+
+La fase esponenziale dura 4 ms. Durante questa fase sono stati trasmessi 
+1+2+4+8=15 MSS in 3 RTD. Se li  avessimo trasmessi alla portata media avremo impiegato 
+15*1460/(219*103)=0.1s=1RTD. L’approssimazione è di 2 RTD.
+Nel caso di Rcvwin =17 MSS, TxWin=Rcvwin - COSTANTE
+Portata=17*1460/RTD=248.2 kbyte/s
+T=2*106/(248,2*103)=8,05 s
+Segnalazione: setup connessione (3-way handshake) = 3 header TCP
+                        chiusura connessione = 3 header TCP
+                        2*106/1460=1370 MSS
+ 
+         1370 ack
+                        20 byte/header TCP => 2746 header*20 byte/header=54920 byte
+                        corrispondenti al 1.36% carico di segnalazione
+98
+
+Esercizio 32
+Determinate se i seguenti indirizzi IPv6 sono corretti.
+a)::0F53:6382:AB00:67DB:BB27:7332
+b)7803:42F2:::88EC:D4BA:B75D:11CD
+c)::4BA8:95CC::DB97:4EAB
+d)74DC::2BA
+99
+
+Soluzione
+a)::0F53:6382:AB00:67DB:BB27:7332
+L'indirizzo scritto per esteso è 0000:0000:0F53:6382:AB00:67DB:BB27:7332
+È un indirizzo valido ma non ancora distribuiro poiché inizia per 0000 0000.
+b)7803:42F2:::88EC:D4BA:B75D:11CD
+La sequenza di tre “:” è sintatticamente sbagliata. Quindi non è un indirizzo 
+valido
+c)::4BA8:95CC::DB97:4EAB
+La sequenza di due “:” indicata un padding a zero. Poiché sono due di queste 
+sequenze non è possibile identificare univocamente l'indirizzo.
+d)74DC::2BA
+L'indirizzo scritto per esteso è 74DC:0000:0000:0000:0000:0000:0000:02BA
+È un indirizzo valido.
+100
+
+Esercizio 33 – Stateless configuration
+101
+
+Soluzione
+102
+
+Esercizio 34: Stateless Configuration
+1) gli indirizzi configurati su H1
+2) i pacchetti generati da H1 qualora 
+questo cerchi du effettuare un PING 
+verso H2, assumendo che be conosca 
+l’indirizzo IPv6
+3) I pacchetti generati di H1 qualora 
+voglia iniziare una connessione TCP 
+verso un host in Internet
+Esercizio 34 – Stateless configuration
+103
+
+Soluzione
+104
+
+Soluzione
+105
+
+Soluzione
+106
+
+Esercizio 35: Indirizzamento
+107
+
+Soluzione
+È sufficiente gestire il tutto con indirizzo ULA – prefisso FC00::/7 – usiamo il 
+sottoblocca fd00::/8 (quello fc00::/8 è attualmente non utilizzabile).
+Si deve generare una stringa di 40 bit random, ad esempio 0x123456789a. La 
+stringa è appesa al prefisso fd00::/8, formando il prefisso fd12:3456:789a::/48.
+Per facilitare l’autoconfigurazione si possono utilizzare di preferenza reti /64 
+ricorrendo al subnetting usando i successivi 16 bit. Questo alle spese di una 
+bassissima efficienza nell’allocazione degli indirizzi, un particolare nel 
+collegamento fra i router.
+fd12:3456:789a:1::/64
+fd12:3456:789a:2::/64
+fd12:3456:789a::3/64
+108
+
+Esercizio 36: Indirizzamento
+Realizzare un piano di indirizzamento IPv6 per la rete in figura, usando il blocco 
+2001:760:400::/48, indicando su quali interfacce ha senso abilitare il processo di 
+Router Advertisement.
+109
+
+Soluzione
+110
+
+Soluzione
+111
+
+Soluzione
+112
+
+Esercizio 37
+Un’applicazione A deve trasferire 96 kbyte all’applicazione B utilizzando il protocollo TCP.
+Si supponga che la connessione sia già stata instaurata. Le variabili note sono le seguenti:
+•
+ MSS concordata pari a 1000 byte;
+•
+ RCVWND annunciata pari a 32 kbyte;
+•
+ SSTHRESH = RCVWND/2;
+•
+ RTT costante pari a 0.5 secondi;
+•
+ primo RTO= 2*RTT;
+•
+ perdite sequenziali RTO_new=2*RTO_old
+Si supponga che la rete vada fuori uso
+•
+ t1=3 sec x 0.5 sec
+•
+ t2=7 sec x 0.5 sec
+Determinare
+•
+ andamento della CWND e valore finale della CWND e della SSTHRESH
+•
+ tempo di trasferimento
+113
+
+Soluzione
+114
+
+Esercizio 38
+Un’applicazione A deve trasferire 46.5 kbyte all’applicazione B utilizzando il protocollo
+TCP. Si supponga che la connessione sia già stata instaurata. Le variabili note sono le
+seguenti:
+•
+ MSS concordata pari a 1500 byte;
+•
+ RCVWND annunciata pari a 24 Kbyte;
+•
+SSTHRESH = RCVWND/2;
+•
+ RTT costante pari a 0.5 secondi;
+•
+ primo RTO= 2*RTT;
+•
+ perdite sequenziali RTO_new=2*RTO_old
+Si supponga che la rete vada fuori uso
+•
+ t1=1.5 sec x 2 sec
+•
+ t2=7 sec x 0.5 sec
+Determinare
+•
+ andamento della CWND e valore finale della CWND e della SSTHRESH
+•
+ tempo di trasferimento
+115
+
+Soluzione
+116
+
+Esercizio 39
+• Ad un provider è stato allocato il seguente
+blocco di indirizzi IPv6: 2001:DB8::/32 
+• Il provider deve delegare blocchi /48 ai suoi
+clienti
+• Determinare quanti client è in grado di servire
+e i primi 4 blocchi allocati
+117
+
+Soluzione
+• I blocchi allocati sono 2^(48-32)=65536
+• 2001:0DB8::/32 -> 2001:0DB8:0000::/48 
+118
+
+Esercizio 40
+• Identificare i promi 4 sottoblocchi /35 del 
+blocco 2406:6400::/32
+119
+
+[Figura da Pag.6] Labels: q; Tp; T,; Tp; AN ait in. Caption: (errore caption)
+[Figura da Pag.6] Labels: dog; fea; My L Gb; Ff ey MPA cy. Caption: (errore caption)
+[Figura da Pag.6] Labels: lag Pt. Caption: (errore caption)
+[Figura da Pag.6] Labels: Uy Hf. Caption: (errore caption)
+[Figura da Pag.7] Caption: (errore caption)
+[Figura da Pag.8] Labels: ooaoa oa ooa; oooao0a oa ooaa; lees oa a oa; oo ~ oa; La suddivisione fra subnet e host viene fatta sul 4°ottetto. la sua suddivisione sara; 199..10..10 see; 199.10.10.ssshhhhh perché per fare (6) 9=(110)2 quindi per le subnet ci vogliono 3; bit; 199.10.10.000hhhhh 1° subnet; 199.10.10.001hhhhh 2° subnet; 199.10.10.010hhhH «3 subnet; 199.10.10.011hhhhh 4° subnet; 199.10.10.100hhhhh 5° subnet; 199.10.10.101hhhhh 6" subnet. Caption: (errore caption)
+[Figura da Pag.8] Labels: segreteria; 199.10.10.00000001 «1 subnet 1° host 199.10.10.1; 199.10.10.00000010 ——1* subnet 2° host 199.10.10.2; aula I piano terra; 199.10.10.00100001 2" subnet 1°host 199.10.10.33; 199.10.10.00100010 2" subnet 2° host 199.10.10.34; 199.10.10.00100011 2" subnet 3° host 199.10.10.35; 199.10.10.00100100 2" subnet 4° host 199.10.10.36; aula 2 piano terra; 199.10.10.01000001 3" subnet 1° host 199.10.10.65; 199.10.10.01000010 3" subnet 2* host 199.10.10.66; 199.10.10.01000011 3 subnet 3° host 199.10.10.67; 199.10.10.01000100 3 subnet 4° host 199.10.10.68; 199.10.10.01000101 3 subnet 5° host 199.10.10.69; 199.10.10.01000110 3" subnet 6° host 199.10.10.70; 199.10.10.01000111 3" subnet 7° host 199.10.10.71; 199.10.10.01001000 3" subnet 8° host 199.10.10.72; aula 1 primo piano; 199.10.10.01100001 4 subnet 1° host 199.10.10.97; 199.10.10.01100010 —4* subnet 2° host 199.10.10.98; 199.10.10.01100011 _—4* subnet 3° host 199.10.10.99; 199.10.10.01100100 —4* subnet 4° host 199.10.10.100; aula 2 primo piano; 199.10.10.10000001 —5* subnet 1° host 199.10.10.129; 199.10.10.10000010 —5* subnet 2° host 199.10.10.130; 199.10.10.10000011 —5* subnet 3° host 199.10.10.131; 199.10.10.10000100 5* subnet 4° host 199.10.10.132; aula 3 primo piano; 199.10.10.10100001 _—«6* subnet 1° host 199.10.10.161; 199.10.10.10100010 —6* subnet 2° host 199.10.10.162; 199.10.10.10100011 —6* subnet 3° host 199.10.10.163; 199.10.10.10100100 —6* subnet 4° host 199.10.10.164; 199.10.10.10100101 _—6* subnet 5° host 199.10.10.165,; 199.10.10.10100110 —«6" subnet 6° host 199.10.10.166. Caption: (errore caption)
+[Figura da Pag.10] Labels: L ‘indirizzo inizia con un numero maggiore di 192, si tratta di una classe C.; La suddivisione fra subnet e host viene fatta sul 4°ottetto.; 200.110.12.xxxxxxxx; Sviluppando lintervallo dei valori assegnato si ha:; 200 110 12 32 11001000 01101110 00001100 00100000; 200 110 12 33 11001000 01101110 00001100 00100001; 200 110 12 34 11001000 01101110 00001100 00100010; 200 110 12 61 11001000 01101110 00001100 00111101; 200 110 12 62 11001000 01101110 00001100 00111110; 200 110 12 63 11001000 01101110 00001100 00111111; Si nota nota come la trama del 4*ottetto sia; 200.110.12.sshhhhhh; La subnet mask deve essere necessariamente:; 11111111.11111111.11111111.11000000=255.255.255.224. Caption: (errore caption)
+[Figura da Pag.19] Labels: |; Cofototrtotofotot ie]; Popotrfototototot a; Popotetrtotototot> ae |; Potrtopotote toot; Cote potrtotototot—s——|; Potete pot oto fotos]; 129.174. Poa popopopoy iz —_ .0/20; |; Fopofotrpotefopo> ia |; Pore fot oto pot ot ico]; Photetrtote toto |; Por pepotote toto ie |; Pepe prt oto pot ota —]; |; Eee po to poof — 20]. Caption: (errore caption)
+[Figura da Pag.28] Labels: 300 hosts 120 hosts. Caption: (errore caption)
+[Figura da Pag.29] Labels: Ri 2.129 2.130, R2; 192.168.2.128/30; 1.254 -2.126; 300 hosts 120 hosts; 192.168.0.0/23 192.168.2.0/25. Caption: (errore caption)
+[Figura da Pag.30] Labels: R1; Fay 5.193 5.194 emeayR2; 192.168.5.192,; 4.254 22:168:5.192/30 -5.126; -5.190; 300 hosts 120 hosts; 192.168.4.0/24 + 192.168.5.0/25; 192.168.5.128/26. Caption: (errore caption)
+[Figura da Pag.31] Labels: Ri 5.193 5.194 R2; 192.168.5.192,; 4.254 92:168:5.192/80 5.126; -5.190; 300 hosts 120 hosts; 192.168.4.0/24 + 192.168.5.0/25; 192.168.5.128/26. Caption: (errore caption)
+[Figura da Pag.37] Labels: La seconda e la terza sottorete in tabella hanno indirizzi IP contigui (differiscono per l'ultimo Dit del; terzo byte) e hanno next hop in comune. Possono dunque essere aggregate:; 131.175.20.0 255.255.254.0 131.124.123.121; La prima, la quarta, la quinta e la sesta sottorete hanno indirizzi IP uguali fino al terzultimo bit del; terzo byte: la prima, la quarta e la sesta sottorete hanno anche next hop comune.; 131.175.132.0 255.255.252.0 131.123.124.125; 131.175.134.0 255.255.255.0 131.123.124.130; La settima sottorete ha lo stesso next-hop della route di default e quindi puo essere eliminata.; E’ dunque possibile ridurre la tabella di routing come segue:; Destinazione Netmask Next Hop; 131.175.20.0 255.255.254.0 131.124.123.121; 131.175.132.0 255.255.252.0 131.123.124.125; 131.175.134.0 255.255.255.0 131.123.124.130; 0.0.0.0 0.0.0.0 131.123.124.126. Caption: (errore caption)
+[Figura da Pag.41] Labels: [__Indirizzo__| _Interfaccia; [ seeseesee | 1; 2 1; (—aeeseess J rrr ry Csteeuses. Caption: (errore caption)
+[Figura da Pag.42] Labels: [__Indirizzo__| _Interfaccia; [ seeseesee | 1; 2 1; (—aeeseess J rrr ry Csteeuses. Caption: (errore caption)
+[Figura da Pag.43] Labels: [__Indirizzo__| _Interfaccia; [ seeseesee | 1; 2 1; (—aeeseess J rrr ry Csteeuses. Caption: (errore caption)
+[Figura da Pag.44] Labels: [__Indirizzo__| _Interfaccia; [ seeseesee | 1; 2 1; (—aeeseess J rrr ry Csteeuses. Caption: (errore caption)
+[Figura da Pag.46] Labels: Internet (Suyren); F (Swiren) —_(Siwarenf; RI Switch Switch; / o.0Og.8; bpls (Swaren) 1 oo 1 60; :; f pep. Rs; / Ho Ry ”; = rd; —— E; 3}-—~ Grad 4.4 if; ca OCB aor; 1 100 Rd); 1 200; im Oo oOo im; ——] Ca Cao CB «CBN; I 100 I ‘100. Caption: (errore caption)
+[Figura da Pag.47] Labels: <— Rete B; (Swiren); (Switenf) (Siren); 7 a 1) Ce Ce (a — 3); ppl ’ (Switch) 1 o 1 00 L; / soo ee - [RS]; , nH. of Y ;; a; {swirenl) ae Pps ae; 1] 1 aes; =>; | Ree (Switcif ix; I; ——_ ——7] a — 1] oo — 1 a — Ces; Rete A (Sieizenf) | / (Swircn); Ke G oe 1 f ae ReteG Rete F; so aap! J; Re ale 4; ReteC Rete D. Caption: (errore caption)
+[Figura da Pag.52] Labels: o/s. 195.168.17.1 195.168.17.129; ethOm ¥ eth; 195.168.17.0/25 195.168.17.128/25; 195.168.17.2 ad 195.168.17.130; 197.68.14.1; eth2; 197.68.14.254, Sie; Ke 197.68.14.0/24; ROUTER 4; ROUTER; 151.100.0.0/1; Internet om). Caption: (errore caption)
+[Figura da Pag.54] Labels: ERNE 194.9012 ae; Bs ee 134.904.4 pi9151.100.45.192; RETE ter X; eth ~\ NX rout; 4194.80.11.; RETE; 134,80,1.0/30; RETE; 194.80.9.080 — RETE; Hore a 151,100.45, 160/28; 194.9092 151.100.45.163,. Caption: (errore caption)
+[Figura da Pag.58] Labels: C3; }. Caption: (errore caption)
+[Figura da Pag.60] Labels: R3; LANA Rt eth) R2; '80 host: <= >= le; t ) ethO etho ae —— Bo; ethO; LAN3; (7 host). Caption: (errore caption)
+[Figura da Pag.76] Labels: 70 hosts 200 hosts; He) TS; == ==; NO; ==; Hey; 70 hosts (possibility of; more hosts in the future). Caption: (errore caption)
+[Figura da Pag.77] Labels: 70 hosts 200 hosts; He) TS; == ==; NO; ==; Hey; 70 hosts (possibility of; more hosts in the future). Caption: (errore caption)
+[Figura da Pag.79] Labels: 70 hosts 200 hosts; He) TS; == ==; NO; ==; Hey; 70 hosts (possibility of; more hosts in the future). Caption: (errore caption)
+[Figura da Pag.80] Labels: 70 hosts 200 hosts; Lf; HF jim; 192.168.1.128/26+; 192.168.1.192/27 = = 192.168.0.0/24; 129:; -193 a; ray 225 192.168.1.224/30 2266; Rt R2; 192.168.1.228/30 192,168.1.232/30; 230 gerag-234; a; 192.168.1.0/25; re; at]; 70 hosts (with possible expansion). Caption: (errore caption)
+[Figura da Pag.81] Labels: “J; IP: 130.192.16.1/24 IP: 130.192.16.2/24; DG: 130.192.16.81 DG: 130.192.16.1; IP: 130.192.16.5/24; DG: 130.192.16.1; ral IP: 130.192.16.1/24 /; ——; ==. Caption: (errore caption)
+[Figura da Pag.84] Labels: Dipartimento Server Farm; Debiti D B Banche; Dipartimento T; Tasse p R; Router Server Farm; Dipartimento A RappotiUE; Politica; POVERINOI. Caption: (errore caption)
+[Figura da Pag.87] Labels: Network N3; 1p: 130.192.86.1/27 4 IP: 130.192.86.35/30 _R2; IP: 130.192.86.32/30; IP: 130,192.86.25/29; Network N1 Network N2; H1 - H18; DNS oth H19 g H20 j=; IP: 130.192.86.26/29 1p: 130.192.86.27/29; IP: 130,192.86.2-19/27 DG: 130.192.86.25 OG: 130.192.86.25; IP: 130,192.86.20/27 DG: 130.192.86.1 DNS: 130.192.86.20 DNS: 130.192.86.20; DNS: 130.192.86.20 DNS: 130.192.86.20. Caption: (errore caption)
+[Figura da Pag.89] Labels: R1; IP: 130.192.86.1/24 <«=— IP: 130.192.85.1/27; ——; www g H1 DNS; IP: 130.192.86.11/2A; www.myserver.com DG: 130.192.86.1 IP: 130.192.85.8/28; IP: 130.192.86.10/24 DNS: 130.192.85.8 DG: 130.192.85.1; DG: 130.192.86.1 DNS: 130.192.85.8,; DNS: 130.192.85.8. Caption: (errore caption)
+[Figura da Pag.101] Labels: Sia data la configurazione di rete in figura. eet; Assumendo che il Router Advertisement; sia abilitato solamente su R1, indicare gli RL 6. &; indirizzi IPv6 presenti sull’interfaccia — ==; dell’host ottenuto attraverso stateless ef [roenare ™ Poeetoaiss; configuration.; Host (J; Risposte:; A) 2001:1:0:1:20b:5dff:fe4c:3a6b, 2001:1:0:7:20b:5dff:fe4c:3a6b, fe80::20b:5dff:fe4c:3a6b |; B) 2001:1:0:1:20b: 5dff:fe4c:3a6b, fe80:1::20b:5dff:fe4c:3a6b; C) 2001:1:0:7:20b: 5dff:fe4c:3a6b, fe80::20b: 5dff:fe4c:3a6b |; D) 2001:1:0:1:20b:5dfe:ff4c:3a6b, fe80::20b:Sdff:fe4c:3a6b; E) 2001:1:0:1:20b:5dff:fe4c:3a6b, fe80::20b:5dff:fe4c:3a6b. Caption: (errore caption)
+[Figura da Pag.102] Labels: A) E errata, perche R2 non invia messaggi di Router Advertisement, percui il; prefisso 2001:1:0:7::/64 non pud essere configurato sulla stazione.; B) E errata, in quanto I’indirizzo link local ha il prefisso errato (FE80:1::/64,; mentre dovrebbe essere FE80::/64); C) E errata, in quanto I'indirizzo pubblico é derivato dal prefisso di R2, che tuttavia; non ha il Router Advertisement abilitato.; D) E errata. Nonostante I’indirizzo IPv6 pubblico sia valido, |l’interface ID é; calcolato in modo scorretto a partire dall’indirizzo MAC (si notino i byte FF ed; FE invertiti). Dal momento che l’esercizio assume la stateless configurazion,; l'indirizzo é errato.; E) E corretta.. Caption: (errore caption)
+[Figura da Pag.103] Labels: Sia data la configurazione di rete in figura.; Assumendo che il router Ri non abbia abilitato il; processo di Router Advertisement, indicare: ag; 1) gli indirizzi configurati su H1 POOU ST Ossst/Ot; 2) i pacchetti generati da H1 al bootstrap mJ ae; MAC 00:01:04:76:2A:5C MAC 00:01:04:78:8D:2B. Caption: (errore caption)
+[Figura da Pag.104] Labels: L’unico indirizzo presente sara il link-local.; Interface ID:; MAC 00:01:04:76:2A:5C => IF_ID 0201:04FF:FE76:2A5C; => Indirizzo link local: FE80::0201:04FF:FE76:2A5C. Caption: (errore caption)
+[Figura da Pag.105] Labels: E necessario innanzitutto ricavare I’indirizzo IPv6 link-local di H2. Quindi; verranno generati due pacchetti relativi alla fase di neighbor solicitation,; seguiti dai pacchetti ICMP echo request/reply.; Indirizzo IPv6 di H2: FE80::0201:04FF:FE78:8D2B (MAC: 00:01:04:78:8D:2B); Pacchetto 1:; [Eth] 000104-762A5C => 3333FF-788D2B; [IPv6] :: =>FFO2::1:FF78:8D2B (Len 72); [ICMP6] Neighbor Solicitation: who has FE80::0201:04FF:FE78:8D2B?; Pacchetto 2:; [Eth] 000104-788D2B => 000104-762A5C; [IPv6] FE80::0201:04FF:FE78:8D2B => FE80::0201:04FF:FE76:2A5C (Len 72); [ICMP6] Neighbor Advertisement: I am FE80::0201:04FF:FE78:8D2B at 000104-788D2B; Pacchetto 3:; [Eth] 000104-762A5C => 000104-788D2B; [IPv6] FE80::0201:04FF:FE76:2A5C => FE80::0201:04FF:FE78:8D2B (Len 72); [ICMP6] Echo Request; Pacchetto 4:; [Eth] 000104-788D2B => 000104-762A5C; [IPv6] FE80::0201:04FF:FE78:8D2B => FE80::0201:04FF:FE76:2A5C (Len 72); [ICMP6] Echo Reply. Caption: (errore caption)
+[Figura da Pag.106] Labels: L‘inoltro di traffico su Internet non é possibile in quanto I’host; H1 non conosce alcun default router.; Pertanto, H1 @ in grado di comunicare con gli host locali; attraverso gli indirizzi link-local, ma non é in grado di inoltrare; pacchetti al di fuori del link locale.. Caption: (errore caption)
+[Figura da Pag.107] Labels: Realizzare un piano di indirizzamento IPvé6 per la rete in figura.; Indicare inoltre le route statiche da configurare sui router affinché; la rete sia funzionante.; 350 host 120 host. Caption: (errore caption)
+[Figura da Pag.108] Labels: Fa wz; FECO:0:0:1::/64. Caption: (errore caption)
+[Figura da Pag.109] Labels: : —; BM 1,2. Caption: (errore caption)
+[Figura da Pag.110] Labels: |; 2001:760:400::/48 internet >; —; a=; 2001:760:400:0:/64 2001:760:400:2:/64; 2001:760}:400:1:/64; SEZ Edificio A Edificio B = Fiificio C; Sez; 2001:760:400:3:/64| 2001:%60:400:5:/64; 2001:760 400:4:/64; = = aS = = = st = =; 2001:7§0:400:6:/64 2001:7607400:8:/64; * 001:760:400:7:/64 . Piano 2 Piano 35 - -. Caption: (errore caption)
+[Figura da Pag.110] Labels: Vista la limitata dimensione della rete, é@ possibile assegnare gli; indirizzi anche non gerarchicamente, lasciando al router interno il; compito di propagare la raggiungibilita degli indirizzi di rete.. Caption: (errore caption)
+[Figura da Pag.111] Labels: 2001:760:400::/48 << imernet >; “Area: 2001:760:400:0:/52.; ' 2001:760:400:0:/64, ' Q01:760:400:2000:/64; H 2901:760%490: 1000:/64; ' i . a Edificio C; | peccncenoeno =o === gem Edificio A : re Fdificio B =<y; i i 904:760:400:300:/64 gee ead oy; | 1 2001:760:400:9%00:/64 | 1 ’ 1 ri \ Ne; tt + 20017%40:400:200:/64 H re ! , / & “a; Po ' = H . } \; i == ; == '; { | 2001:76p:400:0101:/64 2001:760:900:303;/64; ti + 2001:760:490:201:/64 '. Caption: (errore caption)
+[Figura da Pag.111] Labels: In alternativa, é possibile assegnare gli indirizzi gerarchicamente.; Per quanto riguarda il processo di Router Advertisement, va abilitato; solamente sulle interfacce inferiori dei router di ultimo livello.. Caption: (errore caption)
+[Figura da Pag.112] Labels: = La gestione strettamente gerarchica puo risultare piu complessa da; gestire sul lungo periodo; = Tra gli altri, vi é il problema degli indirizzi da assegnare ai links, che; “consumano” uno spazio di indirizzamento non indifferente; = Tipicamente la soluzione gerarchica si utilizza in presenza di diverse sedi; della stessa organizzazione, in modo da poter individuare immediatamente; Ihost sorgente in base ad una ispezione visuale dell’indirizzo IPv6; = All‘inteno delle varie sedi, tipicamente la soluzione é “anarchica”; = Spesso vi é uno specifico range di indirizzamento riservato ai links tra i; routers; = La gestione “anarchica” scala bene su reti anche di medio-grande; dimensione (qualche centinaio di route); = La soluzione riportata nella slide precedente é una delle tante; possibili; = Si noti il partizionamento a /52 e /56: perche?. Caption: (errore caption)
+[Figura da Pag.114] Labels: Condizioni iniziali:; MSS= 1000byte; S serasiy dati da trasferire = 96Kbyte = 96 segmenti; | RCVWND = 32Kbyte = 32 segment; | | SSTHRESH,,i2iaie = 16 segmenti; Pot tT TT rt RTT= 0.5 sec; of TT TT :; i RTO= 2°RTT; rrritltl numero di segmenti spediti; | _|_|_| LAr 142448+16+1 Taji s244s84944 0476 4142444542= 96; | SSTHRESH] A |; if; yor Tp TT TP yt TT TTT TT Alprecedente RTT, CWND= 6; Poy TT segmenti, tuttavia, per completare la; Por rT gr TTT trasmiss. sono stati spediti 2 segment; Poy TT TTY auinai sono tornati indietro 2 ack, da cui; pt AT) CWn= 62/6; Pop eT | Tfine_trasm =10.5 sec; ee) ee. eee ee; Bn eee ee ee 4; a Ai eres Oe ee | A |; fF ssnwesh = a |; Tf cwnoe = 182 Fr recs La | A |; A ee a ee; Pf FT eS cegmeni = 7 |; 0A ee ©, A ees ee | |; 4 2 |; ne Asec a rete fluor Uso 10sec ' tempo. Caption: (errore caption)
+[Figura da Pag.116] Labels: Condizioni iniziali:; MSS= 1500byte; plied dati da trasferire = 46.5Kbyte = 31 segment; [lin segmenti) .; PT Pr RCVWND = 24Kbyte = 16 segmenti; rr SSTHRESH piziaie = 8 Segmenti; Po RTT= 0.5 sec; a(S RTO= 2°RTT; or rT taamero gi sp grnent spect; eee 102: HADI 4S YH 424343°31; ee; A CS A SS SS; pf ft fT tT Perdita consecutive. {| {1 TV ai precedente RTT, CWND= 4; po TTT inquestocasocwno |] | | TTT segment: tuttavia, per completare la; Po TTY rimane = 1¢ || | {TTY trasmiss. sono stati spediti 3 segment,; pop TT | sstHresHviene «= fT TT TT quindi sono tornati indietro 3 ack, da cui; ETT posta =2(enon= = [TTT cw arava; | ete +f cwnore= ») {ff TTY Tfine_trasm =10 sec; | SSTHREST es eee Eee eo; Pp PtAtT Teepe; Pye eee de; PS A A | GG; DP 6 ee ee ee ee.; PTA eee ae ge; AR ee 2 ee a ee; og; CT; a tsec "(ele fuari uso 5sec rete Fuat uso ; 10sec tempo. Caption: (errore caption)
+[Figura da Pag.118] Labels: 2001:0DB8:0000::/48; ~ | In bits; 2001:0D88: :/48 mm 2001:0DB8:0000::/48; 2001:0DB8: :/48 mm 2001:0DB8:0001::/48; 2001:0DB8: :/48 mp 2001:0DB8:0002::/48; 2001:0D88: :/48 mm 2001:0DB8:0003::/48. Caption: (errore caption)
+[Figura da Pag.119] Labels: 2406:6400:0000::/32; ~ Hl In bits; 2406:6400: :/35 mm -2406:6400:0000::/35; 2406:6400: :/35 mm: 2406:6400:2000::/35; 2406:6400: :/35 mm 2406:6400:4000::/35; 2406:6400: :/35 mm -2406:6400:6000::/35. Caption: (errore caption)

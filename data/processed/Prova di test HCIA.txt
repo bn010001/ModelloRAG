@@ -1,0 +1,595 @@
+Exam Name HCIA-Routing & Switching
+Exam Code H12-211
+Exam Duration 90 mins
+Exam Format Multiple Choice
+HCIA-Routing & Switching is intended for the development of networking professionals who possess basic 
+knowledge and skills in enterprise networks. The certification focuses on technologies involved in small-sized 
+enterprise networks. HCIA-Routing & Switching certified engineers have a basic knowledge in the general 
+technologies involved in small-sized enterprise networks and possess the basic network design abilities.
+https://ilearningx.huawei.com/portal/exam/100296/about
+https://ilearningx.huawei.com/portal/exam?q=hcia
+
+1.(alphabetic)The LAN network is running the 802.1D spanning tree protocol. Which of the following are 
+parameters that a bridge will receive from the root bridge?
+A. Maxage.
+B. Forward delay.
+C. Root Cost.
+D. A, B, and C.
+E. None of the above.
+2. (alphabetic)If a port configured with stp loop-protection stops receiving BPDUs, which of the following states 
+will the port be put into?
+A. Forwarding.
+B. Learning.
+C. Discarding.
+D. None of all.
+3.( multiple alphabetic)Which two port states are used by RSTP?
+A. Discarding.
+B. Blocking.
+C. Listening.
+D. Forwarding.
+4. (alphabetic)STP Root Bridge selection is based on which of the following?
+A. Bridge Priority and MAC address
+B. Bridge Priority
+C. MAC address
+D. Cost of interfaces
+
+5.(alphabetic)Serial 0 on an OSPF router is added to area 1, you then configure serial 0 as silent. What is the effect of this 
+configuration change?
+A. OSPF will form all the available adjacencies out of that interface
+B. OSPF will accept the routing updates from neighbors.
+C. OSPF will not insert any of the learned routes in the local routing table.
+D. OSPF will not form any adjacency out of that interface.
+E. None of the above.
+6. (multiple alphabetic)When the Huawei VRP OSPF command ospf timer dead 20 is configured, which of the following 
+are right?
+A.OSPF hello interval is 5 seconds
+B.OSPF hello interval is 20 seconds
+C.OSPF dead interval is 20 seconds
+D.OSPF dead interval is 80 seconds
+7.( alphabetic)How many bits dose EXP occupy in the MPLS label header?
+A.1
+B.2
+C.3
+D.4
+8. (alphabetic)A new user is complaining about poor network performance, collisions and intermittent communication 
+problems between a PC and a switch port may be the result of:
+A. The port being err disabled on the switch
+B. Mismatching duplex modes
+C. The wrong wire category being used
+D. Mismatching speeds
+E. All of the above
+
+9. (multiple alphabetic) Routers A and B are directly connected and running OSPF, however they cannot form a 
+neighbor relationship. Which of the following are possible reasons?
+A.The hello and dead interval does not match
+B. The network mask does not match
+C. The authentication does not match
+D. The area does not match
+E. OSPF process does not match
+10. (Single Answer) An administrator has implemented the following configuration in VRP.
+<huawei>system-view
+[huawei]user-interface maximum-vty 7
+What effect will the above command have on user access?
+A. A maximum of 7 users are permitted to log into the device via the asynchronous serial port
+B. A maximum of 7 users are permitted to access the device using telnet.
+C. A maximum of 7 users are permitted to access the device via the console port.
+D. Users interfacing with VRP have a maximum of 7 password retries before user access is locked.
+11. (Multiple Choice) An administrator has been requested to assign hosts to the 172.16.4.32/29 network. 
+Which of the following IP addresses may be assigned by the administrator to these hosts?
+A. 172.16.4.32 255.255.255.240
+B. 172.16.4.33 255.255.255.248
+C. 172.16.4.34 255.255.255.240
+D. 172.16.4.35 255.255.255.248
+
+12. (Multiple Choice) In order to determine the reason for a change in the spanning tree topology, the following port information was extracted by an 
+administrator from one of the switches.
+----[Port1(GigabitEthernet0/0/1)][FORWARDING]----
+Port Protocol
+:Enabled
+Port Role
+:Designated Port
+Port Priority
+:128
+Port Cost(Dot1T )
+:Config=100 / Active=100
+Designated Bridge/Port :32768.4c1f-cc4f-26df / 128.1
+Port Edged
+:Config=default / Active=disabled
+Point-to-point
+:Config=auto / Active=true
+Transit Limit
+:147 packets/hello-time
+Protection Type
+:None
+Port STP Mode
+:STP
+From the given output, what is the administrator able to determine?
+A. The port cost of the port interface has been assigned automatically by the 802.1t path cost standard.
+B. The bridge priority is using the default priority.
+C. The port cost of the port interface has been manually assigned using the stp path cost command.
+D. The bridge priority has been changed from the default priority of 32767.
+13. (Single Answer) The following routes have been configured within the IP routing table of a router.
+Destination/Mask Proto 
+Pre Cost Flags
+NextHop
+Interface
+172.16.1.0/24 
+OSPF
+10 200 D
+192.168.1.2
+Gigabit Ethernet0/0/0
+172.16.0.0/16
+Static
+5
+0
+RD
+192.168.1.2
+Gigabit Ethernet0/0/0
+172.16.1.0/24
+Static
+80
+0
+RD 
+192.168.1.2
+Gigabit Ethernet0/0/0
+Which of the routes will be used in order to forward traffic to the destination host address of 172.16.1.1?
+A. Static route 172.16.0.0/16 containing a preference of 5 and a cost of 0
+B. Static route 172.16.1.0/24 containing a preference of 80 and a cost of 0
+C. OSPF route 172.16.1.0/24 containing a preference of 10 and a cost of 200.
+D. The two static routes will be active at the same time based on the cost value of 0.
+
+14. (Single Answer) Three AR2200 routers (RTA, RTB and RTC) have been configured as part of OSPF Area 0 via interface Gigabit
+Ethernet 0/0/0 in all instances. The default broadcast network type has been maintained. In addition, the three routers have been 
+assigned the following parameters:
+For RTA: A Router ID of 1.1.1.1 and an interface Gigabit Ethernet 0/0/0 dr-priority of 0 are used.
+For RTB: A Router ID of 2.2.2.2 and an interface Gigabit Ethernet 0/0/0 dr-priority of 255 are used.
+For RTC: A Router ID of 3.3.3.3 and the default interface Gigabit Ethernet 0/0/0 dr-priority are used.
+For the given scenario, which of the following statements are true?
+A. Router RTA will adopt the role of DR and RTB will adopt the role of BDR.
+B. Router RTB will adopt the role of DR and RTC will adopt the role of BDR.
+C. Router RTB will adopt the role of DR and RTA will adopt the role of BDR.
+D. Router RTC will adopt the role of DR and RTB will adopt the role of BDR
+15. (Multiple Choice) The following commands are implemented while configuring an Eth-trunk interface in VRP.
+[huawei]interface eth-trunk 1
+[huawei-Eth-Trunk1]undo portswitch
+What is the effect of configuring the undo portswitch command on the Eth-trunk interface?
+A. The undo portswitch command will allow the L3 switch to perform layer 2 link aggregation.
+B. The undo portswitch command will allow the L3 switch to perform layer 3 link aggregation.
+C. The undo portswitch command will allow the router to perform layer 2 link aggregation.
+D. The undo portswitch command will allow the router to perform layer 3 link aggregation.
+
+16. (Single Answer) The following VLAN command has been configured on the switch.
+[huawei]vlan batch 2 to 9 10
+With regards to the configured command, which of the following statements is correct?
+A. VLANs 2, 3, 4, 5, 6, 7, 8, 9 and 10 will be created on the switch
+B. VLANs 2, 9 and 10 will be created on the switch.
+C. The switch will generate an error stating that the format of the command is incorrect.
+D. VLANs from 2 through to 910 will be created on the switch.
+17. (Multiple Choice) Which of the following statements regarding access ports behavior are FALSE?
+A. Untagged frames are tagged with the default VLAN ID of the port on which the frame was received.
+B. Untagged frames are tagged with the default VLAN ID of the port on which the frame is to be transmitted
+C. Tagged frames are accepted if the frame VLAN ID matches the default VLAN ID of the port on which the frame is received.
+D. Tagged frames are discarded if the frame VLAN ID matches the default VLAN ID of the port on which the frame is received.
+18. (Multiple Choice) Upon attempting to establish a PPPoE connection, the administrator experienced difficulties. As such, the 
+following information was captured on the PPPoE client by the administrator.
+<Huawei>display pppoe-client session summary
+PPPoE Client Session:
+ID Bundle Dialer Intf
+Client-MAC
+Server-MAC
+State
+0 1
+1
+GE0/0/0
+00e0fc2c4704 000000000000 PADI
+From the given display output, what is the administrator able to determine regarding the state of the PPPoE connection?
+A. The PPPoE client is not active.
+B. A PPPoE Active Discovery Initiation packet has been sent by the client.
+C. A PPPoE Active Discovery Request packet has been sent by the client.
+D. The PPPoE server is currently not responding.
+
+19. (Multiple Choice) IP traffic originating from the internal network host of 192.168.1.1/24 destined for the public server with the 
+address of 160.131.20.1. The administrator has configured the following command
+[RTA]interface GigabitEthernet 0/0/0
+[RTA-GigabitEthernet0/0/0]nat outbound 2000
+From the given command output, what can be determined regarding the implemented NAT configuration?
+A. Internal host address 192.168.1.1 will be translated to the public IP address associated with interface GigabitEthernet 0/0/0.
+B. Internal host address 192.168.1.1 will be translated to a public IP address from an assigned address pool.
+C. The administrator has configured Internal Server based NAT.
+D. The administrator has configured easyIP based NAT
+20. (Multiple Choice) Which of the following represent parameters supported by Advanced Access Control Lists?
+A. Source & Destination IP addresses
+B. Source & Destination Port numbers
+C. Source & Destination MAC addresses
+D. The ICMP protocol type
+
+21. (Single Answer) As part of the AAA scheme for user access to the network, the administrator configures the following commands:
+[Huawei-aaa]authorization-scheme A2
+[Huawei-aaa-author-A2]authorization-mode if-authenticated hwtacacs local
+What effect will be applied to users associated with this scheme?
+A. Authenticated users will be authorized using hwtacacs authorization, if this fails local authorization will be used.
+B. Authenticated users will be authorized using local authorization, if this fails hwtacacs authorization will be used.
+C. Users will be authenticated using hwtacacs authentication, and if authenticated successfully, will be authorized using local 
+authorization.
+D. Users will be authenticated using local authentication, and if authenticated successfully, will be authorized using hwtacacs
+authorization.
+22. (Multiple Choice) Which of the following represent features provided by the Authentication Header?
+A. Data Origin Authentication
+B. Data Confidentiality
+C. Data Integrity Checking
+D. Anti-Replay Service.
+23. (Single Answer) What is the recommended tunnel MTU that should be set for supporting GRE traffic carried over Ethernet to
+prevent packet fragmentation?
+A. 1492
+B. 1480
+C. 1476
+D. 1430
+
+24. (Multiple Choice) Which two message protocol data units are supported as of SNMPv2c?
+A. SetRequest
+B. GetBulkRequest
+C. GetNextRequest
+D. InformRequest
+25. (Multiple Choice) For the IPv6 address 2000:002A:0000:0000:0000:000A:020C:023D, which of the following represent valid 
+condensed forms.
+A. 2000:2A::A:20C:23D
+B. 2000:2A:0:0:0:A:20C:23D
+C. 2000:2A::A:2C:23D
+D. 2000:2A:0:0:0:A:2C:23D
+26. (Multiple Choice) For the router responsible for generating Router Advertisements (RA) on the link, the Managed (M) flag has been 
+set to 0 and the Other (O) flag has been set 1. Based on the configuration options set, what IPv6 addressing behavior will be applied on 
+the link?
+A. Hosts on the link will generate stateless IPv6 addresses based on a prefix advertised by the router.
+B. Hosts on the link will support stateful IPv6 address allocation through a DHCPv6 server.
+C. A DHCPv6 server on the link will provide stateless configuration settings to hosts.
+D. Configuration settings will be required to be manually set by the administrator.
+27. When the default route is configured, the destination netowrk address is 255.255.255.255
+A.
+True
+B.
+false
+
+28. After the “interface loopback 0” command is run, the physic layer of the loopback 0 interface is UP and the protocol layer is Down
+A.  True 
+B. False
+29 The IPSec VPN forward the protected data flows through the IPSec Tunnel
+A.  True 
+B.  False 
+30 When configuring PPPoE, run “the dialer bundle” command to specify the Dialer bundle used 
+by the dialer interface
+A.  True 
+B. False
+31 The subnet mask is used to distinguish the type of IP addresses.
+A.  True 
+B. False
+32 After the root bridge is faulty, other switches are elected as root bridge. After the root
+bridge recovers, the network does not change.
+A.  True 
+B. False
+
+33. Link backup can be used in manual load balancing mode link aggregation
+A.  True 
+B. False
+34. Huawei network devices allow multiple users to log in to the system through the console port at the same time.
+A.  True 
+B. False
+35. The ARG3 series routers support the configuration of the authentication scheme and accounting  scheme.
+A.  True 
+B. False
+36. The port cost is the total cost of the path to the root bridge, and the root path cost is the cost of the switch port.
+A.  True 
+B. False
+37. What is the function of the TTL field in the IP packet header?
+A.  Limit the lifetime and discard the packets that cannot reach the destination  
+B.  Record the path information that the packet passes through
+C. Prevent mac address flapping
+D. Prevent broadcast storm
+
+38. How many packets need to be exchanged in CHAP authentication mode?
+A.
+3 packets
+B.
+4 packets
+C.    5 packets
+D.
+2 packets
+39. Which of the following routing table parameters indicates the priority of a route?
+A.
+Interface
+B.
+Preference
+C.
+Protocol
+D.
+Cost
+40. What is OSPFv3 used to uniquely identify a router?
+A.
+MAC address
+B.
+Router ID
+C.
+dr-priority
+D.
+IP address
+
+41. Which of the following transmission media is used when Gigabit Ethernet is deployed?
+A.
+Coaxial cable
+B.
+Twisted-pair cable                   ?
+C.
+Serial port cable
+D.
+Optical fiber
+42. What is the function of synchronization in the P/A mechanism?
+A.
+Determine the port role
+B.
+Avoid the generation of temporary loops.
+C.
+Determine the switch role
+D.
+Run the spanning tree protocol in multi-instnce scenarios
+43. Which field in the MPLS header identifies the stack bottom field?
+A.
+Label
+B.
+TTL
+C.
+S
+D.
+Exp
+
+44. What is the first step when a terminal device receives a data frame?
+A.
+Check the FCS field
+B.
+Check the destination MAC address 
+C.
+Discard
+D.
+Check the source MAC address
+45. Which field in an Ethernet data frame determines the upper-layer protocol of a network device?
+A.
+Type
+B.
+FCS
+C.
+D.MAC
+D.
+S.MAC
+46.  Which ports are supported by the FTP control plane channel by default?
+A.
+23
+B.
+20
+C.
+22
+D.
+21
+
+47. What are the functions and features of NAPT?
+A.
+NAPT is Port-based translation
+B.
+NAPT allows multiple internal addresses to be mapped to different ports of the same public address.
+C.
+Allow external users access internal servers
+D.
+Only one-to-one mapping between private addresses and public addresses can be implemented.
+48. What is the VRP Version Used by Huaewei Datacom Devices
+A.
+VRP2
+B.
+VRP8
+C.
+VRP5
+D.
+VRP4
+49. Which types of ICMP messages are used for ping?
+A.
+Redirect
+B.
+Echo request
+C.
+Echo reply
+D.
+Error packet 
+
+50. Which IP addresses are reserved in the address pool?
+A.
+IP addresses assigned to the server
+B.
+Gateway IP address
+C.
+IP address reserved for a specific host
+D.
+Interface IP address of the DHCP server
+51. Which of the following flags are involved in TCP three way handshake
+A.
+ACK
+B.
+Fin
+C.
+Seq
+D.
+SYN
+52. After the VRPis upgraded and restarted, how can the administrator confrm that the upgrade is sucessful?
+A.
+Run the “display current-configuration” command
+B.
+Run the “compare configuration” command
+C.
+Run the “display startup” command
+D.
+Run the “display version” command
+
+53. What are the possible operations if a router receives broadcast packets form hosts on the network?
+A.
+Saved on the local
+B.
+Response part packet if necessary
+C.
+Discard
+D.
+Forwarding to other broadcast domains
+54. Which of the following packet field can be used for advanced ACL rules?
+A.
+TCP flag
+B.
+Source/Destination IP address
+C.
+Source/Destination port number
+D.
+Protocol type
+55. Which of the following parameters can be defined for IPSec peers by Security Association?
+A.
+Authentication Algorithm
+B.
+Data encapsulation mode
+C.
+Charging Mode
+D.
+Encryption algorithm
+
+56.  Which of the following parameters are used by the router to select the optimal route?
+A.
+Priority of route
+B.
+Metric
+C.
+Outbound interface
+D.
+Next-hop address
+57. 
+
+tips
+• Blackhole MAC address entries can be used to filter out invalid MAC 
+addresses. To prevent a hacker from using a MAC address to attack a 
+user device or network, configure the MAC address of an untrusted
+user as the blackhole MAC address. The switch directly discards the 
+received packets where the source or destination MAC address is the 
+blackhole MAC address and the VLAN ID of the packets corresponds 
+to the blackhole MAC address.
+• NOTE: The switch forwards Layer 3 packets with the source MAC 
+addresses matching blackhole MAC address entries.
+• In system-view run: 
+• [Switch] mac-address blackhole mac-address vlan vlan-id
+
+Tips Hello and Dead Intervals in OSPF
+• https://support.huawei.com/enterprise/it/doc/EDOC1100112917/ca1
+7a1dd/ospfv3-timer-dead 
+• The dead interval of switches in the same network segment must be 
+consistent.
+• https://support.huawei.com/enterprise/it/doc/EDOC1100112496/f25
+6ded6/ospfv3-timer-hello
+• Ensure that the parameters of this interface and the adjacent routers are 
+consistent.
+
+Tips OSPF cost
+• If no cost is set for an OSPF interface using the ospf cost command, 
+OSPF automatically calculates its cost based on the interface 
+bandwidth. The calculation formula is as follows: 
+• Cost of the interface = Bandwidth reference value/Interface bandwidth. 
+• The integer of the calculated result is the cost of the interface. If the 
+calculated result is smaller than 1, the cost is 1.
+• Cost is a positive integer value.
+• Any decimal value would be rounded back in nearest positive integer.
+• Any value below 1 would be considered as 1.
+• Cumulative cost = Sum of all outgoing interfaces cost in route
+
+Tips DHCPv6
+• The DHCPv6 information refresh option can specify an upper 
+boundary for the length of time a client should wait before refreshing 
+information retrieved from DHCPv6.
+if the DHCPv6 server DUID carried in the Rebind message is not the DHCPv6 server's DUID, the DHCPv6 server does not respond to the Rebind message. If the DHCPv6 
+server DUID carried in the Rebind message is the DHCPv6 server's DUID, the DHCPv6 server checks the IPv6 address carried in the message. If the check passes, the 
+DHCPv6 server replies with a Reply message carrying the IPv6 address with a new lifetime, T1', and T2' to the DHCPv6 client.
+
+Ports e Types
+EtherType
+(hexadecimal)
+Protocol
+0x0800
+Internet Protocol version 4
+(IPv4) 
+0x0806
+Address Resolution Protocol
+(ARP) 
+0x86DD
+Internet Protocol Version 6
+(IPv6) 
+0x8847
+MPLS unicast 
+0x8848
+MPLS multicast
+0x03 within the type field of 
+the SNAP header
+Spanning Tree Protocol (STP)
+Protocol
+Port
+FTP
+20 data – 21 control
+HTTP
+80
+TELNET
+23
+SMTP
+25
+POP3
+110
+IMAP4 
+143
+
+Tips: VRP
+Function 
+Command 
+Change directory 
+cd
+View current directory
+pwd
+View content of directory
+dir
+View file content
+more
+Function 
+Command 
+Change directory 
+cd
+View current directory
+pwd
+View content of directory
+dir
+View file content
+more
+Function
+Command 
+Copy file 
+copy
+Move file
+move
+Rename file
+rename
+Function
+Command 
+Delete or permanently 
+delete file 
+delete /unreserved
+Recover file
+undelete
+Permanently clear the 
+recycle bin
+reset recycle-bin
+
+Tips: Static routes
+• When creating static routes, you can specify both the outbound 
+interface and next hop. Alternatively, you can specify only the 
+outbound interface or next hop based on the outbound interface 
+type. Specify the outbound interface for P2P interfaces.
+• Specify the next hop for non broadcast multiple access (NBMA) 
+interfaces.
+• Specify the next hop for broadcast interfaces (for example, Ethernet 
+interfaces)
+
+[Figura da Pag.23] Labels: DHCPV6 Client DHCPv6 Server; a =); ‘The DHOPV6 dient sends a; 1 [_icast Renew message; The DHCPVé6 server replies; with a unicast Reply message.; ‘The DHCPV6 alent sends @; 2. [_iullicast Rebind message; ‘The DHCPV6 server replies; with a unicast Reply message. Caption: (errore caption)
+[Figura da Pag.23] Labels: 1. When the lease reaches T1 (indicating 50% of the lifetime by default), the DHCPv6 client sends; a unicast Renew message (carrying the DHCPV6 server's DUID) to the DHCPVv6 server that; allocates the IPv6 address to request for lease renewal.; 2. After receiving the Renew message, the DHCPv6 server checks the IPv6 address carried in the; message. If the check passes, the DHCPV6 server replies with a Reply message carrying the IPv6; address with a new lifetime, T1', and T2' to the DHCPVvé6 client.; 3. If the DHCPv6 client receives the Reply message, the IPv6 address lease is successfully renewed; (counted from 0).; 4. If no reply is received from the DHCPv6 server when the lease reaches T2 (indicating 80% of the; lifetime by default), the DHCPvé6 client sends a multicast Rebind message to all DHCPv6 servers; on the same link to request for IPv6 address lease renewal.; 5. When a DHCPV6 server receives the Rebind message, the DHCPVv6 server checks the pHcrngy; server DUID carried in the message.. Caption: (errore caption)

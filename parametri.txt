@@ -1,0 +1,70 @@
+
+A) Chunking (Text Splitter)  
+- chunk_size (es. 300 vs 1 000 vs 2 000 caratteri)  
+- chunk_overlap (es. 100 vs 200 caratteri)  
+
+B) Retrieval (FAISS)  
+- k (numero di chunk recuperati)  
+- soglia minima di similarità (opzionale)  
+
+C) Prompt & Generation (LLM)  
+- prompt_template (istruzioni più o meno esplicite)  
+- temperature (0.0 vs 0.7)  
+- max_tokens (200 vs 512)  
+- stop_sequences (e.g. “Risposta:” vs `["\n\n"]`)  
+
+Questi sono i **gradi di libertà** che combinati generano l’enorme spazio 
+di ricerca che definiremo con la griglia in `params.yaml`.  
+
+---
+
+## 2) Metriche & misure di valutazione  
+Prendendo spunto dai paper e dagli Azure RAG Evaluators, suddividiamo 
+le metriche in tre categorie:
+
+1) Qualità semantica  
+ • Completezza → presenza dei *keypoints* attesi (human check o matching keyword)  
+ • Accuracy → correttezza fattuale rispetto alla documentazione (valutazione manuale)  
+ • Precisione → non generare info non supportate dal contesto (hallucination rate)  
+ • Coerenza interna → non contraddirsi nel corpo della risposta  
+
+2) Misure quantitativo-automatiche  
+ • ROUGE-L / BLEU vs “risposte di riferimento” (se ne hai)  
+ • % keypoints recuperati automaticamente (string match o embedding match)  
+ • Lunghezza in token della risposta  
+
+3) Performance & usabilità  
+ • Latency retrieval (ms) + generation (ms) → totale end-to-end  
+ • Token/sec del LLM  
+ • Resource footprint (CPU, RAM) se ti interessa  
+
+## 3) Cosa loggare e come  
+Nel CSV di output (o in JSON) salva per ogni run:
+
+ • config: {chunk_size, chunk_overlap, k, template, temp, max_tokens}  
+ • query / id_question  
+ • retrieved_chunks: [lista snippet + score]  
+ • response_text  
+ • response_tokens_length  
+ • time_retrieval_ms, time_generation_ms  
+ • auto_metrics: {rouge_l, pct_keypoints}  
+ • human_metrics: {completezza, accuracy, precisione}  
+
+---
+
+
+
+Tu: se un professore mi chiedesse come funziona e che cos e ipv6 come dovrei rispondere per avere 30
+Bot: 
+- IpV6 è il protocollo di comunicazione utilizzato per la trasmissione di dati 
+su internet. È stato sviluppato per risolvere i problemi che si presentano con 
+l'attuale versione del protocollo, IPv4, come la scarsità di indirizzi disponibili 
+e la difficoltà di configurazione.
+- IpV6 utilizza un sistema di indirizzamento basato su 128 bit, che consente a ogni 
+dispositivo connesso al internet di avere un proprio unico indirizzo. Questo rende
+ possibile la comunicazione tra dispositivi in rete senza l'ausilio di intermediari
+  come gateway o router.
+- IpV6 è stato implementato in varie versioni, con le più recenti includendo 
+supporto per IPsec e ICMPv6.
+- Il protocollo di accesso utilizzato dal ping per verificare la connessione con
+ un altro dispositivo è ICMP (Internet Control Message Protocol).

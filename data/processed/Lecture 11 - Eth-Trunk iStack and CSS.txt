@@ -1,0 +1,1030 @@
+Page 0
+"A.D. 1308
+Fondamenti di Internet
+Eth-Trunk, iStack, and CSS
+Prof. Gianluca Reali
+
+) Foreword
+¢ As services develop and the campus network scale expands, users have increasingly
+demanding requirements on network bandwidth and reliability. Traditional solutions
+improve network bandwidth by upgrading devices and implement high reliability by
+deploying redundant links and using the Spanning Tree Protocol (STP), leading to low
+flexibility, time-consuming troubleshooting, and complex configuration.
+¢ This chapter describes how to use Eth-Trunk, intelligent stack (iStack), and cluster
+switch system (CSS) technologies to improve network bandwidth and reliability.
+Page 1 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Objectives
+¢ Oncompletion of this course, you will be able to:
+e Understand the functions of link aggregation.
+2 Understand the link aggregation types.
+s Understand the link aggregation negotiation process in Link Aggregation Control Protocol
+(LACP) mode.
+s Understand the advantages and principles of iStack and CSS.
+2 Understand the common applications and networking of link aggregation and stacking
+technologies.
+Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. Network Reliability Requirements
+2. Principle and Configuration of Link Aggregation
+3. Overview of iStack and CSS
+Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=| ) Network Reliability
+¢ Network reliability refers to the capability of ensuring nonstop network services when a
+single point or multiple points of failure occur on a device or link.
+Highly reliable network
+ink os
+aggr sgallc yn
+Network A Network B
+-
+Se
+Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ As networks rapidly develop and applications become more and more diversified, various
+value-added services (VASs) are widely deployed. Network interruption may cause many
+service exceptions and huge economic losses. Therefore, the reliability of networks has
+become a focus.
+
+MPU
+ 
+fg o= ="
+LPU 2-
+SFU 3-
+LPU 24
+Mounting a
+bracket
+Front view of the
+$12700E-8 chassis
+Ga) ) Card Reliability (1)
+A modular switch consists of a chassis, power modules, fan modules, main
+processing units (MPUs), switch fabric units (SFUs), and line processing units
+(LPUs).
+Chassis: provides slots for various cards and modules to implement inter-card
+communication.
+Power module: power supply system of the device
+Fan module: heat dissipation system
+MPU: responsible for the control plane and management plane of the entire
+system.
+SFU: responsible for the data plane of the entire system. The data plane
+provides high-speed non-blocking data channels for data switching between
+service modules.
+LPU: provides data forwarding functions on a physical device and provides
+optical and electrical interfaces of different rates.
+Page 5 Copyright
+ 
+© 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+MPU +4§
+LPU 24
+SFU 3+
+LPU 24
+Front view of the
+$12700E-8 chassis
+Ga) ) Card Reliability (2)
+The failure of a single
+MPU does not affect the
+normal operation of the
+control platform.
+If some SFUs
+are faulty, the
+data plane can
+still forward
+data properly.
+If the LPU is
+faulty, the
+interfaces on the
+LPU are affected.
+Page 6 Copyright
+ 
+© 2020 Huawei Technologies Co., Ltd. All rights reserved.
+For example, the S12700E-8 provides eight
+LPU slots, four SFU slots, two MPU slots,
+six power module slots, and four fan
+module slots.
+A modular switch can be configured with
+multiple MPUs and SFUs to ensure device
+reliability. If
+ 
+an SFU or MPU in a single slot
+is faulty, the switch can still run properly.
+After an LPU of
+ 
+a modular switch is
+damaged, interfaces on the LPU cannot
+forward data.
+
+Ga) ) Device Reliability
+Root port
+Network Network
+TA) Alternative port x
+If the aggregation JrnN ne
+switch is faulty, traffic *s
+; from the downstream .
+neewitch So a switch cannot be Aggregation
+switch €8 | forwarded. switch
+ry
+1
+1
+1
+1
+1
+When the root
+port fails, the
+alternative port
+continues to
+forward packets.
+Access
+switch
+Access
+switch
+----->
+aa
+On a network with the device redundancy design, a downstream
+On a network without the device redundancy design, a downstream _ switch is dual-homed to two upstream switches. The links work in
+switch uses a single uplink. If the upstream switch or its interfaces active/backup mode. If the active link or upstream switch fails,
+fail, all downstream networks are interrupted. traffic is switched to the backup link and forwarded through the
+backup device.
+Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Link Reliability
+STP STP
+To improve link
+Aggregation ES Aggregation reliability, a new link
+switch switch will be added. This
+_, _ linkis blocked by
+» STP and functions as
+a backup link.
+Access Access
+switch
+switch
+;}$-_l
+3}
+ 
+—_i:-8
+* To ensure link reliability, deploy multiple physical links between devices. To prevent loops, configure STP to
+ensure that traffic is forwarded on only one link, and other links function as backup links.
+Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+Network Reliability Requirements
+2. Principle and Configuration of Link Aggregation
+« Principle
+c Manual Mode
+e LACP Mode
+> Typical Application Scenarios
+« Configuration Example
+3. Overview of iStack and CSS
+Page 9
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=| ) Increasing Link Bandwidth
+¢ When multiple links exist between devices, traffic is forwarded on only one link due to
+STP. In this case, the inter-device link bandwidth remains unchanged.
+Interface that
+forwards traffic
+© Interface blocked due to STP
+Swi Sw2
+SS
+—S
+STP —-
+— root
+, bridge
+200
+—d
+[o >
+Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[= ) Eth-Trunk
+« Ethernet link aggregation, also called Eth-Trunk, bundles multiple physical links into a
+logical link to increase link bandwidth, without having to upgrade hardware.
+Traffic forwarding interface
+sw —— sw2 _JS
+fr Eth-Trunk =,
+Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Basic Concepts of Eth-Trunk
+A link aggregation group (LAG) is a logical link formed by bundling
+several links. Each LAG has one logical interface, known as an LAG
+: interface or Eth-Trunk interface.
+Eth-Trunk interface
+sw1 * Member interface and member link: Physical interfaces that constitute
+as an Eth-Trunk interface are called member interfaces, and the link
+corresponding to a member interface is known as a member link.
+Member
+link Active interface and active link: An active interface is also called a
+selected interface and is a member interface that participates in data
+forwarding. The link corresponding to an active interface is called an
+Ss b> LAG active link.
+¢ Inactive interface and inactive link: An inactive interface is also called
+an unselected interface and is a member interface that does not
+\ sas |_ participate in data forwarding. A link corresponding to an inactive
+Sw2 . interface is referred to as an inactive link.
+Eth-Trunk interface
+Member
+interface
+Link aggregation mode: Based on whether the Link Aggregation
+Control Protocol (LACP) is enabled, link aggregation can be classified
+into manual mode and LACP mode.
+) Active interface ¢ Other concepts: upper and lower thresholds for the number of active
+© inactive interface interfaces
+Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ An Eth-Trunk can be treated as a physical Ethernet interface. The only difference between the
+Eth-Trunk and physical Ethernet interface is that the Eth-Trunk needs to select one or more
+member interfaces to forward traffic.
+¢ The following parameters must be the same for member interfaces in an Eth- Trunk:
+2 Interface rate
+2 Duplex mode
+« VLAN configurations: The interface type must be the same (access, trunk, or hybrid). For
+access interfaces, the default VLAN of the member interfaces must be the same. For
+trunk interfaces, the allowed VLANs and the default VLAN of the member interfaces
+must be the same.
+
+2.
+3.
+Page 13
+) Contents
+Network Reliability Requirements
+Principle and Configuration of Link Aggregation
+« Principle
+« Manual Mode
+e LACP Mode
+> Typical Application Scenarios
+« Configuration Example
+Overview of iStack and CSS
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Manual Mode
+Active interface \ Sw1 ———"> sSw2
+—.
+—_——————
+ 
+>
+_———
+>
+—
+ 
+>
+JM
+f Eth-Trunk
+a | LACP-incapable old or low-end devices |
+¢ Manual mode: An Eth-Trunk is manually created, and its member interfaces are manually configured. LACP is not used
+for negotiation between the two systems.
+¢ In most cases, all links are active links. In this mode, all active links forward data and evenly share traffic. If an active link
+is faulty, the LAG automatically evenly shares traffic among the remaining active links.
+¢ Ifone of the devices at both ends of an LAG does not support LACP, you can use the manual mode.
+Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Defects of the Manual Mode (1)
+Active interface . swt , —_ sw2 _S
+——=>
+x | [ | se
+eo —__» <Q
+— 2 oO 2 Oo
+= 2
+Eo Ft ——_—>
+Sal >
+£2 £2
+= =
+—
+manual mode
+L\
+,
+Eth-Trunk in
+P
+7
+Sw3
+* To ensure that the Eth-Trunk works properly, ensure that the peer interfaces of all member interfaces in the Eth-Trunk
+meet the following requirements:
+The peer interfaces reside on the same device.
+The peer interfaces are added to the same Eth-Trunk.
+¢ In manual mode, devices do not exchange packets. Therefore, the configuration needs to be manually confirmed.
+Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+As shown in the preceding figure, four interfaces of SW1 are added to an Eth-Trunk, but the
+peer end of one interface is SW3 instead of SW2. In this case, some traffic is load balanced to
+SW3, causing communication exceptions.
+
+Ga) ) Defects of the Manual Mode (2)
+Active interface
+- Faulty interface
+swi sw2 I
+HW!
+ 
+|
+Eth-Trunk
+ALLL
+but failing to forward
+Interface in Up state
+packets
+In manual mode, the device can determine whether the peer interface is working properly based only on
+the physical layer status.
+Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+2.
+3.
+Page 17
+) Contents
+Network Reliability Requirements
+Principle and Configuration of Link Aggregation
+« Principle
+c Manual Mode
+« LACP Mode
+> Typical Application Scenarios
+« Configuration Example
+Overview of iStack and CSS
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Packet Maximum Number
+ 
+of Active Link Woadiealancin
+) Introduction Active Interfaces Election g
+—— LACPDU
+Swi Sw2
+~o Eth-Trunk in LACP mode ; Lo
+iS g . — YE g
+<< . = £2
+—=> —_—_—_——
+LACPDU
+Device priority
+MAC address
+Interface priority
+Interface number
+* LACP mode: Alink aggregation mode that uses the LACP protocol. Devices exchange Link Aggregation Control Protocol
+Data Units (LACPDUs) to ensure that the peer interfaces are member interfaces that belong to the same Eth-Trunk and
+are on the same device.
+¢ AnLACPDU contains the device priority, MAC address, interface priority, and interface number.
+Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Packet Maximum Number
+ 
+of Active Link Woadiealancin
+Introduction Active Interfaces Election g
+Ga) ) System Priority
+« In LACP mode, the number of active interfaces selected by devices at both ends must be consistent:
+otherwise, the Eth-Trunk cannot be set up. In this case, configure one end as the Actor. Then the other end
+selects active interfaces according to the Actor.
+« TheActor is determined based on the LACP system priority. A smaller value indicates a higher priority.
+Swi Eth-Trunk in LACP mode Sw2
+Eth-Trunk interface
+Eth-Trunk interface
+LACPDU
+Active interface Device priority By default, the LACP system priority is 32768. A
+MAC address » smaller value indicates a higher priority.
+——LACPDU _ Generally, the default value is used. When the
+Interface priority priorities are the same, LACP selects the Actor
+Interface number by comparing the MAC addresses. A smaller
+MAC address indicates a higher priority.
+Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Packet Maximum Number
+ 
+of Active Link Woadiealancin
+Introduction Active Interfaces Election g
+Ga) ) Interface Priority
+¢ After the Actor is selected, both devices select active interfaces based on the interface priorities of the
+Actor. A smaller LACP interface priority value indicates a higher priority.
+sw Eth-Trunk in LACP mode Sw2
+x : — _
+ae +o
+35 8G So
+E€ aa, —_ 2 £
+cf To
+ie — YE
+—=$> ——, J
+. lino By default, the LACP interface priority of an
+Active interface Device priority interface is 32768. A smaller value indicates a
+——> LACPDU MAC address higher priority. Generally, the default value is
+Interface priority used. When the priorities are the same, LACP
+Interface number » selects active interfaces based on interface
+numbers. A smaller interface number indicates a
+higher priority.
+Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+@) >) Maximum Number of Active Interfaces (1)
+« In LACP mode, the maximum number of active interfaces can be configured. When the number of member interfaces
+exceeds the maximum number of active interfaces, the interfaces with higher priorities and smaller interface numbers
+are selected as active interfaces, and the other interfaces function as backup interfaces (inactive interfaces). In addition,
+the links corresponding to active interfaces become active links, and the links corresponding to inactive interfaces
+become inactive links. The switch sends and receives packets only through active interfaces.
+sw2
+sw1 Eth-Trunk in LACP mode
+——_—>
+———————
+ 
+>
+————>
+————>
+JNK
+ee
+_
+Active interface
+@ Inactive interface
+Active link
+Inactive link
+Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+@)>) Maximum Number of Active Interfaces (2)
+¢ If an active link fails, an inactive link with the highest priority (based on the interface priority and interface number) is
+selected to replace the faulty link. This ensures that the overall bandwidth does not change and services are not
+interrupted.
+Eth-Trunk in LACP mode
+. swi
+—_——=$>
+————
+ 
+>
+x x
+a 53
+2 zg
+£2 _———— se
+ie ou -=
+>
+——.
+Active interface
+r ) Inactive interface
+Active link
+Inactive link
+Faulty link
+Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Packet Maximum Number
+ 
+of Active Link asd Balancin
+Introduction Active Interfaces Election 9
+Ga) ) Active Link Election (1)
+Bridge MAC: Bridge MAC:
+4c1f-cc58-6d64 4c1f-cc58-6d65
+sw Sw2 ¢ An Eth-Trunk in LACP mode is set up between
+@— ——{)
+@ —> — @ SW1 and SW2. The maximum number of active
+e— —*@ interfaces is set to 2 on SW1 and SW2.
+@) _ = (4) * SW1 with a higher priority is elected as the Actor
+through LACPDUs.
+—— _ LACPDU
+Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Configure an Eth-Trunk in LACP mode between SW1 and SW2 and add four interfaces to an
+Eth- Trunk. The four interfaces are numbered 1, 2, 3, and 4. On SW1 and SW2, set the
+maximum number of active interfaces in the Eth-Trunk
+ 
+to 2 and retain the default settings for
+the other parameters (system priority and interface priority).
+* SW1 and SW2 send LACPDUs through member interfaces 1, 2, 3, and 4.
+« When receiving LACPDUs from the peer end, SW1 and SW2 compare the system priorities,
+which use the default value 32768 and are the same. Then they compare MAC addresses.
+The MAC address of SW1 is 4c1f-cc58-6d64, and the MAC address of SW2 is 4c1f-cc58-
+6d65. SW1 has a smaller MAC address and is preferentially elected as the Actor.
+
+Bridge MAC:
+4c1f-cc58-6d64
+swi
+Ga) ) Active Link Election (2)
+Bridge MAC:
+4c1f-cc58-6d65
+sw2
+66
+Active interface
+e@ Inactive interface
+Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Packet Maximum Number
+ 
+of Active Link WesdPalencin
+Introduction Active Interfaces Election g
+SW1 compares the interface priorities and interface
+numbers to select active interfaces. Under the same
+interface priority, interfaces 1 and 2 have smaller interface
+numbers and are elected as active interfaces.
+
+Packet Maximum Number
+ 
+of Active Link asd Balancin
+Introduction Active Interfaces Election 9
+Ga) ) Active Link Election (3)
+Bridge MAC: Bridge MAC:
+4c1f-cc58-6d64 4c1f-cc58-6d65
+sw1 @ Sw2
+@
+— @ ¢« SW1 notifies the peer end of the elected active interfaces
+4) ——"4 (4) through LACPDUs.
+—— LACPDU
+Active interface
+@ Inactive interface
+Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ LACP uses the following flags in an LACPDU to identify the interface status. If the three flags
+are set to 1, the interface is an active interface.
+a Synchronization
+2 Collecting
+2 Distributing
+¢ Ifthe three flags are set to 0, the interface is an inactive interface.
+
+Packet Maximum Number
+ 
+of Active Link WesdPalencin
+Introduction Active Interfaces Election g
+®@)) Active Link Election (4)
+Bridge MAC: Bridge MAC:
+4c1f-cc58-6d64 4c1f-cc58-6d65
+swi sw2
+—— * SW2 determines the local active interfaces based on the
+o—_—— 3) election result of SW1 and the corresponding links
+o——. 4) become active links.
+¢ Inthis way, the election of active links is complete.
+—— LACPDU
+Active interface
+@ Inactive interface
+Active link
+Inactive link
+Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Packet Maximum Number
+ 
+of Active Link :
+Introduction Active Interfaces Election Load Balancing
+Ga) ) Load Balancing
+Active interface Active interface
+sw1 sSw2 ij sSw1
+a= Cho |
+neea | oa 6 8080 i
+—kj—_______
+Eth-Trunk Eth-Trunk
+When an Eth-Trunk is used to forward data, there are Load balancing based on flows is recommended for an
+multiple physical links between devices at both ends of the Eth-Trunk. In this mode, a flow is load balanced to the
+Eth-Trunk. If data frames are forwarded on different links, same link. This ensures that frames of the same flow are
+data frames may arrive at the peer end in a different order transmitted over the same physical link and implements
+in which they were transmitted, resulting in out-of-order load balancing among physical links in an Eth-Trunk.
+packets.
+Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Packet Maximum Number
+ 
+of Active Link :
+Introduction Active Interfaces Election Load Balancing
+Ga) ) Load Balancing Mode
+An Eth-Trunk can load balance traffic based on IP addresses or MAC addresses of packets. You can configure different load balancing
+modes (valid locally only for outgoing packets) to distribute data flows to different member interfaces.
+Traffic can be load balanced based on: source IP address, source MAC address, destination IP address, destination MAC address, source
+and destination IP addresses, and source and destination MAC addresses.
+For actual services, you need to configure a proper load balancing mode based on traffic characteristics. If a service traffic parameter
+changes frequently, it is easier to load balance traffic if you use the load balancing mode based on this frequently-changing parameter.
+Proper load balancing algorithm Improper load balancing algorithm
+Sw1 Sw2 sw'1 ae Sw2
+-------| > Soooc(s
+------- > ------->
+---->
+----> ---->
+—-<-= >
+—-<-= > —--—--=—p
+Same source and destination Same source and
+MAC addresses but different destination MAC addresses
+source and destination IP Eth-Trunk but different source and Eth-Trunk
+addresses destination IP addresses
+MAC address mode
+Source and destination
+IP address mode
+| Source and destination |
+Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« Ifthe IP addresses of packets change frequently, load balancing based on the source IP
+address, destination IP address, or source and destination IP addresses is more suitable for
+load balancing among physical links.
+« lf MAC addresses of packets change frequently and IP addresses are fixed, load balancing
+based on the source MAC address, destination MAC address, or source and destination MAC
+addresses is more suitable for load balancing among physical links.
+« If the selected load balancing mode is unsuitable for the actual service characteristics, traffic
+may be unevenly load balanced. Some member links have high load, but other member links
+are idle. For example, if the source and destination IP addresses of packets change frequently
+but the source and destination MAC addresses are fixed and traffic is load balanced based on
+the source and destination MAC addresses, all traffic is transmitted over one member link.
+
+2.
+3.
+Page 29
+) Contents
+Network Reliability Requirements
+Principle and Configuration of Link Aggregation
+« Principle
+e Manual Mode
+° LACP Mode
+« Typical Application Scenarios
+« Configuration Example
+Overview of iStack and CSS
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Typical Application Scenario (1)
+Core switch
+Network
+Eth-Trunk
+Aggregation
+switch
+Eth-Trunk Eth-Trunk
+Access
+switch
+To ensure the bandwidth and reliability of links between || To improve the access bandwidth and reliability of the
+switches, deploy multiple physical links between switches || server, bind two or more physical NICs into a NIC group and
+and add them to an Eth-Trunk. establish an Eth-Trunk with the switch.
+Page 30 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Aggregation
+switch
+Access
+switch
+An iStack is a logical device consisting of two switches. A
+switch can be connected to the iStack through an Eth-
+Trunk to form a highly reliable loop-free network.
+Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Ga) ) Typical Application Scenario (2)
+Eth Trunk
+> >=?
+U “
+Hot standby
+If two firewalls are deployed in hot standby mode, the
+heartbeat link is used to detect the status of the peer
+device. To prevent status detection errors caused by
+single-interface or single-link faults, you can create an
+Eth-Trunk and use it as the heartbeat link for status
+detection.
+
+2.
+3.
+Page 32
+) Contents
+Network Reliability Requirements
+Principle and Configuration of Link Aggregation
+« Principle
+s Manual Mode
+¢ LACP Mode
+> Typical Application Scenarios
+« Configuration Example
+Overview of iStack and CSS
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Configuration Commands (1)
+1. Create an Eth-Trunk.
+[Huawei] interface eth-trunk trunk-id
+An Eth-Trunk interface is created, and the Eth-Trunk interface view is displayed.
+2. Configure a link aggregation mode.
+[Huawei-Eth-Trunk1] mode {lacp | manual load-balance }
+To enable the LACP mode, run mode lacp. To enable the manual mode, run mode manual load-balance.
+Note: The link aggregation modes at both ends must be the same.
+3. Add an interface to the Eth-Trunk (Ethernet interface view).
+[Huawei-GigabitEthernet0/0/1] eth-trunk trunk-id
+In the interface view, the interface is added to the Eth-Trunk.
+Page 33 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Configuration Commands (2)
+4. Add an interface to the Eth-Trunk (Eth-Trunk view).
+[Huawei-Eth-Trunk1] trunkport interface-type { interface-number}
+In the Eth-Trunk view, the interface is added to the Eth-Trunk. You can use either of the preceding commands to
+add an interface to an Eth-Trunk.
+5. Enable interfaces at different rates to join the same Eth-Trunk interface.
+[Huawei-Eth-Trunk1] mixed-rate link enable
+By default, interfaces at different rates are not allowed to join the same Eth-Trunk, and only interfaces at the same
+rate can be added to the same Eth-Trunk.
+6. Configure the LACP system priority.
+[Huawei] lacp priority priority
+Asmaller priority value indicates a higher LACP system priority. By default, the LACP priority is 32768.
+Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Configuration Commands (3)
+7. Configure the LACP interface priority.
+[Huawei-GigabitEthernet0/0/1] lacp priority priority
+The LACP interface priority is set in the interface view. By default, the LACP interface priority is 32768. A
+smaller priority value indicates a higher LACP interface priority.
+You can run this command only after an interface is added to the Eth-Trunk.
+8. Configure the maximum number of active interfaces.
+[Huawei-Eth-Trunk1] max active-linknumber {number}
+Ensure that the maximum number of active interfaces on the local end is the same as that on the peer end. The
+maximum number of active interfaces can be configured only in LACP mode.
+9. Configure the minimum number of active interfaces.
+[Huawei-Eth-Trunk1] least active-linknumber {number}
+The minimum number of active interfaces can be different on the local end and peer end and can be configured in
+both manual and LACP modes.
+The minimum number of active interfaces is configured to ensure the minimum bandwidth. When the number of
+active links is smaller than the lower threshold, the Eth-Trunk interface goes down.
+Page 35 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« The maximum number of active interfaces varies according to switch models. For example,
+the maximum number of active interfaces in an Eth-Trunk is 32 on the S6720HI, S6730H,
+S67308, and S6730S-S, and is 16 on the S6720LI, S6720S-LI, S6720SI, and S6720S-SI. For
+details, see the product manual.
+¢ The minimum number of active interfaces is configured to ensure the minimum bandwidth. If
+the bandwidth is too small, services that require high link bandwidth may be abnormal. In this
+case, you can disconnect the Eth-Trunk interface to switch services to other paths through the
+high reliability mechanism of the network, ensuring normal service running.
+
+Manual Mode
+Eth-Trunk
+<— GEO0/0/1 GEO @=
+GE0/0/2 GE0/0/2
+—> ——_ @eo
+Sw1 Sw2
+¢ Requirement description:
+cs SW1 and SW2 are connected to the networks of VLAN 10 and
+VLAN 20.
+e SW1 and SW2 are connected through two Ethernet links. To
+provide link redundancy and enhance transmission reliability,
+configure an Eth-Trunk in manual mode between SW1 and
+swe.
+Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Example for Configuring an Eth-Trunk in
+SW configuration:
+[SW
+ 
+1] interface eth-trunk 1
+[SW1-Eth-Trunk1] trunkport gigabitethernet 0/0/1 to 0/0/2
+[SW1-Eth-Trunk1] port link-type trunk
+[SW1-Eth-Trunk1] port trunk allow-pass vlan 10 20
+SW2 configuration:
+[SW2] interface eth-trunk 1
+[SW2-Eth-Trunk1] trunkport gigabitethernet 0/0/1 to 0/0/2
+[SW2-Eth-Trunk1] port link-type trunk
+[SW2-Eth-Trunk1] port trunk allow-pass vlan 10 20
+
+@ Example for Configuring an Eth-Trunk in
+LACP Mode (1)
+Eth-Trunk
+GEO/O/1 GEO/0/1
+Ss GEO/0/2 GEO/0/2 Ss
+AQ SE0/0/3 GE0/0/3 s
+Swi sSw2
+* Requirement description:
+2° SW1 and SW2 are connected to the networks of VLAN 10 and
+VLAN 20.
+2° SW1 and SW2 are connected through three Ethernet links. To
+provide link redundancy and enhance transmission reliability,
+configure an Eth-Trunk in LACP mode between SW1 and
+SW2, manually adjust the priority to configure SW1 as the
+Actor, and set the maximum number of active interfaces to 2.
+The other link functions as the backup link.
+Page 37 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+SW/1 configuration:
+[SW1] interface eth-trunk 1
+[SW1-Eth-Trunk1] mode lacp
+[SW1-Eth-Trunk1] max active-linknumber 2
+[SW1-Eth-Trunk1] trunkport gigabitethernet 0/0/1 to 0/0/3
+[SW1-Eth-Trunk1] port link-type trunk
+[SW1-Eth-Trunk1] port trunk allow-pass vian 10 20
+[SW1-Eth-Trunk1] quit
+[SW1] lacp priority 30000
+
+@ Example for Configuring an Eth-Trunk in
+LACP Mode (2)
+Eth-Trunk
+GEO/O/1 GEO/0/1
+Ss GEO/0/2 GEO/0/2 Ss
+AQ SE0/0/3 GE0/0/3 s
+Swi sSw2
+* Requirement description:
+2° SW1 and SW2 are connected to the networks of VLAN 10 and
+VLAN 20.
+2° SW1 and SW2 are connected through three Ethernet links. To
+provide link redundancy and enhance transmission reliability,
+configure an Eth-Trunk in LACP mode between SW1 and
+SW2, manually adjust the priority to configure SW1 as the
+Actor, and set the maximum number of active interfaces to 2.
+The other link functions as the backup link.
+Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+SW/1 configuration:
+[SW2] interface eth-trunk 1
+[SW2-Eth-Trunk1] mode lacp
+[SW2-Eth-Trunk1] max active-linknumber 2
+[SW2-Eth-Trunk1] trunkport gigabitethernet 0/0/1 to 0/0/3
+[SW2-Eth-Trunk1] port link-type trunk
+[SW2-Eth-Trunk1] port trunk allow-pass vian 10 20
+[SW2-Eth-Trunk1] quit
+
+) Contents
+1. Network Reliability Requirements
+2. Principle and Configuration of Link Aggregation
+3. Overview of iStack and CSS
+Page 39 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+ry) ) Introduction to iStack and CSS
+—— Stacking cable Stack CSS link eae <a,
+ 
+d;
+in
+Equivalent to
+Equivalent t kK
+Link aggregation aggregation
+iStack: Multiple iStack-capable switches are connected using stacking cables to form a logical switch that participates in
+data forwarding.
+Cluster switch system (CSS): Two CSS-capable switches are bundled into one logical switch.
+* ACSS consists of only two switches. Generally, modular switches support CSS, and fixed switches support iStack.
+Page 40 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Advantages of iStack and CSS
+<> _Eth-Trunk
+One logical device simplifies O&M
+and facilitates management.
+If a physical device fails, the other
+device can take over the
+forwarding and control functions,
+preventing single points of failure.
+\
+Equivalent >
+Physical forms of CSS and iStack Logical forms of CSS and iStack
+Inter-device link aggregation is
+implemented on a loop-free
+physical network, so STP does not
+need to be deployed.
+Alllinks in the Eth-Trunk are used,
+and the link usage is 100%.
+/
+iStack
+* Many-to-one virtualization: Switches can be virtualized into one logical switch (CSS) that has a unified control plane for unified management.
+¢ — Unified forwarding plane: Physical switches in a CSS use a unified forwarding plane, and share and synchronize forwarding information in real time.
+« Inter-device link aggregation: Links between physical switches are aggregated into a single Eth-Trunk interface to interconnect with downstream devices.
+Page 41 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Application (1)
+—— iStack link
+Access »
+layer iStack
+When the port density of a switch cannot meet the access
+requirements, add new switches to set up an iStack to increase the
+number of ports.
+—— iStack link
+Aggregation
+layer
+Access »
+layer
+<> Eth-Trunk
+* To increase the uplink bandwidth, add new switches to set up an
+iStack and add multiple physical links of the member switches to
+an Eth-Trunk. This increases the uplink bandwidth, implements
+inter-device backup and inter-device link redundancy, and
+improves reliability.
+Page 42
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 43
+Application (2)
+—— CSS link <> Eth-Trunk
+MSTP+VRRP
+f TM
+Aggregation »
+layer
+CSS
+Access layer
+Two devices forma CSS and are virtualized into a single logical device. This simplified network does not
+require Multiple Spanning Tree Protocol (MSTP) or Virtual Router Redundancy Protocol (VRRP), so
+network configuration is much simpler. Additionally, inter-device link aggregation speeds up network
+convergence and improves network reliability.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Recommended Architecture
+Network
+iStack and CSS link
+Core layer
+<> Eth-Trunk —
+* Core switches set up a CSS and use Eth-Trunks to connect to
+fll «3, uplink and downlink devices, building a highly reliable and
+loop-free network.
+a A = Aggregation layer
+« Aggregation switches set up an iStack and use Eth-Trunks to
+iStack connect to uplink and downlink devices, building a highly
+Ea reliable loop-free network.
+Access layer
+EZ Th SASS * Access devices that are geographically close to each other (such
+as access switches in a building) are virtualized into one logical
+= = device using iStack. This adds interfaces and _ simplifies
+So ee Se device using
+¢« An Eth-Trunk is used to connect to the aggregation layer. The
+logical network architecture is simple, and STP and VRRP are
+not required. This networking offers high reliability, high uplink
+bandwidth, and fast convergence.
+Page 44 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[Figura da Pag.1] Labels: eg Wha” 7; - wt; >; i " x CRALE C/ * -; soperne em Pe... a ee > < ee; Wie S 4) / > atcew kg >.. Caption: (errore caption)
+[Figura da Pag.1] Labels: sae ee ae eh: ays 6) ~~ A.B. 1308 es yy Ae rm 2; SD — <——=; Q M5) 4 UNIVERSITA DEGLI STUDI; MCCS DI PERUGIA. Caption: (errore caption)
+[Figura da Pag.1] Labels: Fondamenti di Internet; Eth-Trunk, iStack, and CSS; Page 0 Prof. Gianluca Reali. Caption: (errore caption)
+[Figura da Pag.2] Labels: ) Foreword; * As services develop and the campus network scale expands, users have increasingly; demanding requirements on network bandwidth and reliability. Traditional solutions. Caption: (errore caption)
+[Figura da Pag.2] Labels: improve network bandwidth by upgrading devices and implement high reliability by; deploying redundant links and using the Spanning Tree Protocol (STP), leading to low; flexibility, time-consuming troubleshooting, and complex configuration.; ¢ This chapter describes how to use Eth-Trunk, intelligent stack (iStack), and cluster; switch system (CSS) technologies to imorove network bandwidth and reliability.. Caption: (errore caption)
+[Figura da Pag.2] Labels: Page 1 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.3] Labels: oF ) Objectives; ¢ Oncompletion of this course, you will be able to:; e Understand the functions of link aggregation.. Caption: (errore caption)
+[Figura da Pag.3] Labels: e Understand the link aggregation types.; e Understand the link aggregation negotiation process in Link Aggregation Control Protocol; (LACP) mode.; e Understand the advantages and principles of iStack and CSS.; 4 LIndarctand tha pnrnmmnn onnlinatinne and natiusinrvinn nf linb annrannatinn and ctanlbinn. Caption: (errore caption)
+[Figura da Pag.3] Labels: a VIMY Va APIS WMEETEEEIMIETE pe fe ae eh ee at Se eee Ae Mtr TETEN Sa ee ee eee ata baa ee |; technologies.; Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.4] Labels: Contents; 1. Network Reliability Requirements; 2. Principle and Configuration of Link Aggregation. Caption: (errore caption)
+[Figura da Pag.4] Labels: 3. Overview of iStack and CSS. Caption: (errore caption)
+[Figura da Pag.4] Labels: Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.5] Labels: Network Reliability; ¢ Network reliability refers to the capability of ensuring nonstop network services when a; single point or multiple points of failure occur on a device or link.. Caption: (errore caption)
+[Figura da Pag.5] Labels: « Network reliability can be implemented at the card, device, and link levels.; Highly reliable network; iStack. Caption: (errore caption)
+[Figura da Pag.5] Labels: nan-==-4> Link Link bennnnah; Network A ; i . Network B; (Network & aggregation aggregation Veooeeop; IN ae; ' Tie Poe '; t a. oe H; Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.6] Labels: * Amodular switch consists of a chassis, power modules, fan modules, main; processing units (MPUs), switch fabric units (SFUs), and line processing units. Caption: (errore caption)
+[Figura da Pag.6] Labels: _ an ———; Me * Chassis: provides slots for various cards and modules to implement inter-card; SFU a | * Power module: power supply system of the device; 5 nnniuunnnaamanannnsant 9 5 * Fan module: heat dissipation system; " Egcedkncossmmascndeeccsm; ne) * MPU: responsible for the control plane and management plane of the entire; | system.. Caption: (errore caption)
+[Figura da Pag.6] Labels: ; =| SG ‘ : a | Li - ys SFU: responsible for the data plane of the entire system. The data plane; waa oes = e provides high-speed non-blocking data channels for data switching between; Power module 6 service modules.; Front view of the * LPU: provides data forwarding functions on a physical device and provides; S12700E-8 chassis optical and electrical interfaces of different rates.; Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.7] Labels: Card Reliability (2); The failure of a single; MPU does not affect the « For example, the S12700E-8 provides eight; "normal operation of the; ar , ae | control platform. LPU slots, four SFU slots, two MPU slots,. Caption: (errore caption)
+[Figura da Pag.7] Labels: | =; i six power module slots, and four fan; LPU 2 | Seeneeieeeeeeeenemene ” |... If some SFUs; [== | een module slots.; (“ues seseommatey|, data plane can; sul — still forward * Amodular switch can be configured with; i data properly. multiple MPUs and SFUs to ensure device; Ley >| aon reliability. lf an SFU or MPU in a single slot; | pomaitboomaemenmbamomet is faultv the switch can still run pronerlyv.. Caption: (errore caption)
+[Figura da Pag.7] Labels: Pt +s Gaul : fe, Ifthe LPU is; 44 i‘. pe. faulty, the « After an LPU of a modular switch is; 2] SAS ANN ENS B, — interfaces on the; is LPU are affected. damaged, interfaces on the LPU cannot; 5 6 5; forward data.; Front view of the; $12700E-8 chassis; Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.8] Labels: Device Reliability; henod @ Rootpot. Caption: (errore caption)
+[Figura da Pag.8] Labels: LA AALETNAUVE Port Re; If the aggregation aS; switch is faulty, traffic as; from the downstream 7 When the root; Aggregation switch cannot be Aggregation port fails, the; switch (xX) forwarded. switch alternative port; ¢ ca /| continues to; H ca forward packets.; Access Access STP; switch 4 switch 4. Caption: (errore caption)
+[Figura da Pag.8] Labels: ; ; ; On a network with the device redundancy design, a downstream; On a network without the device redundancy design, a downstream | switch is dual-homed to two upstream switches. The links work in; switch uses a single uplink. If the upstream switch or its interfaces active/backup mode. If the active link or upstream switch fails,; fail, all downstream networks are interrupted. traffic is switched to the backup link and forwarded through the; backup device.; Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.9] Labels: Link Reliability; air oil To improve link; Aggregation ESQ Aggregation Oq _ ‘reliability, a new link. Caption: (errore caption)
+[Figura da Pag.9] Labels: SWILUET switcn will be added. I nis; link is blocked by; STP and functions as; a backup link.; Access Access; switch switch T. Caption: (errore caption)
+[Figura da Pag.9] Labels: M M; * To ensure link reliability, deploy multiple physical links between devices. To prevent loops, configure STP to; ensure that traffic is forwarded on only one link, and other links function as backup links.; Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.10] Labels: Contents; 1. Network Reliability Requirements; 2. Principle and Configuration of Link Aggregation. Caption: (errore caption)
+[Figura da Pag.10] Labels: « Principle; « Manual Mode; e LACP Mode; 2 Typical Application Scenarios. Caption: (errore caption)
+[Figura da Pag.10] Labels: ° Configuration Example; 3. Overview of iStack and CSS; Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.11] Labels: Increasing Link Bandwidth; « When multiple links exist between devices, traffic is forwarded on only one link due to; STP. In this case, the inter-device link bandwidth remains unchanged.. Caption: (errore caption)
+[Figura da Pag.11] Labels: Interface that; forwards traffic; B ] Interface blocked due to STP; \ swi sw2 _Jf; STP —. ~. Caption: (errore caption)
+[Figura da Pag.11] Labels: —_ root. (|. —————————_©) —; bridge © —; Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.12] Labels: Eth-Trunk; « Ethernet link aggregation, also called Eth-Trunk, bundles multiple physical links into a; logical link to increase link bandwidth, without having to upgrade hardware.. Caption: (errore caption)
+[Figura da Pag.12] Labels: Traffic forwarding interface; \. swi —— sw2 _#. Caption: (errore caption)
+[Figura da Pag.12] Labels: ia NN ail; | ————_>; ee; _—_———; fr Eth-Trunk =; Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.13] Labels: Basic Concepts of Eth-Trunk; * Alink aggregation group (LAG) is a logical link formed by bundling; several links. Each LAG has one logical interface, known as an LAG; l eth-Trunk interface | interface or Eth-Trunk interface.; Eth-Trunk interface. Caption: (errore caption)
+[Figura da Pag.13] Labels: sw1 = _| * Member interface and member link: Physical interfaces that constitute; an Eth-Trunk interface are called member interfaces, and the link; | | | corresponding to a member interface is known as a member link.; | j Member * Active interface and active link: An active interface is also called a; ink , . 2 - 2; Member selected interface and is a member interface that participates in data; imtetiaee forwarding. The link corresponding to an active interface is called an; st LAG active link.; * Inactive interface and inactive link: An inactive interface is also called; | | | | an unselected interface and is a member interface that does not; — = participate in data forwarding. A link corresponding to an inactive. Caption: (errore caption)
+[Figura da Pag.13] Labels: Sw2 . interface is referred to as an inactive link.; Eth-Trunk interface ; ; ; ;; * Link aggregation mode: Based on whether the Link Aggregation; Control Protocol (LACP) is enabled, link aggregation can be classified; into manual mode and LACP mode.; Active interface * Other concepts: upper and lower thresholds for the number of active; ') Inactive interface interfaces; Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.14] Labels: Contents; 1. Network Reliability Requirements; 2. Principle and Configuration of Link Aggregation. Caption: (errore caption)
+[Figura da Pag.14] Labels: e Principle; « Manual Mode; e LACP Mode; 2 Typical Application Scenarios. Caption: (errore caption)
+[Figura da Pag.14] Labels: ° Configuration Example; 3. Overview of iStack and CSS; Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.15] Labels: Manual Mode; Active interface . | seer _ —— sw2 ip. Caption: (errore caption)
+[Figura da Pag.15] Labels: —s _—"; _ es, _; _—; SO —; fr" Eth-Trunk =,; LACP-incapable old or low-end devices. Caption: (errore caption)
+[Figura da Pag.15] Labels: « Manual mode: An Eth-Trunk is manually created, and its member interfaces are manually configured. LACP is not used; for negotiation between the two systems.; + In most cases, all links are active links. In this mode, all active links forward data and evenly share traffic. If an active link; is faulty, the LAG automatically evenly shares traffic among the remaining active links.; *  Ifone of the devices at both ends of an LAG does not support LACP, you can use the manual mode.; Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.16] Labels: Defects of the Manual Mode (1); Active interface ‘ Swi —_ swe Y. Caption: (errore caption)
+[Figura da Pag.16] Labels: p> —; — 2S 2S; — ow; ae. ; ne; fe" Eth-Trunk in a,; manual mode; sw3. Caption: (errore caption)
+[Figura da Pag.16] Labels: * To ensure that the Eth-Trunk works properly, ensure that the peer interfaces of all member interfaces in the Eth-Trunk; meet the following requirements:; * The peer interfaces reside on the same device.; * The peer interfaces are added to the same Eth-Trunk.; * Inmanual mode, devices do not exchange packets. Therefore, the configuration needs to be manually confirmed.; Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.17] Labels: Defects of the Manual Mode (2). Caption: (errore caption)
+[Figura da Pag.17] Labels: > TaUnhy HCH ave; \_. swi —= sw2 _; _——; —_—_—— es, _; —; ee —; — —; =<; ~~ Eth-Trunk; Interface in Up state. Caption: (errore caption)
+[Figura da Pag.17] Labels: but falling to forward; packets; « In manual mode, the device can determine whether the peer interface is working properly based only on; the physical layer status.; Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.18] Labels: Contents; 1. Network Reliability Requirements; 2. Principle and Configuration of Link Aggregation. Caption: (errore caption)
+[Figura da Pag.18] Labels: e Principle; « Manual Mode; « LACP Mode; 2 Typical Application Scenarios. Caption: (errore caption)
+[Figura da Pag.18] Labels: ° Configuration Example; 3. Overview of iStack and CSS; Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.19] Labels: Packet Maximum Number of Active Link lendieatancin; @) Introduction Active Interfaces Election =; ——> _ LACPDU; swi sw2; _ i _ LL $&....b.:.)}T APR kL, _—_— yy. Caption: (errore caption)
+[Figura da Pag.19] Labels: s io z EeCPIP TEU TEE RAW PV o ec 2; ATS a a a fe; 27"; Device priority; MAC address; Interface priority. Caption: (errore caption)
+[Figura da Pag.19] Labels: Interface number; * LACP mode: Alink aggregation mode that uses the LACP protocol. Devices exchange Link Aggregation Control Protocol; Data Units (LACPDUs) to ensure that the peer interfaces are member interfaces that belong to the same Eth-Trunk and; are on the same device.; * AnLACPDU contains the device priority, MAC address, interface priority, and interface number.; Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.20] Labels: System Priority; « In LACP mode, the number of active interfaces selected by devices at both ends must be consistent;; otherwise, the Eth-Trunk cannot be set up. In this case, configure one end as the Actor. Then the other end; selects active interfaces accordina to the Actor.. Caption: (errore caption)
+[Figura da Pag.20] Labels: « TheActor is determined based on the LACP system priority. A smaller value indicates a higher priority.; sw1 Eth-Trunk in LACP mode sw2; a ay i a nae; = 3 g—____+>—____________| | __@<3; ip — — Yet; £2 DB?; i = | = Tus; SSO Ey. Caption: (errore caption)
+[Figura da Pag.20] Labels: PACD; Active interface Device priority By default, the LACP system priority is 32768. A; MAC address smaller value indicates a higher priority.; —— LAcPDU — Generally, the default value is used. When the; Interface priority priorities are the same, LACP selects the Actor; Interface number by comparing the MAC addresses. A smaller; ve MAC address indicates a higher priority.; Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.21] Labels: Interface Priority; « After the Actor is selected, both devices select active interfaces based on the interface priorities of the; Actor. Asmaller LACP interface priority value indicates a higher priority.. Caption: (errore caption)
+[Figura da Pag.21] Labels: sw1 Eth-Trunk in LACP mode sw2; Es | Ss; 5 36____+—_________ 1 _¢@%3; cow P=; i = —— =—— ¥ ge; —_—_—_— <_<; r  LACPDUt—~—“‘CSOS a er a ee a ee ee. Caption: (errore caption)
+[Figura da Pag.21] Labels: ee: el Lf ee! ee ee Le Se ee ee ee; Active.iniertace Device priority interface is 32768. A smaller value indicates a; —> LACPDU MAC address higher priority. Generally, the default value is; Interface priority used. When the priorities are the same, LACP; Interface number selects active interfaces based on interface; numbers. A smaller interface number indicates a; ~ higher priority.; Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.22] Labels: Maximum Number of Active Interfaces (1); * In LACP mode, the maximum number of active interfaces can be configured. When the number of member interfaces; exceeds the maximum number of active interfaces, the interfaces with higher priorities and smaller interface numbers; are selected as active interfaces, and the other interfaces function as backup interfaces (inactive interfaces). In addition,. Caption: (errore caption)
+[Figura da Pag.22] Labels: the links corresponding to active interfaces become active links, and the links corresponding to inactive interfaces; become inactive links. The switch sends and receives packets only through active interfaces.; \ swi ———» —_Eth-Trunk in LACP mode sw2 _; —_—_—_>; <~ol —, > L¥ ©; >. S$ S SS So _—; Ft eE€; —_—- 22 £2 =e; = A A —_~,. Caption: (errore caption)
+[Figura da Pag.22] Labels: a _——! a y; Active interface; r ) Inactive interface; Active link; —_—._ Inactive link; Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.23] Labels: Maximum Number of Active Interfaces (2); * If an active link fails, an inactive link with the highest priority (based on the interface priority and interface number) is; selected to replace the faulty link. This ensures that the overall bandwidth does not change and services are not; interrupted.. Caption: (errore caption)
+[Figura da Pag.23] Labels: ‘i. sw —., _—_ Eth-Trunk in LACP mode Sw2 _,; 1 1; _ E 8 ra 2; 2 6@Z AZ & —; _> a 3 __ a ‘5 _>; a ee Jae; fr g 4 =,. Caption: (errore caption)
+[Figura da Pag.23] Labels: Active interface; Inactive interface; Active link; Inactive link; Faulty link; Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.24] Labels: Packet Maximum Number of Load Balancing; Introduction Active Interfaces Election; Active Link Election (1); Bridge MAC: Bridge MAC:. Caption: (errore caption)
+[Figura da Pag.24] Labels: 4c1f-cc58-6d64 4c1f-cc58-6d65; swi —_ — sw2 « An Eth-Trunk in LACP mode is set up between; = =, SW1 and SW2. The maximum number of active; o— —@ interfaces is set to 2 on SW1 and SW2.; + SW1 with a higher priority is elected as the Actor; through LACPDUs.; eS. S/T. Caption: (errore caption)
+[Figura da Pag.24] Labels: Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.25] Labels: Packet Maximum Number of Load Balancing; Introduction Active Interfaces Election; Active Link Election (2); Bridge MAC: Bridge MAC:. Caption: (errore caption)
+[Figura da Pag.25] Labels: 4c1f-cc58-6d64 4c1f-cc58-6d65; swi Sw2; a) * SW1 compares the interface priorities and interface; 2) numbers to select active interfaces. Under the same; ——————————® interface priority, interfaces 1 and 2 have smaller interface; TS numbers and are elected as active interfaces.. Caption: (errore caption)
+[Figura da Pag.25] Labels: Active interface; Inactive interface; Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.26] Labels: Packet Maximum Number of Load Balancing; Introduction Active Interfaces Election; Active Link Election (3); Bridae MAC: Bridae MAC:. Caption: (errore caption)
+[Figura da Pag.26] Labels: 4c1f-cc58-6d64 4c1f-cc58-6d65; swi Sw2; +; oS); —_ @ * SW1 notifies the peer end of the elected active interfaces; —— —_—__—_@® through LACPDUs.. Caption: (errore caption)
+[Figura da Pag.26] Labels: —— > LACPDU; Active interface; Inactive interface; Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.27] Labels: Packet Maximum Number of Load Balancing; Introduction Active Interfaces Election; Active Link Election (4); Bridae MAC: Bridae MAC:. Caption: (errore caption)
+[Figura da Pag.27] Labels: 4c1f-cc58-6d64 4c1f-cc58-6d65; swi — sw2; —_ * SW2 determines the local active interfaces based on the; —— election result of SW1 and the corresponding links; => become active links.; + Inthis way, the election of active links is complete.. Caption: (errore caption)
+[Figura da Pag.27] Labels: —— LACPDU; Active interface; Inactive interface; Active link; Inactive link; Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.28] Labels: Per-packet load balancing Per-flow load balancing; © Active interface © Active interface. Caption: (errore caption)
+[Figura da Pag.28] Labels: sWi sw2 Ci wi ise Ci; on880 ot alle eoeq |. ; >; — o———__no0 — = eg i|-----; _ + qo ™; Eth-Trunk Ci Eth-Trunk ° Ci. Caption: (errore caption)
+[Figura da Pag.28] Labels: When an Eth-Trunk is used to forward data, there are Load balancing based on flows is recommended for an; multiple physical links between devices at both ends of the Eth-Trunk. In this mode, a flow is load balanced to the; Eth-Trunk. If data frames are forwarded on different links, same link. This ensures that frames of the same flow are; data frames may arrive at the peer end in a different order transmitted over the same physical link and implements; in which they were transmitted, resulting in out-of-order load balancing among physical links in an Eth-Trunk.; packets.; Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.29] Labels: * An Eth-Trunk can load balance traffic based on IP addresses or MAC addresses of packets. You can configure different load balancing; modes (valid locally only for outgoing packets) to distribute data flows to different member interfaces.; * Traffic can be load balanced based on: source IP address, source MAC address, destination IP address, destination MAC address, source; and destination IP addresses, and source and destination MAC addresses.. Caption: (errore caption)
+[Figura da Pag.29] Labels: * For actual services, you need to configure a proper load balancing mode based on traffic characteristics. If a service traffic parameter; changes frequently, it is easier to load balance traffic if you use the load balancing mode based on this frequently-changing parameter.; Proper load balancing algorithm Improper load balancing algorithm; sw Ssw2 sw ec Ssw2; oo ie oe = ae; roy e—__"— rou e—_—__"*—; 1 en , a ...\ 1 a , a  ..\. Caption: (errore caption)
+[Figura da Pag.29] Labels: —---—>; —---> = —---—D> ae ee; Same source and destination Same source and; MAC addresses but different destination MAC addresses; source and destination IP Eth-Trunk but different source and Eth-Trunk; addresses destination IP addresses; Source and destination Source and destination; IP address mode MAC address mode; Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.30] Labels: Contents; 1. Network Reliability Requirements; 2. Principle and Configuration of Link Aggregation. Caption: (errore caption)
+[Figura da Pag.30] Labels: e Principle; « Manual Mode; e LACP Mode; « Typical Application Scenarios. Caption: (errore caption)
+[Figura da Pag.30] Labels: ° Configuration Example; 3. Overview of iStack and CSS; Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.31] Labels: Typical Application Scenario (1). Caption: (errore caption)
+[Figura da Pag.31] Labels: Lore SWitch ©:; Gz Network; | | > eth-trunk; Aggregation; switch Access; switch; | | > Eth-Trunk | | > Eth-Trunk. Caption: (errore caption)
+[Figura da Pag.31] Labels: Access = Server =; switch as; To ensure the bandwidth and reliability of links between || To improve the access bandwidth and reliability of the; switches, deploy multiple physical links between switches || server, bind two or more physical NICs into a NIC group and; and add them to an Eth-Trunk. establish an Eth-Trunk with the switch.; Page 30 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.32] Labels: Typical Application Scenario (2). Caption: (errore caption)
+[Figura da Pag.32] Labels: 6 switch; Eth-Trunk “SX UL; Eth-Trunk; Access Eg \ | 38:; switch; Hot standby. Caption: (errore caption)
+[Figura da Pag.32] Labels: °°; If two firewalls are deployed in hot standby mode, the; heartbeat link is used to detect the status of the peer; An iStack is a logical device consisting of two switches. A || device. To prevent status detection errors caused by; switch can be connected to the iStack through an Eth- || single-interface or single-link faults, you can create an; Trunk to form a highly reliable loop-free network. Eth-Trunk and use it as the heartbeat link for status; detection.; Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.33] Labels: Contents; 1. Network Reliability Requirements; 2. Principle and Configuration of Link Aggregation. Caption: (errore caption)
+[Figura da Pag.33] Labels: e Principle; « Manual Mode; e LACP Mode; 2 Typical Application Scenarios. Caption: (errore caption)
+[Figura da Pag.33] Labels: « Configuration Example; 3. Overview of iStack and CSS; Page 32 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.34] Labels: Configuration Commands (1); 1. Create an Eth-Trunk.; [Huawei] interface eth-trunk trunk-id. Caption: (errore caption)
+[Figura da Pag.34] Labels: An Eth-Trunk interface is created, and the Eth-Trunk interface view is displayed.; 2. Configure a link aggregation mode.; [Huawei-Eth-Trunk1] mode {lacp | manual load-balance }; To enable the LACP mode, run mode lacp. To enable the manual mode, run mode manual load-balance.; Note: The link aggregation modes at both ends must be the same.; 3. Add an interface to the Eth-Trunk (Ethernet interface view).. Caption: (errore caption)
+[Figura da Pag.34] Labels: [Huawei-GigabitEthernet0/0/1] eth-trunk trunk-id; In the interface view, the interface is added to the Eth-Trunk.; Page 33 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.35] Labels: Configuration Commands (2); 4. Add an interface to the Eth-Trunk (Eth-Trunk view).; [Huawei-Eth-Trunk1] trunkport interface-type { interface-number}. Caption: (errore caption)
+[Figura da Pag.35] Labels: Inthe Eth-Trunk view, the Interface Is added to the Eth-Irunk. You can use either of the preceding commands to; add an interface to an Eth-Trunk.; 5. Enable interfaces at different rates to join the same Eth-Trunk interface.; [Huawei-Eth-Trunk1] mixed-rate link enable; By default, interfaces at different rates are not allowed to join the same Eth-Trunk, and only interfaces at the same; rate can be added to the same Eth-Trunk.; 6 Configure the | ACP svstem prioritv.. Caption: (errore caption)
+[Figura da Pag.35] Labels: [Huawei] lacp priority priority; Asmaller priority value indicates a higher LACP system priority. By default, the LACP priority is 32768.; Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.36] Labels: Configuration Commands (3); 7. Configure the LACP interface priority.; [Huawei-GigabitEthernet0/0/1] lacp priority priority; TE ee: ES Seeticeeeen: werieceres Gee euaikcaee Elaok: teskeeetece asics: Elis: ele beerslt ofine: [ APU lebrvekeee: merece ~~ DOT COo UA. Caption: (errore caption)
+[Figura da Pag.36] Labels: Pim bY Aw He raw | es ane Ie Vet TT GINS Te IiCtww VI VY. Lae fi MIU TOMIL, TIS bY ANT He ria rt bit A IV Ver UM: FN; smaller priority value indicates a higher LACP interface priority.; You can run this command only after an interface is added to the Eth-Trunk.; 8. Configure the maximum number of active interfaces.; [Huawei-Eth-Trunk1] max active-linknumber {number}; Ensure that the maximum number of active interfaces on the local end is the same as that on the peer end. The; maximum number of active interfaces can be configured only in LACP mode.; rel Choanfini ira tha minimiim ninmbhar af antnsa intarfannac. Caption: (errore caption)
+[Figura da Pag.36] Labels: SA EM eS TO) RA WEN OEERNG URN Gk | Wes emer ee | Wievantes enema eee ten ee eee; [Huawei-Eth-Trunk1] least active-linknumber {number}; The minimum number of active interfaces can be different on the local end and peer end and can be configured in; both manual and LACP modes.; The minimum number of active interfaces is configured to ensure the minimum bandwidth. When the number of; active links is smaller than the lower threshold, the Eth-Trunk interface goes down.; Page 35 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.37] Labels: Example for Configuring an Eth-Trunk in; Manual Mode. Caption: (errore caption)
+[Figura da Pag.37] Labels: Bn LOVV 1] HALerraCe Cun-trurin |; zs GEO/O/1 GEOIO gs [SW1-Eth-Trunk1] trunkport gigabitethernet 0/0/1 to 0/0/2; Su —enoz [ER [SW1-Eth-Trunk1] port link-type trunk; > Ss > [SW1-Eth-Trunk1] port trunk allow-pass vlan 10 20; sw1 sw2; * Requirement description: : ,; 4 P SW2 configuration:; * SW1 and SW2 are connected to the networks of VLAN 10 and; tga) Piet = = eee © ee eee Meee |. Caption: (errore caption)
+[Figura da Pag.37] Labels: VLAN 20 LP VV 2] PERC EIA VEEP FE; , [SW2-Eth-Trunk1] trunkport gigabitethernet 0/0/1 to 0/0/2; 2 SW1 and SW2 are connected through two Ethernet links. To [SW2-Eth-Trunk1] port link-type trunk; oa: oo a [SW2-Eth-Trunk1] port trunk allow-pass vian 10 20; provide link redundancy and enhance transmission reliability,; configure an Eth-Trunk in manual mode between SW1 and; sw2.; Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.38] Labels: Example for Configuring an Eth-Trunk in; LACP Mode (1). Caption: (errore caption)
+[Figura da Pag.38] Labels: — az GEOIO2 for [SW1] interface eth-trunk 1; Ss FY GE0/0/3 GE0/0/3 Ss dey; TFT [ [SW1-Eth-Trunk1] mode lacp; swi sw2; [SW1-Eth-Trunk1] max active-linknumber 2; * Requirement description: [SW1-Eth-Trunk1] trunkport gigabitethernet 0/0/1 to 0/0/3; » SW1 and SW2 are connected to the networks of VLAN 10 and [SW1-Eth-Trunk1] port link-type trunk; VLAN 20. [SW1-Eth-Trunk1] port trunk allow-pass vian 10 20; e SW1 and SW2 are connected through three Ethernet links. To [SW1-Eth-Trunk1] quit. Caption: (errore caption)
+[Figura da Pag.38] Labels: provide link redundancy and enhance transmission reliability, ree ees oe; configure an Eth-Trunk in LACP mode between SW11 and; SW2, manually adjust the priority to configure SW1 as the; Actor, and set the maximum number of active interfaces to 2.; The other link functions as the backup link.; Page 37 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.39] Labels: Example for Configuring an Eth-Trunk in; LACP Mode (2). Caption: (errore caption)
+[Figura da Pag.39] Labels: GEO/O2 GEOIO2 [SW2] interface eth-trunk 1; —> Re —__ 9600? [SW2-Eth-Trunk1] mode lacp; sw1 sw2 oe; [SW2-Eth-Trunk1] max active-linknumber 2; * Requirement description: [SW2-Eth-Trunk1] trunkport gigabitethernet 0/0/1 to 0/0/3; 2 SW1 and SW2 are connected to the networks of VLAN 10 and [SW2-Eth-Trunk1] port link-type trunk; VLAN 20. [SW2-Eth-Trunk1] port trunk allow-pass vian 10 20; e SW1 and SW2 are connected through three Ethernet links. To [SW2-Eth-Trunk‘] quit. Caption: (errore caption)
+[Figura da Pag.39] Labels: provide link redundancy and enhance transmission reliability,; configure an Eth-Trunk in LACP mode between SW11 and; SW2, manually adjust the priority to configure SW1 as the; Actor, and set the maximum number of active interfaces to 2.; The other link functions as the backup link.; Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.40] Labels: Contents; 1. Network Reliability Requirements; 2. Principle and Configuration of Link Aggregation. Caption: (errore caption)
+[Figura da Pag.40] Labels: 3. Overview of iStack and CSS. Caption: (errore caption)
+[Figura da Pag.40] Labels: Page 39 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.41] Labels: Introduction to iStack and CSS; pStack. Caption: (errore caption)
+[Figura da Pag.41] Labels: @ e we? Box; SS Se >< fa; . es Equivalentto> a zS . -_s casi a. Caption: (errore caption)
+[Figura da Pag.41] Labels: ¢ iStack: Multiple iStack-capable switches are connected using stacking cables to form a logical switch that participates in; data forwarding.; * Cluster switch system (CSS): Two CSS-capable switches are bundled into one logical switch.; * ACSS consists of only two switches. Generally, modular switches support CSS, and fixed switches support iStack.; Page 40 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.42] Labels: Advantages of iStack and CSS; elim * One logical device simplifies O&M. Caption: (errore caption)
+[Figura da Pag.42] Labels: aevice can take over the; css forwarding and control functions,; preventing single points of failure.; Equivalent to » wf \; + Inter-device link aggregation is; implemented on a loop-free; 4 physical network, so STP does not; =2 — iStack need to be deployed.; Dhyvcical farme af CSS and iCtack lLanical farme anf CSS and iCtack : All links in the Eth-Trunk are used,. Caption: (errore caption)
+[Figura da Pag.42] Labels: i iia 2 iia and the link Usage IS 1UU'/.; + Many-to-one virtualization: Switches can be virtualized into one logical switch (CSS) that has a unified control plane for unified management.; + Unified forwarding plane: Physical switches in a CSS use a unified forwarding plane, and share and synchronize forwarding information in real time.; + Inter-device link aggregation: Links between physical switches are aggregated into a single Eth-Trunk interface to interconnect with downstream devices.; Page 41 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.43] Labels: Application (1); i ‘ Extending the bandwidth and implementing. Caption: (errore caption)
+[Figura da Pag.43] Labels: Aggregation evs Jace |; layer; Access » S& eB eB | | fi | Io; layer iStack LI; Access e—; layer 4 iStack; Snes Lh ahe ene ae. Caption: (errore caption)
+[Figura da Pag.43] Labels: 2. 2. 2. 2. 2. 2; ] ] ]; ( ( (; + When the port density of a switch cannot meet the access + To increase the uplink bandwidth, add new switches to set up an; requirements, add new switches to set up an iStack to increase the iStack and add multiple physical links of the member switches to; number of ports. an Eth-Trunk. This increases the uplink bandwidth, implements; inter-device backup and inter-device link redundancy, and; improves reliability.; Page 42 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.44] Labels: Application (2); —— CSS link Eth-Trunk; MSTP+VRRP; Sf x.. Caption: (errore caption)
+[Figura da Pag.44] Labels: * “ css; Aggregation »; layer; Access layer [7 \/ N\A. Caption: (errore caption)
+[Figura da Pag.44] Labels: * Two devices forma CSS and are virtualized into a single logical device. This simplified network does not; require Multiple Spanning Tree Protocol (MSTP) or Virtual Router Redundancy Protocol (VRRP), so; network configuration is much simpler. Additionally, inter-device link aggregation speeds up network; convergence and improves network reliability.; Page 43 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.45] Labels: Recommended Architecture; Ketwor; — istack and css ink  C-; Core layer; Eth-Trunk. Caption: (errore caption)
+[Figura da Pag.45] Labels: * Core switches set up a CSS and use Eth-Trunks to connect to; CS <a | uplink and downlink devices, building a highly reliable and; loop-free network.; Aggregation layer; + Aggregation switches set up an iStack and use Eth-Trunks to; . connect to uplink and downlink devices, building a highly; Stack; tstae Ba—es reliable loop-free network.; OE TNS NOccesslayer tt s—(‘“‘isOOSOCO*;*:*C~*S. Caption: (errore caption)
+[Figura da Pag.45] Labels: * Access devices that are geographically close to each other (such; as access switches in a building) are virtualized into one logical; 3 ee = ee S| f=} device using iStack. This adds interfaces and_ simplifies; { iStack T i iStack T management.; * An Eth-Trunk is used to connect to the aggregation layer. The; ES es es ey eS es logical network architecture is simple, and STP and VRRP are; not required. This networking offers high reliability, high uplink; bandwidth, and fast convergence.; Page 44 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)

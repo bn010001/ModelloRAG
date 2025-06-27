@@ -1,0 +1,2038 @@
+Page 0
+"A.D. 1308
+Fondamenti di Internet
+VLAN Principles and Configuration
+Prof. Gianluca Reali
+
+Page 1
+) Foreword
+Ethernet technology implements data communication over shared media based on
+carrier sense multiple access with collision detection (CSMA/CD). If there are a large
+number of PCs on the Ethernet, security risks and broadcast storms may occur,
+deteriorating network performance and even causing network breakdowns.
+The virtual local area network (VLAN) technology is therefore introduced to solve the
+preceding problem.
+This course describes basic VLAN principles, working principles of different Layer 2
+interfaces, VLAN applications, data forwarding principles, and basic VLAN configuration
+methods.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Objectives
+¢ Oncompletion of this course, you will be able to:
+e Understand the background of the VLAN technology.
+2 Identify
+ 
+the VLAN to which data belongs.
+° Master different VLAN assignment modes.
+° Describe how data communication is implemented through VLANs.
+« Master basic VLAN configuration methods.
+Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+What Is VLAN
+VLAN Principles
+VLAN Applications
+VLAN Configuration Examples
+Inter-VLAN Communication
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+=| ) Issues Facing a Traditional Ethernet
+f
+¢ Ona typical switching
+Layer 2 broadcast domain Ci Kj |i ij hj =
+network,broadcast frames or
+i unknown unicast frames sent
+swa = by a PC are flooded in the
+. A entire broadcast domain.
+Unicast _
+a= frame a) PC2 ¢ The larger the broadcast
+Soy i domain is, the more serious
+_ network security and junk
+swe sw7 <= traffic problems are.
+—+ Vala CiCe CHCHECH Ch
+—-—-—» Junk traffic
+(Note: This example assumes that the MAC address entry of PC2 exists in the
+MAC address tables of SW1, SW3, and SW7 rather than SW2 and SW5.)
+Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Broadcast domain:
+= The preceding figure shows a typical switching network with only PCs and switches. If
+PC1 sends a broadcast frame, the switches flood the frame on the network. As a result,
+all the other PCs receive the frame.
+«= The range that broadcast frames can reach is called a Layer 2 broadcast domain
+(broadcast domain for short). A switching network is a broadcast domain.
+¢ Network security and junk traffic problems:
+« Assume that PC1 sends a unicast frame to PC2. The MAC address entry of PC2 exists
+in the MAC address tables of SW1, SW8, and SW7 rather than SW2 and SW5. In this
+case, SW1 and SW3 forward the frame in point-to-point mode, SW7 discards the frame,
+and SW2 and SW5 flood the frame. As a result, although PC2 receives the unicast
+frame, other PCs on the network also receive the frame that should not be received.
+« The larger the broadcast domain is, the more serious network security and junk traffic
+problems are.
+
+VLAN
+VLAN _i 7 (ly ih Lip Cis
+(multiple broadcast domains) \
+al
+58)
+Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« The VLAN technology
+isolates broadcast
+domains.
+* Characteristics:
+Geographically
+independent.
+Only devices in the
+same VLAN can
+directly communicate at
+Layer 2.
+The VLAN technology is introduced to solve the problems caused by large broadcast
+domains.
+« By deploying VLANs on switches, you can logically divide a large broadcast domain into
+several small broadcast domains. This effectively improves network security, lowers
+junk traffic,
+ 
+and reduces the number of required network resources.
+VLAN characteristics:
+«= Each VLAN is a broadcast domain. Therefore, PCs in the same VLAN can directly
+communicate at Layer 2. PCs in different VLANs, by contrast, can only communicate at
+Layer 3 instead of directly communicating at Layer 2. In this way, broadcast packets are
+confined to a VLAN.
+a VLAN assignment is geographically independent.
+Advantages of the VLAN technology:
+2 Allows flexible setup of virtual groups. With the VLAN technology, terminals in different
+geographical locations can be grouped together, simplifying network construction and
+maintenance.
+« Confines each broadcast domain to a single VLAN, conserving bandwidth and
+improving network processing capabilities.
+«= Enhances LAN security. Frames in different VLANs are separately transmitted, so that
+PCs in a VLAN cannot directly communicate with those in another VLAN.
+2 Improves network robustness. Faults in a VLAN do not affect PCs in other VLANs.
+Note: Layer 2 refers to the data link layer.
+
+) Contents
+1. Whatls VLAN
+VLAN Principles
+VLAN Applications
+VLAN Configuration Examples
+a
+ 
+fF
+ 
+@
+ 
+N
+Inter-VLAN Communication
+Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ This part describes VLAN principles from the following three aspects: VLAN identification,
+VLAN assignment, and VLAN frame processing on switches.
+
+VLAN VLAN VLAN Frame
+Identification Assignment Processing
+[=| ) VLAN Implementation
+Switch1 Switch2
+[1 | 12} {3} 4}s —(s|[4]
+ 
+[5] [2] 4)
+Ci =i OA
+VLAN 207 VLAN 20° LAN 10
+¢ Switch1 and Switch2 belong to the network of the same enterprise. VLANs are planned for the network, with VLAN 10 for department A
+and VLAN 20 for department B. Employees in departments A and B are connected to both Switch1 and Switch2.
+e Assume that a frame sent from PC1 reaches Switch2 through the link between Switch1 and Switch2. !f no processing is implemented,
+Switch2 can neither identify the VLAN to which the frame belongs nor determine the local VLAN to which the frame should be sent.
+Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+VLAN VLAN VLAN Frame
+Identification Assignment Processing
+[=| ) VLAN Tag
+¢ How does a switch identify the VLAN to which a received frame belongs?
+Which VLAN does the
+received frame
+belong to? VLAN Tag
+| 20 I IEEE 802.1Q defines a 4-byte
+VLAN tag for Ethernet frames,
+enabling switches to identify the
+VLANs to which received frames
+belong.
+Goda
+VLAN 20 VLAN 10
+Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ As shown in the figure, after receiving a frame and identifying the VLAN to which the frame
+belongs, SW1 adds a VLAN tag to the frame to specify this VLAN. Then, after receiving the
+tagged frame sent from SW1, another switch, such as SW2, can easily identify the VLAN to
+which the frame belongs based on the VLAN tag.
+« Frames with a 4-byte VLAN tag are called IEEE 802.1Q frames or VLAN frames.
+
+VLAN VLAN VLAN Frame
+Identification Assignment Processing
+ry) ) VLAN Frame
+Original Ethernet frame
+(untagged frame)
+Length/
+Type
+Destination MAC Source MAC
+address address
+Data | FCS |
+802.1Q tag inserted
+between the two fields
+TPID (0x8100) | PRI | CFI VLAN ID ie
+16 bits Sbits 1 bit 12 bits
+802.1Q tag * Tag protocol identifier (TPID): identifies the type of a frame. The value 0x8100
+indicates an IEEE 802.1Q frame.
+PRI: identifies the priority of a frame, which is mainly used for QoS.
+* Canonical format indicator (CFI): indicates whether a MAC address is in the
+canonical format. For Ethernet frames, the value of this field is 0.
+« VLAN ID: identifies the VLAN to which a frame belongs. Y
+802.1Q frame Destination MAC | Source MAC Tag Length/ Data ECS
+(tagged frame) address address Type
+Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« Ethernetframes in a VLAN are mainly classified into the following types:
+2 Tagged frames: Ethernet frames for which a 4-byte VLAN tag is inserted between the
+source MAC address and length/type fields according to IEEE 802.1Q
+2 Untagged frames: frames without a 4-byte VLAN tag
+¢ Main fields ina VLAN frame:
+« TPID: a 16-bit field used to identify the type of a frame.
+= The value 0x8100 indicates an IEEE 802.1Q frame. A device that does not
+support 802.1Q discards 802.1Q frames.
+= Device vendors can define TPID values for devices. To enable a device to identify
+the non-802.1Q frames sent from another device, you can change the TPID on the
+device to be the same as that device.
+2 PRI: a 3-bit field used to identify the priority of a frame. It is mainly used for QoS.
+= The value of this field is an integer ranging from 0 to 7. A larger value indicates a
+higher priority. If congestion occurs, a switch preferentially sends frames with the
+highest priority.
+a CFI: a 1-bit field indicating whether a MAC address is encapsulated in the canonical
+format. This field is mainly used to differentiate Ethernet frames, fiber distributed digital
+interface (FDDI) frames, and token ring frames.
+= The value 0 indicates that the MAC address is encapsulated in the canonical
+format, and the value 1 indicates that the MAC address is encapsulated in a non-
+canonical format.
+«= For Ethernet frames, the value of this field is 0.
+
+VLAN VLAN VLAN Frame
+Identification Assignment Processing
+[=| ) VLAN Implementation
+; Tagged frame ;
+Switch Switch2
+Tagged frame
+[1 | 2} [3 )[4}/s | 5 14] is) [2 }[4|
+t Original frame 2 Original frame 1
+ij Clk Original frame 2 i
+PC
+Original frame 1
+PC
+VLAN 10
+PC PC
+VLAN 207 VLAN 20° LAN 10
+e The link between Switch1 and Switch2 carries data of multiple VLANs. In this situation, a VLAN-based data
+tagging method is required to distinguish the frames of different VLANs.
+e IEEE 802.1Q, often referred to as Dot1g, defines a system of VLAN tagging for Ethernet frames by
+inserting an 802.1Q tag into the frame header to carry VLAN information.
+Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+VLAN VLAN VLAN Frame
+Identification Assignment Processing
+[=| ) VLAN Assignment Methods
+VLAN Assignment
+Method VLAN 10 VLAN 20
+Interface-based GE 0/0/1 and GE 0/0/3. GE 0/0/2 and GE 0/0/4
+assignment
+MAC address-based = ac 4 and MAC 3 MAC 2 and MAC 4
+assignment
+IP subnet-based 10.0.1.* 10.0.2.*
+= — — — assignment
+Le Cp Lf CF Protocottases ip evs
+PC1 Pc2 PC3 PC4 g
+10.0.1.1 10.0.2.1 10.0.1.2 10.0.2.2 Policy-based 10.0.1.* + GE 0/0/1 + 10.0.2.* + GE 0/0/2 +
+MAC 1 MAC 2 MAC 3 MAC 4 assignment MAC 1 MAC 2
+Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+PCs send only untagged frames. After receiving such an untagged frame, a switch that
+supports the VLAN technology needs to assign the frame to a specific VLAN based on certain
+rules.
+Available VLAN assignment methods are as follows:
+a Interface-based assignment: assigns VLANs based on switch interfaces.
+= Anetwork administrator preconfigures a port VLAN ID (PVID) for each switch
+interface. When an untagged frame arrives at an interface of a switch, the switch
+adds a tag carrying the PVID of the interface to the frame. The frame is then
+transmitted in the specified VLAN.
+« MAC address-based assignment: assigns VLANs based on the source MAC addresses
+of frames.
+= A network administrator preconfigures
+ 
+the mapping between MAC addresses and
+VLAN IDs. After receiving an untagged frame, a switch adds the VLAN tag
+mapping the source MAC address of the frame to the frame. The frame is then
+transmitted in the specified VLAN.
+2 IP subnet-based assignment: assigns VLANs based on the source IP addresses and
+subnet masks of frames.
+= A network administrator preconfigures
+ 
+the mapping between IP addresses and
+VLAN IDs. After receiving an untagged frame, a switch adds the VLAN tag
+mapping the source IP address of the frame to the frame. The frame is then
+transmitted in the specified VLAN.
+= Protocol-based assignment: assigns VLANs based on the protocol (suite) types and
+encapsulation formats of frames.
+
+Ga) ) Interface-based VLAN Assignment
+Interface-based VLAN Assignment
+‘10 * Principles
+Swi SW2 ; ;
+c VLANs are assigned based on interfaces.
+PVID 1 PVID
+ 
+1
+e Anetwork administrator preconfigures a PVID
+PVID 40 PVID10 PVID 20 PVID 20 for each switch interface and assigns each
+interface to a VLAN corresponding to the
+PVID.
+/ ° After an interface receives an untagged frame,
+the switch adds a tag carrying the PVID of the
+Chk Chk Chk Chk interface to the frame. The frame is then
+—_
+ 
+| —_ —_
+ 
+|, transmitted in the specified VLAN.
+PC PC C4
+" vwanio ° > VLAN20 * - Port Default VLAN ID: PVID
+° Default VLAN ID for an interface
+The VLAN needs to be reconfigured ° Value range: 1-4094
+if PCs move.
+Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Assignment rules:
+a VLAN IDs are configured on physical interfaces of a switch. All PC-sent untagged
+frames arriving at a physical interface are assigned to the VLAN corresponding to the
+PVID configured for the interface.
+¢« Characteristics:
+2 VLAN assignment is simple, intuitive, and easy to implement. Currently, it is the most
+widely used VLAN assignment method.
+2 |f the switch interface to which a PC is connected changes, the VLAN to which frames
+sent from the PC to the interface are assigned may also change.
+* Port Default VLAN ID: PVID
+« A PVID needs to be configured for each switch interface. All untagged frames arriving at
+an interface are assigned to the VLAN corresponding to the PVID configured for the
+interface.
+> The default PVID is 1.
+
+Ga) ) MAC Address-based VLAN Assignment
+Mapping Between MAC Addresses
+and VLAN IDs on SW1 MAC Address-based VLAN Assignment
+MAC . Princ
+e VLANs are assigned based on the source MAC
+MAC 1 10
+addresses of frames.
+MAC 2 10
+7 e Anetwork administrator preconfigures the mapping
+Swit Sw2 between MAC addresses and VLAN IDs.
+10 a ° After receiving an untagged frame, a switch adds
+GE 00/1 GE 0/0/2 the VLAN tag mapping the source MAC address of
+the frame to the frame. The frame is then
+ay transmitted in the specified VLAN.
+J \ * Mapping table
+Lik Lik Chk Chk » Records the mapping between MAC addresses
+= = = — Ji and VLAN IDs.
+PC1 PC2 PC3 PC4
+MAC
+ 
+1 VLAN10 MAC2 ~=MAC3 VLAN 20 MAC4
+The VLAN does not need to be
+reconfigured even if PCs move.
+Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Assignment rules:
+«= Each switch maintains a table recording the mapping between MAC addresses and
+VLAN IDs. After receiving a PC-sent untagged frame, a switch analyzes the source
+MAC address of the frame, searches the mapping table for the VLAN ID mapping the
+MAC address, and assigns the frame to the corresponding VLAN according to the
+mapping.
+¢ Characteristics:
+a This assignment method is a bit complex but more flexible.
+2 |f the switch interface to which a PC is connected changes, the VLAN to which frames
+sent from the PC to the interface are assigned remains unchanged because the PC's
+MAC address does not change.
+= However, as malicious PCs can easily forge MAC addresses, this assignment method is
+prone to security risks.
+
+Ga) ) Layer 2 Ethernet Interface Types
+Interface Types
+¢« Access interface
+An access interface is used to connect a switch to a terminal, such
+as a PC or server. In general, the NICs on such a terminal receive
+and send only untagged frames. An access interface can be added
+to only one VLAN.
+Trunk interface
+A trunk interface allows frames that belong to multiple VLANs to
+pass through and differentiates the frames using the 802.1Q tag.
+This type of interface is used to connect a switch to another switch
+or a sub-interface on a device, such as a router or firewall.
+Hybrid interface
+Similar to a trunk interface, a hybrid interface also allows frames
+that belong to multiple VLANs to pass through and differentiates the
+frames using the 802.1Q tag. You can determine whether to allow a
+O Access interface @ Trunk interface hybrid interface to carry VLAN tags when sending the frames of one
+or more VLANs.
+Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« The interface-based VLAN assignment method varies according to the switch interface type.
+* Access interface
+« An access interface often connects to a terminal (such as a PC or server) that cannot
+identify VLAN tags, or is used when VLANs do not need to be differentiated.
+¢ Trunk interface
+s A trunk interface often connects to a switch, router, AP, or voice terminal that can
+receive and send both tagged and untagged frames.
+* Hybrid interface
+2 A hybrid interface can connect to a user terminal (such as a PC or server) that cannot
+identify VLAN tags or to a switch, router, AP, or voice terminal that can receive and send
+both tagged and untagged frames.
+2 By default, hybrid interfaces are used on Huawei devices.
+
+VLAN VLAN VLAN Frame
+Identification Assignment Processing
+) Access Interface
+Frame receiving Frame sending
+Inside a switch Inside a switch Inside a switch Inside a switch
+i Hy a ss
+GE 0/0/1 GE 0/0/1 GE 0/0/1 GE 0/0/1
+Access (VLAN 10) Access (VLAN 10) Access (VLAN 10) Access (VLAN 10)
+t J
+| Untagged frame | | Untagged frame |
+After receiving an untagged After receiving a tagged frame: If the VLAN ID of the frame is the If the VLAN ID of the frame is
+frame: Ifthe VLAN ID of the frame is the same as the PVID of the afrerent from the PVID of the
+The interface permits the same as the PVID of the interface, interlace: interlace:
+frame and adds a VLAN tag the interface permits the frame. The interface removes the VLAN The interface discards the frame.
+carrying the PVID of the Ifthe VLAN ID of the frame is tag from the frame and then sends
+interface. different from the PVID of the the frame. Tagged
+interface, the interface discards the Untagged frame 10
+frame.
+Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* How do switch interfaces process tagged and untagged frames? First, let's have a look at
+access interfaces.
+¢« Characteristics of access interfaces:
+a An access interface permits only frames whose VLAN ID is the same as the PVID of the
+interface.
+« Frame receiving through an access interface:
+« After receiving an untagged frame, the access interface adds a tag with the VID being
+the PVID of the interface to the frame and then floods, forwards, or discards the tagged
+frame.
+« After receiving a tagged frame, the access interface checks whether the VID in the tag
+of the frame is the same as the PVID. If they are the same, the interface forwards the
+tagged frame. Otherwise, the interface directly discards the tagged frame.
+* Frame sending through an access interface:
+a After receiving a tagged frame sent from another interface on the same switch, the
+access interface checks whether the VID in the tag of the frame is the same as the
+PVID.
+= If they are the same, the interface removes the tag from the frame and sends the
+untagged frame out.
+= Otherwise, the interface directly discards the tagged frame.
+
+VLAN VLAN
+VLAN Frame
+Identification Assignment Processing
+ry) ) Trunk interface
+Frame receiving | Frame sending
+Inside a switch
+—a
+Inside a switcha
+GE 0/0/1
+| Permitted VLAN ID: 10 |
+Trunk (PVID = 10)
+GE 0/0/1
+| Permitted VLAN ID: 10 |
+Trunk (PVID = 1)
+t
+| Untagged frame |
+After receiving an untagged
+frame:
+The interface adds a VLAN tag
+with the VID being the PVID of the
+interface to the frame and permits
+r
+After receiving a tagged frame:
+If the VLAN ID of the frame is in
+the list of VLAN IDs permitted by
+the interface, the interface permits
+the frame. Otherwise, the interface
+Inside a switch
+=a
+Inside a switch
+ana
+GE 0/0/1
+| Permitted VLAN ID: 10 |
+Trunk (PVID = 10)
+GE 0/0/1
+| Permitted VLAN ID: 20 |
+Trunk (PVID = 10)
+J
+| Untagged frame |
+If the VLAN ID of the frame is the
+same as the PVID of the
+interface:
+If the VLAN ID of the frame is in
+the list of VLAN IDs permitted by
+a:
+If the VLAN ID of the frame is
+different from the PVID of the
+interface:
+If the VLAN ID of the frame is in
+the list of VLAN IDs permitted by
+the frame only when the VID is in
+the list of VLAN IDs permitted by
+the interface. If the VID is not in the
+list, the interface discards the
+frame.
+the interface, the interface removes
+the tag from the frame and sends
+the frame out. Otherwise, the
+interface discards the frame.
+the interface, the interface sends
+the frame out without removing the
+tag of the frame. Otherwise, the
+interface discards the frame.
+discards
+ 
+the frame.
+Tagged
+Untagged frame | 10
+Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Fora trunk interface, you need to configure not only a PVID but also a list of VLAN IDs
+permitted by the interface. By default, VLAN 1 exists in the list.
+¢ Characteristics of trunk interfaces:
+« A trunk interface allows only frames whose VLAN IDs are in the list of VLAN IDs
+permitted by the interface to pass through.
+2 It allows tagged frames from multiple VLANs but untagged frames from only one VLAN
+to pass through.
+¢ Frame receiving through a trunk interface:
+« After receiving an untagged frame, the trunk interface adds a tag with the VID being the
+PVID of the interface to the frame and then checks whether the VID is in the list of VLAN
+IDs permitted by the interface. If the VID is in the list, the interface forwards the tagged
+frame. Otherwise, the interface directly discards the tagged frame.
+a After receiving a tagged frame, the trunk interface checks whether the VID in the tag of
+the frame is in the list of VLAN IDs permitted by the interface. If the VID is in the list, the
+interface forwards the tagged frame. Otherwise, the interface directly discards the
+tagged frame.
+¢ Frame sending through a trunk interface:
+« After receiving a tagged frame sent from another interface on the same switch, the trunk
+interface checks whether the VID in the tag of the frame is in the list of VLAN IDs
+permitted by the interface. If the VID is not in the list, the interface directly discards the
+frame.
+« After receiving a tagged frame sent from another interface on the same switch, the trunk
+intarfara crharke whathar tha \V/ID in tha tan af tha frama ie in tha liet af \/I ANI Ne
+
+= Example for Frame Processing on Access
+and Trunk Interfaces
+e Describe how inter-PC access is implemented in this example.
+[| SW2 Trunk Interfaces on SW1 and SW2
+Swi
+[Ay
+ 
+|
+—————=>
+List of Permitted VLAN IDs
+PVID 20 1
+VLAN ID 10
+20
+PCI PC2 PC3 PC4
+VLAN 10 VLAN 20 VLAN 10 VLAN 20
+@ Trunk interface O Access interface
+Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+In this example, SW1 and SW2 connect to PCs through access interfaces. PVIDs are
+configured for the interfaces, as shown in the figure. SW1 and SW2 are connected through
+trunk interfaces whose PVIDs are all set to 1. The table lists the VLAN IDs permitted by the
+trunk interfaces.
+Describe how inter-PC access is implemented in this example.
+
+VLAN VLAN VLAN Frame
+Identification Assignment Processing
+Ga) ) Hybrid Interface
+Frame receiving Frame sending
+Inside a switch Inside a switch Inside a switch Inside a switch
+a ea
+GE 0/0/1 GE 0/0/1 GE 0/0/1 GE 0/0/1
+| Permitted VLAN ID: 10 | | Permitted VLAN ID: 10 | | Permitted VLAN ID: 10 | | Permitted VLAN ID: 20 |
+Hybrid (PVID = 10) Hybrid (PVID = 1) Hybrid (PVID = 10) Hybrid (PVID = 10)
+t J
+| Untagged frame | | Untagged frame | | 20 ||
+After receiving an untagged After receiving a tagged frame: If the VLAN ID of the frame is in If the VLAN ID of the frame is in
+frame: Ifthe VLAN ID of the frame is in the list of VLAN IDs permitted by the list of VLAN IDs permitted by
+The interface adds a VLAN tag the list of VLAN IDs permitted by the interface: the interface:
+with the VID being the PVID of the the interface, the interface permits If the interface has been configured If the interface has been configured
+interface to the frame and permits the frame. Otherwise, the interface not to carry VLAN tags when to carry VLAN tags when sending
+the frame only when the VID is in discards the frame. sending frames, it removes the tag frames, it sends the frame out
+the list of VLAN IDs permitted by from the frame and then sends the without removing the tag of the
+the interface. If the VID is not in the Tagged frame out. frame.
+list, the interface discards the
+frame.
+Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Fora hybrid interface, you need to configure not only a PVID but also two lists of VLAN IDs
+permitted by the interface: one untagged VLAN ID list and one tagged VLAN
+ 
+ID list. By
+default, VLAN 1 is in the untagged VLAN
+ 
+ID list. Frames from all the VLANs in the two lists are
+allowed to pass through the hybrid interface.
+¢ Characteristics of hybrid interfaces:
+2 A hybrid interface allows only frames whose VLAN IDs are in the lists of VLAN IDs
+permitted by the interface to pass through.
+2 It allows tagged frames from multiple VLANs to pass through. Frames sent out froma
+hybrid interface can be either tagged or untagged, depending on the VLAN
+configuration.
+« Different from a trunk interface, a hybrid interface allows untagged frames from multiple
+VLANs to pass through.
+¢ Frame receiving through a hybrid interface:
+a After receiving an untagged frame, the hybrid interface adds a tag with the VID being the
+PVID of the interface to the frame and then checks whether
+ 
+the VID is in the tagged or
+untagged VLAN
+ 
+ID list. If the VID is in the list, the interface forwards the tagged frame.
+Otherwise, the interface directly discards the tagged frame.
+a After receiving a tagged frame, the hybrid interface checks whether the VID in the tag of
+the frame is in the tagged or untagged VLAN
+ 
+ID list. If the VID is in the tagged or
+untagged VLAN
+ 
+ID list, the interface forwards the tagged frame. Otherwise, the interface
+directly discards the tagged frame.
+* Frame sending through a hybrid interface:
+o©@6©6- Aftar raraivina a tanaad frama cant fram annthar intarfara ann tha eama ewitrh tha
+
+ree rosettes
+[=] ) Example for Frame Processing on Hybrid Interfaces
+¢ Describe how PCs access the server in this example.
+om List of VLAN IDs Permitted by Interfaces on SW1
+Interface 1 Interface 3
+SW verace3 interface 3 SW? nterface Interface 2 nterface
+PVID 1 Bm PVID1 Gam Untagged Untagged Tagged
+Interface 1 nterface 2 — 1 1 10
+PVID 10 PVID 20 Interface 1 VLAN VLAN VLAN
+PVID 100 ID 10 ID 20 ID 10
+\\ | | | | 100 100 100
+List of VLAN IDs Permitted by Interfaces on SW2
+an
+Cik L_|k i Interface 1 Interface 3
+PCI PC? Server Untagged Tagged
+VLAN 10 VLAN 20 VLAN 100 1 10
+VLAN
+VLAN 10 ID 20
+@ Hybrid Interface ID 20 100
+100
+Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« Inthis example, SW1 and SW2 connect to PCs through hybrid interfaces. The two switches
+are connected also through this type of interface. PVIDs are configured for the interfaces, as
+shown in the figure. The tables list the VLAN IDs permitted by the interfaces.
+¢ Describe how PCs access the server in this example.
+
+VLAN VLAN
+VLAN Frame
+Identification Assignment Processing
+Ga) ) Summary
+Access Interface Trunk Interface Hybrid Interface
+Frame receiving Frame receiving Frame receiving
+Untagged frame: adds a tag with the VID being
+the PVID of the interface and permits the
+frame.
+Tagged frame: checks whether the VID in the
+tag of the frame is the same as the PVID of the
+interface. If they are the same, permits the
+frame; otherwise, discards the frame.
+Frame sending
+Checks whether the VID in the tag of the frame
+is the same as the PVID of the interface. If
+they are the same, removes the tag and sends
+the frame out; otherwise, discards the frame.
+Untagged frame: adds a tag with the VID being
+the PVID of the interface and checks whether
+the VID is in the list of permitted VLAN IDs. If
+yes, permits the frame. If not, discards it.
+Tagged frame: checks whether the VID is in
+the list of permitted VLAN IDs. If yes, permits
+the frame. If not, discards it.
+Frame sending
+If the VID is in the list of permitted VLAN IDs
+and the same as the PVID of the interface,
+removes the tag and sends the frame out.
+If the VID is in the list of permitted VLAN IDs
+but different from the PVID of the interface,
+sends the frame out without removing the tag.
+Untagged frame: adds a tag with the VID being
+the PVID of the interface and checks whether
+the VID is in the list of permitted VLAN IDs. If
+yes, permits the frame. If not, discards it.
+Tagged frame: checks whether the VID is in
+the list of permitted VLAN IDs. If yes, permits
+the frame. If not, discards it.
+Frame sending
+If the VID is not in the list of permitted VLAN
+IDs, discards the frame.
+If the VID is in the untagged VLAN
+ 
+ID list,
+removes the tag and sends the frame out.
+If the VID is in the tagged VLAN ID list, sends
+the frame out without removing the tag.
+If the VID is not in the list of permitted VLAN
+IDs, discards the frame.
+Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ The processes of adding and removing VLAN tags on interfaces are as follows:
+o Frame receiving:
+» After receiving an untagged frame, access, trunk, and hybrid interfaces all add a
+VLAN tag to the frame. Then, trunk and hybrid interfaces determine whether to
+permit the frame based on the VID of the frame (the frame is permitted only when
+the VID is a permitted VLAN ID), whereas an access interface permits the frame
+unconditionally.
+« After receiving a tagged frame, an access interface permits the frame only when
+the VID in the tag of the frame is the same as the PVID configured for the
+interface, while trunk and hybrid interfaces permit the frame only when the VID in
+the tag of the frame is in the list of permitted VLANs.
+« Frame sending:
+= Access interface: directly removes VLAN tags from frames before sending the
+frames.
+= Trunk interface: removes VLAN tags from frames only when the VIDs in the tags
+are the same as the PVID of the interface.
+= Hybrid interface: determines whether to remove VLAN tags from frames based on
+the interface configuration.
+* Frames sent by an access interface are all untagged. On a trunk interface, only frames of one
+VLAN are sent without tags, and frames of other VLANs are all sent with tags. On a hybrid
+interface, you can specify the VLANs of which frames are sent with or without tags.
+
+Page 21
+) Contents
+What ls VLAN
+VLAN Principles
+VLAN Applications
+VLAN Configuration Examples
+Inter-VLAN Communication
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) VLAN Planning
+* VLAN assignment rules * Tips for VLAN assignment
+VLAN IDs can be randomly assigned within the supported
+range. To improve VLAN ID continuity, you can associate
+° By department: e.g. VLANs for engineering, marketing, and VLAN IDs with subnets during VLAN assignment.
+2 By service: voice, video, and data VLANs
+financing departments
+° By application: e.g. VLANs for servers, offices, and classrooms
+* Example for VLAN planning
+o Assume that there are three buildings: administrative building with offices, classrooms, and financing sections, teaching
+building with offices and classrooms, and office building with offices and financing sections. Each building has one access
+switch, and the core switch is deployed in the administrative building.
+o The following table describes the VLAN plan.
+1 X.16.10.0/24 VLAN to which office users belong
+X.16.20.0/24 VLAN to which the users of the financing department belong
+X.16.30.0/24 VLAN to which classroom users belong
+100 Y.16.100.0/24 VLAN to which the device management function belongs
+Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ You are advised to assign consecutive VLAN IDs to ensure proper use of VLAN resources.
+The most common method is interface-based VLAN assignment.
+
+=| ) Interface-based VLAN Assignment
+e Applicable scenario:
+° There are multiple enterprises in a building. These
+enterprises share network resources to reduce costs.
+Networks of the enterprises connect to different interfaces of
+the same Layer 2 switch and access the Internet through the
+; L3 switch
+same egress device.
+e VLAN assignment:
+L2 switch
+° To isolate the services of different enterprises and ensure
+service security, assign interfaces connected to the
+enterprises’ networks to different VLANs. In this way, each
+enterprise has an independent network, and each VLAN
+Enterprise 1 Enterprise 2 Enterprise 3
+works as a Virtual work group. VLAN 2 VLAN 3 VLAN 4
+Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+=| ) MAC Address-based VLAN Assignment
+e Applicable scenario:
+Enterprise
+° The network administrator of an enterprise assigns network
+PCs in the same department to the same VLAN. To
+improve information security, the enterprise requires
+that only employees in the specified department be
+allowed to access specific network resources.
+e VLAN assignment:
+° To meet the preceding requirement, configure MAC Cik Cik Cie {_}j
+address-based VLAN assignment on SW1, = = = =
+PC1 PC2 PC3 PC4
+preventing new PCs connected to the network from = 001e-10dd-dd01 = 001e-10dd-dd02_-001.e-10dd-dd03 001e-10dd-dd04
+accessing the network resources. VLAN 10
+Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 25
+) Contents
+What Is VLAN
+VLAN Principles
+VLAN Applications
+VLAN Configuration Examples
+Inter-VLAN Communication
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+MAC Address-based VLAN
+Ga) ) Basic VLAN Configuration Commands
+1. Create one or more VLANs.
+[Huawei] vlan vian-id
+This command creates a VLAN and displays the VLAN view. If the VLAN to be created already exists, this
+command directly displays the VLAN view.
+« The value of vian-id is an integer ranging from 1 to 4094.
+[Huawei] vlan batch { vian-id71 [ to vian-id2 ] }
+This command creates VLANs in a batch. In this command:
+* batch: creates VLANs in a batch.
+Vian-id1: specifies a start VLAN ID.
+« vian-id2: specifies an end VLAN ID.
+Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ The vlan command creates a VLAN and displays the VLAN view. If the VLAN to be created
+already exists, this command directly displays the VLAN view.
+« The undo vian command deletes a VLAN.
+¢ By default, all interfaces are added to the default VLAN with the ID of 1.
+* Commands:
+2 vlan vian-id
+= vilan-id: specifies a VLAN ID. The value is an integer ranging from 1 to 4094.
+2 vlan batch { vian-id7 [ to vian-id2
+ 
+| }
+= batch: creates VLANs in a batch.
+= vian-id1 [to vian-id2
+ 
+|: specifies the IDs of VLANs to be created in a batch.
+- vlan-id1: specifies a start VLAN ID.
+- vlan-id2: specifies an end VLAN ID. The value of vian-id2 must be greater
+than or equal to that of vian-id7. The two parameters work together
+ 
+to define
+a VLAN range.
+= If you do not specify to v/an-id2, the command creates only one VLAN with the ID
+being specified using vian-id7.
+= The values of vian-id71 and vian-id2 are both integers ranging from 1 to 4094.
+
+MAC Address-based VLAN
+Ga) ) Basic Access Interface Configuration Commands
+1. Set the link type of an interface.
+[Huawei-GigabitEthernet0/0/1] port link-type access
+In the interface view, set the link type of the interface to access.
+2. Configure a default VLAN for the access interface.
+[Huawei-GigabitEthernet0/0/1] port default vlan vian-id
+In the interface view, configure a default VLAN for the interface and add the interface to the VLAN.
+« vian-id: specifies an ID for the default VLAN. The value is an integer ranging from 1 to 4094.
+Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+MAC Address-based VLAN
+ry) ) Basic Trunk Interface Configuration Commands
+1. Set the link type of an interface.
+[Huawei-GigabitEthernet0/0/1] port link-type trunk
+In the interface view, set the link type of the interface to trunk.
+2. Add the trunk interface to specified VLANs.
+[Huawei-GigabitEthernet0/0/1] port trunk allow-pass vlan { { vian-id7 [ to vian-id2 |} | all}
+In the interface view, add the trunk interface to specified VLANs.
+3. (Optional) Configure a default VLAN for the trunk interface.
+[Huawei-GigabitEthernet0/0/1] port trunk pvid vlan vian-id
+In the interface view, configure a default VLAN for the trunk interface.
+Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Command: port trunk allow-pass vian { { vian-id7[ to vian-id2
+ 
+| | all}
+2 vilan-id1 [to vian-id2
+ 
+|: specifies the IDs of VLANs to which a trunk interface needs to be
+added.
+» vian-id1: specifies a start VLAN ID.
+» vian-id2: specifies an end VLAN ID. The value of vian-id2 must be greater than or
+equal to that of vian-id7.
+= The values of vian-id71 and vian-id2 are both integers ranging from 1 to 4094.
+a all: adds a trunk interface to all VLANs.
+¢ The port trunk pvid vlan vian-id command configures a default VLAN for a trunk interface.
+2 vian-id: specifies the ID of the default VLAN to be created for a trunk interface. The
+value is an integer ranging from 1 to 4094.
+
+MAC Address-based VLAN
+ry) ) Basic Hybrid Interface Configuration Commands
+1. Set the link type of an interface.
+[Huawei-GigabitEthernet0/0/1] port link-type hybrid
+In the interface view, set the link type of the interface to hybrid.
+2. Add the hybrid interface to specified VLANs.
+[Huawei-GigabitEthernet0/0/1] port hybrid untagged vlan { { vian-id7 [ to vian-id2 ]}| all}
+In the interface view, add the hybrid interface to specified VLANs in untagged mode.
+[Huawei-GigabitEthernet0/0/1] port hybrid tagged vlan { { vian-id7 [ to vian-id2 |} | all }
+In the interface view, add the hybrid interface to specified VLANs in tagged mode.
+3. (Optional) Configure a default VLAN for the hybrid interface.
+[Huawei-GigabitEthernet0/0/1] port hybrid pvid vian vian-id
+In the interface view, configure a default VLAN for the hybrid interface.
+Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Command: port hybrid untagged vian { { vian-id7 [ to vian-id2 ]} | all}
+vian-id7 [ to vian-id2
+ 
+|: specifies the IDs of VLANs to which a hybrid interface needs to
+be added.
+= vian-id1: specifies a start VLAN ID.
+vian-id2: specifies an end VLAN ID. The value of vian-id2 must be greater than or
+equal to that of vian-id7.
+The values of vian-id7 and vian-id2 are both integers ranging from 1 to 4094.
+a
+2 all: adds a hybrid interface to all VLANs.
+* Command: port hybrid tagged vlan { { vian-id7 [ to vian-id2
+ 
+| } | all}
+vian-id7 [ to vian-id2
+ 
+|: specifies the IDs of VLANs to which a hybrid interface needs to
+be added.
+= vian-id1: specifies a start VLAN ID.
+vlan-id2: specifies an end VLAN ID. The value of vian-id2 must be greater than or
+equal to that of vian-id7.
+= The values of vian-id71 and vian-id2 are both integers ranging from 1 to 4094.
+a
+2 all: adds a hybrid interface to all VLANs.
+The port hybrid pvid vlan vian-id command configures a default VLAN for a hybrid interface.
+vian-id: specifies the ID of the default VLAN to be created for a hybrid interface. The
+value is an integer ranging from 1 to 4094.
+a
+
+MAC Address-based VLAN
+| ) Case1:Configuring Interface-based VLAN
+Assignment
+¢ Networking requirements:
+On the network shown in the left figure, the switches (SW1
+and SW2) of an enterprise are connected to multiple PCs,
+SW1 SW2
+GE 0/0/3 GE 0/0/3
+PVID 1 PVID 1
+and PCs with the same services access the network using
+GE 0/0/2 different devices. To ensure communication security, the
+PVID 20
+GE 0/0/1
+PVID 10
+GE 0/0/2 GE 0/0/1
+PVID 20 PVID 10 enterprise requires that only PCs with the same service can
+directly communicate.
+2 To meet this requirement, configure interface-based VLAN
+Ck Chk Ck Chk assignment on the switches and add interfaces connected to
+—h = —h — i PCs with the same service to the same VLAN. In this way,
+PC1 PC2 PC3 PC4
+VLAN 10 VLAN 20 VLAN 10 VLAN 20 PCs in different VLANs cannot directly communicate at
+Layer 2, but PCs in the same VLAN can directly
+. communicate.
+O Access interface
+@ Trunk interface
+Page 30 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Configuration roadmap:
+2 Create VLANs and add interfaces connected to PCs to the VLANs to isolate Layer 2
+traffic between PCs with different services.
+« Configure interface types and specify permitted VLANs for SW1 and SW2 to allow PCs
+with the same service to communicate through SW1 and SW2.
+
+Interface-based VLAN MAC Address-based VLAN
+Assignment Assignment
+Ga) ) Creating VLANs
+SW1 SW2
+GE 0/0/3 GE 0/0/3
+PVID 1 PVID 1
+Create VLANs.
+GE 0/0/1
+GE 0/0/2 GE 0/0/1
+PVID 10
+GE 0/0/2 [SW1] vlan 10
+PVID 20 PVID 10
+PVID 20 [SW1-vlan10] quit
+[SW1] vlan 20
+[SW1-vlan20] quit
+Ci Cik Chk Ci [SW2] vian batch 10 20
+PC1 PC2 C3 PCa
+VLAN 10 VLAN 20 + VLAN 10 VLAN 20
+Page 31
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+MAC Address-based VLAN
+Ga) ) Configuring Access and Trunk Interfaces
+Configure access interfaces and add the interfaces to
+corresponding VLANs.
+SW1 SW2 [SW1] interface GigabitEthernet 0/0/1
+an ot [SW1-GigabitEthernet0/0/1] port link-type access
+[SW1-GigabitEthernet0/0/1] port default vlan 10
+GE 0/0/1
+PVID 10
+GE 0/0/2 GE 0/0/1
+PVID 20 PVID 10
+GE 0/0/2
+PVID 20 [SW1] interface GigabitEthernet 0/0/2
+[SW1-GigabitEthernet0/0/2] port link-type access
+[SW1] vlan 20
+[SW1-vlan20] port GigabitEthernet0/0/2
+Chk Cik Ci Ci [SW1-vlan20] quit
+= = = = Configure a trunk interface and specify a list of VLAN IDs
+PC1 PC2 PC3 PC4
+permitted by the interface.
+VLAN 10 VLAN 20 VLAN 10 VLAN 20
+[SW1] interface GigabitEthernet 0/0/3
+[SW1-GigabitEthernet0/0/3] port link-type trunk
+[SW1-GigabitEthernet0/0/3] port trunk pvid vlan 1
+[SW1-GigabitEthernet0/0/3] port trunk allow-pass vlan 10 20
+Note: The configuration on SW2 is similar to that on SW1.
+Page 32 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Interface-based VLAN MAC Address-based VLAN
+Assignment Assignment
+Ga) ) Verifying the Configuration
+[SW1]display vian
+SW1 SW2 The total number of vians is : 3
+GE 0/0/3 GE 0/0/3
+PVID 1 PVID 1
+U: Up; D: Down; TG: Tagged; UT: Untagged;
+MP: Vlan-mapping; ST: Vlan-stacking;
+GE 0/0/1 GE 0/0/2 GE 0/0/1 GE 0/0/2 #: ProtocolTransparent-vlan; *: Management-vlan;
+PVID 10 PVID 20 PVID 10 PVID 20
+VID Type Ports
+1 common UT:-GEO/O/3(U) nn.
+= = = = 10 common UT:GE0/0/1(U)
+L] Li CC L] TecEOOG)
+PCt PC? PC3 PCA 20 common _—_ UT:GE0/0/2(U)
+VLAN 10 VLAN 20 VLAN 10 VLAN 20 FEES EUC SU)
+Page 33 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢* Command: The display vlan command displays VLAN information.
+* Command output:
+2: Tagged/Untagged: Interfaces are manually added to VLANs in tagged or untagged
+mode.
+« VID or VLAN ID: VLAN ID.
+2 Type or VLAN Type: VLAN type. The value common indicates a common VLAN.
+« Ports: interfaces added to VLANs.
+
+MAC Address-based VLAN
+= ) Case2:Configuring Interface-based VLAN
+Assignment
+¢ Networking requirements:
+sw SsWw2
+GE 0/0/3 GE 0/0/3 ° Onthe network shown in the left figure, the
+PVID 1 PVID 1 . |
+GE 0/0/2 Ly switches (SW1 and SW
+ 
+2) of an enterprise are
+GE 0/0/1
+PVID 10 PVID 20 GE 0/0/1 connected to multiple PCs, and PCs in different
+PVID 100
+departments need to access the server of the
+enterprise. To ensure communication security, the
+enterprise requires that PCs in different
+_ik Chk x departments cannot directly communicate.
+PCI PC2 Server . . . :
+VLAN 10 VLAN 20 VLAN 100 ° To meet this requirement, configure interface-
+based VLAN assignment and hybrid interfaces on
+the switches to enable PCs in different
+@ Hybrid interface .
+departments to access the server but disable them
+from directly communicating at Layer 2.
+Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Configuration roadmap:
+2 Create VLANs and add interfaces connected to PCs to the VLANs to isolate Layer 2
+traffic between PCs with different services.
+« Configure interface types and specify permitted VLANs for SW1 and SW2 to allow PCs
+to communicate with the server through SW1 and SW2.
+
+MAC Address-based VLAN
+Ga) ) Configuring Hybrid Interfaces (1)
+SW1 configuration:
+sw SsWw2
+GE 0/0/3 GE 0/0/3
+PVID 1 PviID1 Fo [SW1] vlan batch 10 20 100
+GE 0/0/1 GE 0/0/2 Ly [SW
+ 
+1] interface GigabitEthernet 0/0/1
+PVID 10 PVID 20 GE 0/0/1 [SW1-GigabitEthernet0/0/1] port link-type hybrid
+PVID 100 [SW1-GigabitEthernet0/0/1] port hybrid pvid vian 10
+[SW1-GigabitEthernet0/0/1] port hybrid untagged vlan 10 100
+[SW1-GigabitEthernet0/0/1] interface GigabitEthernet 0/0/2
+[SW1-GigabitEthernet0/0/2] port link-type hybrid
+Chk Chk x [SW1-GigabitEthernet0/0/2] port hybrid pvid vlan 20
+PC1 PC2 Server [SW1-GigabitEthernet0/0/2] port hybrid untagged vian 20 100
+VLAN 10 VLAN 20 VLAN 100 [SW1-GigabitEthernet0/0/2] interface GigabitEthernet 0/0/3
+[SW1-GigabitEthernet0/0/3] port link-type hybrid
+[SW1-GigabitEthernet0/0/3] port hybrid tagged vlan 10 20 100
+Page 35 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+MAC Address-based VLAN
+Ga) ) Configuring Hybrid Interfaces (2)
+SW2 configuration:
+sw SsWw2
+GE 0/0/3 GE 0/0/3
+PVID 1 PviID1 Fo [SW2] vlan batch 10 20 100
+GE 0/0/1 GE 0/0/2 Ly [SW2] interface GigabitEthernet 0/0/1
+PVID 10 PVID 20 GE 0/0/1 [SW2-GigabitEthernet0/0/1] port link-type hybrid
+PVID 100 [SW2-GigabitEthernet0/0/1] port hybrid pvid vian 100
+[SW2-GigabitEthernet0/0/1] port hybrid untagged vlan 10 20 100
+[SW2-GigabitEthernet0/0/1] interface GigabitEthernet 0/0/3
+[SW2-GigabitEthernet0/0/3] port link-type hybrid
+Chk Chk x [SW2-GigabitEthernet0/0/3] port hybrid tagged vlan 10 20 100
+PC1 PC2 Server
+VLAN 10 VLAN 20 VLAN 100
+Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Interface-based VLAN MAC Address-based VLAN
+Assignment Assignment
+Ga) ) Verifying the Configuration
+[SW1]display vlan
+The total number of vians is : 4
+SWw1 SW2
+GE 0/0/3 GE 0/0/3
+PVID 1 PVID 1 — U: Up; D: Down; TG: Tagged; UT: Untagged;
+GE 0/0/1 GE 0/0/2 —_ MP: Vlan-mapping; ST: Vlan-stacking;
+PVID 10 PVID 20 GE 0/0/1 #: ProtocolTransparent-vlan; *: Management-vlan;
+PVID 100
+VID Type Ports
+1 common UT:GE0/0/1(U) GE0/0/2(U) GE0/0/3(U) ......
+= = 10 common UT:GE0/0/1(U)
+L | L | x TG:GE0/0/3(U)
+PCt PC? Server 20 common UT-GEO/0/2(U)
+VLAN 10 VLAN 20 VLAN 100 TEESE UIC)
+100 common UT:GE0/0/1(U) GE0/0/2(U)
+TG:GE0/0/3(U)
+Page 37 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Basic VLAN Configuration Commands
+1. Associate a MAC address with a VLAN.
+[Huawei-vlan10] mac-vlan mac-address mac-address [| mac-address-mask | mac-address-mask-length ]
+This command associates a MAC address with a VLAN.
+* mac-address: specifies the MAC address to be associated with a VLAN. The value is a hexadecimal number in
+the format of H-H-H. Each H contains one to four digits, such as 00e0 or fc01. If an H contains less than four
+digits, the left-most digits are padded with zeros. For example, e0 is displayed as O0eO. The MAC address
+cannot be 0000-0000-0000, FFFF-FFFF-FFFF, or any multicast address.
+* mac-address-mask: specifies the mask of a MAC address. The value is a hexadecimal number in the format of
+H-H-H. Each H contains one to four digits.
+* mac-address-mask-length: specifies the mask length of a MAC address. The value is an integer ranging from 1
+to 48.
+2. Enable MAC address-based VLAN assignment on an interface.
+[Huawei-GigabitEthernet0/0/1] mac-vlan enable
+This command enables MAC address-based VLAN assignment on an interface.
+Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Command: mac-vlan mac-address mac-address
+ 
+| mac-address-mask
+ 
+| mac-address-mask-
+length
+ 
+|
+1 mac-address: specifies the MAC address to be associated with a VLAN.
+= The value is a hexadecimal number in the format of H-H-H. Each H contains one
+to four digits, such as 00e0 or fc01. If an H contains less than four digits, the left-
+most digits are padded with zeros. For example, e0 is displayed as 00e0.
+= The MAC address cannot be 0000-0000-0000, FFFF-FFFF-FFFF, or any multicast
+address.
+2 mac-address-mask: specifies the mask of a MAC address.
+«= The value is a hexadecimal number in the format of H-H-H. Each H contains one
+to four digits.
+2 mac-address-mask-length: specifies the mask length of a MAC address.
+= The value is an integer ranging from 1 to 48.
+« The mac-vlan enable command enables MAC address-based VLAN assignment on an
+interface.
+
+Example for Configuring MAC Address-
+based VLAN Assignment
+¢ Networking requirements:
+Enterprise
+network ° The network administrator of an enterprise assigns PCs in
+GE 0/0/1 the same department to the same VLAN. To improve
+information security, the enterprise requires that only
+employees in the department be allowed to access the
+network resources of the enterprise.
+GE
+ 
+0/0/3
+* PCs 1 through 3 belong to the same department. According
+to the enterprise’ requirement, only the three PCs can
+ik Ci Ck {_ij access the enterprise network through SW1.
+PC1 PC2 PC3 PC4 ° To meet this requirement, configure MAC address-based
+001e-10dd-dd01 001e-10dd-dd02 001e-10dd-dd03 001e-10dd-dd04 VLAN assignment and associate the MAC addresses of the
+VLAN 10 three PCs with the specified VLAN.
+Page 39 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Interface-based VLAN MAC Address-based VLAN
+Assignment Assignment
+¢ Configuration roadmap:
+« Create a VLAN, for example, VLAN 10.
+2 Add Ethernet interfaces on SW1 to the VLAN.
+« Associate the MAC addresses of PCs 1 through 3 with the VLAN.
+
+Creating a VLAN and Associating MAC
+Addresses with the VLAN
+Enterprise Create a VLAN.
+Network
+[SW1] vlan 10
+[SW1-vlan10] quit
+Associate MAC addresses with the VLAN.
+[SW1] vlan 10
+[SW1-vlan10] mac-vlan mac-address 001e-10dd-dd01 [SW1-
+Ci Ci Ci vian10] mac-vlan mac-address 001¢-10dd-dd02 [SW1-vlan10]
+mac-vlan mac-address 001e-10dd-dd03 [SW1-vlan10] quit
+PC1 PC2 PC3
+001e-10dd-dd01 001e-10dd-dd02 001e-10dd-dd03
+VLAN 10
+Page 40 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Interface-based VLAN MAC Address-based VLAN
+Assignment Assignment
+
+@ Adding Interfaces to the VLAN and Enabling
+MAC Address-based VLAN Assignment
+Add interfaces to the VLAN.
+Enterprise . oo
+[SW1] interface gigabitethernet 0/0/1
+[SW1-GigabitEthernet0/0/1] port link-type hybrid
+[SW1-GigabitEthernet0/0/1] port hybrid tagged vlan 10
+[SW1] interface gigabitethernet 0/0/2
+[SW1-GigabitEthernet0/0/2] port link-type hybrid
+[SW1-GigabitEthernet0/0/2] port hybrid untagged vlan 10
+Enable MAC address-based VLAN assignment
+Ci _h Ci on the specified interface.
+PC1 PC2 PC3 [SW1] interface gigabitethernet 0/0/2
+O01e-10dd-dd01 001e-10dd-dd02 --001e-10dd-dd03 [SW1-GigabitEthernet0/0/2] mac-vlan enable
+VLAN 10 [SW1-GigabitEthernet0/0/2] quit
+Note: The configuration of GE 0/0/3 and GE 0/0/4 is similar to that of GE 0/0/2.
+Page 41 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Interface-based VLAN MAC Address-based VLAN
+Assignment Assignment
+¢ Onaccess and trunk interfaces, MAC address-based VLAN assignment can be used only
+when the MAC address-based VLAN is the same as the PVID. It is recommended that MAC
+address-based VLAN assignment be configured on hybrid interfaces.
+
+Ga) ) Verifying the Configuration
+[SW1]display vlan [SW1]display mac-vlan mac-address all
+The total number of vians is : 2
+MAC Address MASK VLAN Priority
+U: Up; D: Down; TG: Tagged; UT: Untagged;
+MP: Vlan-mapping; ST: Vlan-stacking; 001¢-10dd-dd01 Fi ATTtftT 10 0
+#: ProtocolTransparent-vlan; *: Management-vlan; 001e-10dd-dd02 fff ft 10 0
+001e-10dd-dd03 ffff-ffff-ffff 10 0
+VID Type Ports
+Total MAC VLAN address count: 3
+1 common UT:GE0/0/1(U) GE0/0/2(U) GE0/0/3(U) ......
+10 common UT:GE0/0/2(U) GE0/0/3(U) GE0/0/4(U)
+TG:GE0/0/1(U)
+Page 42 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Command: The display mac-vlan { mac-address{ all | mac-address
+ 
+[| mac-address-mask
+ 
+|
+mac-address-mask-length
+ 
+| } | vlan vian-id} command displays the configuration of MAC
+address-based VLAN assignment.
+a
+a
+ia)
+all: displays all VLANs associated with MAC addresses.
+mac-address mac-address: displays the VLAN associated with a specified MAC
+address.
+= The value is a hexadecimal number in the format of H-H-H. Each H contains one
+to four digits.
+mac-address-mask: specifies the mask of a MAC address.
+«= The value is a hexadecimal number in the format of H-H-H. Each H contains one
+to four digits.
+mac-address-mask-length: specifies the mask length of a MAC address.
+= The value is an integer ranging from 1 to 48.
+vian vian-id: specifies a VLAN ID.
+= The value is an integer ranging from 1 to 4094.
+* Command output:
+a
+a
+a
+MAC Address: MAC address
+MASK: mask of a MAC address
+VLAN: ID of the VLAN associated with a MAC address
+Priority: 802.1p priority of the VLAN associated with a MAC address
+
+=| ) Inter-VLAN Communication (1)
+¢ Inreal-world network deployments, different IP address segments are assigned to different VLANs.
+¢ PCs on the same network segment in the same VLAN can directly communicate with each other without the need for
+Layer 3 forwarding devices. This communication mode is called Layer 2 communication.
+e Inter-VLAN communication belongs to Layer 3 communication, which requires Layer 3 devices.
+Layer 2 switch
+Layer 2
+a
+ii VLAN 20 Lik
+192.168.20.0/24
+Layer 2
+CN
+Lik CL]
+VLAN 10 —
+192.168.10.0/24
+Page 43 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+=| ) Inter-VLAN Communication (2)
+¢ Common Layer 3 devices: routers, Layer 3 switches, firewalls, etc.
+e¢ Inter-VLAN communication is implemented by connecting a Layer 2 switch to a Layer 3 interface
+of a Layer 3 device. The communication packets are routed by the Layer 3 device.
+:
+© Layer 2 interface —,
+Router
+i ac
+r 3) Layer 3 interface Layer 2 switch
+aA
+Li VLAN 10 =
+192.168.10.0/24
+VLAN 20 Lik
+192.168.20.0/24
+Page 44 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. Whatls VLAN
+VLAN Principles
+VLAN Applications
+VLAN Configuration Examples
+a
+ 
+fF
+ 
+YO
+ 
+DN
+Inter-VLAN Communication
+Page 45 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+R
+GE 0/0/11
+192.168.10.254
+GE 0/0/3
+Access (VLAN 10)
+GE 0/0/1
+Access (VLAN 10
+VLAN 10 va
+Lk
+PC1
+192.168.10.2/24
+Default gateway:
+192.168.10.254
+Ga) ) Using a Router's Physical Interfaces
+Physical Connection
+GE 0/0/2
+192.168.20.254
+GE 0/0/4
+Access (VLAN 20)
+GE 0/0/2
+Access (VLAN 20)
+(_|h VLAN 20
+PC€2
+192.168.20.2/24
+Default gateway:
+192.168.20.254
+Using Sub-
+interfaces
+Using Physical
+Interfaces
+The Layer 3 interfaces of the router function as
+gateways to forward traffic from the local network
+segment to other network segments.
+The Layer 3 interfaces of the router cannot process
+data frames with VLAN tags. Therefore, the interfaces
+of the switch connected to the router must be set to the
+access type.
+One physical interface of the router can function as the
+gateway of only one VLAN, meaning that the number
+of required physical interfaces are determined by the
+quantity of the deployed VLANs.
+Arouter, mainly forwarding packets at Layer 3,
+provides only a small number of physical interfaces.
+Therefore, the scalability of this solution is poor.
+Page 46 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Configure VLANs on the Layer 2 switch. Each VLAN uses an independent switch interface to
+connect to the router.
+« The router provides two physical interfaces as the default gateways of PCs in VLAN 10 and
+VLAN 20, respectively, for the PCs to communicate with each other.
+
+Physical Connection
+i
+GE 0/0/1.10
+192.168.10.254
+GE 0/0/1.20
+192.168.20.254
+G 0/0/24
+Trunk VLANs 10 20
+GE 0/0/2
+Access (VLAN 20)
+GE 0/0/1
+Access (VLAN 10)
+VLAN 10 as J= VLAN 20
+Ck CI
+PC1 PC2
+192.168.10.2/24 192.168.20.2/24
+Default gateway: Default gateway:
+192.168.10.254 192.168.20.254
+Page 47 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Ga) ) Using a Router's Sub-interfaces
+Using Physical
+Interfaces
+Using Sub-
+interfaces
+A sub-interface is a logical interface created ona
+router's Ethernet interface and is identified by a
+physical interface number and a sub-interface number.
+Similar to a physical interface, a sub-interface can
+perform Layer 3 forwarding.
+Different from a physical interface, a sub-interface can
+terminate data frames with VLAN tags.
+You can create multiple sub-interfaces on one physical
+interface. After connecting the physical interface to the
+trunk interface of the switch, the physical interface can
+provide Layer 3 forwarding services for multiple
+VLANs.
+R1 connects to SW1 through a physical interface (GE 0/0/1). Two sub-interfaces (GE 0/0/1.10
+and GE 0/0/1.20) are created on the physical interface and used as the default gateways of
+VLAN 10 and VLAN 20, respectively.
+Layer 3 sub-interfaces do not support VLAN packets and discard them once received. To
+prevent this issue, the VLAN tags need to be removed from the packets on the sub-interfaces.
+That is, VLAN tag termination is required.
+
+GE 0/0/1.10
+GE 0/0/1.20
+GE 0/0/1
+R1
+L_
+GE 0/0/1 |
+192.168.10.2/24
+Default gateway:
+192.168.10.254
+Page 48
+VLAN 10 : VLAN 20 sw
+1-3
+Trunk
+GE 0/0/24 GE 0/0/2
+Ci
+192.168.20.2/24
+Default gateway:
+192.168.20.254
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+[=| ) Sub-Interface Processing
+~——» Packets carrying VLAN 10
+===> Packets carrying VLAN 20
+*
+*
+* *
+.
+.
+*
+i.
+Trunk
+GE 0/0/24
+swi
+Using Physical
+Interfaces
+Using Sub-
+interfaces
+e The interface connecting the switch to the router is set to a trunk interface. The router forwards the
+received packets to the corresponding sub-interfaces according to the VLAN tags in the packets.
+ooonne “GE o.10
+GE 0/0/1.20. ¢==
+|
++ Based on the VLAN ID carried in a
+packet, the device forwards the
+packet to the corresponding sub-
+interface (for example, GE 0/0/1.10)
+for processing.
++ Through sub-interfaces, the device
+can implement inter-VLAN
+communication at Layer 3.
+« Asub-interface implements VLAN tag termination as follows:
+2 Removes VLAN tags from the received packets before forwarding or processing the
+packets.
+« Adds VLAN tags to the packets before forwarding the packets.
+
+Example for Configuring Sub-interfaces
+[R1]interface GigabitEthernet0/0/1.10
+[R1-GigabitEthernet0/0/1.10]dot1q termination vid 10
+[R1-GigabitEthernet0/0/1.10]ip address 192.168.10.254 24
+R1 [R1-GigabitEthernet0/0/1.10]arp broadcast enable
+Ou. | The VLAN IDs to be terminated need to be
+“ee configured on the sub-interfaces.
+Mee es CaEqunae() The router selects proper sub-interfaces based on
+Me GE 0/0/1 CoE own 20() the VLAN IDs of the received packets. (The sub-
+° interfaces accept tagged packets.)
+| The packets sent by the sub-interfaces carry the
+configured termination VLAN IDs.
+Trunk
+GE0/0/24 [Ri]interface GigabitEthernet0/0/1.20
+[R1-GigabitEthernet0/0/1.20]dot1q termination vid 20
+Swi [R1-GigabitEthernet0/0/1 .20]ip address 192.168.20.254 24
+[R1-GigabitEthernet0/0/1.20]arp broadcast enable
+Page 49 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« The interface interface-type interface-number.sub-interface number command creates a sub-
+interface. sub-interface number specifies the number of a sub-interface on a physical
+interface. For easy memorization, a sub-interface number is generally the same as the VLAN
+ID to be terminated on the sub-interface.
+¢ The dotlgq termination vid command enables Dot1q VLAN tag termination for single-tagged
+packets on a sub-interface. By default, Dot1q VLAN tag termination for single-tagged packets
+is not enabled on sub-interfaces. The arp broadcast enable command enables ARP
+broadcast on a VLAN tag termination sub-interface. By default, ARP broadcast is not enabled
+on VLAN tag termination sub-interfaces. VLAN tag termination sub-interfaces cannot forward
+broadcast packets and automatically discard received ones. To allow a VLAN tag termination
+sub-interface to forward broadcast packets, run the arp broadcast enable command.
+
+Page 50
+Layer 3 switch
+Routing module
+VLANIF 10 Direct internal VLANIF 20
+<<"
+communication
+VLAN 10 Switching VLAN 20
+[I = module []
+|
+_ _
+Ch Chi Ch Chi
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Ga) ) Layer 3 Switch and VLANIF Interfaces
+A Layer 2 switch provides only Layer 2 switching
+functions.
+A Layer 3 switch provides routing functions through
+Layer 3 interfaces (such as VLANIF interfaces) as well
+as the functions of a Layer 2 switch.
+AVLANIF interface is a Layer 3 logical interface that
+can remove and add VLAN tags. VLANIF interfaces
+therefore can be used to implement inter-VLAN
+communication.
+AVLANIF interface number is the same as the ID of its
+corresponding VLAN. For example, VLANIF 10 is
+created based on VLAN 10.
+
+Ga) ) Example for Configuring VLANIF Interfaces
+Basic configurations:
+« VLANIF 10 192.168.10.254/24
+* VLANIF 20 192.168.20.254/24 [SW1]vlan batch 10 20
+| [SW1] interface GigabitEthernet 0/0/1
+sw [SW1-GigabitEthernet0/0/1] port link-type access
+[SW1-GigabitEthernet0/0/1] port default vlan 10
+[SW1] interface GigabitEthernet 0/0/2
+[SW1-GigabitEthernet0/0/2] port link-type access
+[SW1-GigabitEthernet0/0/2] port default vlan 20
+GE 0/0/1 GE 0/0/2
+J ~
+VLAN 10 ij Ci VLAN 20
+PC1 PC2 . ;
+192.168.10.2/24 192.168.20.2/24 Configure VLANIF interfaces:
+Default gateway: Default gateway: . .
+192.168.10.254 192.168.20.254 [SW 1
+ 
+]interface Vlanif 10
+[SW1-Vlanif10]ip address 192.168.10.254 24
+[SW 1
+ 
+]interface Vlanif 20
+[SW1-Vlanif20]ip address 192.168.20.254 24
+* Configuration Requirements
+Configure VLANs 10 and 20 for the interfaces connecting to PC1
+and PC2, respectively. Configure the Layer 3 switch to allow the
+two PCs to communicate with each other.
+Page 51 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+The interface vianif vian-id command creates a VLANIF interface and displays the VLANIF
+interface view. vian-id specifies the ID of the VLAN associated with the VLANIF interface. The
+IP address of a VLANIF interface is used as the gateway IP address of a PC and must be on
+the same network segment as the IP address of the PC.
+
+IP: 192.168.10.2/24
+Default gateway:
+192.168.10.254
+MAC: MAC1
+interface Vlanif10 interface Vlanif20
+ip address 192.168.10.254 24 ip address 192.168.20.254 24
+(MAC: MAC2) (MAC: MAC2)
+Routing
+VLANIF 10 VLANIF 20
+; , module
+VLAN 10 VLAN20 $ —-Switching
+module
+o |
+[| Access interface — i:
+PC1 PC2
+IP: 192.168.20.2/24
+Default gateway:
+192.168.20.254
+MAC: MAC3
+Page52 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Ga) ) VLANIF Forwarding Process (1)
+This example assumes that the required ARP or
+MAC address entries already exist on the PCs and
+the Layer 3 switch.
+The communication process between PC1 and PC2
+is as follows:
+1. PC1 performs calculation based on its local IP
+address, local subnet mask, and destination IP
+address, and finds that the destination device
+PC2 is not on its network segment. PC1 then
+determines that Layer 3 communication is
+required and sends the traffic destined for PC2 to
+its gateway. Data frame sent by PC1: source
+MAC = MAC1, destination MAC = MAC2
+
+interface Vlanif10
+(MAC: MAC2)
+ip address 192.168.10.254 24
+interface Vlanif20
+ip address 192.168.20.254 24
+LoTM (MAG: MAC2)
+VLANIF 10
+VLANIF 20 Routing
+- module
+@
+t --4
+VLAN 10
+Lit
+ 
+|
+4
+f
+Switching
+VLAN 20
+module
+[| Access interface
+Ck
+PC1
+IP: 192.168.10.2/24
+Default gateway:
+192.168.10.254
+MAC: MAC1
+PC2
+IP: 192.168.20.2/24
+Default gateway:
+192.168.20.254
+MAC: MAC3
+Page 53 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Ga) ) VLANIF Forwarding Process (2)
+After receiving the packet sent from PC1 to PC2,
+the switch decapsulates the packet and finds that
+the destination MAC address is the MAC address
+of VLANIF 10. The switch then sends the packet to
+the routing module for further processing.
+The routing module finds that the destination IP
+address is 192.168.20.2, which is not the IP
+address of its local interface, and determines that
+this packet needs to be forwarded at Layer 3. By
+searching the routing table, the routing module
+finds a matching route — the direct route generated
+by VLANIF 20 — for this packet.
+
+Page 54
+Ga) ) VLANIF Forwarding Process (3)
+interface Vlanif10
+ip address 192.168.10.254 24
+(MAC: MAC2)
+interface Vlanif20
+ip address 192.168.20.254 24
+(MAC: MAC2)
+VLANIF 10 VLANIF 20 Routing
+F j module
+! ° .
+VLAN 10 VLAN20 {| —-Switching
+module
+Lit
+ 
+|
+I |
+[| Access interface _
+Li
+PC1
+IP: 192.168.10.2/24
+Default gateway:
+192.168.10.254
+MAC: MAC1
+5)
+PC2
+IP: 192.168.20.2/24
+Default gateway:
+192.168.20.254
+MAC: MAC3
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Because the matching route is a direct route, the
+switch determines that the packet has reached the
+last hop. It searches its ARP table for 192.168.20.2,
+obtains the corresponding MAC address, and sends
+the packet to the switching module for re-
+encapsulation.
+The switching module searches its MAC address
+table to determine the outbound interface of the
+frame and whether the frame needs to carry a VLAN
+tag. Data frame sent by the switching module:
+source MAC = MAC2, destination MAC = MACS,
+VLAN tag = None
+
+VLAN 10 LC]
+PC1
+IP: 192.168.10.2/24
+Default gateway:
+192.168.10.254
+VLAN 20 L_]
+PC2
+IP: 192.168.20.2/24
+Default gateway:
+192.168.20.254
+Ga) ) Network Topology
+Network Logical Communication
+Topology Connection Process
+R1
+Sw2 NAT
+ceo
+GE 0/0/24 GE 0/0/2 GE 0/0/0 1.2.3.4 .
+Server
+| 2.3.4.
+5
+¢ VLANIF 10: 192.168.10.254 24
+* VLANIF 20: 192.168.20.254 24
+¢ VLANIF 30: 192.168.30.1 24
+This topology is used as an example to describe the communication process from PC1 in VLAN
+10 to the server (2.3.4.5) on the Internet.
+Page55 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Network Logical Communication
+Topology Connection Process
+Ga) ) Logical Connection
+Logical Connection
++ Confi defaul
+VLANIF VLANIF VLANIF Routing onfigure a default route on
+10 20 30 module SW2 to allow intranet users
+to access the Internet.
+sSw2 Switching R1
+module NAT
+VLAN 30
+[ ] [ ] || Internet
+[] Access interface
+Trunk interface
+VLAN 10 VLAN 20 Swi * On R11, configure static routes to the
+[] [] user network segments of VLAN 10
+Trunk and VLAN 20.
+GE af GE 0/0/24 | GE 0/0/2 ¢ To enable intranet PCs using private
+_ _ IP addresses to access the Internet,
+Ci Ci configure Network Address and Port
+—Jhi —Jhi Translation (NAPT) on R1.
+X /
+Page 56 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢« NAPT: translates the IP address and port number in an IP packet header
+ 
+to another IP
+address and port number. NAPT is mainly used to enable devices on an internal network
+(private IP addresses) to access an external network (public IP addresses). NAPT allows
+multiple private IP addresses to be mapped to the same public IP address. In this way,
+multiple private IP addresses can access the Internet at the same time using the same public
+IP address.
+
+Network Logical Communication
+Topology Connection Process
+Ga) ) Communication Process (1)
+VLANIF 10
+IP: 192.168.10.254/24
+MAC: MAC2
+VLANIF 30
+IP: 192.168.30.1/24
+IP: 192.168.10.2/24 MAC: MAC2
+Default gateway:
+192.168.10.254 R1
+MAC: MAC1 swi1 sw2 NAT
+Chk se lane ES a ©
+ 
+See
+= GE 0/0/24 GE 0/0/2 GE 0/0/0 1.2.3.4 .
+VLAN 10 192.168.30.2 Server
+Ke MAC: MAC3 2.3.4.
+Source MAC: | 5
+PC Processing Destination MAC:
+Before sending a packet to VLAN tag: None
+2.3.4.5, the PC sends the
+packet to its gateway after Source IP: 192.168.10.2
+determining that the destination Destination IP: 2.3.4.5
+IP address is not on its network
+segment.
+Page57 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« This example assumes that the required ARP or MAC address entries already exist on all
+devices.
+
+Network Logical Communication
+Topology Connection Process
+Ga) ) Communication Process (2)
+VLANIF 10
+IP: 192.168.10.254/24
+MAC: MAC2
+VLANIF 30
+IP: 192.168.30.1/24
+IP: 192.168.10.2/24 MAC: MAC2
+Default gateway:
+192.168.10.254 R1
+MAC: MAC1 swi sw2 NAT
+Chk = Coe n> ErErEE
+= GE 0/0/24 GE 0/0/2 GE 0/0/0 1.2.3.4 .
+VLAN 10 192.168.30.2 Server
+iK —__> MAC: MAC3 2.3.4.
+MAC1 10 GE 0/0/1
+SW1 Processing VLAN tag: 10
+After receiving the frame, SW1 searches the Source IP: 192.168.10.2
+MAC address table for the destination MAC Destination IP: 2.3.4.5
+address and forwards the frame.
+Page 58 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Network Logical Communication
+Topology Connection Process
+Ga) ) Communication Process (3)
+VLANIF 10
+IP: 192.168.10.254/24
+MAC: MAC2
+VLANIF 30
+IP: 192.168.30.1/24
+IP: 192.168.10.2/24 MAC: MAC2
+Default gateway:
+192.168.10.254 R1
+MAC: MAC1
+VLAN 10 192.168.30.2 P Server
+routing table. 5
+0.0.0.0/0 192.168.30.2 Vlanif30
+SW2 Processing
+After SW2 receives the frame, it finds that the destination MAC address is the MAC
+address of its VLANIF 10 and sends the frame to the routing module, which then
+searches the routing table for a route matching the destination IP address 2.3.4.5.
+After finding that the matching route is a default route, the outbound interface is VLANIF
+30, and the next hop is 192.168.30.2, SW2 searches its ARP table to obtain the MAC
+address corresponding to 192.168.30.2.
+sw1 sw2 NAT
+(kj GE 0/0/1 GE 0/0/1 &
+GE 0/0/24 GE 0/0/2 GE 0/0/0 & 1.2.3.4 IS
+KK
+Page59 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Network Logical Communication
+Topology Connection Process
+&) ) Communication Process (4)
+VLANIF 10
+IP: 192.168.10.254/24
+MAC: MAC2
+VLANIF 30
+IP: 192.168.30.1/24
+IP: 192.168.10.2/24 MAC: MAC2
+Default gateway:
+192.168.10.254 R1
+MAC: MAC1 swi sw2 NAT
+Chk se too, ES i.
+= GE 0/0/24 GE 0/0/2 GE 0/0/0 1.2.3.4 .
+VLAN 10 192.168.30.2 Server
+—,” MAC: MAC3 2.3.4.
+KK
+ARP entry Destination Network Outbound Interface 5
+192.168.90.2 MACS GE a/o/e Source MAC:
+SW2 Processing Destination MAC: MAC3
+oo : VLAN tag: None
+After finding the MAC address corresponding to 192.168.30.2,
+SW2 replaces the source MAC address of the packet with the Source IP: 192.168.10.2
+MAC address of VLANIF 30, and forwards the packet to the Destination IP: 2.3.4.5
+switching module. The switching module searches the MAC oN
+address table for the outbound interface and determines whether
+the packet carries a VLAN tag.
+Page 60 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Network Logical Communication
+Topology Connection Process
+Ga) ) Communication Process (5)
+VLANIF 10
+IP: 192.168.10.254/24
+MAC: MAC2
+VLANIF 30
+IP: 192.168.30.1/24
+IP: 192.168.10.2/24 MAC: MAC2
+Default gateway:
+192.168.10.254 R1
+MAC: MAC1 swi1 sw2 NAT
+Chk sco, ES © Sree
+— GE 0/0/24 GE 0/0/2 GE 0/0/0 1.2.3.4 .
+VLAN 10 192.168.30.2 Server
+MAC: MAC3 __,,. 2.3.4.
+5
+K
+: Source IP: 1.2.3.4
+R1 Processing
+Destination IP: 2.3.4.5
+Checks the destination MAC address of the data packet
+and finds that the MAC address belongs to its interface.
+Checks the destination IP address and finds that it is not a
+local IP address. Searches the routing table, finds a default
+matching route, and forwards the packet to a carrier device
+while performing NAT to translate the source IP address
+and port number of the packet.
+Page 61 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Network Address Translation (NAT) translates the IP addresses in IP packet headers to other
+IP addresses.
+
+[Figura da Pag.1] Labels: eg Wha” 7; - wt; >; i " x CRALE C/ * -; soperne em Pe... a ee > < ee; Wie S 4) / > atcew kg >.. Caption: (errore caption)
+[Figura da Pag.1] Labels: sae ee ae eh: ays 6) ~~ A.B. 1308 es yy Ae rm 2; SD — <——=; Q M5) 4 UNIVERSITA DEGLI STUDI; MCCS DI PERUGIA. Caption: (errore caption)
+[Figura da Pag.1] Labels: Fondamenti di Internet; VLAN Principles and Configuration; Page 0 Prof. Gianluca Reali. Caption: (errore caption)
+[Figura da Pag.2] Labels: ) Foreword; e Ethernet technology implements data communication over shared media based on; carrier sense multiple access with collision detection (CSMA/CD). If there are a large. Caption: (errore caption)
+[Figura da Pag.2] Labels: number of PCs on the Ethernet, security risks and broadcast storms may occur,; deteriorating network performance and even causing network breakdowns.; ¢ The virtual local area network (VLAN) technology is therefore introduced to solve the; preceding problem.. Caption: (errore caption)
+[Figura da Pag.2] Labels: © THIS GCOUTSe AUSSCHVes VaolG VLAAIN VPETTICIVPIOS, WORITNIQ YPINIOIVIes OF CHCl Layer 2; interfaces, VLAN applications, data forwarding principles, and basic VLAN configuration; methods.; Page 1 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.3] Labels: oF ) Objectives; ¢ Oncompletion of this course, you will be able to:; e Understand the background of the VLAN technology.. Caption: (errore caption)
+[Figura da Pag.3] Labels: ° Identify the VLAN to which data belongs.; c Master different VLAN assignment modes.; e Describe how data communication is implemented through VLANs.; e Master basic VLAN configuration methods.. Caption: (errore caption)
+[Figura da Pag.3] Labels: Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.4] Labels: Contents; 1. What Is VLAN; 2. VLAN Principles. Caption: (errore caption)
+[Figura da Pag.4] Labels: 3. VLAN Applications; 4. VLAN Configuration Examples; 5. Inter-VLAN Communication. Caption: (errore caption)
+[Figura da Pag.4] Labels: Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.5] Labels: Issues Facing a Traditional Ethernet; raver 2 Proadcast domain Ci Oi a Ch CaO oo etuent hemes or. Caption: (errore caption)
+[Figura da Pag.5] Labels: \ Tf “XI ize-{_ li unknown unicast frames sent; sw4 sws 25 by a PC are flooded in the; Uni ae = entire broadcast domain.; nicast oct i; frame — PC2 .; Chk = The larger the broadcast; = ar _ are | domain is, the more serious; PC1 R =; = network security and junk; | a] GS RUEGeH . eee mCRee! Ray (emer mes ae ene. Caption: (errore caption)
+[Figura da Pag.5] Labels: swe SW7 | HAIG PIVUMICIIIS ale.; ——» Valid traffic Ci Ci Ci Ci Ci Ci; ===» Junk traffic ~ ~ ~ ~ ~ ~; (Note: This example assumes that the MAC address entry of PC2 exists in the; MAC address tables of SW1, SW3, and SW7 rather than SW2 and SWS.); Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.6] Labels: VLAN; (multiple broadcast domains) « The VLAN technology. Caption: (errore caption)
+[Figura da Pag.6] Labels: \ Of NU! Cli isolates broadcast; wa swe ——L] domains.; eae ae - Al PC2 « Characteristics:; Lk — — ES ¢ Geographically; PC1 Swi E sw2 s_ = independent.; = a Be. Caption: (errore caption)
+[Figura da Pag.6] Labels: swe SW7 —— el —  MTTY GeVIbes TT UTS; LH same VLAN can; VA \ 4 | N directly communicate at; CiCe CCHS CA Layer 2; Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.7] Labels: Contents; 1. Whatls VLAN; 2. VLAN Principles. Caption: (errore caption)
+[Figura da Pag.7] Labels: 3. VLAN Applications; 4. VLAN Configuration Examples; 5. Inter-VLAN Communication. Caption: (errore caption)
+[Figura da Pag.7] Labels: Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.8] Labels: VLAN Implementation; Switch1 Switch2; f4lf2J/3d/4 nt 5 | f 4] ) 3] / 2) i] |. Caption: (errore caption)
+[Figura da Pag.8] Labels: cole Chk I Chk; PC PC PC PC; VLAN 10 VLAN 202 VLAN 20° WLAN 40. Caption: (errore caption)
+[Figura da Pag.8] Labels: ¢ Switch1 and Switch2 belong to the network of the same enterprise. VLANs are planned for the network, with VLAN 10 for department A; and VLAN 20 for department B. Employees in departments A and B are connected to both Switch1 and Switch2.; ¢ Assume that a frame sent from PC1 reaches Switch2 through the link between Switch1 and Switch2. |f no processing is implemented,; Switch2 can neither identify the VLAN to which the frame belongs nor determine the local VLAN to which the frame should be sent.; Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.9] Labels: ¢ How does a switch identify the VLAN to which a received frame belongs?; Which VLAN does the. Caption: (errore caption)
+[Figura da Pag.9] Labels: received trame; IEEE 802.1Q defines a 4-byte; VLAN tag for Ethernet frames,; enabling switches to identify the; VLANs to which received frames; belong.. Caption: (errore caption)
+[Figura da Pag.9] Labels: I A \ 1, ‘\ \; VLAN 20 VLAN 10; Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.10] Labels: VLAN VLAN VLAN Frame; ) Identification Assignment Processing; Original Ethernet frame | Destination MAC | Source MAC | Length/ FCs; (untagged frame) address address Type. Caption: (errore caption)
+[Figura da Pag.10] Labels: 802.1Q tag inserted; between the two fields; TPID (0x8100) | PRI | CFI VLAN ID V4; 16 bits 3bits 1 bit 12 bits; 802.1Q tag * Tag protocol identifier (TPID): identifies the type of a frame. The value 0x8100; indicates an IEEE 802.1Q frame.; * PRI: identifies the priority of a frame, which is mainly used for QoS.; ¢ Canonical format indicator (CFI): indicates whether a MAC address is in the. Caption: (errore caption)
+[Figura da Pag.10] Labels: canonical format. For Ethernet frames, the value of this field is 0.; « VLAN ID: identifies the VLAN to which a frame belongs.; 802.1Q frame Destination MAC | Source MAC aa Length/ Data FCS; (tagged frame) address address Type; Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.11] Labels: VLAN Implementation; Switch Switch2; lajl2|[3ji4jis-————— en —sj[4}[3]i2]i4]. Caption: (errore caption)
+[Figura da Pag.11] Labels: Ci Ck i Ck; PC PC PC PC; 7 0° 2 7; LAN 10 VLAN 2 VLAN 20 LAN 10. Caption: (errore caption)
+[Figura da Pag.11] Labels: e Tne lnk between switcn? and switcn2 carries data of multiple VLANs. In this situation, a VLAN-based data; tagging method is required to distinguish the frames of different VLANs.; e IEEE 802.1Q, often referred to as Dot1q, defines a system of VLAN tagging for Ethernet frames by; inserting an 802.1Q tag into the frame header to carry VLAN information.; Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.12] Labels: VLAN Assignment Methods; ¢ How are VLANs assigned on a network?; swi; qx. re. Caption: (errore caption)
+[Figura da Pag.12] Labels: Ss & Interface-based; SWAY N% : GE 0/0/1 and GE 0/0/3. GE 0/0/2 and GE 0/0/4; & &S a & assignment; uy SZ .; 9 S MAC address-based = ac 4 and MAC 3 MAC 2 and MAC 4; assignment; IP subnet-based 10.0.1.* 10.0.2*; assignment; |) |) |) |); Chk Chk Chk Cir Protocol-based i ce. Caption: (errore caption)
+[Figura da Pag.12] Labels: PCt PC2 PC3 Pca acd MUN; 10.0.1.1 10.0.2.1 10.0.1.2 10.0.2.2 Policy-based 10.0.1.* + GE 0/0/1 + 10.0.2.* + GE 0/0/2 +; MAC 1 MAC 2 MAC 3 MAC 4 assignment MAC 1 MAC 2; Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.13] Labels: Interface-based VLAN Assignment; 40 | CQ\A/4 Q|Q\Alo (Principles |. Caption: (errore caption)
+[Figura da Pag.13] Labels: —— oo ° VLANs are assigned based on interfaces.; PVID 1 PVID 1; ° Anetwork administrator preconfigures a PVID; PVID 10 PVID10  PVID 20 PVID 20 for each switch interface and assigns each; interface to a VLAN corresponding to the; PVID.; / ° After an interface receives an untagged frame,; the switch adds a tag carrying the PVID of the; Tk CT tk kt interface to the frame. The frame is then; | transmitted in the snecified VIAN.. Caption: (errore caption)
+[Figura da Pag.13] Labels: BS) ner LO een | * Port Default VLAN ID: PVID; ° Default VLAN ID for an interface; The VLAN to be reconfigured ° Value range: 1-4094; if PCs move.; Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.14] Labels: VLAN VLAN Frame; Identification Assignment Processing; MAC Address-based VLAN Assignment; Mapping Between MAC Addresses. Caption: (errore caption)
+[Figura da Pag.14] Labels: | wact | 3 40 ° VLANs are assigned based on the source MAC; addresses of frames.; MAC 2 10; 7 7 ° Anetwork administrator preconfigures the mapping; ot Sie between MAC addresses and VLAN IDs.; 10 a ° After receiving an untagged frame, a switch adds; GE o/0/1 = the VLAN tag mapping the source MAC address of; the frame to the frame. The frame is then; lh transmitted in the specified VLAN.. Caption: (errore caption)
+[Figura da Pag.14] Labels: T \ 7 \ — Wavpily tavire; Ci Ci Ci Ci ° Records the mapping between MAC addresses; = = = = and VLAN IDs.; PC1 PC2 PC3 PC4; MAC 1 VLAN 10 MAC 2 MAC 3 VLAN 20 MAC 4; The VLAN does not need to be; reconfigured even if PCs move.; Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.15] Labels: Identification Assignment Processing; Layer 2 Ethernet Interface Types; Interface Types; * Access interface; An accece interface ic tisced to connect 4 ewitch to 3 terminal ciuch. Caption: (errore caption)
+[Figura da Pag.15] Labels: as a PC or server. In general, the NICs on such a terminal receive; and send only untagged frames. An access interface can be added; to only one VLAN.; * Trunk interface; A trunk interface allows frames that belong to multiple VLANs to; pass through and differentiates the frames using the 802.1Q tag.; This type of interface is used to connect a switch to another switch; or a sub-interface on a device, such as a router or firewall.. Caption: (errore caption)
+[Figura da Pag.15] Labels: - Ji - J — J - J * Hybrid interface; VLAN10 VLAN20 VLAN10 VLAN20 Similar to a trunk interface, a hybrid interface also allows frames; that belong to multiple VLANs to pass through and differentiates the; frames using the 802.1Q tag. You can determine whether to allow a; O Access interface @ Trunk interface hybrid interface to carry VLAN tags when sending the frames of one; or more VLANs.; Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.16] Labels: ) Identification Assignment Processing; Frame receiving | Frame sending; Inside a switch Inside a switch Inside a switch Inside a switch. Caption: (errore caption)
+[Figura da Pag.16] Labels: 2 a ea _ a; GE 0/0/1 GE 0/0/1 GE 0/0/1 GE 0/0/1; Access (VLAN 10 Access (VLAN 10 Access (VLAN 10 Access (VLAN 10; Untagged frame a Untagged frame. Caption: (errore caption)
+[Figura da Pag.16] Labels: FAILSE PCUVCIVEINIY Gi MinhayyT FALSE PCUCIVEINY A taAyyl Hat. TPS VEIN Th? UE LEIS HI GIt tS I TPS VPA Th UE LEIS HIG IS; frame: If the VLAN ID of the frame is the same as the PVID of the oerent from the PVID of the; The interface permits the same as the PVID of the interface, interlace: interlace:; frame and adds a VLAN tag the interface permits the frame. The interface removes the VLAN The interface discards the frame.; carrying the PVID of the If the VLAN ID of the frame is tag from the frame and then sends; intitiaess different from the PVID of the ineinemes 70a; interface, the interface discards the Untagged frame! 10; frame.; Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.17] Labels: ) Identification Assignment Processing; Frame receiving | Frame sending; Inside a switch Inside a switch Inside a switch Inside a switch; CI LD nT __ DO CTI _D Cn  __pAD. Caption: (errore caption)
+[Figura da Pag.17] Labels: GE 0/0/1 GE 0/0/1 GE 0/0/1 GE 0/0/1; Permitted VLAN ID: 10 Permitted VLAN ID: 10 Permitted VLAN ID: 10 Permitted VLAN ID: 20; Trunk (PVID = 10) Trunk (PVID = 1) Trunk (PVID = 10) Trunk (PVID = 10); Untagged frame a Untagged frame a -; After racaiving an intagqqed After racaiving a tagged frama: lf the VI AN ID of the frame ic tha lf the VI AN ID af the frame ic. Caption: (errore caption)
+[Figura da Pag.17] Labels: frame: Ifthe VLAN ID of the frame is in same as the PVID of the different from the PVID of the; The interface adds a VLAN tag the list of VLAN IDs permitted by interface: interface:; with the VID being the PVID of the the interface, the interface permits If the VLAN ID of the frame is in If the VLAN ID of the frame is in; interface to the frame and permits the frame. Otherwise, the interface the list of VLAN IDs permitted by the list of VLAN IDs permitted by; the frame only when the discards the frame. the interface, the interface removes the interface, the interface sends; sto A nitte the tag from the frame and sends the frame out without removing the; face. If the VID is not in the Tagged the frame out. Otherwise, the tag of the frame. Otherwise, the; list, the interface discards the interface discards the frame. interface discards the frame.; frame.; Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.18] Labels: Example for Frame Processing on Access; and Trunk Interfaces; ¢ Describe how inter-PC access is implemented in this example.; OQ\A/4 i | aQ\nlo Trunk Interfaces on SVWV/1 and S\WW2. Caption: (errore caption)
+[Figura da Pag.18] Labels: . .; ee _—__— BVIDI List of Permitted VLAN IDs; PVID 10 PVID 20 PVID 10 PVID 20 1; VLAN ID 10; ff \ 20. Caption: (errore caption)
+[Figura da Pag.18] Labels: PCt C2 PC3 PCA; VLAN 10 VLAN 20 VLAN 10 VLAN 20; @ Trunk interface O Access interface; Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.19] Labels: ) Identification Assignment Processing; Frame receiving | Frame sending; Inside a switch Inside a switch Inside a switch Inside a switch; CI LD nT __ DO CTI _D Cn  __pAD. Caption: (errore caption)
+[Figura da Pag.19] Labels: GE 0/0/1 GE 0/0/1 GE 0/0/1 GE 0/0/1; Permitted VLAN ID: 10 Permitted VLAN ID: 10 Permitted VLAN ID: 10 Permitted VLAN ID: 20; Hybrid (PVID = 10) Hybrid (PVID = 1) Hybrid (PVID = 10) Hybrid (PVID = 10); Untagged frame a Untagged frame a -; Aftar raraivina an intannad Aftar raraivina a tannad frama: lf tha VI AN ID af tha frama ic in lf tha VI AN ID af tha frama ic in. Caption: (errore caption)
+[Figura da Pag.19] Labels: amen aaiaiiiaiciinaiaiiai—  atlaiiaiietiial |” iie la iain cite aaciaadiidik .,Snhmiimmeniiaieaiiaatiaiiinaal SA Tt a Cerne Tew weNeD | 5atomawaannee! sia iin ait iii atid; frame: Ifthe VLAN ID of the frame is in the list of VLAN IDs permitted by the list of VLAN IDs permitted by; The interface adds a VLAN tag the list of VLAN IDs permitted by the interface: the interface:; with the VID being the PVID of the the interface, the interface permits If the interface has been configured If the interface has been configured; interface to the frame and permits the frame. Otherwise, the interface not to carry VLAN tags when to carry VLAN tags when sending; the frame only when the VID is in discards the frame. sending frames, it removes the tag frames, it sends the frame out; the list of VLAN IDs permitted by from the frame and then sends the without removing the tag of the; the interface. If the VID is not in the Tagged frame out. frame.; list, the interface discards the; frame.; Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.20] Labels: Example for Frame Processing on Hybrid Interfaces; ¢ Describe how PCs access the server in this example.. Caption: (errore caption)
+[Figura da Pag.20] Labels: ov oW2 ————— ——— ———; terface 3 Interface 3; Sin | o> PVID 1 Untagged Untagged Tagged; Interface 1 nterface 2 1 1 10; PVID 10 PVID 20 Interface 1 VLAN VLAN VLAN; PVID 100 10 20 10; ID ID ID; // [| |-— 100 100 100; List of VLAN IDs Permitted by Interfaces on SW2; ik ik Ss Interface 1 Interface 3. Caption: (errore caption)
+[Figura da Pag.20] Labels: “=== ~==alll as; Pct PC2 Server Untagged Tagged; VLAN 10 VLAN 20 VLAN 100 1 10; VLAN; @ Hybrid Interface ID 20 100; 100; Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.21] Labels: VLAN VLAN VLAN Frame; ) Identification Assignment Processing; Access Interface Trunk Interface Hybrid Interface; Frame receiving Frame receiving Frame receiving; 2  Untagged frame: adds a tag with the VID being 2  Untagged frame: adds a tag with the VID being 2  Untagged frame: adds a tag with the VID being. Caption: (errore caption)
+[Figura da Pag.21] Labels: He VIL OPIS HRETAGe ANIM PETIT Ue He FP ViILY ULI TIeTave Ali CMe URS WHEUICT le PF ViIby VP le HIeTave alli ClMeURS WHEUICT; frame. the VID is in the list of permitted VLAN IDs. If the VID is in the list of permitted VLAN IDs. If; ° Tagged frame: checks whether the VID in the yes, permits the frame. If not, discards it. yes, permits the frame. If not, discards it.; tag of the frame is the same as the PVID of the 2 Tagged frame: checks whether the VID is in 2 Tagged frame: checks whether the VID is in; interface. If they are the same, permits the the list of permitted VLAN IDs. If yes, permits the list of permitted VLAN IDs. If yes, permits; frame; otherwise, discards the frame. the frame. If not, discards it. the frame. If not, discards it.; Frame sending Frame sending Frame sending; 2 Checks whether the VID in the tag of the frame 2 Ifthe VID is in the list of permitted VLAN IDs 2 [Ifthe VID is not in the list of permitted VLAN; te the came ac tha DV/ID nf the intarfara If and the cama ac tha DV/ID af the intarfara INe djerarde the frama. Caption: (errore caption)
+[Figura da Pag.21] Labels: they are the same, removes the tag and sends removes the tag and sends the frame out. » Ifthe VID is in the untagged VLAN ID list; the frame out; otherwise, discards the frame. 2 Ifthe VID is in the list of permitted VLAN IDs removes the tag and sends the frame out.; pulidiiferenuirom! the Pv Dlonihe=nteriace; ° Ifthe VID is in the tagged VLAN ID list, sends; sends the frame out without removing the tag. the frame out without removing the tag; 2 |f the VID is not in the list of permitted VLAN; IDs, discards the frame.; Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.22] Labels: Contents; 1. Whatls VLAN; 2. VLAN Principles. Caption: (errore caption)
+[Figura da Pag.22] Labels: 3. VLAN Applications; 4. VLAN Configuration Examples; 5. Inter-VLAN Communication. Caption: (errore caption)
+[Figura da Pag.22] Labels: Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.23] Labels: * VLAN assignment rules * Tips for VLAN assignment; ° By service: voice, video, and data VLANs VLAN IDs can be randomly assigned within the supported; range. To improve VLAN ID continuity, you can associate; .)6—Ry danartmant aa \/I ANe far anninasring marbkatinga and VLAN IDs with subnets during VLAN assianment.. Caption: (errore caption)
+[Figura da Pag.23] Labels: a tee eta, are, ~ aes ~ a, ~ . ee - -; financing departments; * By application: e.g. VLANs for servers, offices, and classrooms; * Example for VLAN planning; o Assume that there are three buildings: administrative building with offices, classrooms, and financing sections, teaching; building with offices and classrooms, and office building with offices and financing sections. Each building has one access; switch, and the core switch is deployed in the administrative building.; ee ee eS | ee oe? ee ee ee a ee en. Caption: (errore caption)
+[Figura da Pag.23] Labels: EN NENA SARIN ANS IRENA NID EIEN Meet MEN ESA; 1 X.16.10.0/24 VLAN to which office users belong; 2 X.16.20.0/24 VLAN to which the users of the financing department belong; 5 X.16.30.0/24 VLAN to which classroom users belong; 100 Y.16.100.0/24 VLAN to which the device management function belongs; Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.24] Labels: Interface-based VLAN Assignment; ¢ Applicable scenario:. Caption: (errore caption)
+[Figura da Pag.24] Labels: CIMECIPIISes silale MelWOrk FEsOUrCes lO TeaUuCce COsls. VW; Networks of the enterprises connect to different interfaces of; the same Layer 2 switch and access the Internet through the; . L3 switch; same egress device.; e VLAN assignment: ;; L2 switch; ° To isolate the services of different enterprises and ensure. Caption: (errore caption)
+[Figura da Pag.24] Labels: SEIVICE SCCUILY, asolYll WMCMAaACeS COMMEClEG lO Ue; enterprises’ networks to different VLANs. In this way, each ey Sp BB; enterprise has an independent network, and each VLAN; k irtual k Enterprise 1 Enterprise 2 Enterprise 3; works as a virtual work group. VLAN 2 VLAN 3 VLAN 4; Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.25] Labels: MAC Address-based VLAN Assignment; ¢ Applicable scenario:; ; Enterprise; ° The network administrator of an enterprise assigns. Caption: (errore caption)
+[Figura da Pag.25] Labels: FPUs Tithe salle GepdaltiMent tO Ue salle VLAAIN. 10 GE 0/0/1; improve information security, the enterprise requires swt; that only employees in the specified department be RY %; 9 Rel Qo; allowed to access specific network resources. & g Q&; Ww; . o); e VLAN assignment:; ° To meet the preceding requirement, configure MAC Ck Ck ce Ct; es oe a. Caption: (errore caption)
+[Figura da Pag.25] Labels: AGGIE sSS“VaseU VLAAIN GosIQHIMent Oll OVV I, eee ecu — ——; PC1 PC2 PC3 PC4; preventing new PCs connected to the network from = 001e-10dd-dd01  001e-10dd-dd02 -- 001e-10dd-dd03 001e-10dd-dd04; accessing the network resources. VLAN 10; Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.26] Labels: Contents; 1. Whatls VLAN; 2. VLAN Principles. Caption: (errore caption)
+[Figura da Pag.26] Labels: 3. VLAN Applications; 4. VLAN Configuration Examples; 5. Inter-VLAN Communication. Caption: (errore caption)
+[Figura da Pag.26] Labels: Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.27] Labels: Basic VLAN Configuration Commands; 1. Create one or more VLANs.; [Huawei] vlan vian-id. Caption: (errore caption)
+[Figura da Pag.27] Labels: This command creates a VLAN and displays the VLAN view. If the VLAN to be created already exists, this; command directly displays the VLAN view.; * The value of vian-id is an integer ranging from 1 to 4094.; [Huawei] vlan batch { vian-id7 [ to vian-id2 |}; This command creates VLANs in a batch. In this command:; * batch: creates VLANs in a batch.. Caption: (errore caption)
+[Figura da Pag.27] Labels: &  Vidl-iG lt, SPeCies a Slalt VLAIN IV.; * vian-id2: specifies an end VLAN ID.; Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.28] Labels: Basic Access Interface Configuration Commands; 1. Set the link type of an interface.; [Huawei-GigabitEthernet0/0/1] port link-type access. Caption: (errore caption)
+[Figura da Pag.28] Labels: In the interface view, set the link type of the interface to access.; 2. Configure a default VLAN for the access interface.; [Huawei-GigabitEthernet0/0/1] port default vlan vian-id; In the interface view, configure a default VLAN for the interface and add the interface to the VLAN.; « vian-id: specifies an ID for the default VLAN. The value is an integer ranging from 1 to 4094.. Caption: (errore caption)
+[Figura da Pag.28] Labels: Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.29] Labels: Basic Trunk Interface Configuration Commands; 1. Set the link type of an interface.; [Huawei-GigabitEthernet0/0/1] port link-type trunk. Caption: (errore caption)
+[Figura da Pag.29] Labels: In the interface view, set the link type of the interface to trunk.; 2. Add the trunk interface to specified VLANs.; [Huawei-GigabitEthernet0/0/1] port trunk allow-pass vlan { { vian-id7 [ to vian-id2 ] } | all }; In the interface view, add the trunk interface to specified VLANs.; 3. (Optional) Configure a default VLAN for the trunk interface.. Caption: (errore caption)
+[Figura da Pag.29] Labels: [Huawei-GigabitEthernet0/0/1] port trunk pvid vlan vian-id; In the interface view, configure a default VLAN for the trunk interface.; Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.30] Labels: Basic Hybrid Interface Configuration Commands; 1. Set the link type of an interface.; [Huawei-GigabitEthernet0/0/1] port link-type hybrid. Caption: (errore caption)
+[Figura da Pag.30] Labels: In the interface view, set the link type of the interface to hybrid.; 2. Add the hybrid interface to specified VLANs.; [Huawei-GigabitEthernet0/0/1] port hybrid untagged vlan { { vian-id7 [ to vian-id2 | }| all }; In the interface view, add the hybrid interface to specified VLANs in untagged mode.; [Huawei-GigabitEthernet0/0/1] port hybrid tagged vlan { { vian-id7 [ to vian-id2 ]} | all }. Caption: (errore caption)
+[Figura da Pag.30] Labels: In the interface view, add the hybrid interface to specified VLANs in tagged mode.; 3. (Optional) Configure a default VLAN for the hybrid interface.; [Huawei-GigabitEthernet0/0/1] port hybrid pvid vlan vian-id; In the interface view, configure a default VLAN for the hybrid interface.; Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.31] Labels: MAC Address-based VLAN; ssignment ssignment; Case1:Configuring Interface-based VLAN; Assignment; ¢ Networking requirements:; * On the network shown in the left figure, the switches (SW1; Swi aro NINID aro NINID Sw2 aes Oe et, ee nee Lee ee en, ee eee | Co eee. Caption: (errore caption)
+[Figura da Pag.31] Labels: ME VIVID ME VIVIV ALM OVVE) VI ATI CIReIVIlo® aiG CUNT ULGU WW THUNIVIG Pwo,; a pio and PCs with the same services access the network using; GE 0/0/1 GE 0/0/2 GE 0/0/1 GE 0/0/2 different devices. To ensure communication security, the; PylP 10 PYID.20 PYIDIIG Pylb'20) enterprise requires that only PCs with the same service can; directly communicate.; * To meet this requirement, configure interface-based VLAN; Ci Ci Ci Ci assignment on the switches and add interfaces connected to; = = = r—- PCs with the same service to the same VLAN. In this way,. Caption: (errore caption)
+[Figura da Pag.31] Labels: PC1 PC2 PC3 PC4 PCs in diff VLAN di | . -; VLAN 10 VLAN 20 VLAN 10 VLAN 20 sin different s cannot directly communicate at; Layer 2, but PCs in the same VLAN can directly; . communicate.; © Access interface; @ Trunk interface; Page 30 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.32] Labels: Interface-based VLAN MAC Address-based VLAN; Assignment Assignment; Creating VLANs; Swi Sw2; Ar AINIA ARK AINIA. Caption: (errore caption)
+[Figura da Pag.32] Labels: ME VIVID ME VIVID; PVID 1 PVID 1 Create VLANs.; GE 0/0/1 GE 0/0/2 GE 0/0/1 GE 0/0/2 [SW1] vlan 10; PVID 10 PVID 20 PVID 10 PVID 20 [SW1-vlan10] quit; [SW1] vlan 20; [SW1-vlan20] quit; a) |) a) a); Lj LJ Lj Lj [SW2] vlan batch 10 20. Caption: (errore caption)
+[Figura da Pag.32] Labels: PC1 PC2 PC3 PC4; VLAN 10 VLAN 20 VLAN 10 VLAN 20; Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.33] Labels: MAC Address-based VLAN; Assignment Assignment; Configuring Access and Trunk Interfaces; Configure access interfaces and add the interfaces to; corresponding VLANs.; SW1 sw2 [SW1] interface GigabitEthernet 0/0/1. Caption: (errore caption)
+[Figura da Pag.33] Labels: “PV ID 1 “PV ID1 Lev iT-Gigabitetnernetu/U/ 1] port link-type access; [SW1-GigabitEthernet0/0/1] port default vian 10; evib 40 evi oo evib 40 evID oo [SW11] interface GigabitEthernet 0/0/2; [SW1-GigabitEthernet0/0/2] port link-type access; [SW1] vlan 20; [SW1-vlan20] port GigabitEthernet0/0/2; Ci Ci Ci Ci [SW1-vlan20] quit; = = = = Configure a trunk interface and specify a list of VLAN IDs. Caption: (errore caption)
+[Figura da Pag.33] Labels: PC1 PC2 PC3 PC4 . .; permitted by the interface.; VLAN 10 VLAN 20 VLAN 10 VLAN 20; [SW1] interface GigabitEthernet 0/0/3; [SW1-GigabitEthernet0/0/3] port link-type trunk; [SW1-GigabitEthernet0/0/3] port trunk pvid vlan 1; [SW1-GigabitEthernet0/0/3] port trunk allow-pass vian 10 20; Note: The configuration on SW2 is similar to that on SW1.; Page 32 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.34] Labels: MAC Address-based VLAN; Assignment Assignment; Verifying the Configuration; [SW1]display vlan; sWw1 SWw2 The total number of vians is : 3. Caption: (errore caption)
+[Figura da Pag.34] Labels: ME VIVIV ME VIVIV 7 ee; PVID 1 PVID 1 U: Up; D: Down; TG: Tagged; UT: Untagged;; MP: Vlan-mapping; ST: Vian-stacking;; GE 0/0/1 GE 0/0/2 GE 0/0/1 GE 0/0/2 #: ProtocolTransparent-vlan; *: Management-vlan;; PVID 10 PVID 20 PVID 10 PVID 20 a; VID Type Ports; 1 common UT:GE0/0/3(U) seeeee; = = = = 10 common UT:GE0/0/1(U). Caption: (errore caption)
+[Figura da Pag.34] Labels: PC1 PC2 PC3 PC4 “yu SUTTHTIOTT MIPOEUIUIEA\U); VLAN 10 VLAN 20 VLAN 10 VLAN 20 Tere),; Page 33 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.35] Labels: Case2:Configuring Interface-based VLAN; Assignment; e Networking requirements:; SWI 0/0/3 GCE 01073 SV 2 o On the network chonwn in the left fiqrira tha. Caption: (errore caption)
+[Figura da Pag.35] Labels: GE 00/1 S&S ——— =_ S&S switches (SW1 and SW2) of an enterprise are; PVID 10 PVID 20 See connected to multiple PCs, and PCs in different; departments need to access the server of the; enterprise. To ensure communication security, the; enterprise requires that PCs in different; Ci Ci E departments cannot directly communicate.. Caption: (errore caption)
+[Figura da Pag.35] Labels: rPul Pee Server 2 a Pe; VLAN 10 VLAN 20 VLAN 100 ° To meet this requirement, configure interface-; based VLAN assignment and hybrid interfaces on; the switches to enable PCs in different; @ Hybrid interface ;; departments to access the server but disable them; from directly communicating at Layer 2.; Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.36] Labels: Configuring Hybrid Interfaces (1); SWI OL 0/0/3 GE 01073 SV 2 sw configuration:. Caption: (errore caption)
+[Figura da Pag.36] Labels: mee a PVID1 PVID 1 [Gea [SW 1] vlan batch 10 20 100; GE 0/0/1 oy GE 00/2 ss [SW1] interface GigabitEthernet 0/0/1; PVID 10 PVID 20 GE 0/0/1 [SW1-GigabitEthernet0/0/1] port link-type hybrid; PVID 100 [SW1-GigabitEthernet0/0/1] port hybrid pvid vlan 10; [SW1-GigabitEthernet0/0/1] port hybrid untagged vian 10 100; [SW1-GigabitEthernet0/0/1] interface GigabitEthernet 0/0/2; [SW1-GigabitEthernet0/0/2] port link-type hybrid; Ci Ci E [SW1-GigabitEthernet0/0/2] port hybrid pvid vlan 20; rn a —— [SW1-GiagabitEthernet0/0/21 port hvbrid untagged vian 20 100. Caption: (errore caption)
+[Figura da Pag.36] Labels: rel ree verver - _ — ~ a; VLAN 10 VLAN 20 VLAN 100 [SW1-GigabitEthernet0/0/2] interface GigabitEthernet 0/0/3; [SW1-GigabitEthernet0/0/3] port link-type hybrid; [SW1-GigabitEthernet0/0/3] port hybrid tagged vlan 10 20 100; Page 35 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.37] Labels: Configuring Hybrid Interfaces (2); SWI OL 0/0/3 GE 01073 SV 2 swe configuration:. Caption: (errore caption)
+[Figura da Pag.37] Labels: mee a PVID1 PVID 1 [Gea [SW2] vlan batch 10 20 100; GE 0/0/1 oy GE 00/2 ss [SW2] interface GigabitEthernet 0/0/1; PVID 10 PVID 20 GE 0/0/1 [SW2-GigabitEthernet0/0/1] port link-type hybrid; PVID 100 [SW2-GigabitEthernet0/0/1] port hybrid pvid vlan 100; [SW2-GigabitEthernet0/0/1] port hybrid untagged vlan 10 20 100; [SW2-GigabitEthernet0/0/1] interface GigabitEthernet 0/0/3; [SW2-GigabitEthernet0/0/3] port link-type hybrid; Ci Ci E [SW2-GigabitEthernet0/0/3] port hybrid tagged vlan 10 20 100. Caption: (errore caption)
+[Figura da Pag.37] Labels: Pel Pee SClver; VLAN 10 VLAN 20 VLAN 100; Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.38] Labels: MAC Address-based VLAN; Assignment Assignment; Verifying the Configuration; [SW1]display vlan; The total number of vians is : 4; SW1 GE 0/0/3 GE 0/0/3. SW2 Preven verve tude ro nisin stanusubtzotsor Ou lnue nis Shunsui ots tire sean sty sav sonia uRoeOcntusburensoieitrnTiar=tit. Caption: (errore caption)
+[Figura da Pag.38] Labels: — PVID 1 PVID 1 — U: Up; D: Down; TG: Tagged; UT: Untagged:; GE 0/0/1 > GE 0/0/2 —_ MP: Vlan-mapping; ST: Vlan-stacking;; PVID 10 PVID 20 GE 0/0/1 #: ProtocolTransparent-vlan; *: Management-vlan;; PVID 100 |e ener en; VID Type Ports; 4] common UT:GE0/0/1(U) GE0/0/2(U) GE0/0/3(U) ......; = = 10 common UT:.GE0/0/1(U); C | LC] E TG:GE0/0/3(U); rn es — 20 common UT-GE0/0/2(U). Caption: (errore caption)
+[Figura da Pag.38] Labels: Pel Pee SClver . oe; VLAN 10 VLAN 20 VLAN 100 Te CEO); 100 common UT:GE0/0/1(U) GE0/0/2(U); TG:GE0/0/3(U); Page 37 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.39] Labels: Interface-based VLAN; Assignment Assignment; Basic VLAN Configuration Commands; 1. Associate a MAC address with a VLAN.; [Huawei-vlan10] mac-vlan mac-address mac-address [| mac-address-mask | mac-address-mask-length ]. Caption: (errore caption)
+[Figura da Pag.39] Labels: This command associates a MAC address with a VLAN.; * mac-address: specifies the MAC address to be associated with a VLAN. The value is a hexadecimal number in; the format of H-H-H. Each H contains one to four digits, such as 00e0 or fc01. If an H contains less than four; digits, the left-most digits are padded with zeros. For example, e0 is displayed as 00e0. The MAC address; cannot be 0000-0000-0000, FFFF-FFFF-FFFF, or any multicast address.; * mac-address-mask: specifies the mask of a MAC address. The value is a hexadecimal number in the format of; H-H-H. Each H contains one to four digits.. Caption: (errore caption)
+[Figura da Pag.39] Labels: . THAG-GAUGIESOTTTIGOAAIGCH GIT, SVECHI©S UE TASK ICHQUT OF ad WIA AUOTess, THe Vdiue Ilo dail WMeQer Tallgily TOT |; to 48.; 2. Enable MAC address-based VLAN assignment on an interface.; [Huawei-GigabitEthernet0/0/1] mac-vlan enable; This command enables MAC address-based VLAN assignment on an interface.; Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.40] Labels: Example for Configuring MAC Address-; based VLAN Assignment; Ener) ¢ Networking requirements:; network ° The network administrator of an enterprise assigns PCs in. Caption: (errore caption)
+[Figura da Pag.40] Labels: a GE 0/0/1 the same department to the same VLAN. To improve; SsW1 information security, the enterprise requires that only; RY %& employees in the department be allowed to access the; 9 2 :; & S O,, network resources of the enterprise.; oO; a * PCs 1 through 3 belong to the same department. According; to the enterprise’ requirement, only the three PCs can; kk kk ce. L_ S-E access the enterprise network through SW1.. Caption: (errore caption)
+[Figura da Pag.40] Labels: PC1 PC2 PC3 PCA To meet this requirement, configure MAC address-based; 001e-10dd-dd01  001e-10dd-dd02 001e-10dd-dd03 001e-10dd-dd04 VLAN assignment and associate the MAC addresses of the; VLAN 10 three PCs with the specified VLAN.; Page 39 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.41] Labels: Creating a VLAN and Associating MAC; Addresses with the VLAN; Cent) Create a VLAN.; Network ——. Caption: (errore caption)
+[Figura da Pag.41] Labels: a ae LOW} Vian TU; SEOIOM [SW1-vlan10] quit; sw; ay © SY, . .; o g Ze Associate MAC addresses with the VLAN.; a); [SW1] vlan 10; [SW1-vlan10] mac-vlan mac-address 001e-10dd-dd01 [SW1-; f Te f le f e vlan10] mac-vlan mac-address 001¢-10dd-dd02 [SW1-vlan10]. Caption: (errore caption)
+[Figura da Pag.41] Labels:  Seullll sul  Ssullll mac-vlan mac-address 001e-10dd-dd03 [SW1-vlan10] quit; PC1 PC2 PC3; 001e-10dd-dd01 001e-10dd-dd02 001e-10dd-dd03; VLAN 10; Page 40 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.42] Labels: Adding Interfaces to the VLAN and Enabling; MAC Address-based VLAN Assignment; Add interfaces to the VLAN.; Cent) [SW1] interlace gigabitethernet een. Caption: (errore caption)
+[Figura da Pag.42] Labels: OO A,; GEO/0/1 [SW1-GigabitEthernet0/0/1] port hybrid tagged vlan 10; sw; RY % [SW1] interface gigabitethernet 0/0/2; & Ss Je, [SW1-GigabitEthernet0/0/2] port link-type hybrid; i [SW1-GigabitEthernet0/0/2] port hybrid untagged vlan 10; Enable MAC address-based VLAN assignment; { Te f le { e on the specified interface.. Caption: (errore caption)
+[Figura da Pag.42] Labels: pill ee ell; PC1 Pc2 PC3 [SW1] interface gigabitethernet 0/0/2; 001e-10dd-dd01 001e-10dd-dd02 001e-10dd-dd03 [SW1-GigabitEthernet0/0/2] mac-vlan enable; VLAN 10 [SW1-GigabitEthernet0/0/2] quit; Note: The configuration of GE 0/0/3 and GE 0/0/4 is similar to that of GE 0/0/2.; Page 41 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.43] Labels: Interface-based VLAN; Assignment Assignment; . . . .; Verifying the Configuration; [SW1]display vlan [SW1]display mac-vlan mac-address all; The tatal niimbher af vianc jc - 2 i. Caption: (errore caption)
+[Figura da Pag.43] Labels: ee MAC Address MASK VLAN Priority; U: Up; D: Down; TG: Tagged; UT: Untagged; TO TTI; MP: Vlan-mapping; ST: Vlan-stacking; 001e-10dd-dd01 ft ATT 10 0; #: ProtocolTransparent-vlan; *: Management-vlan; OO Te Ode dd02 ULF w o; a 001e-10dd-dd03 ff ff-fffffffF 10 0; VID Type Ports; Total MAC VLAN address count: 3; 1 common UT-GE0/0/1(U) GE0/0/2(U) GE0/0/3(U) ......; 10 common UT-GE0/0/2(U) GE0/0/3(U) GE0/0/4(U). Caption: (errore caption)
+[Figura da Pag.43] Labels: TG:GE0/0/1(U); Page 42 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.44] Labels: Inter-VLAN Communication (1); ¢ In real-world network deployments, different IP address segments are assigned to different VLANs.; ¢ PCs on the same network segment in the same VLAN can directly communicate with each other without the need for; | ceeweseencO Rawecessenl tence mies: ln tee ee en Seeccmcelicace! | mcs (C8 seams ee. Caption: (errore caption)
+[Figura da Pag.44] Labels: Bayel Y IMIWAIITY MeeVee. PTO UMITTEIMITIVGLINMET TIMI IS VANE LAY! 2 VVC GLI.; ¢ Inter-VLAN communication belongs to Layer 3 communication, which requires Layer 3 devices.; Layer 2 switch; Layer 2 Layer 2. Caption: (errore caption)
+[Figura da Pag.44] Labels: ao ween i aN; — VLAN 10 — = VLAN 20 ==; 192 168.10.0/24 PN 192.168.20.0/24; Layer 3 communication; Page 43 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.45] Labels: Inter-VLAN Communication (2); ¢ Common Layer 3 devices: routers, Layer 3 switches, firewalls, etc.; ¢ Inter-VLAN communication is implemented by connecting a Layer 2 switch to a Layer 3 interface. Caption: (errore caption)
+[Figura da Pag.45] Labels: of a Layer 3 device. The communication packets are routed by the Layer 3 device.; ©; F 3; Layer 2 interface; Router; 3) Layer 3 interface Layer 2 switc iS; Za >. Caption: (errore caption)
+[Figura da Pag.45] Labels: — VLAN 10 — — VLAN 20 “===; 192.168.10.0/24 192.168.20.0/24; Page 44 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.46] Labels: Contents; 1. Whatls VLAN; 2. VLAN Principles. Caption: (errore caption)
+[Figura da Pag.46] Labels: 3. VLAN Applications; 4. VLAN Configuration Examples; 5. Inter-VLAN Communication. Caption: (errore caption)
+[Figura da Pag.46] Labels: Page 45 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.47] Labels: Interfaces interfaces; . ' .; Using a Router's Physical Interfaces; Physical Connection; BR « The Layer 3 interfaces of the router function as; TA gateways to forward traffic from the local network. Caption: (errore caption)
+[Figura da Pag.47] Labels: VY GE 0/0/2 segment to other network segments.; 192.168.20.254 + The Layer 3 interfaces of the router cannot process; data frames with VLAN tags. Therefore, the interfaces; GE 0/0/4 of the switch connected to the router must be set to the; Access (VLAN 20) access type.; * One physical interface of the router can function as the; GE 0/0/2 gateway of only one VLAN, meaning that the number; Access (VLAN 20) F . : :; ew1 of required physical interfaces are determined by the. Caption: (errore caption)
+[Figura da Pag.47] Labels: ~ quantity of the deployed VLANs.; VLAN 10 = = VLAN 20 * Arouter, mainly forwarding packets at Layer 3,; Ci Ci provides only a small number of physical interfaces.; er ger et acca Therefore, the scalability of this solution is poor.; Default gateway: Default gateway:; 192.168.10.254 192.168.20.254; Page 46 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.48] Labels: Using Physical; Interfaces interfaces; . ' .; Using a Router's Sub-interfaces; Physical Connection; ¢ Asub-interface is a logical interface created ona; R router's Ethernet interface and is identified by a; rT A. Caption: (errore caption)
+[Figura da Pag.48] Labels: | a | physical interface number and a sub-interface number.; GE 0/0/1.20 Similar to a physical interface, a sub-interface can; 192.168.20.254; perform Layer 3 forwarding.; G 0/0/24 ¢ Different from a physical interface, a sub-interface can; Trunk VEANs 10 20 terminate data frames with VLAN tags.; GE 0/0/2 * You can create multiple sub-interfaces on one physical; swi Access (VLAN 20) _ 7 7 BS a. Caption: (errore caption)
+[Figura da Pag.48] Labels: ~ Interface. Arter Connecting the pnysical interface to the; trunk interface of the switch, the physical interface can; VLAN 10 Chik Chk VLAN 20; — — provide Layer 3 forwarding services for multiple; PC1 PC2; 192.168.10.2/24 192.168.20.2/24 VLANs.; Default gateway: Default gateway:; 192.168.10.254 192.168.20.254; Page 47 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.49] Labels: Using Physical; Interfaces interfaces; Sub-Interface Processing; e The interface connecting the switch to the router is set to a trunk interface. The router forwards the; received packets to the corresponding sub-interfaces according to the VLAN tags in the packets.. Caption: (errore caption)
+[Figura da Pag.49] Labels: GE 0/0/1.10 GE 0/0/1.20 Packets carrying VLAN 10; ===> Packets carrying VLAN 20; GE 0/0/1 R1 GE 0/0/1.10; i L LC] a oes GE 0/0/1\ GE 010/1.20 “on; F swi * Basedon the VLAN ID carried in a; VLAN 10 : VLAN 20 I packet, the device forwards the; | I packet to the corresponding sub-. Caption: (errore caption)
+[Figura da Pag.49] Labels: a Trunk —= I interface (for example, GE 0/0/1.10); GE 0/0/1 GE 0/0/24 GE 0/0/2 4 fomprocessing:; + Through sub-interfaces, the device; Trunk can implement inter-VLAN; Ci Ci GE 0/0/24 communication at Layer 3.; — — swi; 192.168.10.2/24 192.168.20.2/24; Default gateway: Default gateway:; 192.168.10.254 192.168.20.254; Page 48 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.50] Labels: Using Physical; Interfaces interfaces; Example for Configuring Sub-interfaces; [R1]interface GigabitEthernet0/0/1.10; [R1-GigabitEthernet0/0/1.10]dot1q termination vid 10. Caption: (errore caption)
+[Figura da Pag.50] Labels: [R1-GigabitEthernet0/0/1.10]ip address 192.168.10.254 24; R1 [R1-GigabitEthernet0/0/1.10]arp broadcast enable; m The VLAN IDs to be terminated need to be; Tree, configured on the sub-interfaces.; "te, GE 0/0/1.10 The router selects proper sub-interfaces based on; “| GE 0/01 GE 0/0/1.20 the VLAN IDs of the received packets. (The sub-; ° interfaces accept tagged packets.); | The packets sent by the sub-interfaces carry the; Pe ee ~e lee aemaree, foreman Ceo ae | ee MC un seme. Caption: (errore caption)
+[Figura da Pag.50] Labels: IL | ne ee ee: ee eee wee; Trunk; GE0/0/24 [R1]interface GigabitEthernet0/0/1.20; [R1-GigabitEthernet0/0/1.20]dot1q termination vid 20; sw [R1-GigabitEthernet0/0/1 .20]ip address 192.168.20.254 24; [R1-GigabitEthernet0/0/1.20]Jarp broadcast enable; Page 49 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.51] Labels: Layer 3 Switch and VLANIF Interfaces; + ALayer 2 switch provides only Layer 2 switching; functions.. Caption: (errore caption)
+[Figura da Pag.51] Labels: Layer 3 switch + ALayer 3 switch provides routing functions through; Routing module Layer 3 interfaces (such as VLANIF interfaces) as well; as the functions of a Layer 2 switch.; « AVLANIF interface is a Layer 3 logical interface that; : : can remove and add VLAN tags. VLANIF interfaces; __ et ioe switching __VLAN 20 therefore can be used to implement inter-VLAN. Caption: (errore caption)
+[Figura da Pag.51] Labels: —_———— communication.; | = | = | = | = + AVLANIF interface number is the same as the ID of its; Ci Ci Ca Li corresponding VLAN. For example, VLANIF 10 is; created based on VLAN 10.; Page 50 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.52] Labels: Example for Configuring VLANIF Interfaces; + VLANIF 10 192.168.10.254/24 Basie configurations:; » VLANIF 20 192.168.20.254/24 [SW1]vlan batch 10 20. Caption: (errore caption)
+[Figura da Pag.52] Labels: ee ee en; sw [SW1-GigabitEthernet0/0/1] port link-type access; GE 0/0/1 GE 0/0/2 [SW1-GigabitEthernet0/0/1] port default vian 10; [SW1] interface GigabitEthernet 0/0/2; [SW1-GigabitEthernet0/0/2] port link-type access; [SW1-GigabitEthernet0/0/2] port default vian 20; VLAN 10 Ci Ci VLAN 20; oe PC1 a oe PC2, oe Confiqiire \V/| ANIF interfarec:. Caption: (errore caption)
+[Figura da Pag.52] Labels: 192.100.10.2/24 192.100.20.2/24 A 1 aaa ee; Default gateway: Default gateway: . .; 192.168.10.254 192.168.20.254 [SW ]interface Vlanif 10; [SW1-Vlanif10]ip address 192.168.10.254 24; * Configuration Requirements ; ;; ; . . [SW1]interface Vlanif 20; Configure VLANs 10 and 20 for the interfaces connecting to PC1; and PC2, respectively. Configure the Layer 3 switch to allow the BARU Entel etkbess TEEEAOZES 2; two PCs to communicate with each other.; Page 51 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.53] Labels: VLANIF Forwarding Process (1); interface Vianif10 interface Vianif20; ip address 192.168.10.254 24 ip address 192.168.20.254 24 F .; Aeon rena This example assumes that the required ARP or. Caption: (errore caption)
+[Figura da Pag.53] Labels: MAC address entries already exist on the PCs ana; the Layer 3 switch.; VLANIF 10 VLANIF 20 ce The communication process between PC1 and PC2; i ' is as follows:; H as 1. PC1 performs calculation based on its local IP; | VLAN 10 VLAN20 | Switching; : : module address, local subnet mask, and destination IP; 1 LJ [1 t 4 address, and finds that the destination device. Caption: (errore caption)
+[Figura da Pag.53] Labels: (1) | | | PC2 is not on its network segment. PC1 then; LC] Access interface . . . .; Ci Ci determines that Layer 3 communication is; PCH = required and sends the traffic destined for PC2 to; IP: 192.168.10.2/24 IP: 192.168.20.2/24 its gateway. Data frame sent by PC1: source; Default gateway: Default gateway:; 192.168.10.254 192.168.20.254 MAC = MAC1, destination MAC = MAC2; Page 52 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.54] Labels: VLANIF Forwarding Process (2); interface Vianif10 t3] interface Vianif20; emer a f/f ™ Wwemer “4 2. After receiving the packet sent from PC1 to PC2,. Caption: (errore caption)
+[Figura da Pag.54] Labels: the switch decapsulates the packet and finds that; SS — ; the destination MAC address is the MAC address; VLANIF 10 VLANIF 20 Routing .; : ' module of VLANIF 10. The switch then sends the packet to; 5 od a the routing module for further processing.; | VLAN 10 VLAN 20 leith 3. The routing module finds that the destination IP; [| E ] EJ] ] address is 192.168.20.2, which is not the IP. Caption: (errore caption)
+[Figura da Pag.54] Labels: AUUICSS VI To IUCGI TMeIIaUe, GM UCLOTIIoS tla; [__] Access interface | = | = this packet needs to be forwarded at Layer 3. By; Ci Ci searching the routing table, the routing module; IP: 190 160 10.2/04 IP- 190 16620.2/04 finds a matching route — the direct route generated; reer pret Frsrepree by VLANIF 20 ~ for this packet.; Page 53 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.55] Labels: VLANIF Forwarding Process (3); interface Vianif10 interface Vianif20; emer 2 Mea 4. Because the matching route is a direct route, the. Caption: (errore caption)
+[Figura da Pag.55] Labels: switch determines that the packet has reached the; SS : last hop. It searches its ARP table for 192.168.20.2,; VLANIF 10 VLANIF 20 Routing . .; : i module obtains the corresponding MAC address, and sends; od a tA) the packet to the switching module for re-; | VCANTO LAND | " Switching encapsulation.; ! module; [| E ] EC] Cy 5. The switching module searches its MAC address. Caption: (errore caption)
+[Figura da Pag.55] Labels: 15] LAVIC W UCC UI VUULNUUTIG Her aue Ul UI; |__| Access interface | = | — frame and whether the frame needs to carry a VLAN; Ci Ci tag. Data frame sent by the switching module:; IP: 192.168 10.2104 IP. 192 16620-2104 source MAC = MAC2, destination MAC = MACS,; Page 54 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.56] Labels: Network Topology; VLAN 10 Lik. Caption: (errore caption)
+[Figura da Pag.56] Labels: PUL; IP: 192.168.10.2/24 R1; Default gateway:; 192.168.10.254 Sw sw2 NAT; — GE 0/0/1 vk &; = GE 0/0/24 MMDSIGE 0/0/2 GE 0/0/0 1.2.3.4; Server; 2.3.4.; VLAN 20 C] ; 5; BCD. * VLANIF 10: 192.168.10.254 24; IP: 192.168.20.2/24 + VLANIF 20: 192.168.20.254 24. Caption: (errore caption)
+[Figura da Pag.56] Labels: Default gateway: . .; 192.168.20.254 VLANIF 30: 192.168.30.1 24; This topology is used as an example to describe the communication process from PC1 in VLAN; 10 to the server (2.3.4.5) on the Internet.; Page 55 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.57] Labels: Network Communication; Topology Connection Process; Logical Connection; Logical Connection; aaa ie enn | ¢ Configure a default route on. Caption: (errore caption)
+[Figura da Pag.57] Labels: cree Soi un au module SW2 to allow intranet users; eau Eccl to access the Internet.; 'sw2 Switching} R1; H module | NAT; VLAN 30 i—~; [| Access interface SSS SSS; Trunk interface LH; VIAN AN VI ANON SsSW1 e On R1 econfigire ctatic roitec to the. Caption: (errore caption)
+[Figura da Pag.57] Labels: ———=— ———— RETR TES RAN CT Ce ne Ts I RE ee ERE | NOE FERS oo NOS RRO oe; [| C ' C4 user network segments of VLAN 10; Trunk and VLAN 20.; GE 0/0/1 GE 0/0/24 GE 0/0/2 * To enable intranet PCs using private; IP addresses to access the Internet,; Ci Ci configure Network Address and Port; = = Translation (NAPT) on R1.; Page 56 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.58] Labels: Network Logical; Topology Connection Process; . .; Communication Process (1); VLANIF 10; IP: 192.168.10.254/24; MAC: MAC2; VILANIE 20. Caption: (errore caption)
+[Figura da Pag.58] Labels: IP: 192.168.30.1/24; IP: 192.168.10.2/24 MAC: MAC2; Default gateway:; 192.168.10.254 R1; MAC: MAC1 swi sw2 NAT; Ci ge > Sa HE; al mem) GE 0/0/24 MEDSSGE 0/0/2  GEO/O/0 1.2.3.4; VLAN 10 192.168.30.2 Server; Y, MAC: MAC3 2.3.4.; FT 5. Caption: (errore caption)
+[Figura da Pag.58] Labels: presi __ Destination MAC:; Before sending a packet to VLAN tag: None; 2.3.4.5, the PC sends the; packet to its gateway after Source IP: 192.168.10.2; determining that the destination Destination IP: 2.3.4.5; IP address is not on its network; segment.; Page 57 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.59] Labels: Network Logical; Topology Connection Process; . .; Communication Process (2); VLANIF 10; IP: 192.168.10.254/24; MAC: MAC2; VILANIE 20. Caption: (errore caption)
+[Figura da Pag.59] Labels: IP: 192.168.30.1/24; IP: 192.168.10.2/24 MAC: MAC2; Default gateway:; 192.168.10.254 R1; MAC: MAC1 swi sw2 NAT; = GE 0/0/1 GE 0/0/1; ($a con BS ces ee a Ss aR & Js SHE; = GE 0/0/24 GE 0/0/2 GE 0/0/0 1.2.3.4 ~; VLAN 10 192.168.30.2 Server; i ————_— MAC: MAC3 2.3.4.; P MAC Address | VLAN | Interface | 5. Caption: (errore caption)
+[Figura da Pag.59] Labels: MAC1 10 GE 0/0/1; Source MAC:; MAC2 10 GE 0/0/24; Destination MAC:; SW1 Processing VLAN tag: 10; After receiving the frame, SW1 searches the Source IP: 192.168.10.2; MAC address table for the destination MAC Destination IP: 2.3.4.5; address and forwards the frame.; Page 58 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.60] Labels: Network Logical; Topology Connection Process; . .; Communication Process (3); VLANIF 10; IP: 192.168.10.254/24; MAC: MAC2; VILANIE 20. Caption: (errore caption)
+[Figura da Pag.60] Labels: IP: 192.168.30.1/24; IP: 192.168.10.2/24 MAC: MAC2; Default gateway:; 192.168.10.254 R1; MAC: MAC1 sw1 sSw2 NAT; Ch GE 00/1 @==S GE 0/0 FRY ® “1s » E; al — GE 0/0/24 MELSIGE 0/0/2 GE 0/0/0 1.2.3.4 5; VLAN 10 K 192.168.30.2 Server; routing table. — —— —— 5. Caption: (errore caption)
+[Figura da Pag.60] Labels: VNU 192. 100.0U.2 VIGO; SW2 Processing; After SW2 receives the frame, it finds that the destination MAC address is the MAC; address of its VLANIF 10 and sends the frame to the routing module, which then; searches the routing table for a route matching the destination IP address 2.3.4.5.; After finding that the matching route is a default route, the outbound interface is VLANIF; 30, and the next hop is 192.168.30.2, SW2 searches its ARP table to obtain the MAC; address corresponding to 192.168.30.2.; Page 59 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.61] Labels: Network Logical; Topology Connection Process; . .; Communication Process (4); VLANIF 10; IP: 192.168.10.254/24; MAC: MAC2; VILANIE 20. Caption: (errore caption)
+[Figura da Pag.61] Labels: IP: 192.168.30.1/24; IP: 192.168.10.2/24 MAC: MAC2; Default gateway:; 192.168.10.254 R1; MAC: MAC1 swi sw2 NAT; = GE 0/0/1 GE 0/0/1; (}§ a fe Bi es ee Ss aR & Js SE; all GE 0/0/24 GE 0/0/2 GE 0/0/0 1.2.3.4 ~; VLAN 10 K 192.168.30.2 Server; ———>_ MAC: MAC3 2.3.4.; FRM Destination Network | MAC | Outbound Interface | 5. Caption: (errore caption)
+[Figura da Pag.61] Labels: SW2 Processing; 7 :; After finding the MAC address corresponding to 192.168.30.2,; SW2 replaces the source MAC address of the packet with the Source IP: 192.168.10.2; MAC address of VLANIF 30, and forwards the packet to the Destination IP: 2.3.4.5; switching module. The switching module searches the MAC ee; address table for the outbound interface and determines whether; the packet carries a VLAN tag.; Page 60 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.62] Labels: Network Logical; Topology Connection Process; . .; Communication Process (5); VLANIF 10; IP: 192.168.10.254/24; MAC: MAC2; VILANIE 20. Caption: (errore caption)
+[Figura da Pag.62] Labels: IP: 192.168.30.1/24; IP: 192.168.10.2/24 MAC: MAC2; Default gateway:; 192.168.10.254 R1; MAC: MAC1 sw1 sw2 NAT; Ci GE 0/0/1 f=} GE 0/0/1 es |; = GE 0/0/24 GE 0/0/2 GE 0/0/0 1.2.3.4 .; VLAN 10 192.168.30.2 Server; MAC: MAC3 2.3.4.; 5. Caption: (errore caption)
+[Figura da Pag.62] Labels: =; ee; Destination IP: 2.3.4.5; Checks the destination MAC address of the data packet; and finds that the MAC address belongs to its interface.; Checks the destination IP address and finds that it is not a; localIP address. Searches the routing table, finds a default; matching route, and forwards the packet to a carrier device; while performing NAT to translate the source IP address; and port number of the packet.; Page 61 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)

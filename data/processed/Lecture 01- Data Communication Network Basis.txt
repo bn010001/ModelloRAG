@@ -1,0 +1,527 @@
+Page 0
+"A.D. 1308
+Fondamenti di Internet
+Data Communication Network Basis
+Gianluca Reali
+
+Page 1
+) Foreword
+Communication has always been with us ever since the origin of human society.
+Communication has been playing an increasingly important role especially since human
+society entered the information era in the 1970s or 1980s.
+The communication mentioned in this course refers to the communication implemented
+through a data communication network. This course describes the concepts related to
+communication and a data communication network, information transfer process,
+network devices and their functions, network types, and typical networking. In addition,
+this course briefly introduces the concepts related to network engineering and network
+engineers.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Objectives
+¢ Oncompletion of this course, you will be able to:
+Oo Understand the concepts related to communication and a data communication network.
+oO Be able to describe the information transfer process.
+oO
+Differentiate network devices of different types and understand their basic functions.
+oO Understand different network types and topology types.
+oO Understand the concepts related to network engineering and network engineers.
+Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Device Icons
+€ —> > >
+General General Core switch Aggregation Access Stacked Firewall | General NMS AP
+router switch switch switch switches
+= @ a
+=== H co)
+iki <a
+General Cluster FTP server Authentication PN user Enterprise Enterprise Business trip
+server server network user
+Internet Network Network IP phone Mobile
+cloud 1 cloud 2 phone
+Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Bm
+Base
+station
+El Ed =
+~~
+Wi-Fi signals
+LJ
+Laptop
+
+Network communication Data communication network
+[=| ) Concept of Network Communication
+¢ Communication refers to the information transfer and exchange between people, between people and
+things, and between things through a certain medium and behavior.
+¢ Network communication refers to communication between terminal devices through a computer network.
+e Examples of network communication:
+Data
+Ci Ci
+A. Files are transferred between two computers
+(terminals) through a network cable.
+Data
+L_|k Internet z
+C. A computer (terminal) downloads
+files through the Internet.
+Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+& Router
+cH CH O:Céd
+B. Files are transferred among multiple
+computers (terminals) through a router.
+¢« Examples of network communication:
+2 A. Two computers connected with a network cable form the simplest network.
+« B.A small network consists of a router (or switch) and multiple computers. In such a
+network, files can be freely transferred between every two computers through the router
+or switch.
+«= C.To download a file from a website, a computer must first access the Internet.
+¢ The Internet is the largest computer network in the world. Its predecessor, Advanced
+Research Projects Agency Network (ARPAnet), was born in 1969. The wide popularization
+and application of the Internet is one of the landmarks of the information age.
+
+) Contents
+1. Communication and Networks
+2. Network Types and Topology Types
+3. Network Engineering and Network Engineers
+Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Network communication Data communication network
+[=| ) Information Transfer Process
+e Virtual information transfer is similar to real object transfer.
+1
+ 
+fal
+ 
+Sf
+ 
+— fl —o
+Objects Package Distribution center Sky Distribution center Package Objects
+Packet Packe
+Data be: Data
+[| : & Internet & Ti
+all —
+Computer Gateway router Internet Gateway router Computer
+Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Comparison between express delivery (object transfer) and network communication:
+* Objects to be delivered by express delivery:
+a The application generates the information (or data) to be delivered.
+¢ The objects are packaged and attached with a delivery form containing the name and address
+of the consignee.
+« The application packs the data into the original "data payload", and adds the "header"
+and "tail" to form a packet. The important information in the packet is the address
+information of the receiver, that is, the "destination address".
+a The process of adding some new information segments to an information unit to form a
+new information unit is called encapsulation.
+« The package is sent to the distribution center, where packages are sorted based on the
+destination addresses and the packages destined for the same city are placed on the same
+plane.
+= The packet reaches the gateway through the network cable. After receiving the packet,
+the gateway decapsulates the packet, reads the destination address, and then re-
+encapsulates the packet. Then, the gateway sends the packet to a router based on the
+destination address. After being transmitted through the gateway and router, the packet
+leaves the local network and enters the Internet for transmission.
+= The network cable functions similarly as the highway. The network cable is the medium
+for information transfer.
+Upon arrival at the destination airport, packages are taken out for sorting, and those destined
+for the same district are sent to the same distribution center.
+
+Network communication Data communication network
+Packet
+Ga) ) Common Terms
+Data payload Information conveyed
+Packet Data unit switched and transmitted on the network
+Header Information segment added before the data payload
+Tail Information segment added after the data payload
+Encapsulation Process of adding a header and a tail to a data payload to form a new packet
+Decapsulation Process of removing the header and tail from a packet to obtain the data payload
+Gateway Network device that provides functions such as protocol conversion, route selection,
+and data exchange
+Router Network device that selects a forwarding path for packets
+Terminal device End device of a data communication system, used as a sender or receiver of data
+Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Data payload: It can be considered as the information to be transmitted. However, in a
+hierarchical communication process, the data unit (packet) transmitted from the upper layer to
+the lower layer can be called the data payload of the lower layer.
+« Packet: a data unit that is exchanged and transmitted on a network. It is in the format of
+header+data payload+tail. During transmission, the format and content of packets may
+change.
+¢ Header: The information segment added before the data payload during packet assembly to
+facilitate information transmission is called the packet header.
+¢ Tail: The information segment added after the payload to facilitate information transmission is
+called the tail of a packet. Note that many packets do not have tails.
+¢ Encapsulation: A technology used by layered protocols. When the lower-layer protocol
+receives a message from the upper-layer protocol, the message is added to the data part of
+the lower-layer frame.
+¢ Decapsulation: It is the reverse process of encapsulation. That is, the header and tail of a
+packet are removed to obtain the data payload.
+* Gateway: A gateway is a network device that provides functions such as protocol conversion,
+route selection, and data exchange when networks using different architectures or protocols
+communicate with each other. A gateway is a term that is named based on its deployment
+location and functionality, rather than a specific device type.
+¢ Router: a network device that selects a transmission path for a packet.
+« Terminal device: It is the end device of the data communication system. As the data sender or
+receiver, the terminal device provides the necessary functions required by the user access
+protocol operations. The terminal device may be a computer, server, VoIP, or mobile phone.
+
+Page 8
+Data communication network:
+Communication network that
+consists of routers, switches,
+firewalls, access controllers (ACs),
+access points (APs), PCs, network
+printers, and servers
+Function:
+To implement data communication
+Network communication Data communication network
+Ga) ) Concept of the Data Communication Network
+Core equipment room
+Logsystem j= [RR WR | RR one eeee eee ceeeeeneeed
+Controller
+NMS
+Application server
+Office area 3
+Office area 2
+Office area 1
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Network communication Data communication network
+[=] ) Switches
+e Switch: a device closest to end users, used to access the network and switch data frames
+o Network access of terminals (such as PCs and servers)
+o Layer 2 switching
+Ci
+Switch
+_ |_
+CIs CIs
+Broadcast domain
+Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Switches:
+«2 Onacampus network, a switch is the device closest to end users and is used to
+connect terminals to the campus network. Switches at the access layer are usually
+Layer 2 switches and are also called Ethernet switches. Layer 2 refers to the data link
+layer of the TCP/IP reference model.
+a The Ethernet switch can implement the following functions: data frame switching,
+access of end user devices, basic access security functions, and Layer 2 link
+redundancy.
+= Broadcast domain: A set of nodes that can receive broadcast packets from a node.
+
+Network communication Data communication network
+[=] ) Routers
+e Router: a network-layer device that forwards data packets on the Internet. Based on the destination
+address in a received packet, a router selects a path to send the packet to the next router or destination.
+The last router on the path is responsible for sending the packet to the destination host.
+o Implementing communication between networks of
+the same type or different types | k Chi
+. Isolating broadcast domains |
+Router
+2 Maintaining the routing table and running
+routing protocols
+o Selecting routes and forwarding IP packets _ _
+o Implementing WAN access and network = A = A
+address translation Broadcast domainA — Broadcast domain B
+4 Connecting Layer 2 networks established through switches
+Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Routers:
+= Routers work at the network layer of the TCP/IP reference model.
+« Routers can implement the following functions: routing table and routing information
+maintenance, route discovery and path selection, data forwarding, broadcast domain
+isolation, WAN access, network address translation, and specific security functions.
+
+Network communication Data communication network
+[=| ) Firewalls
+e Firewall: a network security device used to ensure secure communication between two networks. It
+monitors, restricts, and modifies data flows passing through it to shield information, structure, and running
+status of internal networks from the public network.
+Untrust Zone
+. Isolating networks of different security levels
+. : . Internet
+a Implementing access control (using security policies)
+between networks of different security levels DMZ
+a Implementing user identity authentication = Firewall
+o Implementing remote access
+© Supporting data encryption and VPN services Trust zone
+o Implementing network address translation JS IN
+a Implementing other security functions lk Ci
+Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e Firewall:
+2 It is located between two networks with different trust levels (for example, between an
+intranet and the Internet). It controls the communication between the two networks and
+forcibly implements unified security policies to prevent unauthorized access to important
+information resources.
+
+Ci LJ LJ] 8 6LJ
+Wired terminal Wireless terminal Wireless Wireless
+Network communication Data communication network
+ry) ) Wireless devices
+Internet Internet
+oe
+Fit AP
+i
+= =
+wy ~~
+(
+WLAN (Wi-Fi)
+terminal terminal
+Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« Inabroad sense, WLAN is a network that uses radio waves, laser, and infrared signals to
+replace some or all transmission media in a wired LAN. Common Wi-Fi is a WLAN technology
+based on the IEEE 802.11 family of standards.
+¢ Ona WLAN, common devices include fat APs, fit APs, and ACs.
+2 AP:
+Generally, it supports the fat AP, fit AP, and cloud-based management modes.
+You can flexibly switch between these modes based on network planning
+requirements.
+Fat AP: It is applicable to homes. It works independently and needs to be
+configured separately. It has simple functions and low costs.
+Fit AP: It applies to medium- and large-sized enterprises. It needs to work with the
+AC and is managed and configured by the AC.
+Cloud-based management: It applies to small- and medium-sized enterprises. It
+needs to work with the cloud-based management platform for unified management
+and configuration. It provides various functions and supports plug-and-play.
+It is generally deployed at the aggregation layer of the entire network to provide
+high-speed, secure, and reliable WLAN services.
+The AC provides wireless data control services featuring large capacity, high
+performance, high reliability, easy installation, and easy maintenance. It features
+flexible networking and energy saving.
+
+) Contents
+1. Communication and Networks
+2. Network Types and Topology Types
+3. Network Engineering and Network Engineers
+Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Network Types Network Topologies
+a ) LAN, MAN, and WAN
+e Based on the geographical coverage, networks can be classified into local area networks (LANs),
+metropolitan area networks (MANs), and wide area networks (WANs).
+a LAN
+=" ALAN is a network that consists of computers, servers, and network devices in a geographic area. The coverage of a LAN is
+generally within several thousand square meters.
+= Typical LANs include a company's office network, a cyber bar network, a home network.
+ao MAN
+= _AMAN is acomputer communication network established within a city.
+= Typical MANs include broadband MANs, education MANs, and municipal or provincial e-government private lines.
+a WAN
+= AWAN generally covers a large geographical area ranging from tens of square kilometers to thousands of square kilometers. It
+can connect networks of multiple cities or even networks of countries (as an international large-scale network) and provide long-
+distance communication.
+= The Internet is a typical WAN.
+Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« Based on the geographical coverage, networks can be classified into LANs, WANs, and
+MANs.
+« LAN:
+« Basic characteristics:
+= AnLAN generally covers an area of a few square kilometers.
+« The main function is to connect several terminals that are close to each other
+(within a family, within one or more buildings, within a campus, for example).
+= Technologies used: Ethernet and Wi-Fi.
+« MAN:
+s Basic characteristics:
+= A MAN is a large-sized LAN, which requires high costs but can provide a higher
+transmission rate. It improves the transmission media in LANs and expands the
+access scope of LANs (able to cover a university campus or city).
+» The main function is to connect hosts, databases, and LANs at different locations
+in the same city.
+= The functions of a MAN are similar to those of a WAN except for implementation
+modes and performance.
+«= Technologies used: such as Ethernet (10 Gbit/s or 100 Gbit/s) and WiMAX.
+* WAN:
+«a Basic characteristics:
+
+Network Types Network Topologies
+@) ) LAN, MAN, and WAN in the Education Industry
+pe county Level
+"ay "ay
+Internet
+MAN core of the
+district-
+level/county-
+level education
+MAN core of the
+provincial
+education bureau
+MAN core of the
+municipal
+education bureau
+middle school
+LAN of a college LAN of a college LAN of a college
+or university or university or university
+Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Network Types Network Topologies
+[=| ) Network Topologies
+e A network topology is a structured layout presented using transmission media (such as twisted pairs and
+optical fibers) to interconnect various devices (such as computer terminals, routers, and switches).
+The network topology is used
+to describe the physical or
+logical structure of a network
+in the network engineering
+field, and is a very important
+network concept.
+Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Network topology drawing:
+a tis very important to master professional network topology drawing skills, which
+requires a lot of practice.
+« Visio and Power Point are two common tools for drawing network topologies.
+
+Network Types Network Topologies
+[=| ) Network Topology Types
+¢ Network topologies are classified into star, bus, ring, tree, full-mesh, and partial-mesh network
+topologies.
+ofc po
+Star network topology Bus network topology Ring network topology KA
+“e o & ch Combined network topology
+Tree network Full-mesh network Partial-mesh network
+topology topology topology
+Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Star network topology:
+a All nodes are connected through a central node.
+« Advantages: New nodes can be easily added to the network. Communication data must
+be forwarded by the central node, which facilitates network monitoring.
+« Disadvantages: Faults on the central node affect the communication of the entire
+network.
+* Bus network topology:
+2 All nodes are connected through a bus (coaxial cable for example).
+« Advantages: The installation is simple and cable resources are saved. Generally, the
+failure of a node does not affect the communication of the entire network.
+« Disadvantages: A bus fault affects the communication of the entire network. The
+information sent by a node can be received by all other nodes, resulting in low security.
+« Ring network topology:
+2 All nodes are connected to form a closed ring.
+« Advantages: Cables resources are saved.
+« Disadvantages: It is difficult to add new nodes. The original ring must be interrupted
+before new nodes are inserted to form a new ring.
+
+) Contents
+1. Communication and Networks
+2. Network Types and Topology Types
+3. Network Engineering and Network Engineers
+Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=] ) Network Engineering
+¢ Network engineering
+ao Network engineering refers to planning and designing feasible solutions based on network application requirements and computer
+network system standards, specifications, and technologies under the guidance of information system engineering methods and
+complete organizations, as well as integrating computer network hardware devices, software, and technologies to form a cost-
+effective network system that meets user requirements.
+¢ Technical modules covered by network engineering: Applicat
+pplication
+Wireless Routing Switching
+Equipment Media
+room=<
+Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« Network engineering covers a series of activities around the network, including network
+planning, design, implementation, commissioning, and troubleshooting.
+« The knowledge field of network engineering design is very wide, in which routing and
+switching are the basis of the computer network.
+
+[=] ) Network Engineer
+e¢ Network engineer
+o
+Network engineers are technology professionals who master professional network technologies, have professional skills,
+professionalism, and project implementation experience in the network engineering field, and are able to fully communicate with
+customers or other project stakeholders onsite. In addition, they can develop implementation solutions and project plans (recognized
+by project stakeholders) based on customer requirements and environment factors, fully mobilize resources of all parties to ensure
+timely and high-quality project implementation, and provide training for stakeholders and deliver engineering documents after the
+project is implemented.
+¢ Comprehensive capability models for network engineers:
+Process specification Business etiquette
+Industry knowledge Values
+Engineering knowledge Service awareness
+Product knowledge Information collection
+Technical knowledge Learning competency
+Team collaboration
+Business management
+Presentation capability
+Problem solving
+Communication
+capability
+Professional knowledge Basic qualification Professional skills
+Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Network Engineers’ Technology
+Development Path
+Overall capabilities Solution design, network planning, implementation,
+troubleshooting, and optimization
+=
+SC 6 Packet and
+o5 underlying Underlying working mechanism of protocols and packet details
+rs} e mechanisms
+=
+xc) 2 Protocol Open Shortest Path First (OSPF) connection establishment process
+° 3 mechanisms Detailed working process of the Spanning Tree Protocol (STP)
+ih
+©
+§ 2
+Ec . .
+o How to perform, verify, and query OSPF configurations
+Es
+©
+LL
+Routing and switching
+Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[Figura da Pag.1] Labels: eg Wha” 7; - wt; >; i " x CRALE C/ * -; soperne em Pe... a ee > < ee; Wie S 4) / > atcew kg >.. Caption: (errore caption)
+[Figura da Pag.1] Labels: sae ee ae eh: ays 6) ~~ A.B. 1308 es yy Ae rm 2; SD — <——=; Q M5) 4 UNIVERSITA DEGLI STUDI; MCCS DI PERUGIA. Caption: (errore caption)
+[Figura da Pag.1] Labels: Fondamenti di Internet; Data Communication Network Basis; Page 0 Gianluca Reali. Caption: (errore caption)
+[Figura da Pag.2] Labels: ) Foreword; ¢ Communication has always been with us ever since the origin of human society.; Communication has been playing an increasingly important role especially since human. Caption: (errore caption)
+[Figura da Pag.2] Labels: society entered the information era in the 1970s or 1980s.; ¢ The communication mentioned in this course refers to the communication implemented; through a data communication network. This course describes the concepts related to; communication and a data communication network, information transfer process,; network devices and their fliinctione network tyvnes and tvnical networking In addition. Caption: (errore caption)
+[Figura da Pag.2] Labels: this course briefly introduces the concepts related to network engineering and network; engineers.; Page 1 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.3] Labels: or ) Objectives; ¢ Oncompletion of this course, you will be able to:; o Understand the concepts related to communication and a data communication network.. Caption: (errore caption)
+[Figura da Pag.3] Labels: © Be able to describe the information transfer process.; . Differentiate network devices of different types and understand their basic functions.; o Understand different network types and topology types.; o Understand the concepts related to network engineering and network engineers.. Caption: (errore caption)
+[Figura da Pag.3] Labels: Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.4] Labels: Device Icons; eS ie Ce 2S f=) fe) SS Fa oO) &. Caption: (errore caption)
+[Figura da Pag.4] Labels: =o Saxe dl Ea bel Ee EEE dl — me; General General Core switch Aggregation Access Stacked Firewall General NUS AP Base; router switch switch switch switches station; E ig E —] On = “an Estcrcrica te; General Cluster FTP server Authentication PN user Enterprise Enterprise Business trip AC Wi-Fi signals; server server network user. Caption: (errore caption)
+[Figura da Pag.4] Labels: @& @® >) &aAGuodt; Internet Network Network IP phone PC Pad Mobile Laptop; cloud 1 cloud 2 phone; Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.5] Labels: Data communication network; Concept of Network Communication; ¢ Communication refers to the information transfer and exchange between people, between people and; things, and between things through a certain medium and behavior.; e Network communication refers to communication between terminal devices through a computer network.. Caption: (errore caption)
+[Figura da Pag.5] Labels: e Examples of network communication:; Data; Ik _—_—_—_ _]k & Router; A. Files are transferred between two computers Zp; (terminals) through a network cable. Data; — | ee —_ |. Caption: (errore caption)
+[Figura da Pag.5] Labels: Data Li Li i Lk; —<$<$<$£§; Lik Int t B. Files are transferred among multiple; i nterne computers (terminals) through a router.; C. A computer (terminal) downloads; files through the Internet.; Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.6] Labels: Contents; 1. Communication and Networks; 2. Network Types and Topology Types. Caption: (errore caption)
+[Figura da Pag.6] Labels: 3. Network Engineering and Network Engineers. Caption: (errore caption)
+[Figura da Pag.6] Labels: Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.7] Labels: Information Transfer Process; ¢ Virtual information transfer is similar to real object transfer.; OEE. Caption: (errore caption)
+[Figura da Pag.7] Labels: NY +; ¢— —frel —>(— fel—_J—o; Objects Package Distribution center Sky Distribution center Package Objects; Packet Packe; | — — —. Caption: (errore caption)
+[Figura da Pag.7] Labels: U Vata U U; Eos = Lees ee; : Internet |; lll =; Computer Gateway router Internet Gateway router Computer; Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.8] Labels: Data communication network; Common Terms oacket; Data naviload Information conveved. Caption: (errore caption)
+[Figura da Pag.8] Labels: Packet Data unit switched and transmitted on the network; Header Information segment added before the data payload; Tail Information segment added after the data payload; Encapsulation Process of adding a header and a tail to a data payload to form a new packet; Decapsulation Process of removing the header and tail from a packet to obtain the data payload; Anteras, Network device that provides functions such as protocol conversion, route selection,. Caption: (errore caption)
+[Figura da Pag.8] Labels: oad and data exchange; Router Network device that selects a forwarding path for packets; Terminal device End device of a data communication system, used as a sender or receiver of data; Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.9] Labels: Concept of the Data Communication Network; Internet; * Data communication network: core equiomentroom STR / \. Caption: (errore caption)
+[Figura da Pag.9] Labels: Communication network that Controller ae 7B” 7=?; ; ; NMS ¥<; consists of routers, switches, Application server El an ~~; firewalls, access controllers (ACs), < — < d,; access points (APs), PCs, network —<; * Function: AN" N"4 Na” Na" Na" Na; a6 a’s fa as as fas an. Caption: (errore caption)
+[Figura da Pag.9] Labels: To implement data communication Se ee; Office area 1 Office area 2 Office area 3; Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.10] Labels: ¢ Switch: a device closest to end users, used to access the network and switch data frames; o Network access of terminals (such as PCs and servers). Caption: (errore caption)
+[Figura da Pag.10] Labels: o Layer 2 switching; Switch —_. Caption: (errore caption)
+[Figura da Pag.10] Labels: Ci Ci; Broadcast domain; Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.11] Labels: Network communication; e Router: a network-layer device that forwards data packets on the Internet. Based on the destination; address in a received packet, a router selects a path to send the packet to the next router or destination.; oe [ee es Lene: S| San fe ae a Hy ee ee eee tn: f en! ee Se ee 2 ee ee fener fc: fe ie. Caption: (errore caption)
+[Figura da Pag.11] Labels: THIS TAOt PUULOT VIE LIS PALIT lo PO OVUTISINICG TUT SULIT LI PAYING LY LIS UC OLITIALIU TT Trot.; a Implementing communication between networks of; the same type or different types Ci Ci; a Isolating broadcast domains; Router; a Maintaining the routing table and running >]; routing protocols | |. Caption: (errore caption)
+[Figura da Pag.11] Labels: a Selecting routes and forwarding IP packets 5 5; a Implementing WAN access and network = =; address translation Broadcast domain A Broadcast domain B; a Connecting Layer 2 networks established through switches; Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.12] Labels: BY Network communication; e Firewall: a network security device used to ensure secure communication between two networks. It; monitors, restricts, and modifies data flows passing through it to shield information, structure, and running; a eT EN ase Se, Te ee) ee eT ee: | Sees Sy Pen ae ey. Caption: (errore caption)
+[Figura da Pag.12] Labels: VLALUS VETILOTTIGL TIOLVVY UI TET Ie MUNITY TIOLVV UTI. U t t; ntrust zone; a Isolating networks of different security levels; : : : a Internet; a Implementing access control (using security policies); between networks of different security levels DMz; a Implementing user identity authentication = Firewall; a Implementing remote access |. Caption: (errore caption)
+[Figura da Pag.12] Labels: = Supporting data encryption and VPN services Trust zone; = Implementing network address translation So IN; 5 Implementing other security functions Ci Ci; Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.13] Labels: Wireless devices. Caption: (errore caption)
+[Figura da Pag.13] Labels: TWMernet TWernnet; A; c; | e e e e; —_ —_ — —_; ~~”, WLAN (Wi-Fi) ~~, ~~, ~~,. Caption: (errore caption)
+[Figura da Pag.13] Labels: Chk | | LJ; Wired terminal Wireless terminal Wireless Wireless; terminal terminal; Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.14] Labels: Contents; 1. Communication and Networks; 2. Network Types and Topology Types. Caption: (errore caption)
+[Figura da Pag.14] Labels: 3. Network Engineering and Network Engineers. Caption: (errore caption)
+[Figura da Pag.14] Labels: Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.15] Labels: Network Topologies; LAN, MAN, and WAN; e Based on the geographical coverage, networks can be classified into local area networks (LANs),; metropolitan area networks (MANs), and wide area networks (WANs).; rf TARI. Caption: (errore caption)
+[Figura da Pag.15] Labels: eR Te; = ALAN is a network that consists of computers, servers, and network devices in a geographic area. The coverage of a LAN is; generally within several thousand square meters.; = Typical LANs include a company's office network, a cyber bar network, a home network.; a MAN; = AMAN is a computer communication network established within a city.; = Typical MANs include broadband MANs, education MANs, and municipal or provincial e-government private lines.. Caption: (errore caption)
+[Figura da Pag.15] Labels: ao WAN; = AWAN generally covers a large geographical area ranging from tens of square kilometers to thousands of square kilometers. It; can connect networks of multiple cities or even networks of countries (as an international large-scale network) and provide long-; distance communication.; = The Internet is a typical WAN.; Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.16] Labels: Network Topologies; LAN, MAN, and WAN in the Education Industry; ==. Caption: (errore caption)
+[Figura da Pag.16] Labels: ip, An, Up. cy, Sp TY; Internet 99 Clay “ea ay, cy; S MAN core of the; MAN core of the MAN core of the district-; & & provincial & & municipal & & level/county-; a. education bureau 2 3 education bureau level education; < << < <> oe - bureau; eco eco eco. Caption: (errore caption)
+[Figura da Pag.16] Labels: oa ah oa; LAN of a LAN of a LAN ofa; middle school middle school primary school; LAN of a college LAN of a college LAN of a college; or university or university or university; Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.17] Labels: Network Types; Network Topologies; e A network topology is a structured layout presented using transmission media (such as twisted pairs and; optical fibers) to interconnect various devices (such as computer terminals, routers, and switches).. Caption: (errore caption)
+[Figura da Pag.17] Labels: “Sey “Sey; z=” 7=”; =i =i The network topology is used; A to describe the physical or; ) logical structure of a network; ar. in the network engineering; field, and is a very important; network concept.; 4. 9 (9.. Caption: (errore caption)
+[Figura da Pag.17] Labels: Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.18] Labels: Network Types; Network Topology Types; ¢ Network topologies are classified into star, bus, ring, tree, full-mesh, and partial-mesh network; topologies.. Caption: (errore caption)
+[Figura da Pag.18] Labels: Star network topology Bus network topology Ring network topology KA. Caption: (errore caption)
+[Figura da Pag.18] Labels: a4 ; os Be? ( c ) Combined network topology; Tree network Full-mesh network Partial-mesh network; topology topology topology; Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.19] Labels: Contents; 1. Communication and Networks; 2. Network Types and Topology Types. Caption: (errore caption)
+[Figura da Pag.19] Labels: 3. Network Engineering and Network Engineers. Caption: (errore caption)
+[Figura da Pag.19] Labels: Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.20] Labels: ¢ Network engineering; o Network engineering refers to planning and designing feasible solutions based on network application requirements and computer; network system standards, specifications, and technologies under the guidance of information system engineering methods and. Caption: (errore caption)
+[Figura da Pag.20] Labels: complete organizations, as well as integrating computer network hardware devices, software, and technologies to form a cost-; effective network system that meets user requirements.; ¢ Technical modules covered by network engineering:; Application; Storage Security Calculation; Wireless Routing Switching. Caption: (errore caption)
+[Figura da Pag.20] Labels: Equipment Media; room; Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.21] Labels: ¢ Network engineer; o Network engineers are technology professionals who master professional network technologies, have professional skills,; professionalism, and project implementation experience in the network engineering field, and are able to fully communicate with. Caption: (errore caption)
+[Figura da Pag.21] Labels: customers or other project stakeholders onsite. In addition, they can develop implementation solutions and project plans (recognized; by project stakeholders) based on customer requirements and environment factors, fully mobilize resources of all parties to ensure; timely and high-quality project implementation, and provide training for stakeholders and deliver engineering documents after the; project is implemented.; * Comprehensive capability models for network engineers:; Process specification Business etiquette Team collaboration; Indiicetns bnnudlandag Vlalhiac Rircinace mananamant. Caption: (errore caption)
+[Figura da Pag.21] Labels: cc laciaeialame aetna Scie laaiaataalare- jail —— ie ~ pas; Engineering knowledge Service awareness Presentation capability; Product knowledge Information collection Problem solving; Technical knowledge Learning competency lla; Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.22] Labels: Network Engineers’ Technology; Development Path. Caption: (errore caption)
+[Figura da Pag.22] Labels: ey HOUMIESSTUUUTIY, AIIM OVUM LAUT; =; Bo Packet and; ° fy underlying Underlying working mechanism of protocols and packet details; 5 £ mechanisms; E; £ 2 Protocol Open Shortest Path First (OSPF) connection establishment process; ° - mechanisms Detailed working process of the Spanning Tree Protocol (STP); i; is]; ga; Es . .; = 2 How How to perform, verify, and query OSPF configurations. Caption: (errore caption)
+[Figura da Pag.22] Labels: oO ———; i; WL; Routing and switching; Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)

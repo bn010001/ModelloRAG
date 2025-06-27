@@ -1,0 +1,117 @@
+GEE .
+OL ar S82@ @0Meyve a"
+ee \ 0.1308 —
+Bd << 8
+| at S IS unl Pg Chi sei? Cosa cerchi? Contatti
+nr - i, —
+COREE” rapteooh ae Home Ateneo Didattica Ricerca Terza missione Internazionale Servizi Disabilita e DSA
+Didattica Insegnamento FONDAMENTI DI INTERNET
+—<—
+Bandi e news
+Corsi di laurea e laurea 5 A
+. English version
+magistrale
+Nome del corso di Ingegneria informatica ed elettronica
+‘ Area economico- laurea
+giuridico-sociale
+Codice A001255
+‘ Area medico-sanitaria- insegnamento
+veterinaria Curriculum Ingegneria informatica
+‘ Area scientifica Docente Gianluca Reali
+responsabile
+\ Area tecnologica
+Docenti — Gianluca Reali
+« Area umanistica
+Ore — 108 Ore - Gianluca Reali
+Percorsi post laurea CFU 9
+Procedura DaD Regolamento Coorte 2021
+Agevolazione Trasporto Erogato Erogato nel 2023/24
+Puslenlorcte Erogato altro Informazioni sull'attivita didattica
+PA 110 e lode regolamento Coorte 2019 - Erogato nell'anno 2021
+Corsi a numero Attivita Caratterizzante
+[ieee eae Ambito Ingegneria delle telecomunicazioni
+Goeiuorle Settore ING-INF/03
+internazionali
+. ; Periodo Primo Semestre
+University Corridors Project
+for Refugee Students Tipoinsegnamento —_ Obbligatorio (Required)
+Open Badge Tipo attivita Attivita formativa monodisciplinare
+Stage e tirocini Lingua Italiano
+insegnamento
+Procedure amministrative
+Contenuti Insegnamento di base sulle tecnologie IP
+Segreterie
+; a Testi di riferimento Dispense a cura del docente.
+Valutazione della didattica Achille Pattavina, Reti di telecomunicazioni, McGraw-Hill.
+Documentazione di J.F. Kurose, K.W. Ross "Reti di calcolatori e internet. Un approccio top-down", Pearson.
+riferimento Obi aa r or ‘i
+jettivi formativi Lobiettivo generale dell'insegnamento é di fornire conoscenze di base nel settore del
+networking e sufficienti competenze per un curriculum accademico di primo livello per
+affrontare un colloquio di lavoro sugli aspetti generali delle reti telematiche, con una
+buona sensibilita sugli aspetti innovativi. Altresi, le competenze e conoscenze acquisite
+consentono di proseguire gli studi con efficacia affrontando tematiche sia a livello
+trasmissivo sia per la progettazione di reti IP e cellulari di ultima generazione.
+Prerequisiti Per affrontare con efficacia le tematiche trattate nell'insegnamento occorre avere
+competenze di base nell'informatica.
+Metodi didattici Lezioni frontali.
+Esercitazioni al calcolatore.
+Altre informazioni Il programma é incentrato sui protocolli di rete che sono alla base del funzionamento di
+Internet, al fine di comprenderne le potenzialita' e i limiti.
+Modalita di verifica La prova d'esame consiste in una prova scritta in una prova orale.
+dell'apprendimento
+La durata della prova scritta é di due ore. La durata della prova orale é di circa trenta
+minuti.
+Gli obiettivi della valutazione consistono nella valutazione dell'apprendimento delle
+competenze metodologiche e della capacita di applicare le tecniche e i protocolli
+studiati a situazioni applicative.
+Per informazioni sui servizi di supporto agli studenti con disabilita e/o DSA visita la
+pagina http://www.unipg. it/disabilita-e-dsa
+Programma esteso Introduzione ai sistemi di TLC
+Architetture dei sistemi di TLC
+- Modi di trasferimento - Tecniche di multiplazione, commutazione e architettura
+protocollare
+- Architetture protocollari. Modelli ISO-OSI, TCP/IP.
+- Protocolli per il controllo dell'errore. Stop-and-wait, Go-back-N, Selective Repeat.
+- High-Level Data Link Control (HDLC).
+- Servizi di rete. Algoritmi di routing Link State (Dijkstra) e Distance Vector (Bellman-
+Ford).
+- Controllo di flusso e di congestione a strato di rete.
+- Lo strato di rete nell'architettura TCP/IP - ARP/RARP
+- Lo strato di rete nell'architettura TCP/IP - II protocollo IP
+- Lo strato di rete nell'architettura TCP/IP - ICMP
+- Servizi di trasporto - | protocolli UDP e TCP
+-IP V6
+- MPLS and Segment Routing
+3 CFU aggiuntivi per Ingegneria Elettronica: Introduzione alla trasmissione
+dellinformazione
+- ll rumore nei sistemi di telecomunicazione: rapporto segnale-rumore, unita
+logaritmiche.
+- Codifica di sorgente e teoria dell'informazione: entropia di sorgente, codifica di
+sorgente, algoritmo di Huffman, quantizzazione, PCM, capacita di canale.
+- Comunicazioni numeriche in banda base: onda PAM, sagomatura delle forme d'onda,
+larghezza di banda, criterio di Nyquist per l'assenza di interferenza intersimbolica, filtro
+adattato.
+- Comunicazioni numeriche in banda traslata: modello equivalente in banda base,
+modulazioni numeriche (ASK, PSK, QAM), prestazioni dei sistemi di modulazione
+numerica.
+Condividi su
+Unipg.it Unipg.it Collaborazioni Universita degli Studi di Perugia Social
+— a — — —
+Accessibilita PagoPA | nostri partner © Piazza Universita, 1 © © ¥)
+Albo online Piano delle performance 06123 Perugia
+i ; ; ; ; Certificazioni
+Amministrazione trasparente Protezione dati personali ———————
+Assistenza e FAQ Sicurezza online . & +39 0755851
+ateen Certificazioni ISO
+Atti di notifica Tuttogare on CUN
+»
+Bandi di gara e contratti Cookie Comunicazione - LMUBE 0.15108 ——
+anc , @ Contatti 5 |
+Bilanci Credits a & ah We unipg
+Codice etico II Portale Magazine e Risorse per la Oe
+FOIA Mappa sito stampa Succes IPERUGIA
+Note legali Statistiche Radio e Social media
+Merchandising e shop
+5xmille, Donazioni, Fundraising
+© 2023 - Universita degli Studi di Perugia
+[Caption] (Errore generazione caption)

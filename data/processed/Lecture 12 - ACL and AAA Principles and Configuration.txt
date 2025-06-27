@@ -1,0 +1,2640 @@
+Page 0
+Fondamenti di Internet
+ACL and AAA Principles and Configuration
+Prof.Gianluca Reali
+
+• Note:
+▫
+The implementation of ACLs varies with vendors. This course describes the ACL technology 
+implemented on Huawei devices.
+▫
+A local area network (LAN) is a computer network that connects computers in a limited 
+area, such as a residential area, a school, a lab, a college campus, or an office building.
+Page 1
+Foreword
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+Security is a key issue in current networks and a basic related knowledge is essential
+
+Access control lists (ACLs) are closely related to network security and QoS. By accurately identifying
+packet flows on a network and working with other technologies, ACLs can control network access
+behaviors, prevent network attacks, and improve network bandwidth utilization, thereby ensuring
+network environment security and QoS reliability.
+
+Authentication, authorization, and accounting (AAA) is a management framework that provides a
+security mechanism for authorizing some users to access specified resources and recording the
+operations of these users. AAA is widely used because of its good scalability and easy implementation of
+centralized management of user information. AAA can be implemented through multiple protocols.
+Currently, the Remote Authentication Dial-In User Service (RADIUS) protocol is the most commonly used
+to implement AAA.
+
+Page 2
+Objectives
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+On completion of this course, you will be able to:
+▫Understand basic principle on network security
+▫Describe the basic principles and functions of ACLs and AAA
+▫Understand the types and characteristics of ACLs.
+▫Describe the basic composition of ACLs and ACL rule ID matching order.
+▫Describe the application scenarios of AAA.
+▫Understand the fundamentals of RADIUS.
+▫Get familiar with the basic configurations of ACLs and AAA
+
+Page 3
+Contents
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+1.
+Security Background
+2.
+ACL Overview
+3.
+Basic Concepts and Working Mechanism of ACLs
+4.
+Basic Configurations and Applications of ACLs
+5.
+AAA Overview
+6.
+AAA Configuration
+
+4
+Page 4
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+confidentiality: only sender, intended receiver should “understand” message contents
+▫sender encrypts message
+▫receiver decrypts message
+authentication: sender, receiver want to confirm identity of each other
+message integrity: sender, receiver want to ensure message not altered (in transit, or
+afterwards) without detection
+access and availability: services must be accessible and available to users
+What is network security?
+
+5
+Page 5
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+well-known in network security world
+Bob, Alice want to communicate“securely”
+Trudy (intruder) may intercept, delete, add messages
+Friends and enemies: Alice, Bob, Trudy
+secure
+sender
+secure
+receiver
+channel
+data, control 
+messages
+data
+data
+Alice
+Bob
+Trudy
+
+6
+Page 6
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+▫eavesdrop: intercept messages
+▫actively insert messages into connection
+▫impersonation: can fake (spoof) source address in packet (or any field in 
+packet)
+▫hijacking: “take over” ongoing connection by removing sender or 
+receiver, inserting himself in place
+▫denial of service: prevent service from being used by others (e.g.,  by 
+overloading resources)
+There are bad guys out there!
+
+Page 7
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+m plaintext message
+KA(m) ciphertext, encrypted with key KA
+m = KB(KA(m))
+The language of cryptography
+plaintext
+plaintext
+ciphertext
+KA
+encryption
+algorithm
+decryption 
+algorithm
+Alice’s 
+encryption
+key
+Bob’s 
+decryption
+key
+KB
+
+Page 8
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+symmetric key crypto: Bob and Alice share same (symmetric) key: K
+e.g., key is knowing substitution pattern in mono alphabetic substitution cipher
+Q: how do Bob and Alice agree on key value?
+Symmetric key cryptography
+plaintext
+ciphertext
+K S
+encryption
+algorithm
+decryption 
+algorithm
+S
+K S
+plaintext
+message, m
+K    (m)
+S
+m = KS(KS(m))
+
+Page 9
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+substitution cipher: substituting one thing for another
+▫monoalphabetic cipher: substitute one letter for another
+Simple encryption scheme
+plaintext:  abcdefghijklmnopqrstuvwxyz
+ciphertext:  mnbvcxzasdfghjklpoiuytrewq
+Plaintext: bob. i love you. alice
+ciphertext: nkn. s gktc wky. mgsbc
+e.g.:
+Encryption key: mapping from set of 26 letters
+to set of 26 letters
+
+Page 10
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+DES: Data Encryption Standard
+US encryption standard [NIST 1993]
+56-bit symmetric key, 64-bit plaintext input
+block cipher with cipher block chaining
+how secure is DES?
+▫DES Challenge: 56-bit-key-encrypted phrase  decrypted (brute force) in less than a day
+▫no known good analytic attack
+making DES more secure:
+▫3DES: encrypt 3 times with 3 different keys
+Symmetric key crypto: DES
+
+Page 11
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Symmetric key 
+crypto: DES
+initial permutation 
+16 identical “rounds” of 
+function application, 
+each using different 48 
+bits of key
+final permutation
+DES operation
+
+Page 12
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+AES: Advanced Encryption Standard
+symmetric-key NIST standard, replaced DES (Nov 2001)
+processes data in 128 bit blocks
+128, 192, or 256 bit keys
+brute force decryption (try each key) taking 1 sec on DES, takes 149 trillion years for AES
+
+Page 13
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Public Key Cryptography
+symmetric key crypto
+requires sender, receiver know shared 
+secret key
+Q: how to agree on key in first place 
+(particularly if never “met”)?
+public key crypto
+radically different 
+approach [Diffie-
+Hellman76, RSA78]
+sender, receiver do not
+share secret key
+public encryption key 
+known to all
+private decryption key 
+known only to receiver
+
+Page 14
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Public key cryptography
+plaintext
+message, m
+ciphertext
+encryption
+algorithm
+decryption 
+algorithm
+Bob’s public 
+key 
+plaintext
+message
+K  (m)
+B
++
+K B
++
+Bob’s private
+key 
+K B
+-
+m = K  (K  (m))
+B
++
+B
+-
+
+Page 15
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Public key encryption algorithms
+need K  (  ) and K  (  ) such that
+B
+B
+given public key K   , it should be 
+impossible to compute private 
+key K  B
+B
+requirements:
+1
+2
+RSA: Rivest, Shamir, Adelson algorithm
++
+-
+K  (K  (m))  =  m 
+B
+B
+-
++
++
+-
+
+Page 16
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Prerequisite: modular arithmetic
+
+x mod n = remainder of x when divide by n
+
+facts:
+[(a mod n) + (b mod n)] mod n = (a+b) mod n
+proof: (a mod n)=a’; (b mod n)=b’; 
+(a+b mod n)=(kn+a’+hn+b’)mod n=(a’+b’)mod n
+[(a mod n) - (b mod n)] mod n = (a-b) mod n
+[(a mod n) * (b mod n)] mod n = (a*b) mod n
+
+thus
+(a mod n)d mod n = ad mod n
+
+example: x=14, n=10, d=2:
+(x mod n)d mod n = 42 mod 10 = 6
+xd = 142 = 196   xd mod 10  = 6 
+Modulo 7
+
+Page 17
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+RSA: getting ready
+message: just a bit pattern
+bit pattern can be uniquely represented by an integer number 
+thus, encrypting a message is equivalent to encrypting a number.
+example:
+m= 10010001 . This message is uniquely represented by the decimal number 145. 
+to encrypt m, we encrypt the corresponding number, which gives a new number (the 
+ciphertext).
+
+Page 18
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+RSA: Creating public/private key pair
+1. choose two large prime numbers p, q.
+(e.g., 1024 bits each)
+2. compute n = pq,  z = (p-1)(q-1)
+3. choose e (with e<n) that has no common factors
+with z (e, z are “relatively prime”).
+4. choose d such that ed-1 is  exactly divisible by z.
+(in other words: ed mod z  = 1 ).
+5. public key is (n,e). private key is (n,d).
+K B
++
+K B
+-
+
+Page 19
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+RSA: encryption, decryption
+0. given (n,e) and (n,d) as computed above
+1. to encrypt message m (<n), compute
+c = m   mod n
+e
+2. to decrypt received bit pattern, c, compute
+m = c   mod n
+d
+m  =  (m   mod n)
+e
+mod n
+d
+magic
+happens!
+c
+
+Page 20
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Why does RSA work?
+must show that cd mod n = m 
+where c = me mod n
+fact: for any x and y: xy mod n = x(y mod z) mod n
+▫Where n=pq, and p and q are prime numbers and z = (p-1)(q-1)
+thus, 
+cd mod n = (me mod n)d mod n
+= med mod n 
+= m(ed mod z) mod n
+= m1 mod n
+= m
+
+Page 21
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+RSA example:
+Bob chooses p=5, q=7.  Then n=35, z=24.
+e=5 (so e, z relatively prime).
+d=29 (so ed-1 exactly divisible by z).
+bit pattern
+m
+me
+c = m  mod  n
+e
+0000lI00
+12
+248832
+17
+encrypt:
+encrypting 8-bit messages.
+c
+m = c  mod  n
+d
+17
+481968572106750915091411825223071697
+12
+cd
+decrypt:
+
+Page 22
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+RSA: another important property
+The following property will be very useful later:
+K  (K  (m)) =  m 
+B
+B
+-
++
+K  (K  (m))
+B
+B
++
+-
+=
+use public key first, 
+followed by 
+private key 
+use private key 
+first, followed by 
+public key 
+result is the same!
+
+Page 23
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Authentication
+Goal: Bob wants Alice to “prove” her identity to him
+Protocol ap1.0: Alice says “I am Alice”
+Failure scenario??
+“I am Alice”
+
+Page 24
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Authentication
+in a network,
+Bob can not “see” Alice, 
+so Trudy simply declares
+herself to be Alice
+“I am Alice”
+Goal:  Bob wants Alice to “prove” her identity to him
+Protocol ap1.0: Alice says “I am Alice”
+
+Page 25
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Authentication: another try
+Protocol ap2.0: Alice says “I am Alice” in an IP packet
+containing her source IP address 
+Failure scenario??
+“I am Alice”
+Alice’s 
+IP address
+
+Page 26
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Authentication: another try
+Trudy can create
+a packet 
+“spoofing”
+Alice’s address
+“I am Alice”
+Alice’s 
+IP address
+Protocol ap2.0: Alice says “I am Alice” in an IP packet
+containing her source IP address 
+
+Page 27
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Authentication: another try
+Protocol ap3.0:  Alice says “I am Alice” and sends her
+secret password to “prove” it.
+Failure scenario??
+“I’m Alice”
+Alice’s 
+IP addr
+Alice’s 
+password
+OK
+Alice’s 
+IP addr
+
+Page 28
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Authentication: another try
+playback attack: Trudy 
+records Alice’s packet
+and later
+plays it back to Bob 
+“I’m Alice”
+Alice’s 
+IP addr
+Alice’s 
+password
+OK
+Alice’s 
+IP addr
+“I’m Alice”
+Alice’s 
+IP addr
+Alice’s 
+password
+Protocol ap3.0:  Alice says “I am Alice” and sends her
+secret password to “prove” it.
+
+Page 29
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Authentication: yet another try
+Protocol ap3.1:  Alice says “I am Alice” and sends her
+encrypted secret password to “prove” it.
+Failure scenario??
+“I’m Alice”
+Alice’s 
+IP addr
+encrypted 
+password
+OK
+Alice’s 
+IP addr
+
+Page 30
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Authentication: yet another try
+record
+and
+playback
+still works!
+“I’m Alice”
+Alice’s 
+IP addr
+encrypted
+password
+OK
+Alice’s 
+IP addr
+“I’m Alice”
+Alice’s 
+IP addr
+encrypted
+password
+Protocol ap3.1:  Alice says “I am Alice” and sends her
+encrypted secret password to “prove” it.
+
+Page 31
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Authentication: yet another try
+Goal: avoid playback attack
+Failures, drawbacks?
+nonce: number (R) used only once-in-a-lifetime
+ap4.0: to prove Alice “live”, Bob sends Alice nonce, R.  Alice
+must return R, encrypted with shared secret key
+“I am Alice”
+R
+K    (R)
+A-B
+Alice is live, and 
+only Alice knows 
+key to encrypt 
+nonce, so it must 
+be Alice!
+
+Page 32
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Authentication: ap5.0
+ap4.0 requires shared symmetric key 
+can we authenticate using public key techniques?
+ap5.0: use nonce, public key cryptography
+“I am Alice”
+R
+Bob computes
+K   (R)
+A
+-
+“send me your public key”
+K  A
++
+(K  (R)) = R
+A
+-
+K   A
++
+and knows only Alice 
+could have the private 
+key, that encrypted R 
+such that
+(K  (R)) = R
+A
+-
+K  A
++
+
+Page 33
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+ap5.0: security hole
+man (or woman) in the middle attack: Trudy poses as Alice 
+(to Bob) and as Bob (to Alice)
+I am Alice
+I am Alice
+R
+T
+K   (R)
+-
+Send me your public key
+T
+K   +
+A
+K   (R)
+-
+Send me your public key
+A
+K   +
+T
+K   (m)
++
+T
+m = K  (K   (m))
++
+T
+-
+Trudy gets
+sends m to Alice 
+encrypted with 
+Alice’s public key
+A
+K  (m)
++
+A
+m = K  (K   (m))
++
+A
+-
+R
+
+Page 34
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Digital signatures 
+cryptographic technique analogous to hand-written signatures:
+sender (Bob) digitally signs document,  establishing he is document 
+owner/creator. 
+verifiable, nonforgeable: recipient (Alice) can prove to someone that 
+Bob, and no one else (including Alice), must have signed document 
+
+Page 35
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Digital signatures 
+simple digital signature for message m:
+Bob signs m by encrypting with his private key KB, creating “signed” message, KB(m)
+-
+-
+Dear Alice
+Oh, how I have missed 
+you. I think of you all the 
+time! …(blah blah blah)
+Bob
+Bob’s message, m
+Public key
+encryption
+algorithm
+Bob’s private
+key 
+K B
+-
+Bob’s message, m, 
+signed (encrypted) 
+with his private key
+m,K B
+- (m)
+
+Page 36
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Digital signatures 
+Alice thus verifies that:
+Bob signed m
+no one else signed m
+Bob signed m and not m’
+non-repudiation:
+Alice can take m, and signature KB(m) to court and prove that Bob signed m
+suppose Alice receives msg m, with signature: m, KB(m)
+Alice verifies m signed by Bob by applying Bob’s public key KB to KB (m) then 
+checks KB (KB(m) ) = m.
+If KB(KB(m) ) = m, whoever signed m must have used Bob’s private key.
+-
+-
+-
+-
+-
++
++
++
+
+Page 37
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Message digests
+computationally expensive to public-key-
+encrypt long messages 
+goal: fixed-length, easy- to-compute digital 
+“fingerprint”
+apply hash function H to m, get fixed size 
+message digest, H(m).
+Hash function properties:
+many-to-1
+produces fixed-size msg digest 
+(fingerprint)
+given message digest x, 
+computationally infeasible to find m 
+such that x = H(m)
+large 
+message
+m
+H: Hash
+Function
+H(m)
+
+Page 38
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Hash function algorithms
+MD5 hash function widely used (RFC 1321) 
+▫computes 128-bit message digest in 4-step process. 
+▫arbitrary 128-bit string x, appears difficult to construct msg m whose 
+MD5 hash is equal to x
+SHA-1 is also used
+▫US standard [NIST, FIPS PUB 180-1]
+▫160-bit message digest
+
+Page 39
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Digital signature = signed message digest
+Alice verifies signature, integrity of 
+digitally signed message:
+large 
+message
+m
+H: Hash
+function
+H(m)
+digital
+signature
+(encrypt)
+Bob’s 
+private
+key K B
+-
++
+Bob sends digitally signed 
+message:
+KB(H(m))
+-
+encrypted 
+msg digest
+KB(H(m))
+-
+encrypted 
+msg digest
+large 
+message
+m
+H: Hash
+function
+H(m)
+digital
+signature
+(decrypt)
+H(m)
+Bob’s 
+public
+key K B
++
+equal
+?
+
+Page 40
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Public-key certification: Certification authorities
+certification authority (CA): binds public key to particular entity, E.
+E (person, router) registers its public key with CA.
+▫E provides “proof of identity” to CA. 
+▫CA creates certificate binding E to its public key.
+▫certificate containing E’s public key digitally signed by CA – CA says “this is E’s public key”
+Bob’s 
+public
+key K B
++
+Bob’s 
+identifying 
+information 
+digital
+signature
+(encrypt)
+CA 
+private
+key K CA
+-
+K B
++
+certificate for 
+Bob’s public key, 
+signed by CA
+
+Page 41
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Certification authorities
+when Alice wants Bob’s public key:
+▫gets Bob’s certificate (Bob or elsewhere).
+▫apply CA’s public key to Bob’s certificate, get Bob’s public key
+Bob’s 
+public
+key 
+K B
++
+digital
+signature
+(decrypt)
+CA 
+public
+key 
+K CA
++
+K B
++
+
+42
+Page 42
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Secure e-mail 
+Alice:
+generates random symmetric private key, KS
+encrypts message with KS  (for efficiency)
+also encrypts KS with Bob’s public key
+sends both KS(m) and KB(KS) to Bob
+Alice wants to send confidential e-mail, m, to Bob.
+KS( ).
+KB( ).
++
++
+-
+KS(m )
+KB(KS )
++
+m
+KS
+KS
+KB
++
+Internet
+KS( ).
+KB( ).
+-
+KB
+KS
+m
+KS(m )
+KB(KS )
++
+-
+
+43
+Page 43
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Secure e-mail 
+Bob:
+uses his private key to decrypt and recover KS
+uses KS to decrypt KS(m) to recover m
+Alice wants to send confidential e-mail, m, to Bob.
+KS(  ).
+KB(  ).
++  
++
+-
+KS(m )
+KB(KS )
++
+m
+KS
+KS
+KB
++
+Internet
+KS(  ).
+KB(  ).
+-
+KB
+-
+KS
+m
+KS(m )
+KB(KS )
++
+
+44
+Page 44
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Secure e-mail (continued)
+Alice wants to provide sender authentication message integrity
+Alice digitally signs message
+sends both message (in the clear) and digital signature
+H(  ).
+KA(  ).
+-
++
+-
+H(m )
+KA(H(m))
+-
+m
+KA
+-
+Internet
+m
+KA(  ).
++
+KA
++
+KA(H(m))
+-
+m
+H(  ).
+H(m )
+compare
+
+45
+Page 45
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Secure e-mail (continued)
+Alice wants to provide secrecy, sender authentication, 
+message integrity.
+Alice uses three keys: her private key, Bob’s public key, newly 
+created symmetric key
+H(  ).
+KA(  ).
+-
++
+KA(H(m))
+-
+m
+KA
+-
+m
+KS(  ).
+KB(  ).
++
++
+KB(KS )
++
+KS
+KB
++
+Internet
+KS
+
+Page 46
+Contents
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+1.
+Security Background
+2.
+ACL Overview
+3.
+Basic Concepts and Working Mechanism of ACLs
+4.
+Basic Configurations and Applications of ACLs
+5.
+AAA Overview
+6.
+AAA Configuration
+
+• Rapid network development brings the following issues to network security and QoS:
+▫
+Resources on the key servers of an enterprise are obtained without permission, and 
+confidential information of the enterprise leaks, causing a potential security risk to the 
+enterprise.
+▫
+The virus on the Internet spreads to the enterprise intranet, threatening intranet security.
+▫
+Network bandwidth is occupied by services randomly, and bandwidth for delay-sensitive 
+services such as voice and video cannot be guaranteed, lowering user experience.
+• These issues seriously affect network communication, so network security and QoS need to be 
+improved urgently. For example, a tool is required to filter traffic.
+• https://support.huawei.com/enterprise/it/doc/EDOC1100086647 for more information
+Page 47
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+To ensure financial data security, an enterprise prohibits the R&D department's access to the financial department
+server but allows the president office's access to the financial department server.
+Background: A Tool is Required to Filter Traffic
+Is any tool available for 
+filtering IP traffic?
+Denied traffic
+Permitted traffic
+Internet
+VLAN 10
+VLAN 20
+President office at 
+192.168.3.0/24
+R&D department at 
+192.168.2.0/24
+Financial 
+department 
+server at 
+192.168.4.4/24
+
+• ACLs accurately identify and control packets on a network to manage network access behaviors, 
+prevent network attacks, and improve bandwidth utilization. In this way, ACLs ensure security and 
+QoS.
+▫
+An ACL is a set of sequential rules composed of permit or deny statements. It classifies 
+packets by matching fields in packets.
+▫
+An ACL can match elements such as source and destination IP addresses, source and 
+destination port numbers, and protocol types in IP datagrams. It can also match routes.
+• In this course, traffic filtering is used to describe ACLs.
+Page 48
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+An ACL is a set of sequential rules composed of permit or deny statements.
+
+An ACL matches and distinguishes packets.
+ACL Overview
+Data
+TCP/UDP Header
+IP Header
+Source IP address, 
+destination IP address, 
+and protocol type
+Source and
+destination port 
+numbers
+ACL Application
+• Matching IP traffic
+• Invoked in a traffic filter
+• Invoked in network address translation 
+(NAT)
+• Invoked in a routing policy
+• Invoked in a firewall policy
+• Invoked in QoS
+• Others
+
+Page 49
+Contents
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+1.
+Security Background
+2.
+ACL Overview
+3.
+Basic Concepts and Working Mechanism of ACLs
+4.
+Basic Configurations and Applications of ACLs
+5.
+AAA Overview
+6.
+AAA Configuration
+
+• ACL composition:
+▫
+ACL number: An ACL is identified by an ACL number. Each ACL needs to allocated an ACL 
+number. The ACL number range varies according to the ACL type, which will be described 
+later.
+▫
+Rule: As mentioned above, an ACL consists of several permit/deny statements, and each 
+statement is a rule of the ACL.
+▫
+Rule ID: Each ACL rule has an ID, which identifies the rule. Rule IDs can be manually defined 
+or automatically allocated by the system. A rule ID ranges from 0 to 4294967294. All rules 
+are arranged in the ascending order of rule ID.
+▫
+Action: Each rule contains a permit or deny action. ACLs are usually used together with 
+other technologies, and the meanings of the permit and deny actions may vary according to 
+scenarios.
+▪
+For example, if an ACL is used together with traffic filtering technology (that is, the 
+ACL is invoked in traffic filtering), the permit action allows traffic to pass and the 
+deny action rejects traffic.
+▫
+Matching option: ACLs support various matching options. In this example, the matching 
+option is a source IP address. The ACL also supports other matching options, such as Layer 2 
+Ethernet frame header information (including source and destination MAC addresses and 
+Ethernet frame protocol type), Layer 3 packet information (including destination address 
+and protocol type), and Layer 4 packet information (including TCP/UDP port number).
+• Question: What does rule 5 permit source 1.1.1.0 0.0.0.255 mean? This will be introduced later.
+Page 50
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+An ACL consists of several permit or deny statements. Each statement is a rule of the ACL, and permit or
+deny in each statement is the action corresponding to the rule.
+ACL Composition
+ACL Composition
+ACL Classification
+ACL Matching Rules
+rule 5   permit   source 1.1.1.0 0.0.0.255
+acl number 2000
+rule 10 deny      source 2.2.2.0 0.0.0.255
+rule 15 permit   source 3.3.3.0 0.0.0.255
+...
+rule 4294967294 deny
+ACL number
+User-defined rules
+Rule hidden at the end of the ACL
+Rule ID
+Action
+Matching option
+(source IP address)
+What does each rule mean?
+
+• Rule ID and step:
+▫
+Rule ID: Each ACL rule has an ID, which identifies the rule. Rule IDs can be manually defined 
+or automatically allocated by the system.
+▫
+Step: When the system automatically allocates IDs to ACL rules, the increment between 
+neighboring rule IDs is called a step. The default step is 5. Therefore, rule IDs are 5, 10, 15, 
+and so on.
+▪
+If a rule is manually added to an ACL but no ID is specified, the system allocates to 
+this rule an ID that is greater than the largest rule ID in the ACL and is the smallest 
+integer multiple of the step value.
+▪
+The step can be changed. For example, if the step is changed to 2, the system 
+automatically renumbers the rule IDs as 2, 4, 6...
+• What is the function of a step? Why can't rules 1, 2, 3, and 4 be directly used?
+▫
+First, let's look at a question. How do I add a rule?
+▫
+We can manually add rule 11 between rules 10 and 15.
+▫
+Therefore, setting a step of a certain length facilitates rule insertion between existing rules.
+Page 51
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Rule ID
+acl number 2000
+rule
+5
+deny
+source  10.1.1.1  0
+rule
+10
+deny
+source  10.1.1.2  0
+rule
+15
+permit
+source  10.1.1.0  0.0.0.255
+Step = 5
+Rule ID
+How do I add a rule?
+acl number 2000
+rule
+5
+deny
+source  10.1.1.1  0
+rule
+10
+deny
+source  10.1.1.2  0
+rule
+11
+deny
+source  10.1.1.3  0
+rule
+15
+permit
+source  10.1.1.0  0.0.0.255
+rule 11   deny  source  10.1.1.3  0
+Rule ID and Step
+•
+Rule ID
+Each rule in an ACL has an ID.
+•
+Step
+A step is an increment between neighboring rule IDs 
+automatically allocated by the system. The default step is 
+5. Setting a step facilitates rule insertion between existing 
+rules of an ACL.
+•
+Rule ID allocation
+If a rule is added to an empty ACL but no ID is manually 
+specified for the rule, the system allocates a step value (5 
+for example) as the ID of the rule. If an ACL contains rules 
+with manually specified IDs and a rule with no manually 
+specified ID is added, the system allocates to this rule an 
+ID that is greater than the largest rule ID in the ACL and is 
+the smallest integer multiple of the step value.
+ACL Composition
+ACL Classification
+ACL Matching Rules
+
+• When an IP address is matched, a 32-bit mask is followed. The 32-bit mask is called a wildcard.
+• A wildcard is also expressed in dotted decimal notation. After the value is converted to a binary 
+number, the value 0 indicates that the equivalent bit must match and the value 1 indicates that 
+the equivalent bit does not matter.
+• Let's look at two rules:
+▫
+rule 5: denies the packets with the source IP address 10.1.1.1. Because the wildcard 
+comprises all 0s, each bit must be strictly matched. Specifically, the host IP address 10.1.1.1 
+is matched.
+▫
+rule 15: permits the packets with the source IP address on the network segment 
+10.1.1.0/24. The wildcard is 0.0.0.11111111, and the last eight bits are 1s, indicating that 
+the bits do not matter. Therefore, the last eight bits of 10.1.1.xxxxxxxx can be any value, 
+and the 10.1.1.0/24 network segment is matched.
+• For example, if we want to exactly match the network segment address corresponding to 
+192.168.1.1/24, what is the wildcard?
+▫
+It can be concluded that the network bits must be strictly matched and the host bits do not 
+matter. Therefore, the wildcard is 0.0.0.255.
+Page 52
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Wildcard (1)
+acl number 2000
+rule
+5
+deny
+source  10.1.1.1  0
+rule
+10
+deny
+source  10.1.1.2  0
+rule
+15
+permit
+source  10.1.1.0  0.0.0.255
+Wildcard
+•
+Matching rule
+0: matching; 1: random allocation
+How do I match the network segment address corresponding to 192.168.1.1/24?
+192.168.1.1
+0.0.0.255
+0
+0
+0
+0
+0
+0
+1
+1
+0
+0
+0
+1
+0
+1
+0
+1
+1
+0
+0
+0
+0
+0
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+1
+1
+1
+1
+1
+1
+1
+Strict matching
+Random allocation
+192.168.1.0/24 network 
+segment
+Wildcard
+•
+A wildcard is a 32-bit number that indicates which bits in 
+an IP address need to be strictly matched and which bits 
+do not need to be matched.
+•
+A wildcard is usually expressed in dotted decimal notation, 
+as a network mask is expressed. However, their meanings 
+are different.
+ACL Composition
+ACL Classification
+ACL Matching Rules
+
+• How do I set the wildcard to match the odd IP addresses in the network segment 192.168.1.0/24?
+▫
+First, let's look at the odd IP addresses, such as 192.168.1.1, 192.168.1.5, and 192.168.1.11.
+▫
+After the last eight bits are converted into binary numbers, the corresponding addresses 
+are 192.168.1.00000001, 192.168.1.00000101, and 192.168.1.00001011.
+▫
+We can see the common points. The seven most significant bits of the last eight bits can be 
+any value, and the least significant bit is fixed to 1. Therefore, the answer is 192.168.1.1 
+0.0.0.254 (0.0.0.11111110).
+• In conclusion, 1 or 0 in a wildcard can be inconsecutive.
+• There are two special wildcards.
+▫
+If a wildcard comprising all 0s is used to match an IP address, the address is exactly 
+matched.
+▫
+If a wildcard comprising all 1s is used to match 0.0.0.0, all IP addresses are matched.
+Page 53
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+…
+
+A wildcard can be used to match odd IP addresses in the network segment 192.168.1.0/24, such as 192.168.1.1,
+192.168.1.3, and 192.168.1.5.
+Wildcard (2)
+Strict matching
+Random allocation
+Strict matching
+1
+192.168.1
+1
+0
+0
+0
+0
+0
+0
+0
+192.168.1
+3
+192.168.1
+1
+1
+0
+0
+0
+0
+0
+0
+192.168.1
+5
+192.168.1
+1
+0
+1
+0
+0
+0
+0
+0
+192.168.1
+Wildcard
+0
+1
+1
+1
+1
+1
+1
+1
+0.0.0.
+192.168.1.1 0.0.0.254
+The value 1 or 0 in the wildcard can be inconsecutive.
+Special Wildcard
+•
+Exactly match the IP address 192.168.1.1.
+192.168.1.1 0.0.0.0 = 192.168.1.1 0
+•
+Match All IP addresses.
+0.0.0.0 255.255.255.255 = any
+ACL Composition
+ACL Classification
+ACL Matching Rules
+
+• Based on ACL rule definition methods, ACLs can be classified into the following types:
+▫
+Basic ACL, advanced ACL, Layer 2 ACL, user-defined ACL, and user ACL
+▪
+A user-defined ACL defines rules based on packet headers, offsets, character string 
+masks, and user-defined character strings. With such a user-defined ACL configured, 
+the system performs an AND operation on the packet bytes from a certain position 
+behind the packet header and the character string mask, compares the extracted 
+character string against the user-defined character string, and then filters IPv4 and 
+IPv6 packets.
+▪
+Compared with basic ACL, advanced ACL, and Layer 2 ACL, user-defined ACL is more 
+accurate, flexible, and provides more functions. For example, if you want to filter 
+ARP packets based on source IP addresses and ARP packet types, you can configure a 
+user-defined ACL.
+▪
+By default, an ACL always takes effect after it is applied to a service module. To make 
+ACL rules work only in a certain period, you can define a time range and associate it 
+with the ACL rules. In this way, services can be controlled through a time-based ACL. 
+For example, with a time-based ACL, an enterprise can forbid employees to access 
+the Internet during work hours and limit bandwidth for bandwidth-consuming 
+services such as P2P and downloading services during peak hours to avoid network 
+congestion.
+▪
+Time ranges associated with ACL rules are classified into:
+▪
+Periodic time range: defines a time range by week. The associated ACL rules take 
+Page 54
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+ACL classification based on ACL rule definition methods
+ACL Classification and Identification
+Description
+Number Range
+Category
+Defines rules based on source IPv4 addresses, fragmentation information, and effective time ranges.
+2000 to 2999
+Basic ACL
+Defines rules based on source and destination IPv4 addresses, IPv4 protocol types, ICMP types, TCP source/destination 
+port numbers, UDP source/destination port numbers, and effective time ranges.
+3000 to 3999
+Advanced ACL
+Defines rules based on information in Ethernet frame headers of packets, such as source and destination MAC addresses 
+and Layer 2 protocol types.
+4000 to 4999
+Layer 2 ACL
+Defines rules based on packet headers, offsets, character string masks, and user-defined character strings.
+5000 to 5999
+User-defined ACL
+Defines rules based on source IPv4 addresses or user control list (UCL) groups, destination IPv4 addresses or destination 
+UCL groups, IPv4 protocol types, ICMP types, TCP source/destination port numbers, and UDP source/destination port 
+numbers.
+6000 to 6999
+User ACL
+•
+ACL classification based on ACL identification methods
+Description
+Category
+Traditional ACL identification method. A numbered ACL is identified by a number.
+Numbered ACL
+A named ACL is identified by a name.
+Named ACL
+ACL Composition
+ACL Classification
+ACL Matching Rules
+
+effect at an interval of one week. For example, if the time range of ACL rules 
+is 8:00-12:00 on Monday, the ACL rules take effect at 8:00-12:00 on every 
+Monday.
+▪
+Absolute time range: defines a time range from YYYY/MM/DD hh:mm to 
+YYYY/MM/DD hh:mm. The associated ACL rules take effect only in this 
+period.
+▪
+A UCL group identifies user category created using the ucl-group command.
+Each department has a large number of terminals and the terminals of the 
+same department are located on different network segments. The workload of 
+configuring network access policy for the terminals one by one is huge. 
+Therefore, configure the UCL group to classify the terminals into different 
+types, and associate a user ACL with the UCL group so that the terminals in 
+each group can share the ACL rules. The workload of administrator is reduced, 
+and ACL resource use efficiency on the device is improved.
+• Based on ACL identification methods, ACLs can be classified into the following types:
+▫
+Numbered ACL and named ACL
+• Note: You can specify a number for an ACL. The ACLs of different types have different 
+number ranges. You can also specify a name for an ACL to help you remember the ACL's 
+purpose. A named ACL consists of a name and number. That is, you can specify an ACL 
+number when you define an ACL name. If you do not specify a number for a named ACL, 
+the system automatically allocates a number to it.
+
+• Basic ACL:
+▫
+A basic ACL is used to match the source IP address of an IP packet. The number of a basic 
+ACL ranges from 2000 to 2999.
+▫
+In this example, ACL 2000 is created. This ACL is a basic ACL.
+• Advanced ACL:
+▫
+An advanced ACL can be matched based on elements such as the source IP address, 
+destination IP address, protocol type, and TCP or UDP source and destination port numbers 
+in an IP packet. A basic ACL can be regarded as a subset of an advanced ACL. Compared 
+with a basic ACL, an advanced ACL defines more accurate, complex, and flexible rules.
+Page 55
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+Basic ACL
+Basic and Advanced ACLs
+Data
+TCP/UDP Header
+IP Header
+Source IP address
+Number range:
+2000 to 2999
+acl number 2000
+rule
+5
+deny
+source  10.1.1.1  0
+rule
+10
+deny
+source  10.1.1.2  0
+rule
+15
+permit
+source  10.1.1.0  0.0.0.255
+Data
+TCP/UDP Header
+IP Header
+acl number 3000
+rule    5   permit  ip
+source   10.1.1.0   0.0.0.255   destination   10.1.3.0   0.0.0.255
+rule   10  permit  tcp source   10.1.2.0    0.0.0.255   destination   10.1.3.0   0.0.0.255   destination-port eq 21
+Number range:
+3000-3999
+Source IP address, 
+destination IP address, 
+and protocol type
+Source and
+destination port 
+numbers
+•
+Advanced ACL
+ACL Composition
+ACL Classification
+ACL Matching Rules
+
+• The ACL matching mechanism is as follows:
+▫
+After receiving a packet, the device configured with an ACL matches the packet against ACL 
+rules one by one. If the packet does not match any ACL rule, the device attempts to match 
+the packet against the next ACL rule.
+▫
+If the packet matches an ACL rule, the device performs the action defined in the rule and 
+stops the matching.
+• Matching process: The device checks whether an ACL is configured.
+▫
+If no ACL is configured, the device returns the result "negative match."
+▫
+If an ACL is configured, the device checks whether the ACL contains rules.
+▪
+If the ACL does not contain rules, the device returns the result "negative match."
+▪
+If the ACL contains rules, the device matches the packet against the rules in 
+ascending order of rule ID.
+−If the packet matches a permit rule, the device stops matching and returns the 
+result "positive match (permit)."
+−If the packet matches a deny rule, the device stops matching and returns the 
+result "positive match (deny)."
+−If the packet does not match any rule in the ACL, the device returns the result 
+"negative match.“
+• The ACL matching results include "positive match" and "negative match."
+Page 56
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+ACL Matching Mechanism
+Does the 
+referenced 
+ACL exist?
+Does the ACL 
+contain rules?
+Analyze the first rule.
+Match the 
+rule.
+Are there 
+remaining 
+rules?
+Analyze the next rule.
+Is the ACL 
+action permit
+or deny?
+The ACL matching result is 
+deny.
+The ACL matching result is 
+permit.
+The ACL matching result is 
+"negative match."
+Yes
+Yes
+No
+Yes
+No
+No
+No
+Yes
+permit
+deny
+Matching principle: The matching stops once a rule is matched.
+Start
+End
+ACL Composition
+ACL Classification
+ACL Matching Rules
+
+▫
+Positive match: Packets match a rule in an ACL. The result is "positive match" 
+regardless of whether packets match a permit or deny rule in an ACL.
+▫
+Negative match: No ACL exists, the ACL does not contain rules, or packets do not 
+match any rule in an ACL.
+• Matching principle: The matching stops once a rule is matched.
+
+• An ACL can consist of multiple deny or permit statements. Each statement describes a rule. Rules 
+may overlap or conflict. Therefore, the ACL matching order is very important.
+• Huawei devices support two matching orders: automatic order (auto) and configuration order 
+(config). The default matching order is config.
+▫
+auto: The system arranges rules according to the precision of the rules ("depth first" 
+principle), and matches packets against the rules in descending order of precision. ––This is 
+complicated and is not detailed here. If you are interested in it, you can view related 
+materials after class.
+▫
+config: The system matches packets against ACL rules in ascending order of rule ID. That is, 
+the rule with the smallest ID is processed first. ––This is the matching order mentioned 
+above.
+▪
+If another rule is added, the rule is added to the corresponding position, and packets 
+are still matched in ascending order.
+• Matching result:
+▫
+First, let's understand the meaning of ACL 2000.
+▪
+rule 1: permits packets with the source IP address 192.168.1.1.
+▪
+rule 2: permits packets with the source IP address 192.168.1.2.
+▪
+rule 3: denies packets with the source IP address 192.168.1.3.
+▪
+rule 4: permits packets from all other IP addresses.
+▫
+When packets with the source IP address 192.168.1.3 pass through the device configured 
+Page 57
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+Configuration order (config mode)
+▫
+The system matches packets against ACL rules in ascending order of rule ID. That is, the rule with the smallest ID is processed 
+first.
+ACL Matching Order and Result
+192.168.1.1/24
+192.168.1.2/24
+192.168.1.3/24
+192.168.1.4/24
+192.168.1.5/24
+192.168.1.1/24
+192.168.1.2/24
+192.168.1.4/24
+192.168.1.5/24
+acl 2000
+rule 1 permit source 192.168.1.1 0.0.0.0
+rule 2 permit source 192.168.1.2 0.0.0.0
+rule 3 deny    source 192.168.1.3 0.0.0.0
+rule 4 permit 0.0.0.0 255.255.255.255
+Object to be matched
+Basic ACL
+Permitted IP addresses
+Does "permit" mean that traffic is 
+allowed to pass?
+rule 1: permits packets with the source IP address 192.168.1.1.
+rule 2: permits packets with the source IP address 192.168.1.2.
+rule 3: denies packets with the source IP address 192.168.1.3.
+rule 4: permits packets from all other IP addresses.
+ACL Composition
+ACL Classification
+ACL Matching Rules
+
+with the ACL:
+▪
+The device matches the packets against rule 1. The matching result is 
+"negative match."
+▪
+The device continues to match the packets against rule 2. The matching 
+result is still "negative match."
+▪
+The device continues to match the packets against rule 3. The matching 
+result is "positive match," and the action is deny.
+• Note: ACLs are usually used together with other technologies, and the meanings of the 
+permit and deny actions may vary according to scenarios. For example, if an ACL is used 
+together with traffic filtering technology (that is, the ACL is invoked in traffic filtering), 
+the permit action allows traffic to pass and the deny action rejects traffic.
+• https://support.huawei.com/enterprise/en/knowledge/KB1000076061/?idAbsPath=240
+30814%7C21432787%7C7923148%7C9858988%7C16527
+
+Page 58
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+ACL Matching Position
+Configure an ACL on the interface.
+To enable the ACL to take effect for the data 
+packet shown in the figure,
+apply the ACL to the inbound direction.
+Data packet
+Configure an ACL on the interface.
+To enable the ACL to take effect for the data 
+packet shown in the figure,
+apply the ACL to the outbound direction.
+ACL Composition
+ACL Classification
+ACL Matching Rules
+
+Page 59
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Inbound and Outbound Directions
+Inbound
+Outbound
+Is the ACL applied 
+to the interface's 
+inbound direction?
+Route the data 
+packet.
+Does the ACL 
+permit the data 
+packet?
+No
+Yes
+Yes
+Data packet
+No
+Is a matching route 
+entry available?
+Is the ACL applied 
+to the outbound 
+interface's 
+outbound 
+direction?
+No
+Yes
+Route the data 
+packet to the 
+outbound interface.
+Does the ACL 
+permit the 
+data packet?
+Yes
+Yes
+No
+No
+Data packet
+Data packet
+Data packet
+ACL Composition
+ACL Classification
+ACL Matching Rules
+
+Page 60
+Contents
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+1.
+Security Background
+2.
+ACL Overview
+3.
+Basic Concepts and Working Mechanism of ACLs
+4.
+Basic Configurations and Applications of ACLs
+5.
+AAA Overview
+6.
+AAA Configuration
+
+• Create a basic ACL.
+• [Huawei] acl [ number ] acl-number [ match-order config ]
+▫
+acl-number: specifies the number of an ACL.
+▫
+match-order config: indicates the matching order of ACL rules. config indicates the 
+configuration order.
+• [Huawei] acl name acl-name { basic | acl-number } [ match-order config ]
+▫
+acl-name: specifies the name of an ACL.
+▫
+basic: indicates a basic ACL.
+• Configure a rule for the basic ACL.
+• [Huawei-acl-basic-2000] rule [ rule-id ] { deny | permit } [ source { source-address source-wildcard
+| any } | time-range time-name ] 
+▫
+rule-id: specifies the ID of an ACL rule.
+▫
+deny: denies the packets that match the rule.
+▫
+permit: permits the packets that match the rule.
+▫
+source { source-address source-wildcard | any }: specifies the source IP address of packets 
+that match the ACL rule. If no source address is specified, packets with any source 
+addresses are matched.  
+▪
+source-address: specifies the source IP address of packets.
+Page 61
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Basic Configuration Commands of Basic ACLs
+[Huawei] acl [ number ] acl-number [ match-order config ]
+1.
+Create a basic ACL.
+Create a numbered basic ACL and enter its view.
+[Huawei] acl name acl-name { basic | acl-number } [ match-order config ]
+Create a named basic ACL and enter its view.
+[Huawei-acl-basic-2000] rule [ rule-id ] { deny | permit } [ source { source-address source-wildcard | any } | time-range time-
+name ] 
+2.
+Configure a rule for the basic ACL.
+In the basic ACL view, you can run this command to configure a rule for the basic ACL.
+
+▪
+source-wildcard: specifies the wildcard of the source IP address.
+▪
+any: indicates any source IP address of packets. That is, the value of source-
+address is 0.0.0.0 or the value of source-wildcard is 255.255.255.255.
+▫
+time-range time-name: specifies a time range in which the ACL rule takes effect. 
+time-name specifies the name of a time range. If no time range is specified, the 
+ACL rule is always valid.
+
+• Configuration roadmap:
+▫
+Configure a basic ACL and traffic filtering to filter packets from a specified network 
+segment.
+• Procedure:
+1.
+Configure IP addresses and routes on the router.
+2.
+Create ACL 2000 and configure ACL rules to deny packets from the network segment 
+192.168.1.0/24 and permit packets from other network segments.
+3.
+Configure traffic filtering.
+• Note:
+▫
+The traffic-filter command applies an ACL to an interface to filter packets on the interface.
+▫
+Command format: traffic-filter { inbound | outbound } acl { acl-number | name acl-name }
+▪
+inbound: configures ACL-based packet filtering in the inbound direction of an 
+interface.
+▪
+outbound: configures ACL-based packet filtering in the outbound direction of an 
+interface.
+▪
+acl: filters packets based on an IPv4 ACL.
+Page 62
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Case: Use a Basic ACL to Filter Data Traffic
+• Requirements:
+To prevent the user host on the network segment 
+192.168.1.0/24 from accessing the network where the 
+server resides, configure a basic ACL on the router. After 
+the configuration is complete, the ACL filters out the data 
+packets whose source IP addresses are on the network 
+segment 192.168.1.0/24 and permits other data packets.
+1. Configure IP addresses and routes on the router.
+[Router] acl 2000
+[Router-acl-basic-2000] rule deny source 192.168.1.0  0.0.0.255
+[Router-acl-basic-2000] rule permit source any 
+2. Create a basic ACL on the router to prevent the network 
+segment 192.168.1.0/24 from accessing the network where the 
+server resides.
+Router
+GE 0/0/1
+192.168.1.0/24
+192.168.2.0/24
+Server
+10.1.1.1/24
+GE 0/0/2
+[Router] interface GigabitEthernet 0/0/1
+[Router-GigabitEthernet0/0/1] traffic-filter inbound acl 2000
+[Router-GigabitEthernet0/0/1] quit
+3. Configure traffic filtering in the inbound direction of GE 
+0/0/1.
+
+• Create an advanced ACL.
+• [Huawei] acl [ number ] acl-number [ match-order config ]
+▫
+acl-number: specifies the number of an ACL.
+▫
+match-order config: indicates the matching order of ACL rules. config indicates the 
+configuration order.
+• [Huawei] acl name acl-name { advance | acl-number } [ match-order config ]
+▫
+acl-name: specifies the name of an ACL.
+▫
+advance: indicates an advanced ACL.
+Page 63
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Basic Configuration Commands of Advanced ACLs 
+(1)
+[Huawei] acl [ number ] acl-number [ match-order config ]
+1.
+Create an advanced ACL.
+Create a numbered advanced ACL and enter its view.
+[Huawei] acl name acl-name { advance | acl-number } [ match-order config ]
+Create a named advanced ACL and enter its view.
+
+• Configure a rule for the advanced ACL.
+• When the protocol type is IP:
+▫
+rule [ rule-id ] { deny | permit } ip [ destination { destination-address destination-wildcard | 
+any } | source { source-address source-wildcard | any } | time-range time-name | [ dscp
+dscp | [ tos tos | precedence precedence ] ] ] 
+▪
+ip: indicates that the protocol type is IP.
+▪
+destination { destination-address destination-wildcard | any }: specifies the 
+destination IP address of packets that match the ACL rule. If no destination address is 
+specified, packets with any destination addresses are matched.
+▪
+dscp dscp: specifies the differentiated services code point (DSCP) of packets that 
+match the ACL rule. The value ranges from 0 to 63.
+▪
+tos tos: specifies the ToS of packets that match the ACL rule. The value ranges from 0 
+to 15.
+▪
+precedence precedence: specifies the precedence of packets that match the ACL 
+rule. The value ranges from 0 to 7.
+• When the protocol type is TCP:
+▫
+rule [ rule-id ] { deny | permit } { protocol-number | tcp } [ destination { destination-
+address destination-wildcard | any } | destination-port { eq port | gt port | lt port | range
+port-start port-end } | source { source-address source-wildcard | any } | source-port { eq
+Page 64
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Basic Configuration Commands of Advanced ACLs 
+(2)
+2.
+Configure a rule for the advanced ACL.
+You can configure advanced ACL rules according to the protocol types of IP packets. The parameters vary according to the 
+protocol types.
+In the advanced ACL view, you can run this command to configure a rule for the advanced ACL.
+▫When the protocol type is IP, the command format is:
+rule [ rule-id ] { deny | permit } ip [ destination { destination-address destination-wildcard | any } | source { source-address source-wildcard |
+any } | time-range time-name | [ dscp dscp | [ tos tos | precedence precedence ] ] ] 
+In the advanced ACL view, you can run this command to configure a rule for the advanced ACL.
+▫When the protocol type is TCP, the command format is:
+rule [ rule-id ] { deny | permit } { protocol-number | tcp } [ destination { destination-address destination-wildcard | any } | destination-port { 
+eq port | gt port | lt port | range port-start port-end } | source { source-address source-wildcard | any } | source-port { eq port | gt port | lt
+port | range port-start port-end } | tcp-flag { ack | fin | syn } * | time-range time-name ] *
+
+port | gt port | lt port | range port-start port-end } | tcp-flag { ack | fin | syn } * | 
+time-range time-name ] *
+▪
+tcp: indicates that the protocol type is TCP. You can set protocol-number to 
+6 to indicate TCP.
+▪
+destination-port { eq port | gt port | lt port | range port-start port-end }: 
+specifies the TCP destination port number of packets that match the ACL 
+rule. The value is valid only when the protocol type is TCP. If no destination 
+port number is specified, packets with any TCP destination port numbers are 
+matched.  
+−eq port: equal to the destination port number
+−gt port: greater than the destination port number
+−lt port: less than the destination port number
+−range port-start port-end: specifies a source port number range.
+▪
+tcp-flag: indicates the SYN Flag in the TCP packet header.
+• Bits 012345       67
+DSCP          ECN
+• Bits 0 1 2             3 4 5 6 7 
+•
+Precedence    Type of Service
+
+• Configuration roadmap:
+▫
+Configure an advanced ACL and traffic filtering to filter the packets exchanged between the 
+R&D and marketing departments.
+• Procedure:
+1.
+Configure IP addresses and routes on the router.
+2.
+Create ACL 3001 and configure rules for the ACL to deny packets from the R&D 
+department to the marketing department.
+3.
+Create ACL 3002 and configure rules for the ACL to deny packets from the marketing 
+department to the R&D department.
+Page 65
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Case: Use Advanced ACLs to Prevent User Hosts on Different 
+Network Segments from Communicating (1)
+1. Configure IP addresses and routes on the router.
+[Router] acl 3001
+[Router-acl-adv-3001] rule deny ip source 10.1.1.0 0.0.0.255 destination
+10.1.2.0 0.0.0.255
+[Router-acl-adv-3001] quit
+2. Create ACL 3001 and configure rules for the ACL to deny packets from 
+the R&D department to the marketing department.
+[Router] acl 3002
+[Router-acl-adv-3002] rule deny ip source 10.1.2.0 0.0.0.255 destination
+10.1.1.0 0.0.0.255
+[Router-acl-adv-3002] quit
+3. Create ACL 3002 and configure rules for the ACL to deny packets from 
+the marketing department to the R&D department.
+Requirements:
+•
+The departments of a company are connected through the 
+router. To facilitate network management, the administrator 
+allocates IP addresses of different network segments to the R&D 
+and marketing departments.
+•
+The company requires that the router prevent the user hosts on 
+different network segments from communicating to ensure 
+information security.
+Internet
+Router
+GE 0/0/1
+10.1.1.1/24
+R&D department
+10.1.1.0/24
+Marketing department
+10.1.2.0/24
+GE 0/0/2
+10.1.2.1/24
+
+• Procedure:
+4.
+Configure traffic filtering in the inbound direction of GE 0/0/1 and GE 0/0/2.
+• Note:
+▫
+The traffic-filter command applies an ACL to an interface to filter packets on the interface.
+▫
+Command format: traffic-filter { inbound | outbound } acl { acl-number | name acl-name }
+▪
+inbound: configures ACL-based packet filtering in the inbound direction of an 
+interface.
+▪
+outbound: configures ACL-based packet filtering in the outbound direction of an 
+interface.
+▪
+acl: filters packets based on an IPv4 ACL.
+Page 66
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Case: Use Advanced ACLs to Prevent User Hosts on Different 
+Network Segments from Communicating (2)
+[Router] interface GigabitEthernet 0/0/1
+[Router-GigabitEthernet0/0/1] traffic-filter inbound acl 3001
+[Router-GigabitEthernet0/0/1] quit
+[Router] interface GigabitEthernet 0/0/2
+[Router-GigabitEthernet0/0/2] traffic-filter inbound acl 3002
+[Router-GigabitEthernet0/0/2] quit
+4. Configure traffic filtering in the inbound direction of GE 0/0/1 and GE 
+0/0/2.
+Internet
+Router
+GE 0/0/1
+10.1.1.1/24
+R&D department
+10.1.1.0/24
+Marketing department
+10.1.2.0/24
+GE 0/0/2
+10.1.2.1/24
+Requirements:
+•
+The departments of a company are connected through the 
+router. To facilitate network management, the administrator 
+allocates IP addresses of different network segments to the R&D 
+and marketing departments.
+•
+The company requires that the router prevent the user hosts on 
+different network segments from communicating to ensure 
+information security.
+
+Page 67
+Contents
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+1.
+Security Background
+2.
+ACL Overview
+3.
+Basic Concepts and Working Mechanism of ACLs
+4.
+Basic Configurations and Applications of ACLs
+5.
+AAA Overview
+6.
+AAA Configuration
+
+• Authentication: determines which users can access the network.
+• Authorization: authorizes users to access specific services.
+• Accounting: records network resource utilization.
+• The Internet service provider (ISP) needs to authenticate the account and password of a home 
+broadband user before allowing the user to access the Internet. In addition, the ISP records the 
+online duration or traffic of the user. This is the most common application scenario of the AAA 
+technology.
+Page 68
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+Authentication, authorization, and accounting (AAA) provides a management mechanism for network security.
+Basic Concepts of AAA
+Step 1
+Step 2
+Step 3
+Step 4
+User identity
+Identifies users by
+information such as 
+the account and
+password.
+Authentication
+Identifies and 
+authenticates users 
+who attempt to access 
+resources.
+Authorization
+Determines whether the 
+access is granted 
+authorization.
+Accounting
+Checks and records 
+access information.
+
+• The NAS manages users based on domains. Each domain can be configured with different 
+authentication, authorization, and accounting schemes to perform authentication, authorization, 
+and accounting for users in the domain.
+• Each user belongs to a domain. The domain to which a user belongs is determined by the 
+character string following the domain name delimiter @ in the user name. For example, if the 
+user name is user 1@domain 1, the user belongs to domain 1. If the user name does not end with 
+@, the user belongs to the default domain.
+Page 69
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+A common AAA architecture includes the user, network access server (NAS), and AAA server.
+Common AAA Architecture
+•
+The NAS collects and manages user access requests in a 
+centralized manner.
+•
+Multiple domains are created on the NAS to manage 
+users. Different domains can be associated with different 
+AAA schemes, which include the authentication scheme, 
+authorization scheme, and accounting scheme.
+•
+When receiving a user access request, the NAS 
+determines the domain to which the user belongs based 
+on the username and performs user management and 
+control based on the AAA schemes configured for the 
+domain.
+Common AAA architecture
+User
+IP Network
+IP Network
+User 1@Domain 1
+User 2@Domain 2
+User 3@Domain 3
+NAS
+AAA Server
+
+• AAA supports three authentication modes:
+▫
+Non-authentication: Users are fully trusted and their identities are not checked. This 
+authentication mode is seldom used for security purposes.
+▫
+Local authentication: Local user information (including the username, password, and 
+attributes) is configured on the NAS. In this case, the NAS functions as the AAA server. Local 
+authentication features fast processing and low operational costs. The disadvantage is that 
+the amount of stored information is limited by device hardware. This authentication mode 
+is often used to manage login users, such as Telnet and FTP users.
+▫
+Remote authentication: User information (including the username, password, and 
+attributes) is configured on the authentication server. Remote authentication can be 
+implemented through RADIUS or HWTACACS. The NAS functions as a client to communicate 
+with the RADIUS or HWTACACS server.
+Page 70
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+AAA supports the following authentication modes: non-authentication, local authentication, and remote
+authentication.
+Authentication
+IP Network
+IP Network
+User 1@Domain 1
+User 2@Domain 2
+User 3@Domian 3
+Username and password
+NAS
+AAA Server
+User 3's username and password
+Returning an authentication result
+Authentication Mode
+Domain
+User
+Non-authentication
+Domain 1
+User 1@Domain 1
+Local authentication
+Domain 2
+User 2@Domain 2
+Remote authentication
+Domain 3
+User 3@Domain 3
+
+• The AAA authorization function grants users the permission to access specific networks or 
+devices. AAA supports the following authorization modes:
+▫
+Non-authorization: Authenticated users have unrestricted access rights on a network.
+▫
+Local authorization: Users are authorized based on the domain configuration on the NAS.
+▫
+Remote authorization: The RADIUS or HWTACACS server authorizes users.
+▪
+In HWTACACS authorization, all users can be authorized by the HWTACACS server.
+▪
+RADIUS authorization applies only to the users authenticated by the RADIUS server. 
+RADIUS integrates authentication and authorization. Therefore, RADIUS 
+authorization cannot be performed singly.
+• When remote authorization is used, users can obtain authorization information from both the 
+authorization server and NAS. The priority of the authorization information configured on the NAS 
+is lower than that delivered by the authorization server.
+Page 71
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+AAA supports the following authorization modes: non-authorization, local authorization, and remote authorization.
+
+Authorization information includes the user group, VLAN ID, and ACL number.
+Authorization
+IP Network
+User 1@Domain 1
+User 2@Domain 2
+User 3@Domain 3
+Delivers permissions to user 2 after 
+authentication succeeds.
+AAA Server
+NAS
+IP Network
+Authorization Content
+Authorization Mode
+Domain
+User
+None
+Non-authorization
+Domain 1
+User 1@Domain 1
+Internet access is allowed.
+Local authorization
+Domain 2
+User 2@Domain 2
+Authorization is granted by a 
+remote server.
+Remote authorization
+Domain 3
+User 3@Domain 3
+
+• AAA supports the following accounting modes:
+▫
+Non-accounting: Users can access the Internet for free, and no activity log is generated.
+▫
+Remote accounting: Remote accounting is performed through the RADIUS server or 
+HWTACACS server.
+Page 72
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+The
+accounting
+function
+monitors
+the
+network
+behavior
+and
+network
+resource
+utilization
+of
+authorized users.
+
+AAA supports two accounting modes: non-accounting and remote accounting.
+Accouting
+IP Network
+AAA Server
+NAS
+User 1@Domain 1
+User 2@Domain 2
+User 3@Domain 3
+Accounting-Start request
+Accounting-Start response
+IP Network
+Accounting Mode
+Domain
+User
+Non-accounting
+Domain 1
+User 1@Domain 1
+Non-accounting
+Domain 2
+User 2@Domain 2
+Remote accounting
+Domain 3
+User 3@Domain 3
+
+• Of the protocols that are used to implement AAA, RADIUS is the most commonly used. RADIUS is 
+a distributed information exchange protocol based on the client/server structure. It implements 
+user authentication, accounting, and authorization.
+• Generally, the NAS functions as a RADIUS client to transmit user information to a specified 
+RADIUS server and performs operations (for example, accepting or rejecting user access) based 
+on the information returned by the RADIUS server.
+• RADIUS servers run on central computers and workstations to maintain user authentication and 
+network service access information. The servers receive connection requests from users, 
+authenticate the users, and send the responses (indicating that the requests are accepted or 
+rejected) to the clients. RADIUS uses the User Datagram Protocol (UDP) as the transmission 
+protocol and uses UDP ports 1812 and 1813 as the authentication and accounting ports, 
+respectively. RADIUS features high real-time performance. In addition, the retransmission 
+mechanism and standby server mechanism are also supported, providing good reliability.
+• The message exchange process between the RADIUS server and client is as follows:
+1.
+When a user accesses the network, the user initiates a connection request and sends the 
+username and password to the RADIUS client (NAS).
+2.
+The RADIUS client sends an authentication request packet containing the username and 
+password to the RADIUS server.
+3.
+If the request is valid, the RADIUS server completes authentication and sends the required 
+authorization information to the RADIUS client. If the request is invalid, the RADIUS server 
+sends the authorization failure information to the RADIUS client.
+Page 73
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+Of the protocols that are used to implement AAA, RADIUS is the most commonly used. RADIUS uses the User
+Datagram Protocol (UDP) as the transmission protocol and uses UDP ports 1812 and 1813 as the authentication and
+accounting ports, respectively.
+AAA Implementation Protocol - RADIUS
+The user enters a username and a password.
+Access-Request
+The authentication is accepted or rejected, and the 
+corresponding packet is delivered.
+Accounting-Start request
+Accounting-Start response
+User
+RADIUS Server
+NAS
+The user is notified of the authentication result.
+The user requests to go offline.
+Accounting-Stop response
+Accounting-Stop request
+The user is notified of the completion of 
+network access.
+The user starts to access network resources.
+
+4.
+The RADIUS client notifies the user of whether authentication is successful.
+5.
+The RADIUS client permits or rejects the user according to the authentication 
+result. If the user is permitted, the RADIUS client sends an Accounting-Request 
+(Start) packet to the RADIUS server.
+6.
+The RADIUS server sends an Accounting-Response (Start) packet to the RADIUS 
+client and starts accounting.
+7.
+The user starts to access network resources.
+8.
+When a user does not want to access network resources, the user sends a logout 
+request to stop accessing network resources.
+9.
+The RADIUS client sends an Accounting-Request (Stop) packet to the RADIUS 
+server.
+10. The RADIUS server sends an Accounting-Response (Stop) packet to the RADIUS 
+client and stops accounting.
+11. The RADIUS client notifies the user of the processing result, and the user stops 
+accessing network resources.
+
+Page 74
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Common AAA Application Scenarios
+Local Authentication and Authorization for Administrative Users
+AAA for Internet Access Users Through RADIUS
+NAS
+RADIUS server
+Internet access user
+•
+AAA schemes are configured on the NAS to implement interworking 
+between the NAS and RADIUS server.
+•
+After the user enters a username and a password on the client, the NAS 
+sends the username and password to the RADIUS server for 
+authentication.
+•
+If the authentication succeeds, the user is granted the Internet access 
+permission.
+•
+The RADIUS server can record the user's network resource utilization 
+during Internet access.
+Network administrator
+Router
+(NAS)
+•
+After local AAA schemes are configured on Router, Router compares the 
+username and password of the network administrator with the locally 
+configured username and password when the network administrator logs 
+in to Router.
+•
+After the authentication succeeds, Router grants certain administrator 
+permissions to the network administrator.
+Login through Telnet/SSH
+
+Page 75
+Contents
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+1.
+Security Background
+2.
+ACL Overview
+3.
+Basic Concepts and Working Mechanism of ACLs
+4.
+Basic Configurations and Applications of ACLs
+5.
+AAA Overview
+6.
+AAA Configuration
+
+• The authorization-scheme authorization-scheme-name command configures an authorization 
+scheme for a domain. By default, no authorization scheme is applied to a domain.
+• The authentication-mode { hwtacacs | local | radius } command configures an authentication 
+mode for the current authentication scheme. By default, local authentication is used.
+• Huawei (HW) Terminal Access Controller Access Control System (HWTACACS) is an enhanced
+security protocol based on TACACS (RFC 1492). HWTACACS is similar to RADIUS, and uses a 
+client/server model for information exchange between the NAS and the HWTACACS server. Uses 
+TCP, which provides reliable network transmission. 
+Page 76
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+AAA Configuration (1)
+2.
+Create an authentication scheme.
+[Huawei-aaa] authentication-scheme authentication-scheme-name
+Create an authentication scheme and enter the authentication scheme view.
+[Huawei-aaa-authentication-scheme-name] authentication-mode { hwtacacs | local | radius }
+Set the authentication mode to local authentication. By default, the authentication mode is local authentication.
+Exit the system view and enter the AAA view.
+[Huawei] aaa
+1.
+Enter the AAA view.
+
+Page 77
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+AAA Configuration (2)
+[Huawei-aaa] domain domain-name
+Create a domain and enter the domain view.
+3.
+Create a domain and bind an authentication scheme to the domain.
+[Huawei-aaa-domain-name] authentication-scheme authentication-scheme-name
+Bind the authentication scheme to the domain.
+[Huawei-aaa] local-user user-name password cipher password
+Create a local user and configure a password for the local user.
+•
+If the username contains a delimiter "@", the character before "@" is the username and the character after "@" is the 
+domain name.
+•
+If the value does not contain "@", the entire character string represents the username and the domain name is the default 
+one.
+4.
+Create a user.
+
+Page 78
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+AAA Configuration (3)
+5.
+Configure a user access type.
+[Huawei-aaa] local-user user-name service-type { { terminal | telnet | ftp | ssh | snmp | http } | ppp | none }
+Configure the access type of the local user. By default, all access types are disabled for a local user.
+[Huawei-aaa] local-user user-name privilege level level
+Specify the permission level of the local user.
+6.
+Configure a user level.
+
+Page 79
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+After a user password and a user level are configured on R1, host A can use the configured username and
+password to remotely log in to R1.
+AAA Configuration Examples
+[R1]aaa
+[R1-aaa]local-user huawei password cipher huawei123
+[R1-aaa]local-user huawei service-type telnet 
+[R1-aaa]local-user huawei privilege level 0
+[R1]user-interface vty 0 4
+[R1-ui-vty0-4]authentication-mode aaa
+Host A
+R1
+GE 0/0/0
+10.1.1.1/24
+
+• The display domain [ name domain-name ]command displays the configuration of a domain.
+• If the value of Domain-state is Active, the domain is activated.
+• If the username does not end with @, the user belongs to the default domain. Huawei devices 
+support the following default domains:
+▫
+The default domain is for common users.
+▫
+The default_admin domain is the default domain for administrators.
+Page 80
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+In AAA, each domain is associated with an authentication scheme, an authorization scheme, and an
+accounting scheme. In this example, the default domain is used.
+Configuration Verification (1)
+[R1]display domain name default_admin
+Domain-name: 
+default_admin
+Domain-state: 
+Active
+Authentication-scheme-name: 
+default
+Accounting-scheme-name: 
+default
+Authorization-scheme-name: 
+-
+Service-scheme-name: -
+RADIUS-server-template: 
+-
+HWTACACS-server-template: 
+-
+User-group: 
+-
+
+• The display aaa offline-record command displays user offline records.
+• After a STA goes offline, you can use this command to check the reason why the STA goes offline.
+Page 81
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+After the user properly logs in and logs out, you can view the user record.
+Configuration Verification (2)
+[R1]display aaa offline-record all
+-------------------------------------------------------------------
+User name: 
+huawei
+Domain name: 
+default_admin
+User MAC: 00e0-fc12-3456
+User access type: 
+telnet
+User IP address: 
+10.1.1.2
+User ID: 
+1
+User login time: 
+2019/12/28 17:59:10
+User offline time: 
+2019/12/28 18:00:04
+User offline reason: 
+user request to offline
+
+[Figura da Pag.1] Labels: Oo nt cine Kae C7/* bs Py ot ~ o = oa aa; Reh eS ee © 7 Nie eit, oe ae at AI; + — ee Rye AR TOCr es or; 0 = es = ea f; e e ;; <P; RIN ~~ UNIVERSITA DEGLI STUDI; 2M CCO DI PERUGIA. Caption: (errore caption)
+[Figura da Pag.6] Caption: (errore caption)
+[Figura da Pag.6] Caption: (errore caption)
+[Figura da Pag.6] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.8] Caption: (errore caption)
+[Figura da Pag.8] Caption: (errore caption)
+[Figura da Pag.8] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.9] Caption: (errore caption)
+[Figura da Pag.9] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.12] Labels: LX perme; a); SZ; Cae 48K); Rew ABbitK2; | a) ABbiIKI6; u7 [Ri7; permu'e; 4bit ouput. Caption: (errore caption)
+[Figura da Pag.15] Caption: (errore caption)
+[Figura da Pag.15] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.17] Labels: eT This:; 1 6,13,.., sole lS ix; 512.0 I 2,9,...; wore 3,10,.0. Caption: (errore caption)
+[Figura da Pag.24] Caption: (errore caption)
+[Figura da Pag.24] Caption: (errore caption)
+[Figura da Pag.24] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.25] Caption: (errore caption)
+[Figura da Pag.25] Caption: (errore caption)
+[Figura da Pag.25] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.26] Caption: (errore caption)
+[Figura da Pag.26] Caption: (errore caption)
+[Figura da Pag.26] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.27] Caption: (errore caption)
+[Figura da Pag.27] Caption: (errore caption)
+[Figura da Pag.27] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.28] Caption: (errore caption)
+[Figura da Pag.28] Caption: (errore caption)
+[Figura da Pag.28] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.29] Caption: (errore caption)
+[Figura da Pag.29] Caption: (errore caption)
+[Figura da Pag.29] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.30] Caption: (errore caption)
+[Figura da Pag.30] Caption: (errore caption)
+[Figura da Pag.30] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.31] Caption: (errore caption)
+[Figura da Pag.31] Caption: (errore caption)
+[Figura da Pag.31] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.32] Caption: (errore caption)
+[Figura da Pag.32] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.33] Caption: (errore caption)
+[Figura da Pag.33] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.34] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.41] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.43] Caption: (errore caption)
+[Figura da Pag.43] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.44] Caption: (errore caption)
+[Figura da Pag.44] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.45] Caption: (errore caption)
+[Figura da Pag.45] Labels: cay; sa. Caption: (errore caption)
+[Figura da Pag.46] Caption: (errore caption)
+[Figura da Pag.48] Caption: (errore caption)
+[Figura da Pag.48] Caption: (errore caption)
+[Figura da Pag.48] Caption: (errore caption)
+[Figura da Pag.48] Labels: _ik. Caption: (errore caption)
+[Figura da Pag.48] Labels: Chk. Caption: (errore caption)
+[Figura da Pag.48] Labels: &. Caption: (errore caption)
+[Figura da Pag.48] Labels: &. Caption: (errore caption)
+[Figura da Pag.49] Labels: Lik. Caption: (errore caption)
+[Figura da Pag.49] Caption: (errore caption)
+[Figura da Pag.54] Labels: >. Caption: (errore caption)
+[Figura da Pag.54] Caption: (errore caption)
+[Figura da Pag.54] Labels: ww. Caption: (errore caption)
+[Figura da Pag.54] Caption: (errore caption)
+[Figura da Pag.60] Labels: >. Caption: (errore caption)
+[Figura da Pag.60] Caption: (errore caption)
+[Figura da Pag.60] Labels: >. Caption: (errore caption)
+[Figura da Pag.60] Caption: (errore caption)
+[Figura da Pag.62] Caption: (errore caption)
+[Figura da Pag.62] Caption: (errore caption)
+[Figura da Pag.63] Caption: (errore caption)
+[Figura da Pag.63] Caption: (errore caption)
+[Figura da Pag.63] Caption: (errore caption)
+[Figura da Pag.63] Caption: (errore caption)
+[Figura da Pag.67] Caption: (errore caption)
+[Figura da Pag.67] Caption: (errore caption)
+[Figura da Pag.67] Labels: lk. Caption: (errore caption)
+[Figura da Pag.67] Caption: (errore caption)
+[Figura da Pag.67] Caption: (errore caption)
+[Figura da Pag.71] Labels: &. Caption: (errore caption)
+[Figura da Pag.71] Labels: Cik. Caption: (errore caption)
+[Figura da Pag.71] Labels: ik. Caption: (errore caption)
+[Figura da Pag.72] Labels: &. Caption: (errore caption)
+[Figura da Pag.72] Labels: Cik. Caption: (errore caption)
+[Figura da Pag.72] Labels: ik. Caption: (errore caption)
+[Figura da Pag.74] Labels: [. Caption: (errore caption)
+[Figura da Pag.74] Labels: [. Caption: (errore caption)
+[Figura da Pag.74] Labels: ( ]. Caption: (errore caption)
+[Figura da Pag.74] Labels: [. Caption: (errore caption)
+[Figura da Pag.75] Labels: a. Caption: (errore caption)
+[Figura da Pag.75] Labels: ik. Caption: (errore caption)
+[Figura da Pag.75] Labels: Ci. Caption: (errore caption)
+[Figura da Pag.75] Labels: Koo. Caption: (errore caption)
+[Figura da Pag.75] Caption: (errore caption)
+[Figura da Pag.75] Labels: i. Caption: (errore caption)
+[Figura da Pag.75] Labels: _}. Caption: (errore caption)
+[Figura da Pag.76] Caption: (errore caption)
+[Figura da Pag.76] Labels: a). Caption: (errore caption)
+[Figura da Pag.76] Labels: Tk. Caption: (errore caption)
+[Figura da Pag.76] Caption: (errore caption)
+[Figura da Pag.76] Caption: (errore caption)
+[Figura da Pag.76] Caption: (errore caption)
+[Figura da Pag.77] Labels: _|k. Caption: (errore caption)
+[Figura da Pag.77] Labels: Cc]. Caption: (errore caption)
+[Figura da Pag.77] Labels: Chk. Caption: (errore caption)
+[Figura da Pag.77] Caption: (errore caption)
+[Figura da Pag.77] Caption: (errore caption)
+[Figura da Pag.77] Labels: >. Caption: (errore caption)
+[Figura da Pag.78] Caption: (errore caption)
+[Figura da Pag.78] Caption: (errore caption)
+[Figura da Pag.78] Labels: _Tk. Caption: (errore caption)
+[Figura da Pag.78] Labels: Cc]. Caption: (errore caption)
+[Figura da Pag.78] Caption: (errore caption)
+[Figura da Pag.78] Labels: |. Caption: (errore caption)
+[Figura da Pag.79] Labels: (_Tk. Caption: (errore caption)
+[Figura da Pag.79] Labels: Oy. Caption: (errore caption)
+[Figura da Pag.79] Labels: &. Caption: (errore caption)
+[Figura da Pag.81] Labels: |. Caption: (errore caption)
+[Figura da Pag.81] Labels: &. Caption: (errore caption)
+[Figura da Pag.81] Caption: (errore caption)
+[Figura da Pag.81] Labels: iy |. Caption: (errore caption)
+[Figura da Pag.81] Caption: (errore caption)
+[Figura da Pag.81] Caption: (errore caption)
+[Figura da Pag.86] Labels: ik. Caption: (errore caption)
+[Figura da Pag.86] Labels: &. Caption: (errore caption)

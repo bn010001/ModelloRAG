@@ -1,0 +1,131 @@
+Esame orale di Fondamenti di Internet – 9 CFU di Reali
+13 gennaio 2021
+●Primo candidato [27/30]
+o Esercizio indirizzo IP
+●Secondo candidato [30/30]
+o Funzionamento Algoritmo di Dijkstra
+o Come si calcola il valore del costo del percorso?
+o A cosa serve il NATting? E qual è l’esigenza dietro a questo?
+o Come funziona Easy IP?
+o Come funziona l’autoconfigurazione degli indirizzi IPv6?
+o Una volta calcolato l’IPv6 può essere utilizzato immediatamente?
+▪
+Risposta: No, bisogna prima controllare con un pacchetto ICMPv6
+che localmente non vi sia un altro indirizzo identico. A livello
+globale però l’IPv6 scelto è unico
+●Terzo candidato [30/30]
+o Quali sono i servizi implementati dal protocollo UDP?
+▪
+Risposta: Si occupa di multiplare il traffico all’interno delle
+applicazioni (strato 5)
+o Come vengono implementate le funzioni di ARP in IPv6?
+●Quarto candidato [30/30]
+o Cos’è e come funziona lo Spanning Three Protocol (STP)?
+o Cosa è una firma digitale? Come viene realizzata?
+o Che cos’è un ethernet trunk?
+▪
+Risposta: definizione e confronto tra manuale e LACP mode
+●Quinto candidato [30/30]
+o Ruolo e funzionamento del protocollo CSMA/CD?
+o VLAN0
+●Sesto candidato [25/30]
+o ICMP: cos’è, a cosa serve e come funziona?
+●Settimo candidato [30 e lode/30]
+o Esercizio sugli indirizzi IP
+o Domande varie
+●Ottavo candidato [27/30]
+o Esercizio sugli indirizzi IP
+o Ruolo protocollo Go back N e sua efficienza
+●Nono candidato [30/30]
+o PPP: come si usa e come funziona?
+
+o Cosa è il controllo di flusso e come avviene nel TCP?
+3 febbraio 2021
+●Candidato [30 e lode/30]
+o Cos’è una firma digitale? Come viene implementata?
+o Che cos’è e come funziona l’RSTP?
+o Configurazione di OSPF in IPv6? Differenze con IPv4.
+●Candidato [30 e lode/30] {“2021_02_03_Reali_pt_15.mkv”, minuti 0-20}
+o Esercizio IP, reti e sottoreti
+o ICMPv6: cosa fa e come viene utilizzato?
+o Controllo di flusso a strato 2 e impatto sull’efficienza
+●Candidato [/30]
+o Come si implementa l’algoritmo di Dijkstra passo a passo?
+31 maggio 2021
+●Primo candidato [25/30]
+o Esercizio con indirizzi IP
+●Secondo candidato [30/30]
+o Quali sono le soluzioni possibili per aumentare la banda tra due switch
+in uno stesso data center?
+▪
+Risposta: Poiché gli switch hanno svariate porte, è possibile unire
+più collegamenti fisici al fine di formare un unico collegamento
+logico avente banda maggiore, il cosiddetto Ethernet trunk
+o Come si realizzano gli ethernet trunk? Qual è il protocollo che permette
+di implementarli?
+▪
+Risposta: Il protocollo è LACP (Link Aggregation Control Protocol)
+o Vantaggi/svantaggi utilizzo manuale vs protocollo
+▪
+Risposta: manualmente non c’è il link di backup automatico
+o Quali sono i modi per configurare la tabella di routing di un router?
+o Qual è la rotta che si rende statica?
+▪
+Risposta: La rotta di default 0.0.0.0
+o Cos’è il protocollo Stop & Wait? A cosa serve? Quanto vale la sua
+efficienza?
+▪
+Risposta: Protocollo con il controllo dell’errore. Invia un pacchetto
+e aspetta la risposta di avvenuta ricezione. Ha molti tempi morti,
+efficienza bassa
+con
+η =
+1
+1+2𝑎
+𝑎=  τ
+𝑇𝑓
+
+●Terzo candidato [26/30]
+o Router con due interfacce ethernet. Esso è collegato tramite ethernet
+ad un altro router. Supponendo di utilizzare OSPF, come dev’essere
+configurato per agevolarne il funzionamento?
+▪
+Risposta: Bisogna settare in fase di configurazione il collegamento
+trai due router come P2P seriale. Questo è possibile “using the ip
+route-static ipaddress {mask | mask-length} interface-type
+interface-number [nexthop-address] where the ip-address refers
+to the network or host destination address.”
+o Come funziona e a cosa serve il protocollo UDP? UDP non garantisce
+l’ordine di arrivo dei pacchetti: cosa può fare quindi?
+o Cosa è una porta di destinazione?
+o A cosa serve il protocollo DHCP?
+●Quarto candidato [23/30]
+o Che cos’è, come funziona e a che serve il protocollo DNS?
+▪
+N.B. : Le associazioni tra indirizzo IP e nome alfanumerico sono
+contenute in un server Autoritative Name Server poiché sono
+state inserite dall’amministratore di tale network. Alle richieste
+successive dello stesso indirizzo le associazioni degli indirizzi si
+trovano anche
+o Qual è il protocollo di accesso utilizzato dal protocollo ethernet?
+▪
+Risposta: IEEE 802.3
+●Quinto candidato [30/30]
+o Esercizio sull’indirizzamento di un pacchetto IP su un router
+o ICMP: che cos’è e come funziona?
+o Che cos’è un certificato digitale?
+▪
+Risposta: messaggio in cui non ci interessa cifrare il payload, ma
+vogliamo garantire tre caratteristiche: autenticazione,
+●Sesto candidato [22/30]
+o Cosa si intende per NAT? Perché è stato introdotto e come funziona?
+o Cosa viene fatto al pacchetto dall’operazione di NAT?
+●Settimo candidato [28/30]
+o Esercizio sugli indirizzi IP
+o Come avviene il controllo di flusso nel TCP?
+o Cosa è una Virtual LAN (VLAN) e come può essere implementata?
+●Ottavo candidato [18/30]
+o Esercizio sugli indirizzi IP
+
+o È possibile fare routing su diverse VLAN che insistono sulla stessa
+infrastruttura fisica?

@@ -1,0 +1,24 @@
+Alternative a PyMuPDF AGPLv3  
+• pypdf (MIT/BSD-like) – puro Python, ottimo per operazioni testuali e tabelle  
+• pdfplumber (MIT) – basato su pdfminer.six, specializzato in tabella extraction  
+• borb (MIT) – lettura, creazione, manipolazione PDF; ottime API ma meno performance di MuPDF  
+• reportlab (BSD) – solo creazione PDF, non estrazione
+
+Licenze e permessi commerciali  
+– pypdf (MIT/BSD-like): free for commercial use  
+– pdfminer.six (MIT) / pdfplumber (MIT): free commercial   
+– pytesseract (Apache 2.0): free commercial  
+– ocrmypdf (MPL 2.0): free commercial, obbligo condivisione modifiche a OCRmyPDF  
+– Pillow (HPND/BSD-like): free commercial  
+– easyocr (Apache 2.0): free commercial  
+– opencv-python-headless (Apache 2.0): free commercial  
+– sentence-transformers (Apache 2.0): free commercial  
+– transformers (Apache 2.0): free commercial  
+– torch (BSD): free commercial  
+– faiss-cpu (MIT): free commercial  
+– gradio (Apache 2.0): free commercial  
+– llama-cpp-python (MIT): free commercial  
+– dearpygui (MIT): free commercial  
+
+Modello Mistral 7B  
+– licenza Apache 2.0: free per uso commerciale e modifiche libere  

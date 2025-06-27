@@ -3,6 +3,7 @@ import fitz  # PyMuPDF
 import pytesseract
 import subprocess
 import logging
+import tempfile
 from PIL import Image
 import pandas as pd
 
@@ -15,7 +16,7 @@ logger.setLevel(logging.DEBUG)
 
 # Inizializza il modello BLIP una sola volta (captioning)
 try:
-    _blip_processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
+    _blip_processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base", use_fast=True)
     _blip_model     = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
 except Exception:
     _blip_processor = _blip_model = None
@@ -45,30 +46,42 @@ class PDFProcessor(BaseProcessor):
 
 class PDFOCRProcessor(BaseProcessor):
     def extract(self):
-        output_pdf = self.filepath.replace(".pdf", "_ocr.pdf")
-        # forziamo OCR anche su PDF tagged
-        cmd = [
-            "ocrmypdf",
-            "--force-ocr",
-            self.filepath,
-            output_pdf
-        ]
-        subprocess.run(cmd, check=True)
-        doc = fitz.open(output_pdf)
-        return "\n".join(page.get_text() for page in doc)
+        with tempfile.NamedTemporaryFile(suffix=".pdf") as tmp:
+            cmd = ["ocrmypdf", "--force-ocr", self.filepath, tmp.name]
+            try:
+                subprocess.run(cmd, check=True)
+                doc = fitz.open(tmp.name)
+                text = "\n".join(p.get_text() for p in doc)
+            except Exception as e:
+                logger.warning(f"OCR fallito per {self.filepath}: {e}")
+                text = PDFProcessor(self.filepath).extract()  # fallback nativo
+            return text
 
 class ImageProcessor(BaseProcessor):
     def extract(self):
-        # OCR puro
-        img = Image.open(self.filepath).convert("L")
-        ocr_text = pytesseract.image_to_string(img, lang="ita+eng", config="--psm 6")
-        # captioning (se BLIP disponibile)
+        # OCR (grayscale)
+        try:
+            img_ocr = Image.open(self.filepath).convert("L")
+            ocr_text = pytesseract.image_to_string(img_ocr, lang="ita+eng", config="--psm 6")
+        except Exception:
+            ocr_text = "(Errore OCR)"
+
+        # Caption BLIP (RGB)
         caption = ""
         if _blip_processor and _blip_model:
-            inputs = _blip_processor(images=img, return_tensors="pt")
-            out    = _blip_model.generate(**inputs, max_new_tokens=50)
-            caption = _blip_processor.decode(out[0], skip_special_tokens=True)
-            caption = f"\n[Caption] {caption}"
+            try:
+                img_blip = Image.open(self.filepath).convert("RGB")
+                inputs = _blip_processor(
+                    images=img_blip,
+                    return_tensors="pt",
+                    input_data_format="HWC"
+                )
+                out = _blip_model.generate(**inputs, max_new_tokens=50)
+                caption = _blip_processor.decode(out[0], skip_special_tokens=True).strip()
+                caption = f"\n[Caption] {caption}"
+            except Exception:
+                caption = "\n[Caption] (Errore generazione caption)"
+
         return (ocr_text.strip() + caption).strip()
 
 def is_pdf_native(filepath, pages_to_check=3, char_threshold=300):

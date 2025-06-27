@@ -1,0 +1,711 @@
+Page 0
+"A.D. 1308
+Fondamenti di Internet
+Network Programmability and Automation
+Prof. Gianluca Reali
+
+Page 1
+) Foreword
+New protocols, technologies, and delivery and O&M modes are emerging in the
+network engineering field. Conventional networks face challenges from new connection
+requirements, such as requirements for cloud computing and artificial intelligence (Al).
+Enterprises are also pursuing service agility, flexibility, and elasticity. Against this
+backdrop, network automation becomes increasingly important.
+Network programmability and automation is to simplify network configuration,
+management, monitoring, and operations for engineers and improve deployment and
+O&M efficiency. This course is to help network engineers understand Python
+programming and implement network automation.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Objectives
+¢ Oncompletion of this course, you will be able to:
+= Describe the difficulties of conventional network O&M.
+s Understand the implementation of network automation.
+2 Understand the classification of programming languages.
+° Describe the Python code style.
+« Describe the basic usage of Python telnetlib.
+Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. Introduction to Network Programmability and Automation
+2. Overview of Programming Language and Python
+3. Cases
+Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=] Background: Difficulties in Conventional Network O&M
+inefficient, and difficult to audit.
+Numerous devices
+Complex operations
+Low efficiency
+Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Conventional network O&M requires network engineers to manually log in to network devices, query and execute
+configuration commands, and filter command output. This highly human-dependent working mode is time-consuming,
+Typical O&M Scenarios
+Are the following working scenes familiar to you?
+1.
+Device upgrade: Thousands of network devices reside on a live network.
+You have to periodically upgrade the devices in batches.
+Configuration audit: An enterprise needs to audit the configuration of devices
+every year. For example, the enterprise requires that STelnet be enabled on
+all devices and spanning tree security be configured on Ethernet switches. In
+this case, you have to quickly find out the devices that do not meet the
+requirements.
+Configuration change: Due to network security requirements, device
+accounts and passwords need to be changed every three months. You have
+to delete the original account and create an account on thousands of
+network devices.
+
+[=] ) Network Automation
+¢ Network automation: Tools are used to implement automated network deployment, operations, and O&M, gradually
+reducing dependency on human. This solves the conventional network O&M problems.
+e Many open-source tools, such as Ansible, SaltStack, Puppet, and Chef, are available for network automation in the
+industry. From the perspective of network engineering capability construction, it is recommended that engineers acquire
+the code programming capability.
+Keywords of network
+automation
+: Automated
+scripts st
+Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Many network automation tools in the industry, such as Ansible, SaltStack, Puppet, and Chef,
+are derived from open-source tools. It is recommended that network engineers acquire the
+code programming capability.
+
+=| ) Programming-based Network Automation
+e In recent years, with the emergence of network automation technologies, Python-based programming
+capabilities have become a new skill requirement for network engineers.
+e Automation script written in Python can execute repeated, time-consuming, and rule-based operations.
+; Example: Implementing automated device configuration
+Python file using Python
+Configuration File i * What can network automation do? The most intuitive example of
+network automation is automated device configuration. This
+Sysname SW1 SSH/Telnet er —— .
+Vian 10 process can be divided into two steps: writing a configuration
+description A = file, and writing Python code to push the configuration file to a
+Vlan20 ? device.
+qe B Network « Write the configuration script in command line interface (CLI)
+or device mode, and then upload the script to the device using
+description C
+- = Telnet/SSH. This method is easy to understand for network
+{ engineers who are beginning to learn network programmability
+and automation. This presentation describes how to implement
+network automation.
+Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. Introduction to Network Programmability and Automation
+2. Overview of Programming Language and Python
+3. Cases
+Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 8
+[=] ) Programming Languages
+A programming language is used to write a computer program and control behavior of a computer.
+According to whether compilation is required before execution of a language, the programming language may be
+classified into the compiled language, and interpreted language that does not need to be compiled.
+Compiled language
+(Source code)
+Interpreted language
+(Source code)
+|
+~
+S
+[ Compiler | »
+| Interpreter: Interprets
+source code line by line.
+Executable file |
+[ | —
+Operating system (Windows/Linux/Mac OS)
+CPU (x86/ARM architecture)
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Based on language levels, computer languages can also be classified into machine language,
+assembly language, and high-level language. The machine language consists of 0 and 1
+instructions that can be directly identified by a machine. Because machine languages are
+obscure, hardware instructions 0 and 1 are encapsulated to facilitate identification and
+memory (such as MOV and ADD), which is assembly language. The two languages are low-
+level languages, and other languages are high-level languages, such as C, C++, Java,
+Python, Pascal, Lisp, Prolog, FoxPro, and Fortran. Programs written in high-level languages
+cannot be directly identified by computers. The programs must be converted into machine
+languages before being executed.
+
+@ Computing Technology Stack and Program
+Execution Process
+Computing Technology Stack Program Execution Process
+a Aa
+Application
+. temp = v [k]; TEMP = V[K]
+Algorithm High-level = vkj=v[k+1]; V[K] = V[K+1]
+2) s ® programming — v[k+1] = temp; V[K+1] = TEMP
+5 5 High-Level Language I language CiC++ Fortran
+2. © Fs compiler compiler
+E 7) Assembly Language (e)
+Oo] 2 ”
+rr) 5 Assembly
+ts ne language
+i} 3 | Instruction Set Architecture —
+° rs}
+D D Micro Architecture w
+< = = 0000 1004 1100 0110 1010 1111 0101 1000
+a : : 101\) 1111 0101 1000 0000 1001 1100 0110
+® s Gates/Registers z Machine 11011 0110 1010 1111 0101 1000 0000 1001
+rs} = = code 010:| 1000 0000 1001 1100 0110 i010 1111
+= Oo : ©
+= < Transistors I
+Instruction .
+Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* A process of executing a computer's technology stack and programs. On the left is the
+computing technology stack. From the bottom layer of the hardware, physical materials and
+transistors are used to implement gate circuits and registers, and then the micro architecture
+of the CPU is formed. The instruction set of the CPU is an interface between hardware and
+software. An application drives hardware to complete calculation using an instruction defined
+in the instruction set.
+¢ Applications use certain software algorithms to implement service functions. Programs are
+usually developed using high-level languages, such as C, C++, Java, Go, and Python. The
+high-level language needs to be compiled into an assembly language, and then the assembler
+converts the assembly language into binary machine code based on a CPU instruction set.
+¢« A program on disk is a binary machine code consisting of a pile of instructions and data, that
+is, a binary file.
+
+= High-level Programming Language - Compiled
+Language
+¢ Compiled language: Before a program in a compiled language is executed, a compilation process is performed to
+compile the program into a machine language file. The compilation result can be directly used without re-translation
+during running. Typical compiled languages include C/C++ and Go.
+¢ From source code to program: The source code needs to be translated into machine instructions by the compiler and
+assembler, and then the linker uses the link library function to generate the machine language program. The machine
+language must match the instruction set of the CPU, which is loaded to the memory by the loader during running and
+executed by the CPU.
+Compiler Assembler Linker Loader —» Memory
+Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Compiled languages are compiled into formats, such as .exe, .dll, and .ocx, that can be
+executed by machines. Compilation and execution are separated and cannot be performed
+across platforms. For example, x86 programs cannot run on ARM servers.
+
+= High-level Programming Language -
+Interpreted Language
+e Interpreted language: Interpreted language programs do not need to be compiled before running. They are translated
+line by line when running. Typically, Java and Python are interpreted languages.
+¢ Process from source code to programs: Source code of an interpreted language is generated by the compiler and then
+interpreted and executed by a virtual machine (VM) (for example, JVM/PVM). The VM shields the differences between
+CPU instruction sets. Therefore, portability of the interpreted language is relatively good.
+oat Python program
+Compiler Compiler
+Class file Java library function erates (nechine -pyc file
+byte code machine language
+(byt | ) ( | guage) language) (byte code)
+v v
+JVM PVM
+Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ JVM: Java virtual machine
+¢« PVM: Python VM
+
+[=| ) What Is Python?
+e Python is a fully-open-source high-level programming language. Its author is Guido Van Rossum.
+Advantages of Python: Disadvantages of Python:
+¢ Isa dynamically typed interpreted language with elegant syntax. It ¢ Runs slow. Is an interpreted language
+allows learners to focus on program logic rather than syntax detail that runs without being compiled. Code
+learning. is translated line by line at run time into
+¢ Supports both process- and object-oriented programming. machine code that the CPU can
+¢ Provides abundant third-party libraries. understand, which is time-consuming.
+* Is nicknamed the glue language because it can call code written in
+other languages.
+With support for abundant third-party libraries and advantages of the Python language, Python can be used
+in many fields, such as Al, data science, apps, and scripts for automated O&M.
+Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« Python is also a dynamically typed language. The dynamically typed language automatically
+determines the type of variable during program running. The type of a variable does not need
+to be declared.
+
+Page 13
+Process of compiling and
+running a Python program
+Python source code
+Running of the Python
+VM
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Ga) ) Python Code Execution Process
+Operation
+1. Install Python and the running environment in an
+operating system.
+2. Compile Python source code.
+3. The compiler runs the Python source code and
+generates a .pyc file (byte code).
+4.A Python VM converts the byte code into the
+machine language.
+5. Hardware executes the machine language.
+Python source code does not need to be compiled into binary code. Python can run programs
+directly from the source code. When Python code is run, the Python interpreter first converts
+the source code into byte code, and then the Python VM executes the byte code.
+The Python VM is not an independent program and does not need to be installed
+independently.
+
+= Getting Started with Python Code -
+Interactive Running
+e Python runs in either interactive or script mode.
+e Interactive programming does not require script files to be created, and code is written in the interactive
+mode of the Python interpreter.
+C:\Users\Richard>python
+Python 3.7.4 (default, Aug 9 2019, 18:34:13) [MSC v.1915 64 bit (AMD64)] ::
+Anaconda, Inc. on win32
+Type "help", "copyright", "credits" or "license" for more information.
+1. Input -- >>> print ("hello world")
+2. Output -- | hello world
+3. Input -- >>>a=1
+4. Input -- >>>b=2
+5. Input -- >>> print(at+b)
+6. Output-- 3
+>>>
+Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Getting Started with Python Code -
+Script-based Running
+¢ Code in script mode can run on various Python compilers or in integrated development environments. For
+example, IDLE, Atom, Visual Studio, Pycharm, and Anaconda provided by Python can be used.
+print (“hello world’) 1. Input -- C:\Users\Richard>python demo.py
+a _ { 2. Output -- — hello world
+p - 2 3. Output-- 3
+print( a+b)
+4) Write a Python script file (.py). ‘e Execute the script file.
+Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+=| ) Code Style Guide for Python
+¢ Code style rules refer to naming rules, code indentation, and code and statement segmentation modes that must be
+complied with when Python is used to write code. Good style rules help improve code readability and facilitate code
+maintenance and modification.
+¢ For example, the following rules for using semicolons, parentheses, blank lines, and spaces are recommended:
+*« Asemicolon can be added at the end of a line in * Different functions or statement blocks can be
+Python, but is not recommended to separate separated by spaces. A blank line helps differentiate
+statements. two segments of code, improving code readability.
+* Itis recommended that each sentence be ina
+separate line.a
++ Parentheses can be used for the continuation of * Spaces are not recommended in parentheses.
+long statements. Avoid unnecessary parentheses. * You can determine whether to add spaces on both
+ends of an operator.
+Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 17
+ry) ) Code Style Guide for Python - Identifier Naming
+« A Python identifier represents the name of a constant, variable, function, or another object.
+¢ An identifier is usually composed of letters, digits, and underscores, but cannot start with a digit. Identifiers are case
+sensitive and must be unique. If an identifier does not comply with the rules, the compiler will output a SyntaxError
+message when running the code.
+1. Assign a value --
+2. Assign a value --
+3. Assign a string --
+4. Assign a value --
+5. Incorrectidentifier --
+print() is a built-in function of Python and is used to output content in parentheses.
+User_ID = 10
+user_id = 20
+User_Name = ‘Richard’
+Count = 1+ 1
+4 passwd = "Huawei"
+print
+ 
+( User_ID )
+print
+ 
+( user_id )
+print
+ 
+( User_Name )
+print
+ 
+( Count )
+print
+ 
+( 4_passwd )
+| Question: What is the output of the print command on the right?
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Basic data types of Python are Boolean (True/False), integer, floating point, and string. All
+data (Boolean values, integers, floating points, strings, and even large data structures,
+functions, and programs) in Python exists in the form of objects. This makes the Python
+language highly unified.
+The execution results are 10, 20, Richard, 2, and SyntaxError, respectively.
+This presentation does not describe Python syntax. For Python syntax details, see the HCIP
+course.
+
+[=] ) Code Style Guide for Python - Code Indentation
+e In Python programs, code indentation represents the scope of a code block. If a code block contains two or
+more statements, the statements must have the same indentation. For Python, code indentation is a syntax
+rule that uses code indentation and colons to distinguish between layers of code.
+e When writing code, you are advised to use four spaces for indentation. If incorrect indentation is used in
+the program code, an IndentationError error message is displayed during code running.
+Correct indentation --
+Correct indentation --
+Incorrect indentation --
+Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+if True:
+print ("Hello")
+else:
+print (0)
+a = “Python”
+print (a)
+¢ if...else...is a complete block of code with the same indentation.
+* print(a) calls parameter a, and it is in the same code block with if ...else...clause.
+
+[=] ) Code Style Guide for Python - Using Comments
+Comments are explanations added to programs to improve program readability. In the Python program,
+comments are classified into single-line comments and multi-line comments.
+A single-line comment starts with a pound sign (#).
+A multi-line comment can contain multiple lines, which are enclosed in a pair of three quotation marks (""...""
+or Teter ey,
+Single-line comment -- # Assign a string to a.
+a = “Python”
+print (a)
+Multi-line comment -- The output is Python.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Code Style Guide for Python - Source Code File
+Page 20
+Structure
+A complete Python source code file generally consists of interpreter and encoding format declaration,
+document string, module import, and running code.
+If you need to call a class of a standard library or a third-party library in a program, use "import" or "from...
+import" statement to import related modules. The import statement is always after the module comment or
+document string (docstring) at the top of the file.
+Interpreter declaration -- | #!/usr/bin/env python
+Encoding format declaration -- | #-*- coding: utf-8 -*-
+Module comment or document string -- | Description of a document (docstring)
+This document is intended for...
+Time when a module is imported -- | importtime
+Code is running --
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« The interpreter declaration is used to specify the path of the compiler that runs this file (the
+compiler is installed in a non-default path or there are multiple Python compilers). In the
+Windows , you can omit the first line of the interpreter declaration in the preceding example.
+« The encoding format declaration is used to specify the encoding type used by the program to
+read the source code. By default, Python 2 uses ASCII code (Chinese is not supported), and
+Python 3 supports UTF-8 code (Chinese is supported).
+¢ docstring is used to describe the functions of the program.
+¢ time is a built-in module of Python and provides functions related to processing time.
+
+[=] ) Python Functions and Modules
+e A function is a block of organized, reusable code that is used to perform a single, related action. It can improve the
+modularity of the program and code utilization. The function is defined using the def keyword.
+¢ A module is a saved Python file. Modules can contain definitions of functions, classes, and variables that can then be
+utilized in other Python programs. The only difference between a module and a regular Python program is that the
+module is used for importing by other programs. Therefore, a module usually does not have a main function.
+def sit(): #Define a function. import demo #lmport a module.
+print (‘A dog is now sitting’)
+demo.sit() | #Call a function.
+sit() #Call a function.
+. Execution result:
+Execution result:
+A dog is now sitting.
+| A dog is now sitting.
+© Write
+ 
+a Python file (py). © importa module.
+| A dog is now sitting.
+Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+=| ) Python Classes and Methods
+e Acclass is a collection of properties and methods that are the same. The class keyword is used to define a
+class.
+e The function of an instantiated class is called a method. When you define a method, a class must carry the
+self keyword, which indicates the instance of
+ 
+the class.
+demopy
+class Dog(): #Define a class.
+def sit(self): #Define a method.
+print(“A dog is now sitting.")
+import demo
+Richard = Dog() #The class is instantiated. demo.Dog.-sit
+print (type(Richard.sit)) #The function of an instantiated type is called a
+method.
+print (type(Dog.sit)) #The type is function.
+Execution result:
+Execution result: A dog is now sitting.
+<class ‘method'>
+<class ‘method'> <class ‘function'>
+<class ‘function'>
+4) Write
+ 
+a Python file (.py). 6 Import
+ 
+a module.
+Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Official definitions of functions and methods:
+* Aseries of statements which returns some value to a caller. It can also be passed zero or
+more arguments which may be used in the execution of the body.
+¢ A function which is defined inside a class body. If called as an attribute of an instance of that
+class, the method will get the instance object as its first argument (which is usually called self).
+¢ For more information about classes, see https://docs.python.org/3/tutorial/classes.html.
+
+[= ) Introduction to telnetlib
+¢ telnetlib is a module in the standard Python library. It provides the telnetlib. Telnet class for implementing the Telnet
+function.
+¢ Different methods in the telnetlib. Telnet class are called to implement different functions.
+Import the Telnet class of the telnetlib module. -- | from telnetlib import Telnet
+Create a Telnet connection to a specified server. -- tn = Telnet(host=None, port=O[, timeout))
+Invoke the read_all() method. -- | tn.read_all()
+Read data until a given byte string, expected, is encountered or until timeout seconds have
+Telnet.read_until (expected, timeout=None)
+passed.
+Telnet.read_all () Read all data until EOF as bytes; block until connection closed.
+Read everything that can be without blocking in I/O (eager). Raise EOFError if connection closed
+Telnet.read_very_eager() and no cooked data available. Return b" if no cooked data available otherwise. Do not block unless
+in the midst of an IAC sequence.
+Telnet.write(buffer) Write a byte string to the socket, doubling any IAC characters.
+Telnet.close() Close the connection.
+Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Telnet defines the network virtual terminal (NVT). It describes the standard representation of
+data and sequences of commands transmitted over the Internet to shield the differences
+between platforms and operating systems. For example, different platforms have different line
+feed commands.
+« Telnet communication adopts the inband signaling mode. That is, Telnet commands are
+transmitted in data streams. To distinguish Telnet commands from common data, Telnet uses
+escape sequences. Each escape sequence consists of 2 bytes. The first byte (OxFF) is called
+Interpret As Command (IAC), which indicates that the second byte is a command. EOF is also
+a Telnet command. Its decimal code is 236.
+* Asocket is an abstraction layer. Applications usually send requests or respond to network
+requests through sockets.
+« For more information, see https://docs.python.org/S/library/telnetlio.html.
+
+) Contents
+1. Introduction to Network Programmability and Automation
+2. Overview of Programming Language and Python
+3. Cases
+Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+=| ) Case: Logging In to a Device Using telnetlib
+¢ Case description :
+¢ Anetwork device functions as a Telnet server, and the Python telnetlib needs to be used as a Telnet client to log in to the
+Configure Telnet. Verify the Telnet login Write Python code. Verify the
+procedure. result.
+192.168.10.10 192.168.10.20
+GE1/0/10
+> =a
+Telnet server f=3 | | Telnet client
+—> =
+Ne--------- -e- e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e ee e ee
+device.
+pocrcccce
+.soe”
+¢ The implementation process is as follows :
+¢ Configure the Telnet service.
+¢ Manually verify and view the Telnet login procedure as a reference for code implementation.
+¢ Compile and run Python code.
+e Verify the result.
+Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 26
+Ga) ) Case: Logging In to a Device Using telnetlib
+Configure Telnet. Verify the Telnet login Write Python code. Verify the
+procedure. result.
+192.168.10.10
+eae
+192.168.10.20
+GE1/0/10
+—s
+Telnet server
+=
+a aa a a ea aaa a aaa a aan
+Configure the IP address of
+interface on the device:
+[Huawei] interface GE 1/0/0
+[Huawei -GE1/0/0] ip add 192.168.10.10 24
+[Huawei -GE1/0/0] quit
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+=
+| ij Telnet client
+Configure the Telnet service:
+[Huawei] user-interface vty 0 4
+[Huawei-ui-vty0-4] authentication-mode password
+[Huawei-ui-vty0-4] set authentication password simple Huawei@123
+[Huawei-ui-vty0-4] protocol inbound telnet
+[Huawei-ui-vty0-4] user privilege level 15
+[Huawei-ui-vty0-4] quit
+[Huawei] telnet server enable
+
+Ga) ) Case: Logging In to a Device Using telnetlib
+| Configure Telnet. Write Python code. — Verify the result. |
+mn
+192.168.10.10 192.168.10.20
+; GE1/0/10 =
+Telnet server f=} | lk Telnet client
+?
+wee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee ee eee
+\
+'
+'
+'
+'
+'
+'
+'
+'
+'
+'
+Telnet login:
+Run a login C:\Users\Richard>telnet 192.168.10.10
+command. . . .
+Command output | Login authentication
+2] Enter
+ 
+a password. | Password:
+Command output Info: The max number of VTY users is 5, and the number of current VTY users on line is 1.
+The current login time is 2020-01-15 21:12:57.
+<Huawei>
+Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« In this case, the Windows operating system is used as an example. Run the telnet
+192.168.10.10 command. In the preceding step, a Telnet login password is set. Therefore, the
+command output is
+« Password:
+¢ Enter the password Huawei@123 for authentication. The login is successful.
+
+Case: Logging In to a Device Using telnetlib
+| Configure Telnet. 4 Verify the result. |
+mn
+192.168.10.20
+Verify the Telnet login
+procedure.
+( 192.168.10.10
+\
+'
+'
+'
+'
+'
+'
+'
+'
+'
+'
+GE1/0/10 =
+= z
+‘ Telnet server Telnet client
+| Ci
+Imports the module. -- | import telnetlib
+Sets the IP address for a host. -- | host = '192.168.10.10'
+Sets the password for logging in to the device. -- | password = 'Huawei@123'
+Logs in to the host through Telnet.
+Prints data until Password: is displayed.
+Sets an ASCII password and starts a new line.
+Prints data until <Huawei> is displayed.
+Closes the Telnet connection.
+Page 28
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+tn = telnetlib. Telnet(host)
+tn.read_until(b'Password:’)
+tn.write(password.encode(‘ascii') + b"\n")
+print (tn.read_until(b'’<Huawei>').decode(‘ascii’))
+tn.close()
+In Python, the encode() and decode() functions are used to encode and decode strings in a
+specified format, respectively. In this example, password.encode(‘ascii') is to convert the string
+Huawei@123 into the ASCII format. The encoding format complies with the official
+requirements of the telnetlib module.
+Add a string b, b'str’, indicating that the string is a bytes object. In this example, b'Password:’
+indicates that the string Password:' is converted into a string of the bytes type. The encoding
+format complies with the official requirements of the telnetlib module.
+For more information about Python objects, see
+https://docs.python.org/3/reference/datamodel.html#objects-values-and-types.
+
+Ga) ) Case: Running Result Comparison
+| Configure Telnet. — se a eedine login — Write Python code.
+C:\Users\Richard>telnet 192.168.10.10
+Login authentication
+Manual Telnet login
+result: Password:
+Info: The max number of VTY users is 5, and the number of current VTY users on line is 1.
+The current login time is 2020-01-15 21:12:57.
+<Huawei>
+#Run Python code in the compiler.
+Python code execution | Info: The max number of VTY users is 5, and the number
+result: i,
+of current VTY users on line is 1.
+The current login time is 2020-01-15 22:12:57.
+<Huawei>
+Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[Figura da Pag.1] Labels: eg Wha” 7; - wt; >; i " x CRALE C/ * -; soperne em Pe... a ee > < ee; Wie S 4) / > atcew kg >.. Caption: (errore caption)
+[Figura da Pag.1] Labels: sae ee ae eh: ays 6) ~~ A.B. 1308 es yy Ae rm 2; SD — <——=; Q M5) 4 UNIVERSITA DEGLI STUDI; MCCS DI PERUGIA. Caption: (errore caption)
+[Figura da Pag.1] Labels: Fondamenti di Internet; Network Programmability and Automation; Page 0 Prof. Gianluca Reali. Caption: (errore caption)
+[Figura da Pag.2] Labels: ) Foreword; ¢« New protocols, technologies, and delivery and O&M modes are emerging in the; network engineering field. Conventional networks face challenges from new connection. Caption: (errore caption)
+[Figura da Pag.2] Labels: requirements, such as requirements for cloud computing and artificial intelligence (Al).; Enterprises are also pursuing service agility, flexibility, and elasticity. Against this; backdrop, network automation becomes increasingly important.; ¢ Network programmability and automation is to simplify network configuration,; management monitoring and oneratione for eangqineere and imnrove denlovment and. Caption: (errore caption)
+[Figura da Pag.2] Labels: a a; O&M efficiency. This course is to help network engineers understand Python; programming and implement network automation.; Page 1 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.3] Labels: oF ) Objectives; ¢ Oncompletion of this course, you will be able to:; ° Describe the difficulties of conventional network O&M.. Caption: (errore caption)
+[Figura da Pag.3] Labels: e Understand the implementation of network automation.; e Understand the classification of programming languages.; « Describe the Python code style.; e Describe the basic usage of Python telnetlib.. Caption: (errore caption)
+[Figura da Pag.3] Labels: Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.4] Labels: Contents; 1. Introduction to Network Programmability and Automation; 2. Overview of Programming Language and Python. Caption: (errore caption)
+[Figura da Pag.4] Labels: 3. Cases. Caption: (errore caption)
+[Figura da Pag.4] Labels: Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.5] Labels: Background: Difficulties in Conventional Network O&M; ¢ Conventional network O&M requires network engineers to manually log in to network devices, query and execute; configuration commands, and filter command output. This highly human-dependent working mode is time-consuming,; inefficient, and difficult to audit. i. Caption: (errore caption)
+[Figura da Pag.5] Labels: Numerous devices Are the following working scenes familiar to you?; Complex operations @ 1. Device upgrade: Thousands of network devices reside on a live network.; Low efficiency Ge You have to periodically upgrade the devices in batches.; | 2. Configuration audit: An enterprise needs to audit the configuration of devices; every year. For example, the enterprise requires that STelnet be enabled on; all devices and spanning tree security be configured on Ethernet switches. In; © ©) this case, you have to quickly find out the devices that do not meet the; requirements.. Caption: (errore caption)
+[Figura da Pag.5] Labels: 3. Configuration change: Due to network security requirements, device; & & accounts and passwords need to be changed every three months. You have; So — to delete the original account and create an account on thousands of; & a & network devices.; Network device; Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.6] Labels: Network Automation; ¢ Network automation: Tools are used to implement automated network deployment, operations, and O&M, gradually; reducing dependency on human. This solves the conventional network O&M problems.; = Ree eee: ae we me yi@ece Dmle 8 warrmcie wae dewstlieds« 06 6b =O ceed Oe Olle Om adn lee Ee weceheeecelx serbia tee: Bbc. Caption: (errore caption)
+[Figura da Pag.6] Labels: a INIGITY VEEL OV LUVIS, SUVIT AO PATIOINI©, VANRWLAYVA, FUEL, GHIM WEIS, GIS AVANGANIS IME TICIYVMEN GULVITIGQUIVEE TE tile; industry. From the perspective of network engineering capability construction, it is recommended that engineers acquire; the code programming capability.; Keywords of network; automation; oe , ON - —. Caption: (errore caption)
+[Figura da Pag.6] Labels: Ly 4; Automated; scripts st); Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.7] Labels: Programming-based Network Automation; e In recent years, with the emergence of network automation technologies, Python-based programming; capabilities have become a new skill requirement for network engineers.. Caption: (errore caption)
+[Figura da Pag.7] Labels: © FAULOTTHIAUOTLOCTIVE WIILLCTT HI Yurlorl Gall CACCULS TOVEAleU, UIE -CUOlSUTTMIIY, al PUlIC“VaseU OVEIAliVlls.; ; Example: Implementing automated device configuration; Python file using Python; Configuration File | + What can network automation do? The most intuitive example of; network automation is automated device configuration. This; Sysname SW1 SSH/Telnet ae nai a; Vian 10 process can be divided into two steps: writing a configuration; description A » | file, and writing Python code to push the configuration file to a; Vlan20 ) > device.. Caption: (errore caption)
+[Figura da Pag.7] Labels: WANG =) Network * Write the configuration script in command line interface (CLI); er device mode, and then upload the script to the device using; description C; | Telnet/SSH. This method is easy to understand for network; {_] engineers who are beginning to learn network programmability; and automation. This presentation describes how to implement; network automation.; Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.8] Labels: Contents; 1. Introduction to Network Programmability and Automation; 2. Overview of Programming Language and Python. Caption: (errore caption)
+[Figura da Pag.8] Labels: 3. Cases. Caption: (errore caption)
+[Figura da Pag.8] Labels: Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.9] Labels: Programming Languages; ¢ Aprogramming language is used to write a computer program and control behavior of a computer.; ¢ According to whether compilation is required before execution of a language, the programming language may be; ed ne ee ee SS 5 ee ee ee ee en Le a Ce a ee eS | a a : ee Ce: Ss er emi] a |. Caption: (errore caption)
+[Figura da Pag.9] Labels: MIGQOSOIICM THI GIR UMITINNCM IAhhghayge, GEM TRI Vieleu IANyguayt tat UVES TIME Tee WY Me UMN.; Compiled language Interpreted language; (Source code) (Source code); Compiler; Interpreter: Interprets; source code line by line.. Caption: (errore caption)
+[Figura da Pag.9] Labels: Executable file :; Operating system (Windows/Linux/Mac OS); CPU (x86/ARM architecture); Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.10] Labels: Computing Technology Stack and Program; Execution Process; Computing Technology Stack Program Execution Process. Caption: (errore caption)
+[Figura da Pag.10] Labels: Algorithm es VERY VENTE; VLE = VE iy; 2 5 » programming — v[k+1] = temp; V[K+1] = TEMP; 5 3 High-Level Language s language cic++ Fortran; i s compiler compiler; E $ Assembly Language 3 Iw $10, 0($2); o| & Iw $t1, 4(82); Oo] % Assembly sw $t1, 0($2); 5 = language sw $t0, 4($2); a) - Instruction Set Architecture; 5 5 pedir; DoD = Micro Architecture _ HN ee. Caption: (errore caption)
+[Figura da Pag.10] Labels: ir J a 7 0000 1001 1100 0110 1010 1111 0101 1000; a P « 1041) 1111 0101 1000 0000 1001 1100 0110; Py] § Gates/Registers ES Machine 1101) 0110 1010 1111 0101 1000 0000 1001; 5 = code 010'| 1000 0000 1001 1100 0110 1010 1111; Q ° : c; £ < Transistors Ir; Instruction .; i Instruction 1 Data 1; Physics set; Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.11] Labels: High-level Programming Language - Compiled; Language; ¢ Compiled language: Before a program in a compiled language is executed, a compilation process is performed to; compile the program into a machine language file. The compilation result can be directly used without re-translation; during running. Typical compiled languages include C/C++ and Go.. Caption: (errore caption)
+[Figura da Pag.11] Labels: ¢ From source code to program: The source code needs to be translated into machine instructions by the compiler and; assembler, and then the linker uses the link library function to generate the machine language program. The machine; language must match the instruction set of the CPU, which is loaded to the memory by the loader during running and; executed by the CPU.; Assembly Object module: Executable code:; C/C++ source - . .; mare Compiler language Assembler —>| machine language Linker machine language Loader —» Memory; proaram module proaram. Caption: (errore caption)
+[Figura da Pag.11] Labels: a EE eee; Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.12] Labels: High-level Programming Language -; Interpreted Language; ¢ Interpreted language: Interpreted language programs do not need to be compiled before running. They are translated; line by line when running. Typically, Java and Python are interpreted languages.; a iteiweseaene ease Seca: ced: dees teins: TOs fe: wd me ct aaa jibe! [masseter (ee eieceuelicead lease Blace: caecum laces saad -E lace. Caption: (errore caption)
+[Figura da Pag.12] Labels: a PiVvesvs TMI CVU VUE WY PIVYI GIO. VU VU VI GATE TIE MICROM MATIyMaygh fo gle ateu MY LIS UMVIM GT LEPere; interpreted and executed by a virtual machine (VM) (for example, JVM/PVM). The VM shields the differences between; CPU instruction sets. Therefore, portability of the interpreted language is relatively good.; “—_e; Compiler Compiler. Caption: (errore caption)
+[Figura da Pag.12] Labels: Class file Java library function Pyne fist -pyc file; . functions (machine; (byte code) (machine language) (byte code); language); JVM PVM; Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.13] Labels: What Is Python?; e Python is a fully-open-source high-level programming language. Its author is Guido Van Rossum.. Caption: (errore caption)
+[Figura da Pag.13] Labels: I\UVAINAGeS VIET YUlurt. VloaValllayges VIET Yulvil.; * Isa dynamically typed interpreted language with elegant syntax. It * Runs slow. Is an interpreted language; allows learners to focus on program logic rather than syntax detail that runs without being compiled. Code; learning. is translated line by line at run time into; * Supports both process- and object-oriented programming. machine code that the CPU can; ¢ Provides abundant third-party libraries. understand, which is time-consuming.; * Is nicknamed the glue language because it can call code written in; anther lanqiagnec. Caption: (errore caption)
+[Figura da Pag.13] Labels: With support for abundant third-party libraries and advantages of the Python language, Python can be used; in many fields, such as Al, data science, apps, and scripts for automated O&M.; Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.14] Labels: Python Code Execution Process; Process of compiling and ;; running a Python program Operation. Caption: (errore caption)
+[Figura da Pag.14] Labels: Python source code 1. Install Python and the running environment in an; operating system.; 2. Compile Python source code.; 3. The compiler runs the Python source code and; generates a .pyc file (byte code).; .pyc file (byte code) Oo oo OS Oo. Caption: (errore caption)
+[Figura da Pag.14] Labels: rn 4. Arytnon Viv converts the byte code Into tne; machine language.; Running of the Python; VM 5. Hardware executes the machine language.; Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.15] Labels: Getting Started with Python Code -; Interactive Running; e Python runs in either interactive or script mode.; e Interactive programming does not require script files to be created, and code is written in the interactive. Caption: (errore caption)
+[Figura da Pag.15] Labels: mode of the Python interpreter.; C:\Users\Richard>python; Python 3.7.4 (default, Aug 9 2019, 18:34:13) [MSC v.1915 64 bit (AMD64)] ::; Anaconda, Inc. on win32; Type "help", "copyright", "credits" or "license" for more information.; 1. Input -- | >>> print ("hello world"); 2. Output --; 3. Input -- >>>g=1. Caption: (errore caption)
+[Figura da Pag.15] Labels: 4. Input -- >>>b=2; 5. Input -- >>> print( a+b); 6. Output-- 3; >>>; Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.16] Labels: Getting Started with Python Code -; Script-based Running; e Code in script mode can run on various Python compilers or in integrated development environments. For; example, IDLE, Atom, Visual Studio, Pycharm, and Anaconda provided by Python can be used.. Caption: (errore caption)
+[Figura da Pag.16] Labels: demo.py; print (“hello world’) 4. Input -- C:\Users\Richard>python; 3 _ { 2. Output -- hello world; p a 2 3. Output-- 3; print( a+b). Caption: (errore caption)
+[Figura da Pag.16] Labels: © Write a Python script file (.py). @® Execute the script file.; Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.17] Labels: Code Style Guide for Python; ¢ Code style rules refer to naming rules, code indentation, and code and statement segmentation modes that must be; complied with when Python is used to write code. Good style rules help improve code readability and facilitate code; maintenance and modification.. Caption: (errore caption)
+[Figura da Pag.17] Labels: ¢ For example, the following rules for using semicolons, parentheses, blank lines, and spaces are recommended:; + Asemicolon can be added at the end of a line in + Different functions or statement blocks can be; Python, but is not recommended to separate separated by spaces. A blank line helps differentiate; statements. two segments of code, improving code readability.; * Itis recommended that each sentence be ina; eararstelinn. Caption: (errore caption)
+[Figura da Pag.17] Labels: SEE pennsays Nan EeRdS Sve ava a; + Parentheses can be used for the continuation of + Spaces are not recommended in parentheses.; long statements. Avoid unnecessary parentheses. + You can determine whether to add spaces on both; ends of an operator.; Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.18] Labels: Code Style Guide for Python - Identifier Naming; « APython identifier represents the name of a constant, variable, function, or another object.; + Anidentifier is usually composed of letters, digits, and underscores, but cannot start with a digit. Identifiers are case. Caption: (errore caption)
+[Figura da Pag.18] Labels: SEMSHIVeE aia Must Ve UNIQUE. TH ail IGertiner GUS MOt COMIPIY WITT UIE FUleS, Ue COMIN! Wil OULVUL ad OYINAACITOL; message when running the code.; 1. Assign a value -- User_ID = 10 print ( User_ID ); 2. Assign a value --  user_id = 20 print ( user_id ); 3. Assign a string -- | User_Name = ‘Richard’ print ( User_Name ); 4. Assign a value - | Count=1+1 print ( Count ); 5. Incorrect identifier  -- 4_passwd = "Huawei" print ( 4_passwd ). Caption: (errore caption)
+[Figura da Pag.18] Labels: print() is a built-in function of Python and is used to output content in parentheses.; Question: What is the output of the print command on the right?; Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.19] Labels: Code Style Guide for Python - Code Indentation; e In Python programs, code indentation represents the scope of a code block. If a code block contains two or; more statements, the statements must have the same indentation. For Python, code indentation is a syntax; mack ll wa Arba weak: we ail accede howe | pacer | ce ee al dexter e ela: Rewakdevacacoews leetewiewee ck paced. Caption: (errore caption)
+[Figura da Pag.19] Labels: TUNIS TAL HOt YUU TELAT GTI GUIVITOS LU UIST Uoll MOLI layelo Ui Vue.; e When writing code, you are advised to use four spaces for indentation. If incorrect indentation is used in; the program code, an |IndentationError error message is displayed during code running.; if True:; Correct indentation -- print ("Hello"). Caption: (errore caption)
+[Figura da Pag.19] Labels: else:; Correct indentation -- print (0); a = “Python”; Incorrect indentation -- print (a); Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.20] Labels: Code Style Guide for Python - Using Comments; ¢ Comments are explanations added to programs to improve program readability. In the Python program,; comments are classified into single-line comments and multi-line comments.. Caption: (errore caption)
+[Figura da Pag.20] Labels: ¢ Asingle-line comment starts with a pound sign (#).; e Amulti-line comment can contain multiple lines, which are enclosed in a pair of three quotation marks (""...""; or Te a),; Single-line comment -- # Assign a string to a.; a = “Python”; print (a). Caption: (errore caption)
+[Figura da Pag.20] Labels: Multi-line comment -- The output is Python.; Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.21] Labels: Code Style Guide for Python - Source Code File; Structure; ¢ A complete Python source code file generally consists of interpreter and encoding format declaration,; document string, module import, and running code.. Caption: (errore caption)
+[Figura da Pag.21] Labels: e If you need to call a class of a standard library or a third-party library in a program, use "import" or "from...; import" statement to import related modules. The import statement is always after the module comment or; document string (docstring) at the top of the file.; Interpreter declaration -- | #!/usr/bin/env python; Encoding format declaration -- | #*- coding:utf-8 -*-; Module comment or document string -- | Description of a document (docstring). Caption: (errore caption)
+[Figura da Pag.21] Labels: This document is intended for...; Time when a module is imported -- | importtime; Code is running -- |...; Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.22] Labels: Python Functions and Modules; ¢ A function is a block of organized, reusable code that is used to perform a single, related action. It can improve the; modularity of the program and code utilization. The function is defined using the def keyword.; = J sewed wale iceek et weeceuee Plwsklawiws: Belen Blbecdklesl ecw cote: geist hl Eemubkiecwew cack Ee swesmbiaciwee: 6 clowns 0806 wae «eset nl ace, Sheek oan tliecee bes. Caption: (errore caption)
+[Figura da Pag.22] Labels: a PNT IO A CAVE YET TN. III VEE UME MOCHTII IO VE TMI IO, VIGOOte, GAIIM VALIGNICS LEIGt Val tliell Ve; utilized in other Python programs. The only difference between a module and a regular Python program is that the; module is used for importing by other programs. Therefore, a module usually does not have a main function.; demo.py test. py; def sit(): #Define a function. import demo #lmport a module.; print (‘A dog is now sitting’); demo.sit() | #Call a function.. Caption: (errore caption)
+[Figura da Pag.22] Labels: SIQ) mUall d TUNCUON.; . Execution result:; Execution result:; - — A dog is now sitting.; A dog is now sitting. A dog is now sitting.; © write a Python file (py). © importa module.; Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.23] Labels: Python Classes and Methods; e Aclass is a collection of properties and methods that are the same. The class keyword is used to define a; class.. Caption: (errore caption)
+[Figura da Pag.23] Labels: e The function of an instantiated class is called a method. When you define a method, a class must carry the; self keyword, which indicates the instance of the class.; demo.py; class Dog(): #Define a class. test.py; def sit(self): #Define a method.; print(“A dog is now sitting.") import demo; Richard = Dog() #The class is instantiated. demo.Dog.sit; print (type(Richard.sit)) #The function of an instantiated type is called a. Caption: (errore caption)
+[Figura da Pag.23] Labels: Hei.; print (type(Dog.sit)) #The type is function.; Execution result:; Execution result: Adaog is now sitting.; <class 'method'>; <class 'method'> <class ‘function'>; <class ‘function'’>; 4) Write a Python file (.py). (2 Importa module.; Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.24] Labels: Introduction to telnetlib; ¢ telnetlib is a module in the standard Python library. It provides the telnetlib. Telnet class for implementing the Telnet; function.; = ie cw: samaekbawwdan: Swedes den | awaadkdtle: “Tus bees! cml seen cmdline dim sewn lock: alicia Bevin. Caption: (errore caption)
+[Figura da Pag.24] Labels: a MNPCPeLl TIE TET LEI BCTETPRLHN,. Pee VIKAS AIR VAIO WU OTEINISTEIC EIR MEPS Pel PUIG.; Import the Telnet class of the telnetlib module. -- from telnetlib import Telnet; Create a Telnet connection to a specified server. -- tn = Telnet(host=None, port=O[, timeout); Invoke the read_all() method. -- | tn.read_all(); Telnet.read_until (expected, timeout=None) a until a given byte string, expected, is encountered or until timeout seconds have. Caption: (errore caption)
+[Figura da Pag.24] Labels: Telnet.read_all () Read all data until EOF as bytes; block until connection closed.; Read everything that can be without blocking in I/O (eager). Raise EOFError if connection closed; Telnet.read_very_eager() and no cooked data available. Return b" if no cooked data available otherwise. Do not block unless; in the midst of an IAC sequence.; Telnet.write(buffer) Write a byte string to the socket, doubling any IAC characters.; Telnet.close() Close the connection.; Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.25] Labels: Contents; 1. Introduction to Network Programmability and Automation; 2. Overview of Programming Language and Python. Caption: (errore caption)
+[Figura da Pag.25] Labels: 3. Cases. Caption: (errore caption)
+[Figura da Pag.25] Labels: Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.26] Labels: Case: Logging In to a Device Using telnetlib; ¢ Case description :; ¢ Anetwork device functions as a Telnet server, and the Python telnetlib needs to be used as a Telnet client to log in to the; See penne eee. Caption: (errore caption)
+[Figura da Pag.26] Labels: MeVIVe.; Configure Telnet. Verify the Telnet login Write Python code. Veniy:the; procedure. result.; 192.168.10.10 192.168.10.20; GE1/0/10; |; Telnet server f=}—__________jj Telnet client; e The implementation nrocess is as follows °. Caption: (errore caption)
+[Figura da Pag.26] Labels: ¢ Configure the Telnet service.; ¢ Manually verify and view the Telnet login procedure as a reference for code implementation.; * Compile and run Python code.; ¢ Verify the result.; Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.27] Labels: Case: Logging In to a Device Using telnetlib. Caption: (errore caption)
+[Figura da Pag.27] Labels: GE1/0/10 =; Telnet server f=}—__________jj Telnet client; Configure the IP address of . .; interface on the device: Configure the Telnet service:; [Huawei] interface GE 1/0/0 [Huawei] user-interface vty 0 4; [Huawei -GE1/0/0] ip add 192.168.10.10 24 [Huawei-ui-vty0-4] authentication-mode password. Caption: (errore caption)
+[Figura da Pag.27] Labels: [Huawei -GE1/0/0] quit [Huawei-ui-vty0-4] set authentication password simple Huawei@123; [Huawei-ui-vty0-4] protocol inbound telnet; [Huawei-ui-vty0-4] user privilege level 15; [Huawei-ui-vty0-4] quit; [Huawei] telnet server enable; Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.28] Labels: Case: Logging In to a Device Using telnetlib. Caption: (errore caption)
+[Figura da Pag.28] Labels: GE1/0/10 =; Telnet server f=}—__________jj Telnet client; Telnet login:; 4] Run a login C:\Users\Richard>telnet 192.168.10.10; command. 4 A; Command output | Login authentication. Caption: (errore caption)
+[Figura da Pag.28] Labels: 2] Enter a password. | Password:; Command output . . .; P Info: The max number of VTY users is 5, and the number of current VTY users on line is 1.; The current login time is 2020-01-15 21:12:57.; <Huawei>; Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.29] Labels: Case: Logging In to a Device Using telnetlib. Caption: (errore caption)
+[Figura da Pag.29] Labels: GE1/0/10 =; Telnet server f=}—__________jj Telnet client; Imports the module. -- | import telnetlib; Sets the IP address for a host. -- | host = '192.168.10.10'; Sets the password for logging in to the device. -- | password = 'Huawei@123'. Caption: (errore caption)
+[Figura da Pag.29] Labels: Logs in to the host through Telnet. -- | tn = telnetlib. Telnet(host); Prints data until Password: is displayed. -- | tn.read_until(b'Password:’); Sets an ASCII password and starts a new line. -- | tn.write(password.encode(‘ascii) + b"\n"); Prints data until <Huawei> is displayed. -- | print (tn.read_until(b'<Huawei>').decode(‘ascii’)); Closes the Telnet connection. -- | tn.close(); Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.30] Labels: . ,; Case: Running Result Comparison; CYA hae Cosas teint 2 4S AY AY. Caption: (errore caption)
+[Figura da Pag.30] Labels: Login authentication; Manual Telnet login; result: Password:; Info: The max number of VTY users is 5, and the number of current VTY users on line is 1.; The current login time is 2020-01-15 21:12:57.; <Huawei>; wes =, ara>aJawaee— wer a ———L_T____LLLavvLaowvwvv—vasaaoa—_a—_——_—_c—c acc —c ae ——iii~«CO TTT. Caption: (errore caption)
+[Figura da Pag.30] Labels: #Run Python code in the compiler.; Python code execution | Info: The max number of VTY users is 5, and the number; result: _; of current VTY users on line is 1.; The current login time is 2020-01-15 22:12:57.; <Huawei>; Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)

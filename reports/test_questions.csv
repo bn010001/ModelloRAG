@@ -1,0 +1,16 @@
+id,question,expected_keypoints
+Q1,"Quali sono le soluzioni per aumentare la banda tra due switch in uno stesso data center?","ethernet trunk;link aggregation;porte multiple;larghezza di banda"
+Q2,"Come funziona il protocollo OSPF?","Link-state;LSDB;SPF"
+Q3,"Differenza tra router di livello 2 e 3","switching;routing;VLAN"
+Q4,"Cos’è il protocollo Stop & Wait? Come funziona e qual è la sua efficienza?","errore;ACK;efficienza;eta = 1/(1+2a);tempo di trasmissione"
+Q5,"Specificare le 8 sottoreti di 140.25.0.0/16 in notazione puntata decimale CIDR","/19;140.25.0.0;140.25.32.0;140.25.64.0;…;140.25.224.0"
+Q6,"Elencare gli indirizzi minimo, massimo degli host e broadcast per la sottorete #3","network address;first host;last host;broadcast"
+Q7,"Descrivere l’algoritmo di Dijkstra per il calcolo dei percorsi minimi","grafo;distanza iniziale;relax;coda priorità"
+Q8,"A cosa serve il NAT e come funziona?","address translation;PAT;SNAT;DNAT;port mapping"
+Q9,"Come funziona l’autoconfigurazione degli indirizzi IPv6 e che ruolo ha DAD?","SLAAC;RA;ICMPv6;DAD;Duplicate Address Detection"
+Q10,"Quali servizi fornisce il protocollo UDP e quali sono le sue limitazioni?","connectionless;multiplexing;no reliability;no ordering"
+Q11,"Cos’è e come funziona lo Spanning Tree Protocol (STP)?","root bridge;BPDU;port roles;loop prevention"
+Q12,"Cos’è un ethernet trunk e differenza tra manuale e LACP?","trunk;VLAN tagging;LACP;link aggregation"
+Q13,"Funzionamento del protocollo CSMA/CD in Ethernet","carrier sense;collision detection;jam;backoff"
+Q14,"Cosa fa il protocollo DHCP e quali messaggi scambia con il client?","DISCOVER;OFFER;REQUEST;ACK;lease"
+

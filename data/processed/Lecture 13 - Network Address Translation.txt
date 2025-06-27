@@ -1,0 +1,850 @@
+Page 0
+Fondamenti di Internet
+Network Address Translation
+Prof. Gianluca Reali
+
+Page 1
+Foreword
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+With the development of the Internet and the increase of network applications, limited public
+IPv4 addresses have become the bottleneck of network development. To solve this problem,
+Network Address Translation (NAT) was introduced.
+NAT enables hosts on an internal network to access an external network. It not only helps
+alleviate IPv4 address shortage but also improves the security of the internal network as NAT
+prevents devices on the external network from directly communicating with hosts on the
+internal network that uses private addresses.
+This course describes the motivation behind NAT, and implementations and application
+scenarios of different types of NAT.
+
+Page 2
+Objectives
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+On completion of this course, you will be able to:
+▫Understand the motivation behind NAT.
+▫Master NAT classification and implementations.
+▫Master NAT selection in different scenarios.
+
+Page 3
+Contents
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+1.
+NAT Overview
+2.
+Static NAT
+3.
+Dynamic NAT
+4.
+NAPT and Easy IP
+5.
+NAT Server
+
+Page 4
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+As the number of Internet users increases, public IPv4 addresses become scarcer.
+
+What's worse, uneven allocation of these addresses has resulted in a severe shortage of available public IPv4
+addresses in some areas.
+
+To overcome public IPv4 address shortage, it is necessary to use transition technologies.
+Motivation Behind NAT
+Internet users
+0
+Public IPv4 addresses
+
+Page 5
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+Public IP addresses: managed and allocated by a dedicated organization and can be used for direct communication on the Internet
+
+Private IP addresses: can be used by organizations or individuals randomly on internal networks, but cannot be used for direct
+communication on the Internet
+
+The following Class A, B, and C addresses are reserved as private IP addresses:
+▫
+Class A: 10.0.0.0–10.255.255.255
+▫
+Class B: 172.16.0.0–172.31.255.255
+▫
+Class C: 192.168.0.0–192.168.255.255
+Private IP Addresses
+Internet
+Enterprise office 
+campus
+School campus 
+network
+10.0.0.0/8
+Home network
+192.168.1.0/16
+Coffee shop
+192.168.1.0/16
+Small-scale factory 
+park
+192.168.1.0/16
+
+• Because packets with private IP addresses cannot be routed and forwarded on the Internet, IP 
+packets destined for the Internet cannot reach the egress device of the private network due to 
+lack of routes.
+• If a host that uses a private IP address needs to access the Internet, NAT must be configured on 
+the network egress device to translate the private source address in the IP data packet into a 
+public source address.
+Page 6
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+NAT: translates IP addresses in IP data packets. It is widely used on live networks and is usually deployed on network egress devices,
+such as routers or firewalls.
+
+Typical NAT application scenario: Private addresses are used on private networks (enterprises or homes), and NAT is deployed on
+egress devices. For traffic from an internal network to an external network, NAT translates the source addresses of the data packets
+into specific public addresses. For traffic from an external network to an internal network, NAT translates the destination address of
+the data packets.
+
+NAT+private addresses effectively conserve public IPv4 addresses.
+NAT Implementation 
+PC
+192.168.1.10/24
+Web server
+200.1.2.3
+Private network
+122.1.2.1
+NAT
+Source IP: 192.168.1.10
+Destination IP: 200.1.2.3
+Source IP: 122.1.2.1
+Destination IP: 200.1.2.3
+Source IP: 200.1.2.3
+Destination IP: 192.168.1.10
+Source IP: 200.1.2.3
+Destination IP: 122.1.2.1
+1
+2
+4
+3
+192.168.1.254
+Internet
+
+Page 7
+Contents
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+1.
+NAT Overview
+2.
+Static NAT
+3.
+Dynamic NAT
+4.
+NAPT and Easy IP
+5.
+NAT Server
+
+Page 8
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+Static NAT: A private IP address is mapped to a fixed public IP address.
+
+Bidirectional access: When an internal host with a private IP address accesses the Internet, the egress NAT device translates the
+private IP address into a public IP address. Similarly, when an external network device sends packets to access an internal network,
+the NAT device translates the public address (destination address) carried in the packets into a private address.
+Static NAT Implementation
+Public Address
+Private Address
+122.1.2.1
+192.168.1.1
+122.1.2.2
+192.168.1.2
+122.1.2.3
+192.168.1.3
+192.168.1.2/24
+Web server
+200.1.2.3
+122.1.2.1
+NAT
+192.168.1.1/24
+192.168.1.3/24
+192.168.1.254
+Internet
+Private network
+NAT mapping table
+-------------------------------
+
+Page 9
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Static NAT Example
+The source address 192.168.1.1 is translated into 
+122.1.2.1 for Internet access.
+The destination IP address 122.1.2.1 of the packet 
+returned from the Internet is translated into 
+192.168.1.1.
+When the external host sends a packet to proactively 
+access 122.1.2.3, the destination address of the packet is 
+translated into 192.168.1.3 by the egress device through 
+NAT.
+The source IP address of the packet sent from 
+192.168.1.3 is translated into 122.1.2.3 by NAT when the 
+packet passes through the egress device.
+Source IP: 192.168.1.1
+Destination IP: 200.1.2.3
+1
+Source IP: 200.1.2.3
+Destination IP: 122.1.2.1
+3
+Source IP: 200.1.2.3
+Destination IP: 192.168.1.1
+4
+Source IP: 122.1.2.1
+Destination IP: 200.1.2.3
+2
+192.168.1.2/24
+Web server
+200.1.2.3
+122.1.2.1
+NAT
+192.168.1.1/24
+192.168.1.3/24
+Source IP: 202.1.2.3
+Destination IP: 192.168.1.3
+2
+Source IP: 122.1.2.3
+Destination IP: 202.1.2.3
+4
+Source IP: 192.168.1.3
+Destination IP: 202.1.2.3
+3
+Source IP: 202.1.2.3
+Destination IP: 122.1.2.3
+1
+External host
+202.1.2.3
+192.168.1.254
+Internet
+
+Page 10
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Configuring Static NAT
+[Huawei-GigabitEthernet0/0/0] nat static  global { global-address} inside {host-address } 
+1.
+Method 1: Configure static NAT in the interface view.
+global { global-address} is used to configure an external public IP address, and inside {host-address } is used to configure an 
+internal private IP address.
+[Huawei] nat static  global { global-address} inside {host-address } 
+2.
+Method 2: Configure static NAT in the system view.
+The command format in the system view is the same as that in the interface view. After this configuration, enable static NAT 
+on a specific interface.
+[Huawei-GigabitEthernet0/0/0] nat static enable
+This command enables static NAT on the interface.
+
+Page 11
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Example for Configuring Static NAT
+Private network
+192.168.1.2/24
+Web server
+200.1.2.3
+GE0/0/1
+122.1.2.1
+R1
+NAT
+192.168.1.1/24
+192.168.1.3/24
+192.168.1.254
+[R1]interface GigabitEthernet0/0/1
+[R1-GigabitEthernet0/0/1]ip address 122.1.2.1 24
+[R1-GigabitEthernet0/0/1]nat static global 122.1.2.1 inside 192.168.1.1
+[R1-GigabitEthernet0/0/1]nat static global 122.1.2.2 inside 192.168.1.2
+[R1-GigabitEthernet0/0/1]nat static global 122.1.2.3 inside 192.168.1.3
+• Configure static NAT on R1 to map private addresses of internal hosts to public addresses in one-to-one mode.
+Internet
+
+Page 12
+Contents
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+1.
+NAT Overview
+2.
+Static NAT
+3.
+Dynamic NAT
+4.
+NAPT and Easy IP
+5.
+NAT Server
+
+Page 13
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+Dynamic NAT: A private IP address is mapped to a public IP address from a NAT address pool containing a group of public IP addresses. Static NAT
+strictly maps addresses in one-to-one mode. As a result, even if an internal host is offline for a long time or does not send data, the public address is
+still occupied by the host.
+
+Dynamic NAT prevents such address wastes. When an internal host accesses an external network, an available IP address in a NAT address pool is
+temporarily assigned to the host and marked as In Use. When the host no longer accesses the external network, the assigned IP address is reclaimed
+and marked as Not Use.
+Dynamic NAT Implementation
+Not Use
+122.1.2.1
+Not Use
+122.1.2.2
+Not Use
+122.1.2.3
+192.168.1.2/24
+Web server
+200.1.2.3
+122.1.2.1
+NAT
+192.168.1.1/24
+192.168.1.3/24
+192.168.1.254
+Internet
+Private network
+NAT address pool
+--------------------
+
+Page 14
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Dynamic NAT Example (1)
+Select
+192.168.1.2/24
+Web server
+200.1.2.3
+NAT
+192.168.1.1/24
+In Use
+122.1.2.1
+Not Use
+122.1.2.2
+Not Use
+122.1.2.3
+Source IP: 192.168.1.1
+Destination IP: 200.1.2.3
+1
+Source IP: 122.1.2.2
+Destination IP: 200.1.2.3
+2
+Step 1
+Selects an unused address in the address pool 
+as the post-translated address and marks the 
+address as In Use.
+Step 2
+Generates a temporary NAT mapping 
+table.
+Internet
+NAT address pool
+--------------------
+NAT mapping table
+Public Address
+Private Address
+122.1.2.2
+192.168.1.1
+122.1.2.1
+192.168.1.2
+192.168.1.3/24
+
+Page 15
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Dynamic NAT Example (2)
+Match
+192.168.1.2/24
+Web server
+200.1.2.3
+NAT
+192.168.1.1/24
+192.168.1.3/24
+Public Address
+Private Address
+122.1.2.2
+192.168.1.1
+122.1.2.1
+192.168.1.2
+Source IP: 200.1.2.3
+Destination IP: 122.1.2.2
+3
+Source IP: 200.1.2.3
+Destination IP: 192.168.1.1
+4
+Searches the NAT mapping table for the 
+desired private IP address based on the 
+public IP address and translates the 
+destination IP address of the IP data packet 
+into the private address.
+Internet
+NAT mapping table
+-----------------------------
+
+Page 16
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Configuring Dynamic NAT
+[Huawei] nat address-group group-index start-address end-address
+1.
+Create an address pool.
+Configure a public address range. group-index specifies the address pool ID, and start-address and end-address specify the 
+start and end addresses of the address pool, respectively.
+[Huawei] acl number 
+[Huawei-acl-basic-number ] rule permit source  source-address source-wildcard 
+2.
+Configure an ACL rule for NAT.
+Configure a basic ACL to match the source address range that requires dynamic NAT.
+[Huawei-GigabitEthernet0/0/0] nat outbound acl-number address-group group-index [ no-pat ]
+3.
+Configure outbound NAT with the address pool in the interface view.
+Associate the ACL rule with the address pool for dynamic NAT on the interface. The no-pat parameter specifies that port 
+translation is not performed.
+
+Page 17
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Example for Configuring Dynamic NAT
+Private network
+[R1]nat address-group 1 122.1.2.1 122.1.2.3
+[R1]acl 2000
+[R1-acl-basic-2000]rule 5 permit source 192.168.1.0 0.0.0.255
+[R1-acl-basic-2000]quit
+[R1]interface GigabitEthernet0/0/1 
+[R1-GigabitEthernet0/0/1]nat outbound 2000 address-group 1 no-pat
+• Configure dynamic NAT on R1 to dynamically map private addresses of internal hosts to public addresses.
+192.168.1.2/24
+Web server
+200.1.2.3
+NAT
+R1
+192.168.1.1/24
+192.168.1.3/24
+Internet
+GE0/0/1
+
+Page 18
+Contents
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+1.
+NAT Overview
+2.
+Static NAT
+3.
+Dynamic NAT
+4.
+NAPT and Easy IP
+5.
+NAT Server
+
+• NAPT enables a public IP address to map multiple private IP addresses through ports. In this mode, 
+both IP addresses and transport-layer ports are translated so that different private addresses with 
+different source port numbers are mapped to the same public address with different source port 
+numbers.
+Page 19
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+Dynamic NAT does not translate port numbers. It belongs to No-Port Address Translation (No-PAT). In this mode, the mapping between public and
+private addresses is still 1:1, which cannot improve public address utilization.
+
+Network Address and Port Translation (NAPT): translates both IP addresses and port numbers from multiple internal hosts to one public IP address in
+an address pool. In this way, 1:n mapping between public and private addresses is implemented, which effectively improves public address utilization.
+NAPT Implementation
+NAT mapping table
+-------------
+Private network
+192.168.1.2/24
+Web server
+200.1.2.3
+122.1.2.1
+NAT
+192.168.1.1/24
+192.168.1.3/24
+122.1.2.1
+122.1.2.2
+122.1.2.3
+Public IP Address:Port 
+Number
+Private IP Address:Port
+Number
+122.1.2.2:1025
+192.168.1.1:10321
+122.1.2.2:1026
+192.168.1.2:17087
+192.168.1.254
+Internet
+NAT address pool
+--------------------
+
+Page 20
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+NAPT Example (1)
+Select
+Mapping table
+-------------
+Source: 192.168.1.1:10321
+Destination: 200.1.2.3:80
+1
+Source: 122.1.2.2:1025
+Destination: 200.1.2.3:80
+2
+122.1.2.1
+122.1.2.2
+122.1.2.3
+Step 1
+Selects an address from the address 
+pool and translates both the source IP 
+address and port number.
+Step 2
+Generates a temporary NAT mapping table, which 
+records:
+[Source IP address:port number before translation], [IP 
+address:port number after translation].
+Public IP Address:Port
+Number
+Private IP Address:Port
+Number
+122.1.2.2:1025
+192.168.1.1:10321
+122.1.2.2:1026
+192.168.1.2:17087
+192.168.1.2/24
+Web server
+200.1.2.3
+NAT
+192.168.1.1/24
+192.168.1.3/24
+Internet
+NAT address 
+pool
+-------------
+
+Page 21
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+NAPT Example (2)
+NAT mapping table
+-------------
+192.168.1.2/24
+Web server
+200.1.2.3
+NAT
+192.168.1.1/24
+192.168.1.3/24
+Match
+Searches the NAT mapping table for the desired 
+private IP address and port number based on the 
+public IP address and port number, and translates the 
+destination IP address and port number of the IP 
+data packet.
+Public IP Address:Port
+Number
+Private IP Address:Port
+Number
+122.1.2.2:1025
+192.168.1.1:10321
+122.1.2.2:1026
+192.168.1.2:17087
+Source: 200.1.2.3:80
+Destination: 122.1.2.2:1025
+3
+Source: 200.1.2.3:80
+Destination: 192.168.1.1:10321
+4
+Internet
+
+Page 22
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Example for Configuring NAPT
+Private network
+[R1]nat address-group 1 122.1.2.1 122.1.2.1
+[R1]acl 2000
+[R1-acl-basic-2000]rule 5 permit source 192.168.1.0 0.0.0.255
+[R1-acl-basic-2000]quit
+[R1]interface GigabitEthernet0/0/1 
+[R1-GigabitEthernet0/0/1]nat outbound 2000 address-group 1
+• Configure NAPT on R1 to allow all hosts with private IP addresses on the internal network to
+access the public network through 122.1.2.1.
+192.168.1.2/24
+Web server
+200.1.2.3
+NAT
+R1
+192.168.1.1/24
+192.168.1.3/24
+192.168.1.254
+GE0/0/1
+Internet
+
+Page 23
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+Easy IP: translates both IP addresses and transport-layer port numbers. The implementation of Easy IP is the same as that of NAPT.
+The difference is that Easy IP does not involve address pools. It uses an interface address as a public address for NAT.
+
+Easy IP applies to scenarios where public IP addresses are not fixed, such as scenarios where public IP addresses are dynamically
+obtained by egress devices on private networks through DHCP or PPPoE dialup.
+Easy IP
+NAT mapping table
+-------------
+Private network
+192.168.1.2/24
+Web server
+200.1.2.3
+122.1.2.1
+NAT
+192.168.1.1/24
+192.168.1.3/24
+Public IP Address:Port
+Number
+Private IP Address:Port
+Number
+122.1.2.1:1025
+192.168.1.1:10321
+122.1.2.1:1026
+192.168.1.2:17087
+192.168.1.254
+Internet
+• DHCP: Dynamic Host Configuration Protocol
+• PPPoE: Point-to-Point Protocol over Ethernet
+
+Page 24
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Example for Configuring Easy IP
+[R1-acl-basic-2000]rule 5 permit source 192.168.1.0 0.0.0.255
+[R1-acl-basic-2000]quit
+[R1]interface GigabitEthernet0/0/1 
+[R1-GigabitEthernet0/0/1]nat outbound 2000
+• Configure Easy IP on R1 to allow all hosts with private IP addresses on the internal network to access the
+public network through 122.1.2.1.
+Private network
+192.168.1.2/24
+Web server
+200.1.2.3
+NAT
+R1
+192.168.1.1/24
+192.168.1.3/24
+192.168.1.254
+GE0/0/1
+Internet
+
+Page 25
+Contents
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+1.
+NAT Overview
+2.
+Static NAT
+3.
+Dynamic NAT
+4.
+NAPT and Easy IP
+5.
+NAT Server
+
+Page 26
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+
+NAT Server: maps an internal server to a public network through a one-to-one mapping between a [public IP address:port number]
+and a [private IP address:port number]. This function is used when the internal server needs to provide services for the public
+network.
+
+An external host proactively accesses the [public IP address:port number] to communicate with the internal server.
+NAT Server
+Private network
+Public IP Address:Port 
+Number
+Private IP Address:Port 
+Number
+122.1.2.1:80
+192.168.1.10:80
+200.1.2.3
+Web server
+192.168.1.10
+192.168.1.254
+122.1.2.1
+NAT
+Internet
+NAT mapping table
+-----------------------
+
+Page 27
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+NAT Server Example 
+Match
+Public IP Address:Port 
+Number
+Private IP Address:Port
+Number
+122.1.2.1:80
+192.168.1.10:80
+Source: 122.1.2.1:80
+Destination: 202.1.2.3:47819
+4
+Source: 192.168.1.10:80
+Destination: 202.1.2.3:47819
+3
+Source: 200.1.2.3:47819
+Destination: 122.1.2.1:80
+1
+Source: 200.1.2.3:47819
+Destination: 192.168.1.10:80
+2
+Searches the NAT mapping table for the desired 
+private address:port number based on the public 
+address:port number, and translates the 
+destination address:port number of the IP data 
+packet to the private address:port number.
+Reversely translates 
+the source IP 
+address:port number 
+based on the NAT 
+mapping table.
+200.1.2.3
+Web server
+192.168.1.10
+192.168.1.254
+122.1.2.1
+NAT
+Internet
+NAT mapping table
+-----------------
+
+Page 28
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Example for Configuring NAT Server
+[R1]interface GigabitEthernet0/0/1 
+[R1-GigabitEthernet0/0/1]ip address 122.1.2.1 24
+[R1-GigabitEthernet0/0/1]nat server protocol tcp global 122.1.2.1 www inside 192.168.1.10 8080
+• Configure NAT Server on R1 to map the internal server's IP address 192.168.1.10 and port number 80 to
+the public IP address 122.1.2.1 and port number 8080.
+200.1.2.3
+Web server
+192.168.1.10
+192.168.1.254
+122.1.2.1
+NAT
+Internet
+Private network
+
+Page 29
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved. 
+Difference between NAT Static and NAT Server
+For the access from the public network to the private network, the NAT server and NAT static modes are the same. For 
+the access from the private network to the public network, the NAT server mode translates only the IP address, while 
+the NAT static mode translates both the IP address and port.
+For the access from the private network to the public 
+network, the When the NAT server proactively 
+accesses the Internet, NAT server mode translates only 
+the IP address, regardless of the port number.
+For the access from the private network to the public 
+network, the NAT static mode translates both IP address 
+and port.
+The enterprise requires that private users can access the public server and public users can access 
+the private server. 
+If both the NAT server and Easy IP functions are configured on the router, since the NAT server mode 
+translates only the IP address for the access from the private network to the public network, flow 
+tables may fail to be established. In this case, you are advised to change NAT server to NAT static.
+
+[Figura da Pag.1] Labels: Oo nt cine Kae C7/* bs Py ot ~ o = oa aa; Reh eS ee © 7 Nie eit, oe ae at AI; + — ee Rye AR TOCr es or; 0 = es = ea f; e e ;; <P; RIN ~~ UNIVERSITA DEGLI STUDI; 2M CCO DI PERUGIA. Caption: (errore caption)
+[Figura da Pag.5] Labels: as. Caption: (errore caption)
+[Figura da Pag.7] Labels: &. Caption: (errore caption)
+[Figura da Pag.7] Labels: Cik. Caption: (errore caption)
+[Figura da Pag.7] Labels: COM; AIIM THIN. Caption: (errore caption)
+[Figura da Pag.9] Labels: >. Caption: (errore caption)
+[Figura da Pag.9] Labels: _kk. Caption: (errore caption)
+[Figura da Pag.9] Labels: .COM; TINT TINH. Caption: (errore caption)
+[Figura da Pag.9] Caption: (errore caption)
+[Figura da Pag.9] Labels: _ik. Caption: (errore caption)
+[Figura da Pag.9] Labels: ye; An. Caption: (errore caption)
+[Figura da Pag.9] Labels: -. Caption: (errore caption)
+[Figura da Pag.10] Labels: >. Caption: (errore caption)
+[Figura da Pag.10] Labels: Chk. Caption: (errore caption)
+[Figura da Pag.10] Labels: .COM; AINE IMI. Caption: (errore caption)
+[Figura da Pag.10] Labels: Chk. Caption: (errore caption)
+[Figura da Pag.10] Labels: ik. Caption: (errore caption)
+[Figura da Pag.10] Labels: ye; An. Caption: (errore caption)
+[Figura da Pag.10] Labels: _|k. Caption: (errore caption)
+[Figura da Pag.11] Labels: Ne. Caption: (errore caption)
+[Figura da Pag.11] Labels: as. Caption: (errore caption)
+[Figura da Pag.11] Labels: -_. Caption: (errore caption)
+[Figura da Pag.12] Labels: >. Caption: (errore caption)
+[Figura da Pag.12] Labels: ik. Caption: (errore caption)
+[Figura da Pag.12] Labels: .COM; TINIE UM. Caption: (errore caption)
+[Figura da Pag.12] Labels: Chk. Caption: (errore caption)
+[Figura da Pag.12] Labels: Ci. Caption: (errore caption)
+[Figura da Pag.12] Labels: PA; AB. Caption: (errore caption)
+[Figura da Pag.12] Labels: a. Caption: (errore caption)
+[Figura da Pag.14] Labels: é |; kom. Caption: (errore caption)
+[Figura da Pag.14] Labels: _i. Caption: (errore caption)
+[Figura da Pag.14] Labels: .COM; AWM INI. Caption: (errore caption)
+[Figura da Pag.14] Labels: _|k. Caption: (errore caption)
+[Figura da Pag.14] Labels: _ik. Caption: (errore caption)
+[Figura da Pag.14] Labels: Moe; an. Caption: (errore caption)
+[Figura da Pag.14] Labels: z|. Caption: (errore caption)
+[Figura da Pag.14] Labels: -. Caption: (errore caption)
+[Figura da Pag.15] Labels: &. Caption: (errore caption)
+[Figura da Pag.15] Labels: ik. Caption: (errore caption)
+[Figura da Pag.15] Labels: .COM; TINIL TMM. Caption: (errore caption)
+[Figura da Pag.15] Labels: Lik. Caption: (errore caption)
+[Figura da Pag.15] Labels: Chk. Caption: (errore caption)
+[Figura da Pag.15] Labels: yi; AB. Caption: (errore caption)
+[Figura da Pag.16] Labels: &. Caption: (errore caption)
+[Figura da Pag.16] Labels: Lik. Caption: (errore caption)
+[Figura da Pag.16] Labels: COM; TINT UML. Caption: (errore caption)
+[Figura da Pag.16] Labels: Chk. Caption: (errore caption)
+[Figura da Pag.16] Labels: Ci. Caption: (errore caption)
+[Figura da Pag.16] Labels: yi; Aas. Caption: (errore caption)
+[Figura da Pag.17] Labels: Ne. Caption: (errore caption)
+[Figura da Pag.17] Labels: aaa. Caption: (errore caption)
+[Figura da Pag.17] Labels: -_. Caption: (errore caption)
+[Figura da Pag.18] Labels: ee. Caption: (errore caption)
+[Figura da Pag.18] Labels: yy; &. Caption: (errore caption)
+[Figura da Pag.18] Labels: _|k. Caption: (errore caption)
+[Figura da Pag.18] Labels: .COM; AUNL TMU. Caption: (errore caption)
+[Figura da Pag.18] Labels: ik. Caption: (errore caption)
+[Figura da Pag.18] Caption: (errore caption)
+[Figura da Pag.18] Labels: ye; AB. Caption: (errore caption)
+[Figura da Pag.20] Labels: Q.; kod. Caption: (errore caption)
+[Figura da Pag.20] Labels: Chk. Caption: (errore caption)
+[Figura da Pag.20] Labels: COM; AINNL AIL. Caption: (errore caption)
+[Figura da Pag.20] Labels: ij. Caption: (errore caption)
+[Figura da Pag.20] Labels: ij. Caption: (errore caption)
+[Figura da Pag.20] Labels: EA.; An. Caption: (errore caption)
+[Figura da Pag.20] Labels: na. Caption: (errore caption)
+[Figura da Pag.20] Labels: -. Caption: (errore caption)
+[Figura da Pag.21] Labels: &. Caption: (errore caption)
+[Figura da Pag.21] Labels: _|k. Caption: (errore caption)
+[Figura da Pag.21] Labels: .COM; AUNT AIIM. Caption: (errore caption)
+[Figura da Pag.21] Caption: (errore caption)
+[Figura da Pag.21] Labels: hk. Caption: (errore caption)
+[Figura da Pag.21] Labels: yi; AS. Caption: (errore caption)
+[Figura da Pag.22] Labels: OF. Caption: (errore caption)
+[Figura da Pag.22] Labels: Lik. Caption: (errore caption)
+[Figura da Pag.22] Caption: (errore caption)
+[Figura da Pag.22] Labels: hk. Caption: (errore caption)
+[Figura da Pag.22] Caption: (errore caption)
+[Figura da Pag.22] Labels: yi; An. Caption: (errore caption)
+[Figura da Pag.23] Labels: a. Caption: (errore caption)
+[Figura da Pag.23] Labels: 2.; &. Caption: (errore caption)
+[Figura da Pag.23] Labels: Chk. Caption: (errore caption)
+[Figura da Pag.23] Labels: COM; HINML AIL. Caption: (errore caption)
+[Figura da Pag.23] Labels: ik. Caption: (errore caption)
+[Figura da Pag.23] Labels: Chk. Caption: (errore caption)
+[Figura da Pag.23] Labels: y<; An. Caption: (errore caption)
+[Figura da Pag.24] Labels: |; Koo. Caption: (errore caption)
+[Figura da Pag.24] Labels: Tk. Caption: (errore caption)
+[Figura da Pag.24] Labels: .COM; TIM TILL. Caption: (errore caption)
+[Figura da Pag.24] Caption: (errore caption)
+[Figura da Pag.24] Caption: (errore caption)
+[Figura da Pag.24] Labels: yi; AS. Caption: (errore caption)
+[Figura da Pag.25] Labels: ee. Caption: (errore caption)
+[Figura da Pag.25] Labels: a.; &. Caption: (errore caption)
+[Figura da Pag.25] Labels: Chk. Caption: (errore caption)
+[Figura da Pag.25] Labels: COM; IUNL ANIL. Caption: (errore caption)
+[Figura da Pag.25] Labels: Ci. Caption: (errore caption)
+[Figura da Pag.25] Labels: Lik. Caption: (errore caption)
+[Figura da Pag.25] Labels: Moe; arn. Caption: (errore caption)
+[Figura da Pag.27] Labels: &. Caption: (errore caption)
+[Figura da Pag.27] Labels: _ |. Caption: (errore caption)
+[Figura da Pag.27] Labels: .COM; TINIAN. Caption: (errore caption)
+[Figura da Pag.27] Labels: aa; EVs. Caption: (errore caption)
+[Figura da Pag.28] Labels: &. Caption: (errore caption)
+[Figura da Pag.28] Caption: (errore caption)
+[Figura da Pag.28] Labels: .COM; ANIME UI. Caption: (errore caption)
+[Figura da Pag.28] Labels: EAS; An. Caption: (errore caption)
+[Figura da Pag.29] Labels: a. Caption: (errore caption)
+[Figura da Pag.29] Labels: &. Caption: (errore caption)
+[Figura da Pag.29] Labels: _ |. Caption: (errore caption)
+[Figura da Pag.29] Caption: (errore caption)
+[Figura da Pag.29] Labels: &. Caption: (errore caption)
+[Figura da Pag.30] Labels: NAT Server Table; TOA1.1.100 0 | TA KOK; [inbound | 1.1.2.1: 3000 _| 10.1.1.100: 1000; server Destination IP. Router_—_Destination IP hee; Fy address 10.1.1.100 address 1.1.1.1; C—O _hi; 10.1.1.100/8 Source IP address Source IP address; 70.1.1.100 Tad —; + The internal host initiates an access request.; > The external host responses an access request,. Caption: (errore caption)
+[Figura da Pag.30] Labels: NAT Static Table; Server Destination IP address Router Destination IP address Host; BA —kbI4s]Tp+»"}-N"—_3; 10.1.1.100/8 Source IP address Source IP address. Caption: (errore caption)

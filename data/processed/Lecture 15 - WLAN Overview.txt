@@ -1,0 +1,2281 @@
+Page 0
+A.D. 1308
+Fondamenti di Internet
+WLAN Overview
+Prof. Gianluca Reali
+
+Page 1
+) Foreword
+Wired LANs are expensive and lack mobility. The increasing demand for portability and
+mobility requires wireless local area network (WLAN) technologies.
+WLAN is now the most cost-efficient and convenient network access mode.
+This course introduces the development of WLAN in different phases, concepts related
+to WLAN technologies, implementation and basic configurations of common WLAN
+networking architectures, and WLAN development trends.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Objectives
+¢ Oncompletion of this course, you will be able to:
+es Understand basic concepts of WLAN and the history of the 802.11 protocol family.
+° Learn about different WLAN devices.
+2 Distinguish between different WLAN networking architectures.
+s Understand the WLAN working process.
+s Complete basic WLAN configurations.
+Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+WLAN Overview
+Basic Concepts of WLAN
+WLAN Fundamentals
+WLAN Configuration Implementation
+Next-Generation WLAN Solutions
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[= ) Introduction to WLAN
+¢ Awireless local area network (WLAN) is constructed using wireless technologies. It uses high-frequency (2.4 GHz or 5
+GHz) signals such as radio waves, lasers, and infrared rays to replace the traditional media used for transmission on a
+wired LAN.
+¢ WLAN technology allows users to easily access a wireless network and move around within the coverage of the wireless
+network.
+Wireless (yp) BEES
+Point
+Network Radio
+signals
+Switch i |
+EY
+Wired
+Network
+G
+lw
+Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Awireless local area network (WLAN) is constructed using wireless technologies.
+2 Wireless technologies mentioned here include not only Wi-Fi, but also infrared,
+Bluetooth, and ZigBee.
+2 WLAN technology allows users to easily access a wireless network and move around
+within the coverage of the wireless network.
+« Wireless networks can be classified into WPAN, WLAN, WMAN, and WWAN based on the
+application scope.
+« Wireless personal area network (WPAN): Bluetooth, ZigBee, NFC, HomeRF, and UWB
+technologies are commonly used.
+« Wireless local area network (WLAN): The commonly used technology is Wi-Fi. WPAN-
+related technologies may also be used in WLANs.
+« Wireless metropolitan area network (WMAN): Worldwide Interoperability for Microwave
+Access (WiMAX) is commonly used.
+« Wireless wide area network (WWAN): GSM, CDMA, WCDMA, TD-SCDMA, LTE, and
+5G technologies are commonly used.
+¢« Advantages of WLAN:
+a High network mobility: WLANs are easily connected, and are not limited by cable and
+port positions. This makes WLANs most suitable for scenarios where users are often
+moving, such as in office buildings, airport halls, resorts, hotels, stadiums, and cafes.
+2 Flexible network deployment: WLANs provide wireless network coverage in places
+where cables are difficult to deploy, such as subways and highways. WLANs reduce the
+number of required cables, offer low-cost, simplify deployment, and have high scalability.
+
+[=| ) IEEE 802.11. WLAN and Wi-Fi
+e |EEE 802.11 suites are standards for WLANs which are definded WLAN
+by the Institute of Electrical and Electronics Engineering (IEEE).
+¢ Wi-Fi Alliance was formed by a group of major manufacturers IEEE 802.3
+and the logo "Wi-Fi" was created. The Wi-Fi standards are
+IEEE 802.11 Standards and Wi-Fi Generations
+Frequency 2.4GHz 2.4GHz 2.4GHz, 5GHz 2.4GHz & 5GHz 5GHz 5GHz 2.4GHz & 5GHz
+an
+Throughput 2Mbit/s 11Mbit/s 54Mbit/s 300Mbit/s 1300Mbit/s 6.9Gbit/s 9.6Gbit/s
+Standard | sees 802.11b 802.11a, 802.11g 802.11n 802.11ac wave 802.11ac wave2 802.11ax
+WiFi WiFI1 = WiFI2 WEIS WHA WiFi 5 wire |
+Released In 1997 1999 2003 2009 2013 2015 2018
+Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢« IEEE 802.11 standards are located on the lower two layers of the equivalent TCP/IP model.
+2 Data link layer: provides channel access, addressing, data frame check, error detection,
+and security mechanisms.
+2 Physical layer: transmits bit streams over an air interface, for example, specifying the
+frequency band.
+« Whencreated in 1999, the Wi-Fi Alliance was called the Wireless Ethernet Compatibility
+Alliance (WECA) at that time. In October 2002, the WECA was renamed Wi-Fi Alliance.
+« The first version of IEEE 802.11 was released in 1997. Since then, more IEEE 802.1 1-based
+supplementary standards have been gradually defined. The most well-known standards that
+affect the evolution of Wi-Fi are 802.11b, 802.11a, 802.119, 802.11n, and 802.1 1ac.
+« When the IEEE 802.11ax standard is released, the Wi-Fi Alliance renames the new Wi-Fi
+specification to Wi-Fi 6, the mainstream IEEE 802.11ac to Wi-Fi 5, and IEEE 802.11n to Wi-Fi
+4. The same naming convention applies to other generations.
+
+Ga) ) Wi-Fi Development Trends in Office Scenarios
+Early 1990s Late 1990s Today
+Mobile 1.0 Mobile 2.0 Mobile 3.0
+—
+=> 4K
+] ( Wi-Fi )
+VR/AR ces
+ce All-wireless era
+= BYOD —_
+eee Diversified terminals:
+: « Refined online service
+: * 802 ttax/ad
+=—s Primary mobile office . AK vidan
+Mobile phone, tablet, and Ultrabook: VRI4K video
+Laptop: « Video, voice, and data services
+* Voice and data services « Alarge number of real-time services
+* 802.11b/a/g * 802.11n -> 802.11ac
+Desktop computer:
+* Data service WUE SE HERES as a Wired and wireless integration All-wireless office, wireless-centric
+supplement to wired networks
+Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« Phase 1: Initial Mobile Office Era — Wireless Networks as a Supplement to Wired Networks
+a WaveLAN technology is considered as the prototype of enterprise WLAN. Early Wi-Fi
+technologies were mainly applied to loT devices such as wireless cash registers.
+However, with the release of 802.11a/b/g standards, wireless connections have become
+increasingly advantageous. Enterprises and consumers are beginning to realize the
+potential of Wi-Fi technologies, and wireless hotspots are found to be deployed in
+cafeterias, airports, and hotels.
+« The name Wi-Fi was also created during this period. It is the trademark of the Wi-Fi
+Alliance. The original goal of the alliance was to promote the formulation of the 802.11b
+standard as well as the compatibility certification of Wi-Fi products worldwide. With the
+evolution of standards and the popularization of standard-compliant products, people
+tend to equate Wi-Fi with the 802.11 standard.
+« The 802.11 standard is one of many WLAN technologies, and yet it has become a
+mainstream standard in the industry. When a WLAN is mentioned, it usually is a WLAN
+using the Wi-Fi technology.
+a The first phase of WLAN application eliminated the limitation of wired access, with the
+goal to enable devices to move around freely within a certain range. That is, WLAN
+extends wired networks with the utilization of wireless networks. In this phase, WLANs
+do not have specific requirements on security, capacity, and roaming capabilities. APs
+are still single access points used for wireless coverage in single-point networking.
+Generally, an AP using a single access point architecture is called a Fat AP.
+« Phase 2: Wireless Office Era — Integration of Wired and Wireless Networks
+a With the increasing popularity of wireless devices, WLANs have evolved from the
+supplement
+ 
+of wired networks to necessities.
+a In this phase, a WLAN, as a part of the network, needs to provide network access for
+
+Page 7
+) Contents
+WLAN Overview
+Basic Concepts of WLAN
+WLAN Fundamentals
+WLAN Configuration Implementation
+Next-Generation WLAN Solutions
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 8
+Wireless Router
+Basic Concepts Wired Network Wireless Network
+Network
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Huawei WLAN products provide high-speed, secure, and reliable wireless network
+connections in various scenarios, such as indoor and outdoor scenarios and home and
+enterprise scenarios.
+¢ Wireless routers are Fat APs in most cases.
+A wireless router converts wired network signals into wireless signals to be received by
+devices such as home computers and mobile phones so that they can access the
+Internet in wireless mode.
+¢ Enterprise WLAN products:
+AP
+AC
+The AP can switch flexibly among the Fat, Fit, and cloud modes based on the
+network plan.
+Fat AP: applies to home WLANs. A Fat AP works independently and requires
+separate configurations. It provides only simple functions and Is cost-effective. The
+Fat AP independently implements functions such as user access, authentication,
+data security, service forwarding, and QoS.
+Fit AP: applies to medium- and large-sized enterprises. Fit APs are managed and
+configured by the AC in a unified manner, provide various functions, and have
+high requirements on network maintenance personnel's skills. Fit APS must work
+with an AC for user access, AP going-online, authentication, routing, AP
+management, security, and QoS.
+Cloud AP: applies to small- and medium-sized enterprises. Cloud APs are
+managed and configured by a cloud management platform in a unified manner,
+provide various functions, support plug-and-play, and have low requirements on
+network maintenance personnel's skills.
+An AC is usually deployed at the aggregation layer of a network to provide high-
+
+Ga) ) Basic WLAN Networking Architecture
+Fat AP Architecture AC + Fit AP Architecture
+Internet
+Internet
+<R> Campus
+& Campus Egress Gateway
+Campus
+Wired Network Egress Gateway p
+Network
+Ethernet Protocols Campus
+Network
+g G
+rs ~Y
+“y
+J ln
+Fat AP (5) (cy) Fit AP
+& & & Radio signal & Ys = Radio signal
+Wireless Network ~~ ~~ qx Ss ~~ qx
+SY
+802.11 Protocols 0 i)
+Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+2 SY >
+0 STA 0 i) | Hl STA
+a
+« A WLAN involves both wired and wireless sides. On the wired side, APs connect to the
+Internet using Ethernet. On the wireless side, STAS communicate with APs using 802.11
+standards.
+« The wireless side uses the centralized architecture. The original Fat AP architecture evolves
+to the AC + Fit AP architecture.
+2 FatAP architecture
+= This architecture is also called autonomous network architecture because it does
+not require a dedicated device for centralized control. It can implement functions
+such as connecting wireless users, encrypting service data, and forwarding
+service data packets.
+= Applicable scope: home and small-sized enterprises
+= Characteristics: A Fat AP works independently and is configured separately. It
+provides only simple functions and is cost-effective.
+= Disadvantages: The increase in the WLAN coverage area and the number of
+access users requires more and more Fat APs. No unified control device is
+available for these independently working Fat APs. Therefore, it is difficult to
+manage and maintain the Fat APs.
+o AC + Fit AP architecture
+= In this architecture, an AC is responsible for WLAN access control, forwarding and
+statistics collection, AP configuration monitoring, roaming management, AP
+network management agent, and security control. A Fit AP encrypts and decrypts
+802.11 packets, provides 802.11 physical layer functions, and is managed by an
+AC.
+
+Central AP \¢
+ 
+=>)
+Central AP |e
+ 
+==)
+Ga) ) Agile Distributed Architecture
+Hoon fdoad
+Room 1
+Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Room2 | Room3 Room N
+Room 1
+Room2 Room3 Room WN
+Basic Concepts Wired Network Wireless Network
+Architecture Characteristics
+¢ The agile distributed architecture divides an AP into a central AP
+and remote units (RUs). The central AP can manage multiple
+RUs, which provides good coverage and reduces costs. RUs can
+be used in the Fat AP, AC + Fit AP, and cloud management
+architectures.
+¢ Application scope: densely distributed rooms
+
+) Basic Concepts Wired Network Wireless Network
+What Is a CAPWAP Tunnel?
+Transfer:
+Control information * Control And Provisioning of Wireless Access
+User data
+LJ : z Cc Points (CAPWAP): defines how to manage and
+STA Ga ; ampus
+fe ew ppt Network configure APs. That is, an AC manages and controls
+cA
+‘»
+AP1 (cy) APs in a centralized manner through CAPWAP tunnels.
+CAPWAP Tunnel Functions
+SS
+SS ¢ Maintains the running status of the AC and APs.
+| * Allows the AC to manage APs and deliver service
+STA configurations to the APs.
+« Allows APs to exchange data sent by STAs with the AC
+through CAPWAP tunnels when the tunnel forwarding
+mode is used.
+Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+To meet the requirements of large-scale networking and unified management
+ 
+of APs on the
+network, the Internet Engineering Task Force (IETF) sets up a CAPWAP Working Group and
+formulates the CAPWAP protocol. This protocol defines how an AC manages and configures
+APs. That is, CAPWAP tunnels are established between the AC and APs, through which the
+AC manages and controls the APs.
+CAPWAP is an application-layer protocol based on UDP transmission.
+> CAPWAP functions in the transmission of two types of messages:
+= Data messages, which encapsulate wireless data frames through the CAPWAP
+data tunnel.
+= Control messages, which are exchanged for AP management through the
+CAPWAP control tunnel.
+«2 CAPWAP data and control packets are transmitted on different UDP ports:
+= UDP port 5246 for transmitting control packets
+= UDP port 5247 for transmitting data packets
+
+[=| ) AP-AC Networking
+¢ The AP-AC networking modes are classified into Layer 2 networking and Layer 3 networking.
+Layer 2 Networking Layer 3 Networking
+* Layer 2 networking: APs are * Layer 3 networking: APs are
+A connected to an AC directly or A connected to an AC across a
+Cc across a Layer 2 network. Cc Layer 3 network.
+* The Layer 2 networking * In the actual networking, an AC
+Layer 2 features quick deployment. It is Layer 3 can connect to dozens or even
+Network applicable to simple or Network hundreds of APs, which is
+temporary networking but not to usually complex. In most cases,
+large networking. oo the Layer 3 networking is used
+AP1 APn AP1 APn on a large network.
+Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+AP-AC networking: The Layer 2 or Layer 3 networking can be used between the AC and APs.
+In the Layer 2 networking, APs can go online in plug-and-play mode through Layer 2
+broadcast or DHCP. In the Layer 3 networking, APs cannot directly discover an AC. We need
+to deploy DHCP or DNS, or manually specify the AC's IP address.
+In the actual networking, an AC may connect to dozens or even hundreds of APs, which is
+complex. For example, on an enterprise network, APs can be deployed in offices, meeting
+rooms, and guest rooms, and the AC can be deployed in the equipment room. This constructs
+a complex Layer 3 network between the AC and APs. Therefore, the Layer 3 networking is
+often used on large-scale networks.
+
+Page 13
+[= ) AC Connection Mode
+e ACs can be connected in in-path or off-path mode.
+Off-Path Networking
+In-Path Networking
+« Inthe in-path networking, the
+APs, AC, and core network are
+connected in a chain. All data
+destined for the core layer
+passes through the AC.
+* In this networking, the AC also
+functions as an aggregation
+switch to forward and process
+data traffic and management
+traffic of APs.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Core
+Network
+| A
+IP
+Network
+Basic Concepts Wired Network Wireless Network
+¢ In the off-path networking, the
+AC connects to the network
+between APs and the core
+network, but does not directly
+connect to APs.
+¢ In this networking, the AC is
+connected to APs in off-path
+mode, the service data of APs
+reaches the uplink network
+without passing through the
+AC.
+AC connection mode: In in-path mode, the AC is deployed on the traffic forwarding path, and
+user traffic passes through the AC. This consumes the AC's forwarding capability. In off-path
+mode, traffic does not pass through the AC.
+In-path networking:
+2 In the in-path networking, the AC must be powerful in throughput and processing
+capabilities, or the AC becomes the bandwidth bottleneck.
+« This networking has a clear architecture and is easy to deploy.
+Off-path networking:
+= Most wireless networks are deployed after wired networks are constructed and are not
+planned in early stage of network construction. The off-path networking makes it easy to
+expand the wireless network. Customers only need to connect an AC to a network
+device, for example, an aggregation switch, to manage APs. Therefore, the off-path
+networking is used more often.
+2 In the off-path networking, the AC only manages APs, and management flows are
+encapsulated and transmitted in CAPWAP tunnels. Data flows can be forwarded to the
+AC over CAPWAP tunnels, or forwarded to the uplink network by the aggregation switch
+and do not pass through the AC.
+
+: - Wireless
+EAS Cersens Wired Network
+[=| ) Wireless Communications System
+e In a wireless communications system, information may be an image, a text, a sound, or the like. The
+transmit device first applies source coding to convert information into digital signals that allow for circuit
+calculation and processing, and then into radio waves by means of channel coding and modulation.
+Channel Yi
+Source > Coding -—) Modulation LY (transmission Demodulation > Decoding Sink
+media)
+a
+Transmit device Receive device
+Noise source
+Wireless Communications System
+Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Coding
+2 Source coding is a process of converting raw information into digital signals by using a
+coding scheme.
+a Channel coding is a technology
+ 
+for correcting and detecting information errors to
+improve channel transmission reliability. With wireless transmission that is prone to
+noise interference, information arriving at the receive device may be erroneous. Channel
+coding is introduced to restore information to the maximum extent on the receive device,
+thereby reducing the bit error rate.
+¢ Modulation is a process of superimposing digital signals on high-frequency signals generated
+by high-frequency oscillation circuits so that the digital signals be converted into radio waves
+over antennas and then transmitted.
+* Achannel transmits information, and a radio channel is a radio wave in space.
+¢ The air interface is used by radio channels. The transmit device and receive device are
+connected through the air interfaces and channels. The air interfaces in wireless
+communication are invisible and connected over the air.
+
+: - Wireless
+EAS CEreEes Wired Network
+[=| ) Radio Wave
+e A radio wave is an electromagnetic wave whose frequency is between 3 Hz and about 300 GHz. Radio
+technology converts sound signals or other signals and transmits them by using radio waves.
+e WLAN technology enables transmission of information by radio waves over the air. Currently, the WLAN
+uses the following frequency bands:
+2.4 GHz frequency band (2.4—2.4835 GHz)
+5 GHz frequency band (5.15-5.35 GHz, 5.725-5.85 GHz)
+2.4 GHz frequency band 5 GHz frequency band
+IEEE 802.11b/g/n/ax IEEE 802. 11a/n/ac/ax
+* Radio wave spectrum:
+Super low Ultralow Very low Low Intermediate High Very high Ultra high Super high
+quency quency quency quency quency frequency frequency
+frequency ie * vy * frequency
+(ELF) (SLF) (ULF) (VLF) (LF) (IF) (HF) (VHF) (UHF) (SHF) (EHF)
+Extremely Extremely
+low high
+3 30 300 3 30 300 3 30 300 3 30 300 pnftared iS IDle
+light, ultraviolet
+Y Y Y Y light, and ray
+Hz kHz MHz GHz
+Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ ELF (3 Hz to 30 Hz): Used for submarine communication or directly converted into sound
+¢ SLF (30 Hz to 300 Hz): Directly converted into sound or used for AC transmission system
+(50-60 Hz)
+¢ ULF (800 Hz to 3 kHz): Used for communications in mining farms or directly converted into
+sound
+¢ WVLF (38 kHz to 30 kHz): Directly converted into sound and ultrasound or used for geophysics
+¢ LF (80 kHz to 300 kHz): Used for international broadcasting
+¢ IF (800 kHz to 3 MHz): Used for amplitude modulation (AM) broadcasting, maritime
+communications, and aeronautical communications
+¢ HF (3 MHz to 30 MHz): Used for short-wave and civil radios
+¢ VHF (30 MHz to 300 MHz): Used for frequency modulation (FM) broadcasting, television
+broadcasting, and aeronautical communications
+¢ UHF (800 MHz to 3 GHz): Used for television broadcasting, radio telephone communications,
+wireless network, and microwave oven
+¢ SHF (3 GHz to 30 GHz): Used for wireless network, radar, and artificial satellite
+¢ EHF (30 GHz to 300 GHz): Used for radio astronomy, remote sensing, and millimeter wave
+scanner
+¢ Higher than 300 GHz: Infrared, visible light, ultraviolet light, and ray
+
+) Radio Channel
+: - Wireless
+Basic CEneees Wired Network
+e Achannel transmits information, and a radio channel is a radio wave in space. Given that radio waves are
+ubiquitous, the random use of spectrum resources will cause endless interference issues. Therefore, in
+addition to defining the usable frequency bands, wireless communication protocols must also accurately
+divide the frequency ranges. Each frequency range is a channel.
+2.4 GHz Frequency Band
+1 3 11. 13
+24125 2.422 or 2442. 248, 0 o 47
+14
+T T 2.437
+ 
+“ieee
+ 
+2.457 T 2.484
+tL. LL 1: channel
+~y
+ 
+- NO \. 2.412: center frequenc
+rae, Vr KS q y
+yy yy yyy i iyi 3 1 (GHz)
+* The 2.4 GHz frequency band is divided into 14 channels with
+overlapping or non-overlapping relationships, each with a
+bandwidth of 20 MHz.
+* Overlapping channels, such as channels 1 and 2, interfere with each other.
+* Non-overlapping channels, such as channels 1 and 6, do not interfere with
+each other.
+Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+5 GHz Frequency Band
+$170
+MHz
+$330
+MHz
+$490
+MHz
+Weather
+radar
+$710
+MHz
+$738
+MHz
+leech gSsegeees SSSSSRARSSS LBbEB
+20 m2 AAA OAAAA
+40 MHz WV
+80 MHz V \ V \ i—1
+160 MHz \ \ i :
+Example of non- \ \ H
+80+80 :
+MHz channel . fC
+binding : H
+* The 5 GHz frequency band has richer spectrum resources. In addition to 20
+MHz channels, APs working on the 5 GHz frequency band support 40 MHz,
+80 MHz, and higher-bandwidth channels.
+* Ona WLAN, the operating status of APs is affected by the radio environment. For example, a
+high-power AP can interfere with adjacent APs if they work on overlapping channels.
+« In this case, the radio calibration function can be deployed to dynamically adjust channels and
+power of APs managed by the same AC to ensure that the APs work at the optimal
+performance.
+
+[= ) BSS/SSID/BSSID
+e Basic service set (BSS):
+e An area covered by an AP.
+Discover guest BSS
+| ® STAsina BSS can communicate with each other.
+e Basic service set identifier (BSSID):
+A (5) SSID: guest e An identifier of a WLAN, which is represented by the
+Discover guest P BSSID: 00¢0.fc45.24a0 AP's MAC address.
+e
+Lo] = ¢ Service set identifier (SSID):
+© An identifier of a WLAN, which is represented by a
+Discover guest string of characters.
+LJ e $§SIDs can replace BSSIDs to help users identify
+different WLANs.
+Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« BSS:
+« ABSS, the basic service unit of a WLAN, consists of an AP and multiple STAs. The
+BSS is the basic structure of an 802.11 network. Wireless media can be shared, and
+therefore packets sent and received in a BSS must carry the BSSID (AP's MAC
+address).
+« BSSID:
+a AP's MAC address on the data link layer.
+s STAs can discover and find an AP based on the BSSID.
+«2 Each BSS must have a unique BSSID. Therefore, the AP’s MAC address is used to
+ensure the uniqueness of the BSSID.
+« SSID:
+« A unique identifier that identifies a wireless network. When you search for available
+wireless networks on your laptop, SSIDs are displayed to identify the available wireless
+networks.
+2 |f multiple BSSs are deployed in a space, the STA may discover not only one BSSID.
+You only need to select a BSSID as required. For easier AP identification, a string of
+characters is configured as the AP name. This character string is the SSID.
+
+: - Wireless
+EAS CEreEes Wired Network
+[=| ) VAP
+e In the early stage, APs support only one BSS. If
+multiple BSSs are deployed in a space, we must
+Discover guest also deploy multiple APs, which increases costs
+and internal
+| BSS1: VAP1 and occupies channel resources. To resolve this
+Bes problem, APs now support creation of multiple
+00e0.fc45.24a0 virtual access points (VAPs).
+A (5)
+Discover guest ;
+and internal P ° VAP:
+& BSS2: VAP2
+L J “=
+ 
+| SSID: internal ° A physical AP can be virtualized into multiple VAPs,
+BSSID: . . .
+00e0.fc45.24a9 each of which provides the same functions as the
+Discover guest :
+and internal physical AP.
+L J e Each VAP corresponds to one BSS. In this way, one
+AP may provide multiple BSSs that can have different
+SSIDs specified.
+Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« VAP:
+« A VAP is a functional entity virtualized on a physical AP. You can create different VAPs
+onan AP to provide the wireless access service for different user groups.
+¢ The use of VAPs simplifies WLAN deployment, but it does not mean that we need to configure
+as many as VAPs. VAPs must be planned based on actual requirements. Simply increasing
+the number of VAPs will increase the time for STAs to find SSIDs and make AP configuration
+more complex. Additionally, a VAP is not equivalent
+ 
+to a real AP. All VAPs virtualized from a
+physical AP share software and hardware resources of the AP, and all users associated with
+these VAPs share same channel resources. The capacity of an AP will not change or multiply
+with the increasing number of VAPs.
+
+: - Wireless
+EAS Cersens Wired Network
+=))) ess
+e The coverage of a BSS is limited. An extended
+ESS service set (ESS) can be used to expand the
+as as coverage. When a STA moves from one BSS to
+(S) BSSID: (FY) BSSID:
+00e0.fc45.24a0 00e0.fc45.3100 another BSS, an ESS ensures that the STA does
+mw SS a he ch fthe SSID
+— il —= | not sense
+ 
+the change
+ 
+of the ;
+LJ SSID: huawei LJ SSID: huawei * ESS:
+° Alarger-scale virtual BSS that consists of multiple
+BSSs with the same SSID.
+Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* ESS:
+2 A large-scale virtual BSS consisting of multiple BSSs with the same SSID.
+s ASTAcan move and roam within an ESS and considers that it is within the same
+WLAN regardless of its location.
+¢ WLAN roaming:
+2 WLAN roaming allows STAs to move within the coverage areas of APs belonging to the
+same ESS with nonstop service transmission.
+«= The most obvious advantage of the WLAN is that a STA can move within a WLAN
+without physical media restrictions. WLAN roaming allows the STA to move within a
+WLAN without service interruption. Multiple APs are located within an ESS. Whena
+STA moves from an AP to another, WLAN roaming ensures seamless transition of STA
+services between APs.
+
+Page 20
+) Contents
+WLAN Overview
+Basic Concepts of WLAN
+WLAN Fundamentals
+WLAN Configuration Implementation
+Next-Generation WLAN Solutions
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+AP Onboarding CETIOELED STAAccess Data Forwarding
+ry) ) WLAN Working Process Overview
+Network
+© AP onboarding )
+AnAP obtains an IP address, discovers an AC,
+and sets up a connection with the AC.
+DHCP Server AC [ @® WLANservice configuration delivery ]
+Ei The AC delivers WLAN service configurations to the AP.
+[ © STAaccess )
+STAs find the SSID transmitted by the AP, connect to
+the network, and go online.
+AP AP © WLANservice data forwarding
+C7 Clg
+Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+The WLAN starts to forward service data.
+¢ Inthe AC + Fit AP networking architecture, the AC manages APs in a unified manner.
+Therefore, all configurations are performed on the AC.
+
+ar eal STAAccess Data Forwarding
+Ga) ) WLAN Working Process: Step 1
+Campus WLAN Working Process
+Network
+4) AP onboarding
+The AC can manage and control Fit APs in a centralized
+manner and deliver services only after they go online. The
+DHCP Server AC procedure is as follows:
+1. AnAP obtains an IP address.
+Ei 2. TheAP discovers the AC and establishes a CAPWAP tunnel
+with it.
+3. AP access control
+4. AP upgrade
+5. CAPWAP tunnel maintenance
+AP AP (2) WLANservice configuration delivery |
+—
+ 
+7-7
+(3) STAaccess
+CT CI] q (4) WLAN service data forwarding
+Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+AP Onboarding ar eal STAAccess Data Forwarding
+[=| ) APs Obtain IP Addresses
+¢ AnAP can communicate with an AC only after obtaining an IP address.
+IP Address Allocation
+@ « AnAP can obtain an IP address in either of the following modes:
+© Static mode: A user logs in to the AP and configures its IP address.
+° DHCP mode: The AP serves as a DHCP client and requests an IP address
+from a DHCP server.
+© ¢ Typical solutions:
+° Deploy a dedicated DHCP server to assign IP addresses to APs.
+° Configure the AC to assign IP addresses to APs.
+6 e Use a device on the network, such as a core switch, to assign IP addresses to
+APs.
+ro) IP address allocation
+©
+Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Configuration
+AP Onboarding Delivery
+STAAccess Data Forwarding
+ry) ) DHCP IP Address Allocation
+ro) IP address allocation
+AP DHCP Server
+w DHCP Discover (broadcast)
+Discover DHCP servers on the network
+A)
+DHCP Offer (unicast)
+Select an available IP address from the
+address pool and respond to the AP
+*)
+DHCP Request (broadcast)
+Notify the DHCP server of the IP address selected
+DHCP Ack (unicast)
+Acknowledge address allocation
+6
+oO
+Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Configuration sTaAccess Data Forwarding
+E>) CAPWAP Tunnel Establishment
+¢ The AC manages and controls APs in a centralized manner through
+) CAPWAFP tunnels. A
+A
+WY EJ
+Discovery Request
+CAPWAP
+tunnel establishment + AnAP sends a Discovery Request packet to find an available AC
+« APs can discover an AC in either of the following ways:
+° Static: AC IP address list preconfigured on the APs <
+© 2 Dynamic: DHCP, DNS, and broadcast
+Step 2: CAPWAP Tunnel Establishment
+¢ APs associate with the AC and establish CAPV/AP tunnels
+including data tunnels and control
+° Data tunnel: transmits service data packets from APs to the AC
+for centralized forwarding.
+e Control tunnel: transmits control packets between the AC and
+APs.
+Discovery Response
+Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ CAPWAP tunnels provide the following functions:
+« Maintains the running status of the AC and APs.
+2 Allows the AC to manage APs and deliver configurations to APs.
+« Transmits service data to the AC for centralized forwarding.
+* AC discovery phase:
+2 Static: An AC IP address list is preconfigured on the APs. When an AP goes online, the
+AP unicasts a Discovery Request packet to each AC whose IP address is specified in
+the preconfigured AC IP address list. After receiving the Discovery Request packet, the
+ACs send Discovery Response packets to the AP. The AP then selects an AC to
+establish a CAPWAP tunnel according to the received Discovery Request packets.
+2 Dynamic: DHCP, DNS, and broadcast. This course describes DHCP and broadcast
+modes.
+
+“@) Step 1: APs Dynamically Discover
+ 
+the AC
+of) DHCP Mode (Layer 3 Networking) Broadcast Mode (Layer 2 Networking)
+DHCP Server
+CAPWAP (a
+ 
+»)} Layer 2 Campus S Layer 3 Campus A
+A) tunnel Network : Network ==
+establishment
+DHCP Discover t
+DHCP Offer I
+© (option 43) I
+¢ | Broadcast query
+l
+l
+DHCP Request
+DHCP Ack :
+8 (option 43) op)
+. A
+P
+Discovery Request
+Discovery Response
+Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* DHCP mode:
+2 Obtain the AC IP address through a four-way DHCP handshake process.
+= Whenno AC IP address list is preconfigured, the AP starts the dynamic AC auto-
+discovery process. The AP obtains an IP address through DHCP and the AC
+address list through the Option field in the DHCP packets. (The DHCP server is
+configured to carry Option 43 in the DHCP Offer packet, and Option 43 contains
+the AC IP address list.)
+= First, the AP sends a DHCP Discover packet to the DHCP server in broadcast
+mode. When receiving the DHCP Discover packet, the DHCP server encapsulates
+the first free IP address and other TCP/IP configuration in a DHCP Offer packet
+containing the lease duration, and sends the packet to the AP.
+= A DHCP Offer packet can be a unicast or broadcast packet. When the AP
+receives DHCP Offer packets from multiple DHCP servers, it selects only one
+DHCP Offer packet (usually the first DHCP Offer packet) and broadcasts a DHCP
+Request packet to all DHCP servers. Then, the AP sends a DHCP Request
+packet to the specified server from which will allocate an IP address.
+= Whenthe DHCP server receives the DHCP Request packet, it responds with a
+DHCP Ack packet, which contains the IP address for the AP, lease duration,
+gateway information, and DNS server IP address. By now, the lease contract
+takes effect and the DHCP four-way handshake is completed.
+a The AC discovery mechanism allows APs to associate with the AC.
+= After obtaining the AC's IP address from the DHCP server, the AP finds available
+ACs through the AC discovery mechanism and decides to associate with the
+optimal AC and establish CAPWAP tunnels.
+= The AP starts the CAPWAP protocol discoverv mechanism and sends unicast or
+
+ar eal STAAccess Data Forwarding
+@))) Step 2: CAPWAP Tunnel Establishment
+CAPWAP tunnel
+3s Step 2: CAPWAP Tunnel Establishment
+* APs associate with the AC and establish CAPVWWAP
+CAPWAP DHCP
+tunnel establishment Server AC tunnels, including data tunnels and control tunnels.
+Ei] ° Data tunnel: transmits service data packets from APs to the
+np? AC for centralized forwarding. Datagram Transport Layer
+© ope 8 Security (DTLS) encryption can be enabled over the data
+» tunnel to ensure security of CAPWAP data packets.
+Subsequently, CAPWAP data packets will be encrypted and
+decrypted using DTLS.
+6 ° Control tunnel: transmits control packets between the AC and
+APs. DTLS encryption can be enabled over the control tunnel
+cece to ensure security of CAPWAP control packets. Subsequently,
+CAPWAP control packets will be encrypted and decrypted
+© using DTLS.
+Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+AP Onboarding a eal STAAccess Data Forwarding
+ry) ) AP Access Control
+wy Ea
+« After discovering and AC, the AP sends a Join
+Request packet to the AC. The AC then Discovery Request
+© AP access control determines whether to allow the AP access Discovery Response
+sends a Join Response packet to the AP. Join Request
+¢« The AC supports three AP authentication modes: Join Response
+8 MAC address authentication, SN authentication,
+and non-authentication.
+Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ After receiving the Join Request packet from an AP, an AC authenticates the AP. If
+authentication is successful, the AC adds the AP.
+¢ The AC supports the following AP authentication modes:
+2 MAC address authentication
+2 SN authentication
+= Non-authentication
+¢« APs can be added to an AC in the following ways:
+2 Manual configuration: Specify the MAC addresses and SNs of APs in offline mode on
+the AC in advance. When APs are connected the AC, the AC finds that their MAC
+addresses and SNs match the preconfigured ones and establish connections with them.
+= Automatic discovery: If the AP authentication mode is set to non-authentication, or the
+AP authentication mode is set to MAC or SN authentication and the AP is whitelisted,
+the AC automatically discovers connected APs and establish connections with them.
+2 Manual confirmation: If the AP authentication mode is set to MAC or SN authentication
+and the AP is not imported offline or whitelisted, the AC adds the AP to the list of
+unauthorized APs. You can manually confirm the identity of such an AP to bring it
+online.
+
+AP Onboarding a eal STAAccess Data Forwarding
+Ga) ) AP Upgrade
+8
+AP Upgrade A A
+(2)
+« The AP determines whether its system software ( ) Ej
+version is the same as that specified on the AC Discovery Request
+according to parameters in the received Join
+© Response packet. If they are different, the AP
+Discovery Response
+sends an Image Data Request packet to request Join Request
+the software package and then upgrades its Join Response
+AP upgrade software version in AC, FTP, or SFTP mode. Image Data Request
+(Optional) >
+« After the software version is updated, the AP Image Data Response
+restarts and repeats steps 1 to 3.
+Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ APs can be upgraded on an AC in the following modes:
+« Automatic upgrade: mainly used when APs have not gone online on an AC. In this
+mode, we need to configure the automatic upgrade parameters for APs to go online
+before configuring AP access. Then the APs are automatically upgraded when they go
+online. An online AP will be automatically upgraded after the automatic upgrade
+parameters are configured and the AP is restarted in any mode. Compared with the
+automatic upgrade mode, the in-service upgrade mode reduces the service interruption
+time.
+= AC mode: applies when a small number of APs are deployed. APs download the
+upgrade file from the AC during the upgrade.
+= FTP mode: applies to file transfer without high network security requirements. APs
+download the upgrade file from an FTP server during the upgrade. In this mode,
+data is transmitted in clear text, which brings security risks.
+= SFTP mode: applies to scenarios that require high network security and provides
+strict encryption and integrity protection for data transmission. APs download the
+upgrade file from an SFTP server during an upgrade.
+a In-service upgrade: mainly used when APs are already online on the AC and carry
+WLAN services.
+« Scheduled upgrade: mainly used when APs are already online on the AC and carry
+WLAN services. The scheduled upgrade is usually performed during off-peak hours.
+
+ar eal STAAccess Data Forwarding
+CAPWAP Tunnel Maintenance
+A
+8 Ei
+Discovery Request
+CAPWAP Tunnel Maintenance Discovery Response
+¢ Data tunnel maintenance: Join Request
+° The AP and AC exchange Keepalive packets to Join Response
+?) detect the data tunnel connectivity. Image Data Request
+¢ Control tunnel maintenance:
+Image Data Response
+e The AP and AC exchange Echo packets to
+a Keepalive
+8 detect the control tunnel connectivity. > | Data tunnel
+Keepalive
+Echo Request
+CAPWAP ia
+tunnel maintenance Echo Response
+Control tunnel
+Page 30 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Data tunnel maintenance:
+«= The AP and AC exchange Keepalive packets (through the UDP port 5247) to detect the
+data tunnel connectivity.
+¢ Control tunnel maintenance:
+«= The AP and AC exchange Echo packets (through the UDP port 5246) to detect the
+control tunnel connectivity.
+
+ar eal STAAccess Data Forwarding
+ry) ) Preconfigurations on the AC for APs to Go Online
+* Configure DHCP servers to assign IP addresses to APs and STAs. The AC can function as a DHCP server.
+COTES SLES SETTER) y* . Configure network connectivity between APs and the DHCP server, and between APs and the AC.
+—_ Each AP will be added and can be added to only one AP group. In most cases, we configure an AP group to
+CHEESE GELS >| provide the same configurations for multiple APs.
+Configure the country code on the AC L_ A country code identifies the country in which the APs are deployed. Country codes regulate different AP radio
+(regulatory domain profile) attributes, including the transmit power and supported channels.
+|
+Configure a source interface or address L_ Specify a unique source IP address or source interface on each AC. APs must learn the specified source IP
+(for establishing CAPWAP tunnels with APs) address or the IP address of the source interface to communicate with the AC and establish CAPWAP tunnels.
+; : In automatic upgrade mode, an AP checks whether its version is the same as that configured on the AC, SFTP
+(Optional) Configure the automatic AP upgrade | ---» server, or FTP server when going online. If the two versions are different, the AP upgrades its version, restarts, and
+goes online again. If the two versions are the same, the AP does not upgrade its version.
+Add APs
+(configure the AP authentication mode)
+-+---> Youcan add APs by importing them in offline mode, automatic discovery, and manual confirmation.
+Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Regulatory domain profile:
+« A regulatory domain profile provides configurations of the country code, calibration
+channel, and calibration bandwidth for an AP.
+«= Acountry code identifies the country in which the APs are deployed. Country codes
+regulate different
+ 
+AP radio attributes, including the transmit power and supported
+channels. Correct country code configuration ensures that radio attributes of APs
+comply with local laws and regulations.
+¢ Configure a source interface or address on the AC.
+2 Specify a unique IP address, VLANIF interface, or Loopback interface on an AC. In this
+manner, APs connected to the AC can learn the specified IP address or the IP address
+of the specified interface to establish CAPWAP tunnels with the AC. This specified IP
+address or interface is called the source address or interface.
+2 Only after the unique source interface or address is specified on an AC, can APs
+establish CAPWAP tunnels with the AC.
+«2 A VLANIF or Loopback interface can be used as the source interface, and their IP
+addresses can be configured as the source address.
+¢ Add APs: Configure the AP authentication mode and enable APs to go online.
+= You can add APs by importing them in offline mode, automatic discovery, and manual
+confirmation.
+
+AP Onboarding STAAccess Data Forwarding
+Ga) ) WLAN Working Process: Step 2
+Campus
+Network
+WLAN Working Process
+AP onboardin
+Configuration Update Request [ ® g
+DHCP Server [ 2] WLAN service configuration delivery |
+AC
+ey > ed The AC sends a Configuration Update Request to an AP. If the
+f
+t /
+1 i
+I
+1
+\ cf
+‘
+,
+‘ ‘
+‘
+Configuration AC receives a Configuration Update Response from the AP, the
+Update Response AC then delivers service configuration to the AP.
+\
+‘
+‘ N
+‘
+(G3) STAaccess
+C7 Clg
+Page 32 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+(@ WLANservice data forwarding
+¢ Afteran AP goes online, it sends a Configuration Status Request containing its running
+configuration to the AC. The AC then compares the AP's running configuration with the local
+AP configuration. If they are inconsistent, the AC sends a Configuration Status Response
+message to the AP.
+¢ Note: After an AP goes online, it obtains the existing configuration from the AC. The AC then
+manages the AP and delivers service configurations to the AP.
+
+AP Onboarding Deter STAAccess Data Forwarding
+[=| ) WLAN Profiles
+e Various profiles are designed based on different functions and features of WLAN networks to help users
+configure and maintain functions of WLAN networks. These profiles are called VWWLAN profiles.
+Bound to regulatory domain Li .° A regulatory domain profile provides configurations of country code,
+- profile calibration channel, and calibration bandwidth for an AP.
+Bound to . . ¢ Radio profiles are used to optimize radio parameters, and control the
+< Radio profile na ee . ae .
+in-service channel switching function.
+Bound to . ¢ Configure parameters in the VAP profile and reference the SSID profile,
+AP or < VAP profile nnd gene Pe ee P
+AP group security profile, and authentication profile.
+Bound to . . . .
+< Other profiles ---> * AP System Profile, Location Profile, WIDS Profile, Mesh Profile and etc.
+Configure radio L_,° Configure the bandwidth, channel, antenna gain, transmit power,
+parameters coverage distance, and operating frequency band of a specified radio.
+Page 33 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ To simplify the configuration of a large number of APs, you can add them to an AP group and
+perform centralized configuration. However, APs may have different configurations. These
+configurations cannot be uniformly performed but can be directly performed on each AP.Each
+AP must and can only join one AP group when going online. If an AP obtains both AP group
+and specific configurations from an AC, the AP specific configurations are preferentially used.
+¢ Various profiles can be bound to the AP group and AP: regulatory domain profile, radio profile,
+VAP profile, Location profile, AP system profile, WIDS profile, AP wired port profile, WDS
+profile, and Mesh profile. Some of the listed profiles can further reference other profiles.
+2 Regulatory domain profile
+= Acountry code identifies the country to which AP radios belong. Different
+countries support different
+ 
+AP radio attributes, including the transmit power and
+supported channels. Correct country code configuration ensures that radio
+attributes of APs comply with laws and regulations of countries and regions to
+which the APs are delivered.
+= Acalibration channel set limits the dynamic AP channel adjustment range when
+the radio calibration function is configured. Radar channels and the channels that
+are not supported by STAs are avoided.
+= Radio profile
+= You can adjust and optimize radio parameters to adapt to different network
+environments, enabling APs to provide required radio capabilities and improving
+signal quality of WLANs. After parameters in a radio profile are delivered to an AP,
+only the parameters supported by the AP can take effect.
+= Parameters that can be configured include the radio type, radio rate, multicast rate
+of radio packets, and interval at which an AP sends Beacon frames.
+no \WAD nrafila
+
+AP Onboarding Deter STAAccess Data Forwarding
+ry) ) VAP Profile
+*« An SSID specifies a wireless network. When you search for available
+Bound to Create an wireless networks on a STA, the displayed wireless network names are
+<—_——— . eel
+SSID profile SSIDs.
+¢« An SSID profile is used to configure the SSID name of a WLAN.
+Bound to Create a Ly? You can configure WLAN security policies to authenticate STAs and
+security profile encrypt user packets, protecting the security of the WLAN and users.
+VAP Profile |
+Configure the data L.° Control packets (management packets) and data packets are
+forwarding mode transmitted on a WLAN.
+Configure service Ly? Layer 2 data packets delivered from the VAP to an AP carry the service
+VLANs VLAN IDs.
+Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢« AnSSID profile is used to configure the SSID name and other access parameters of a WLAN.
+The following parameters are set in an SSID profile:
+a SSID hiding: This functions enables an AP to hide the SSID of a WLAN. Only the users
+who know the SSID can connect to the WLAN, improving security.
+a Maximum number of STAs on a VAP: More access users on a VAP indicate fewer
+network resources that are available to each user. To ensure Internet experience of
+users, you can configure a proper maximum number of access users on a VAP
+according to actual network situations.
+2 SSID hiding when the number of STAs reaches the maximum: When this function is
+enabled and the number of access users on a WLAN reaches the maximum, the SSID
+of the WLAN is hidden and new users cannot find the SSID.
+* Security profile: You can configure WLAN security policies to authenticate STAs and encrypt
+user packets, protecting the security of the WLAN and users.
+= The supported WLAN security policies include open system authentication, WEP,
+WPA/WPA2-PSK, and WPA/WPA2-802.1 X. You can configure one of them in a security
+profile.
+¢ Data forwarding mode:
+= Control packets are forwarded through CAPWAP control tunnels. Data packets are
+forwarded in tunnel forwarding (centralized forwarding) or direct forwarding (local
+forwarding) mode. The data forwarding modes will be detailed later in the course.
+* Service VLAN:
+2 Since WLANs provide flexible access modes, STAs may connect to the same WLAN at
+tha naffira antranra nr etadinm antranra and than raam tn diffarant APe
+
+ry) ) WLAN Working Process: Step 3
+Campus
+Network
+WLAN Working Process
+(AP onboarding
+DHCP Server AC [ (2) WLAN service configuration delivery |
+Ei 3) STA access
+STAs can access a WLAN after CAPWAP tunnels are
+established.
+The STA access process consists of six phases: scanning, link
+authentication, association, access authentication, DHCP, and
+user authentication.
+AP AP
+eco (@ WLANservice data forwarding
+C7 Clg
+Page 35 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+AP Onboarding eve D> starccess 4 Data Forwarding
+) Scanning
+e Inactive scanning, a STA periodically searches for nearby wireless networks.
+*) Scanning e The STA can send two types of Probe Request frames: probes containing an SSID
+and probes that do not contain an SSID.
+Active Scanning by Sending a Probe Request Active Scanning by Sending a Probe Request
+Frame Containing an SSID Frame —_— No SSID
+Probe Request prateae (cy) AP1
+(SSID: huawei) nse
+Ld me 3) eee
+Probe Response
+STA AP1 Il Probe Roo.
+(SSID: huawei) reaues (@) APn
+0
+ 
+8
+ 
+9O
+* The STA sends a Probe Request containing an * The STA periodically beadoasts a Probe Request
+SSID on each channel to search for the AP with the frame that does not contain an SSID on the
+same SSID. Only the AP with the same SSID will supported channels. The APs return Probe
+respond to the STA. Response frames to notify the STA of the wireless
+services they can provide.
+Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Active scanning:
+2 Probes containing an SSID: applies when a STA actively scans wireless networks to
+access a specified wireless network.
+= Probes that do not contain an SSID: applies when a STA actively scans wireless
+networks to determine whether wireless services are available.
+« Passive scanning:
+« STAs can passively scan wireless networks.
+a In passive scanning mode, a STA listens to Beacon frames (containing the SSID and
+supported rate) periodically sent by an AP to discover surrounding wireless networks.
+By default, an AP sends Beacon frames at an interval of 100 TUs (1 TU = 1024 us).
+
+AP Onboarding Eten D> starccess 4 Data Forwarding
+) WLAN Security Protocols
+e As WLAN technologies use radio signals to transmit service data, service data can
+be easily intercepted or tampered with by attackers when being transmitted on open
+wireless channels. Ensuring WLAN security is crucial to building safe and effective
+Link authentication wireless networks.
+Oo
+¢ Common security policy:
+Link Access
+Security Policy Authentication Authentication Data Encryption
+© Access authentication Open system No encryption or WEP Insecure policy
+WEP Shared-k
+ared-key .
+Authentication N/A WEP Insecure policy
+2) WPA/WPA2- Amore secure policy, applicable
+802.1X Open system 802.1X (EAP) TKIP or CCMP to large enterprises
+More secure policy, applicable
+ 
+to
+WPA/WPA2-PSK _— Opensystem PSK TKIP or CCMP small- and medium-sized
+Page 37
+enterprises or household users
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« Three WLAN security policies are available: Wired Equivalent Privacy (WEP), Wi-Fi Protected
+Access (WPA), and WPA2. Each security policy has a series of security mechanisms,
+including link authentication used to establish a wireless link, user authentication used when
+users attempt to connect to a wireless network, and data encryption used during data
+transmission.
+* WEP
+a
+WEP, defined in IEEE 802.11, is used to protect data of authorized users from being
+intercepted during transmission on a WLAN. WEP uses the RC4 algorithm to encrypt
+data through a 64-bit, 128-bit, or 152-bit key. Each encryption key contains a 24-bit
+initialization vector (IV) generated by the system. Therefore, the length of the key
+configured on the WLAN server and client is 40 bits, 104 bits, or 128 bits. WEP uses a
+static encryption key. All STAs associating with the same SSID use the same key to
+connect to the WLAN.
+* WPA/WPA2
+a
+WEP shared key authentication uses the Rivest Cipher 4 (RC4) symmetric stream
+cipher to encrypt data. Therefore, the same static key must be preconfigured on the
+server and clients. Both the encryption mechanism and algorithm, however, are prone to
+security threats. To address this challenge, the Wi-Fi Alliance developed WPA to
+overcome WEP defects. In addition to the RC4 algorithm, WPA defines the Temporal
+Key Integrity Protocol (TKIP) encryption algorithm on the basis of WEP, uses the 802.1X
+identity authentication framework, and supports Extensible Authentication Protocol-
+Protected Extensible Authentication Protocol (EAP-PEAP) and EAP-Transport Layer
+Security (EAP-TLS) authentication. Later, 802.111 defined WPA2. WPA2 uses a more
+secure encryption algorithm, that is, Counter Mode with CBC-MAC Protocol (CCMP).
+
+8
+[= ) Link Authentication
+AP Onboarding eve D> starccess 4 Data Forwarding
+¢ To ensure wireless link security, an AP needs to authenticate STAs that attempt to access the AP.
+e |EEE 802.11 defines two authentication modes: open system authentication and shared key authentication.
+Link authentication Open System Authentication Shared Key Authentication
+)
+Authentication Request Authentication Request .
+> Authentication Response
+L Authentication Response (5) (Challenge)
+- AP
+STA
+“Authentication Response
+(Encrypted Challenge)
+Authentication Response
+(Success)
+<
+* Open system authentication requires no authentication, « Shared key authentication requires that the STA and AP
+allowing any STA to be successfully authenticated. have the same shared key preconfigured. The AP checks
+whether a STA has the same shared key to determine the
+authentication result. If the STA has the same shared key as
+the AP, the STA is authenticated. Otherwise, STA
+authentication fails.
+Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+A WLAN needs to ensure validity and security of STA access. To achieve this, STAs need to
+be authenticated before accessing the WLAN. This process is known as link authentication,
+which is usually considered the beginning of STA access.
+Shared key authentication:
+a The same shared key is configured for STAs and APs in advance. The AP checks
+whether the STA has the same shared key during link authentication. If so, the STA is
+successfully authenticated. Otherwise, STA authentication fails.
+« Authentication process:
+1.
+2.
+The STA sends an Authentication Request packet to the AP.
+The AP generates a challenge and sends it to the STA.
+The STA uses the preconfigured key to encrypt the challenge and sends the
+encrypted challenge to the AP.
+The AP uses the preconfigured key to decrypt the encrypted challenge and
+compares the decrypted challenge with the challenge sent to the STA. If the two
+challenges are the same, the STA is successfully authenticated. Otherwise, STA
+authentication fails.
+
+)
+Al Association
+[= ) Association
+AP Onboarding eve D> starccess 4 Data Forwarding
+After link authentication is complete, a STA initiates link service negotiation using
+Association packets.
+The STA association process is actually a link service negotiation process, during
+which the supported rate, channel, and the like are negotiated.
+STA AC
+ra ED
+1. Association Request
+2. Association Request
+. Association Response
+AW
+4. Association Response
+Page 39 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢« STA association in the Fit AP architecture consists of the following steps:
+1. The STA sends an Association Request packet to the AP. The Association Request
+packet carries the STA's parameters and the parameters selected by the STA
+according to the service configuration, including the transmission rate, channel, and
+QoS capabilities.
+2. After receiving the Association Request packet, the AP encapsulates the packet into a
+CAPWAP packet and sends the CAPWAP packet to the AC.
+3. The AC determines whether to permit the STA access according to the received
+Association Request packet and replies with a CAPWAP packet containing an
+Association Response.
+4. The AP decapsulates the CAPWAP packet to obtain the Association Response, and
+sends the Association Response to the STA.
+
+AP Onboarding eve D> starccess 4 Data Forwarding
+[=] ) Access Authentication
+e User access authentication differentiates users and controls access rights of users.
+@ Compared with link authentication, access authentication is more secure.
+e Major access authentication modes include PSK authentication and 802.1X
+authentication.
+a GY
+© Access authentication
+@
+~—
+QS
+Access authentication is performed on
+STA | the wireless-side interface, allowing
+STAs to send data over wireless links.
+6
+Page 40 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« Data encryption:
+2 In addition to user access authentication, data packets need to be encrypted to ensure
+data security, which is also implemented in the access authentication phase. After a
+data packet is encrypted, only the device that holds the key can decrypt the packet.
+Other devices cannot decrypt the packet even if they receive the packet because they
+do not have the corresponding key.
+
+APO
+ng eiiuration FT 0212 Forwarsing
+STA Address Allocation
+e The prerequisite for APs and STAs to go online properly is that they have obtained
+oe) IP addresses.
+e If STAs obtain IP addresses through DHCP, the AC or aggregation switch can
+function as a DHCP server to assign IP addresses to the STAs. In most cases, the
+aggregation switch is used as the DHCP server.
+Ay STA A (Aggregation Switch)
+LJ] (6 (|) Network ———_
+6 DHCP Discover
+6 DHCP . DHCP Offer
+DHCP Request
+© DHCP Ack
+Page 41 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+AP Onboarding eve D> starccess 4 Data Forwarding
+User Authentication
+e User authentication is an end-to-end security architecture, supporting 802.1X, MAC
+address, and Portal authentication modes.
+Portal Authentication oTM
+¢ Portal authentication is also known O
+as web authentication. Portal
+authentication websites are Huawei-Guest
+referred to as web portals.
+o
+ 
+©
+ 
+@
+To access the Internet, users must
+be authenticated on web portals.
+The users can access network
+resources only after successful
+authentication.
+©
++86
+a,
+UY
+UY
+©
+@ User authentication
+Page 42 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ With the application and development of enterprise networks, threats increasingly bring risks,
+such as viruses, Trojan horses, spyware, and malicious network attacks. On a traditional
+enterprise network, the intranet is considered secure and threats come from the extranet.
+However, research shows that 80% of cyber security vulnerabilities come from inside the
+network. The network security threats and viruses affect the network seriously, leading to
+system or network crashes. In addition, when intranet users browse websites on the external
+network, the spyware and Trojan horse software may be automatically installed on users’
+computers, which cannot be sensed by the users. The malicious software may spread on the
+intranet.
+« Therefore, as security challenges keep escalating, traditional security measures are far from
+enough. The security model needs to be changed from the passive mode to active mode.
+Thoroughly solving network security problems from the root (terminal) can improve the
+information security level of the entire enterprise.
+
+Ga) ) WLAN Working Process: Step 4
+WLAN Working Process
+AP onboarding
+DHCP Server WLAN service configuration delivery
+STA access
+=
+>
+ 
+HORTONS)
+WLAN service data forwarding
+Control packets (management packets) and data packets are
+transmitted over CAPWAP tunnels.
+* Control packets are forwarded through the CAPWAP
+control tunnel.
+DY ¢ User data packets can be forwarded in tunnel forwarding
+| U (centralized forwarding) or direct forwarding (local
+forwarding) mode.
+Page 43 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+AP Onboarding eve SUNRESESE Forwarding
+Ga) ) Data Forwarding Mode
+CAPWAP tunnel SB CAPWAP tunnel > rn N
+Service data traffic Service data traffic
+oo oo
+Management traffic
+AP
+* In tunnel forwarding mode, APs encapsulate user data packets * In direct forwarding mode, an AP directly forwards user data
+over a CAPWAP data tunnel and send them to an AC. The AC packets to an upper-layer network without encapsulating them
+then forwards these packets to an upper-layer network. over a CAPWAP data tunnel.
+Page 44 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Tunnel forwarding mode:
+« Advantages: An AC forwards all data packets, ensuring security and facilitating
+centralized management and control.
+« Disadvantages: Service data must be forwarded by an AC, which is inefficient and
+increases the load on the AC.
+¢ Direct forwarding mode:
+1 Advantages: Service data packets do not need to be forwarded by an AC, improving
+packet forwarding efficiency and reducing the burden on the AC.
+« Disadvantages: Service data is difficult to manage and control in a centralized manner.
+
+Page 45
+) Contents
+WLAN Overview
+Basic Concepts of WLAN
+WLAN Fundamentals
+WLAN Configuration Implementation
+Next-Generation WLAN Solutions
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+AP Onboarding WLAN Services
+Basic WLAN Configuration Commands:
+Configuring an AP to Go Online (1)
+1. Configure the AC as a DHCP server and configure the Option 48 field.
+[AC-ip-pool-pool1] option code [ sub-option sub-code ] { ascii ascii-string | hex hex-string | cipher cipher-string |
+ip-address jp-address
+Configure the user-defined option that a DHCP server assigns to a DHCP client.
+2. Create a regulatory domain profile and configure the country code.
+[AC] wlan
+[AC-wlan-view]
+Enter the WLAN view.
+[AC-wlan-view] regulatory-domain-profile name profile-name
+[AC-wlan-regulate-domain-profile-name]
+Create a regulatory domain profile and enter the regulatory domain profile view, or enter the view of an existing
+regulatory domain profile.
+[AC-wlan-regulate-domain-profile-name] country-code country-code
+Configure the country code.
+Page 46 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Command: option code
+ 
+[ sub-option sub-code
+ 
+| { ascii ascii-string
+ 
+| hex hex-string | cipher
+cipher-string | ip-address /p-address }
+2 code: specifies the code of a user-defined option. The value is an integer that ranges
+from 1 to 254, except values 1, 3, 6, 15, 44, 46, 50, 51, 52, 53, 54, 55, 57, 58, 59, 61, 82,
+121 and 184.
+« gsub-option sub-code: specifies the code of a user-defined sub-option. The value is an
+integer ranging from 1 to 254. For details about well-known options, see RFC 2132.
+«= ascii | hex | cipher: specifies the user-defined option code as an ASCII character string,
+hexadecimal character string, or ciphertext character string.
+2 jp-address /p-address: specifies the user-defined option code as an IP address.
+* Command: regulatory-domain-profile name profile-name
+2 name profile-name: specifies the name of a regulatory domain profile. The value is a
+string of 1 to 35 case-insensitive characters. It cannot contain question marks (?) or
+spaces, and cannot start or end with double quotation marks (").
+* Command: country-code country-code
+2 country-code: specifies a country code. The value is a string of characters in
+enumerated type.
+2 The AC supports multiple country codes, such as:
+= CN (default value): China
+= AU: Australia
+= CA: Canada
+
+Basic WLAN Configuration Commands:”
+Configuring an AP to Go Online (2)
+[AC-wlan-view] ap-group name group-name
+[AC-wlan-ap-group-group-name]
+Create an AP group and enter the AP group view, or enter the view of an existing AP group.
+[AC-wlan-ap-group-group-name] regulatory-domain-profile profile-name
+Bind the regulatory domain profile to an AP or AP group.
+3. Configure a source interface or address.
+Page 47
+[AC] capwap source interface { loopback /oopback-number | vianif vian-id }
+Specify a source interface on the AC for establishing CAPWAP tunnels with APs.
+[AC] capwap source ip-address ip-address
+Configure the source IP address on the AC.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Command: ap-group name group-name
+a
+name group-name: specifies the name of an AP group. The value is a string of 1 to 35
+characters. It cannot contain question marks (?), slashes (/), or soaces, and cannot start
+or end with double quotation marks (").
+
+Basic WLAN Configuration Commands:
+Configuring an AP to Go Online (3)
+4. Add APs in offline mode.
+[AC-wlan-view] ap auth-mode { mac-auth | sn-auth }
+Set the AP authentication mode to MAC address or SN authentication. By default, MAC address authentication is
+used.
+[AC-wlan-view] ap-id ap-id [ [ type-id type-id | ap-type ap-type ] { ap-mac ap-mac | ap-sn ap-sn | ap-mac ap-mac
+ap-sn ap-sn } ]
+[AC-wlan-ap-ap-id] ap-name ap-name
+Manually add an AP in offline mode or enter the AP view, and configure the name of a single AP.
+[AC-wlan-view] ap-id 0
+[AC-wlan-ap-0] ap-group ap-group
+Add the AP to an AP group.
+5. Verify the configuration.
+[AC] display ap { all | ap-group ap-group }}
+Check AP information.
+Page 48 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Command: ap-id ap-id[ [ type-id type-id
+ 
+| ap-type ap-type
+ 
+] { ap-mac ap-mac
+ 
+| ap-sn ap-sn
+ 
+|
+ap-mac ap-macap-sn ap-sn} |
+2 ap-id: specifies the ID of an AP. The value is an integer that ranges from 0 to 8191.
+« type-id: specifies the ID of an AP type. The value is an integer that ranges from 0 to 255.
+1 ap-type: specifies the type of an AP. The value is a string of 1 to 31 characters.
+2 ap-mac: specifies the MAC address of an AP. The value is in H-H-H format. An H is a 4-
+digit hexadecimal number.
+2 ap-sn:specifies the SN of an AP. The value is a string of 1 to 31 characters, and can
+contain only letters and digits.
+
+Basic WLAN Configuration Commands:
+Configuring Radios (1)
+1. Enter the radio view.
+[AC-wlan-view] ap-id 0
+[AC-wlan-ap-0] radio radio-id
+[AC-wlan-radio-0]
+2. Configure the working bandwidth and channel for a radio.
+[AC-wlan-radio-0/0] channel { 20mhz | 40mhz-minus | 40mhz-plus | 80mhz | 160mhz } channel
+Warning: This action may cause service interruption. Continue?[Y/N]y
+[AC-wlan-radio-0/0] channel 80+80mhz channel1 channel2
+Warning: This action may cause service interruption. Continue?[Y/N]y
+Configure the working bandwidth and channel for all APs in an AP group or for a specified radio of a single AP.
+3. Configure the antenna gain.
+[AC-wlan-radio-0/0] antenna-gain antenna-gain
+Configure the antenna gain for all APs in an AP group or for a specified radio of a single AP.
+Page 49 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Command: radio radio-id
+2 radio-id: specifies the ID of a radio. The radio ID must exist.
+¢ Commands:
+« channel { 20mhz | 40mhz-minus | 40mhz-plus | 80mhz | 160mhz } channe/
+2 channel 80+80mhz channel/1 channel2
+s 20mhz: sets the working bandwidth of a radio to 20 MHz.
+« 40Qmhz-minus: sets the working bandwidth of a radio to 40 MHz Minus.
+« 40mhz-plus: sets the working bandwidth of a radio to 40 MHz Plus.
+«= §80mhz: sets the working bandwidth of a radio to 80 MHz.
+« 160mhz: sets the working bandwidth of a radio to 160 MHz.
+= 80+80mhz: sets the working bandwidth of a radio to 80+80 MHz.
+2 channel/channel1/channel2:
+ 
+specifies the working channel for a radio. The channel is
+selected based on the country code and radio mode. The parameter is an enumeration
+value. The value range is determined according to the country code and radio mode.
+* Command: antenna-gain antenna-gain
+2 antenna-gain: specifies the antenna gain. The value is an integer that ranges from 0 to
+30, in dB.
+
+Basic WLAN Configuration Commands: ==
+Configuring Radios (2)
+4. Configure the transmit power for a radio.
+[AC-wlan-radio-0/0] eirp eirp
+Configure the transmit power for all APs in an AP group or for a specified radio of a single AP.
+5. Configure the radio coverage distance.
+[AC-wlan-radio-0/0] coverage distance distance
+Configure the radio coverage distance for all APs in an AP group or for a specified radio of a single AP.
+6. Configure the operating frequency for a radio.
+[AC-wlan-radio-0/0] frequency { 2.4g | 5g }
+Page50 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Command: eirp e/rp
+2 @irp: specifies the transmit power. The value is an integer that ranges from 1 to 127, in
+dBm.
+* Command: coverage distance distance
+2 distance: specifies the radio coverage distance. Each distance corresponds to a group
+of slottime, acktimeout, and ctstimeout values. You can configure the radio coverage
+distance based on the AP distance, so that APs adjust the values of slottime,
+acktimeout, and ctstimeout values accordingly. The value is an integer that ranges from
+1 to 400, in 100 meters.
+* Command: frequency
+ 
+{ 2.4g | 5g }
+= By default, radio 0 works on the 2.4 GHz frequency band, and radio 2 works on the 5
+GHz frequency band.
+
+Basic WLAN Configuration Commands:
+Configuring Radios (3)
+[AC-wlan-view] radio-2g-profile name profile-name
+Create a 2G radio profile and enter the 2G radio profile view, or enter the view of an existing 2G radio profile.
+8. Bind the radio profile.
+[AC-wlan-view] ap-group name group-name
+[AC-wlan-ap-group-group-name] radio-2g-profile profile-name radio { radio-id | all }
+Bind the specified 2G radio profile to the 2G radio in the AP group.
+Page 51 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Command: radio-2g-profile name profile-name
+2 name profile-name: specifies the name of a 2G radio profile. The value is a string of 1 to
+35 case-insensitive characters. It cannot contain question marks (?) or spaces, and
+cannot start or end with double quotation marks (").
+« By default, the system provides the 2G radio profile default.
+* Command: radio-2g-profile profile-name radio { radio-id
+ 
+| all }
+2 profile-name: specifies the name of a 2G radio profile. The 2G radio profile must exist.
+2 radio radio-id: specifies the ID of a radio. The value is an integer that can be 0 or 2.
+2 radio all: specifies all radios.
+
+Configuring VAPs (1)
+1. Create a VAP profile.
+[AC-wlan-view] vap-profile name profile-name
+[AC-wlan-vap-prof-profile-name]
+Create a VAP profile and enter the VAP profile view, or enter the view of an existing VAP profile.
+2. Configure the data forwarding mode.
+[AC-wlan-vap-prof-profile-name] forward-mode {
+ 
+direct-forward | tunnel }
+Set the data forwarding mode in the VAP profile to direct or tunnel.
+3. Configure service VLANs.
+[AC-wlan-vap-prof-profile-name] service-vlan { vlan-id vian-id | vian-pool pool-name }
+Configure service VLANs configured for the VAP.
+Page52 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Basic WLAN Configuration Commands:
+Ap Onboarding D wean services
+
+Basic WLAN Configuration Commands:
+Configuring VAPs (2)
+4. Configure a security profile.
+[AC-wlan-view] security-profile name profile-name
+[AC-wlan-sec-prof-profile-name]
+Create a security profile and enter the security profile view.
+By default, security profiles default, default-wds, and default-mesh are available in the system.
+[AC-wlan-view] vap-profile name profile-name
+[AC-wlan-vap-prof-profile-name] security-profile profile-name
+Bind the security profile to the VAP profile.
+Page 53 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Basic WLAN Configuration Commands:
+Configuring VAPs (3)
+5. Configure an SSID profile.
+[AC-wlan-view] ssid-profile name profile-name
+[AC-wlan-ssid-prof-profile-name]
+Create an SSID profile and enter the SSID profile view, or enter the view of an existing SSID profile.
+By default, the system provides the SSID profile default.
+[AC-wlan-ssid-prof-profile-name] ssid ssid
+Configure an SSID for the SSID profile.
+By default, the SSID HUAWEI-WLAN is configured in an SSID profile.
+[AC-wlan-view] vap-profile name profile-name
+[AC-wlan-vap-prof-profile-name] ssid-profile profile-name
+Bind the SSID profile to the VAP profile.
+Page54 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Command: ssid ssid
+2 ssid: specifies an SSID. The value is a string of 1 to 32 case-sensitive characters. It
+supports Chinese characters or Chinese + English characters, without tab characters.
+= To start an SSID with a space, you need to encompass the SSID with double quotation
+marks ("), for example, " hello". The double quotation marks occupy two characters. To
+start an SSID with a double quotation mark, you need to add a backslash (\) before the
+double quotation mark, for example, \"hello. The backslash occupies one character.
+
+Basic WLAN Configuration Commands: a?
+Configuring VAPs (4)
+6. Bind the VAP profile.
+[AC-wlan-view] ap-group name group-name
+[AC-wlan-ap-group-group-name] vap-profile profile-name wlan wlan-id radio { radio-id | all } [ service-vlan {
+vian-id vian-id | vian-pool pool-name }
+ 
+]
+Bind the specified VAP profile to radios in an AP group.
+7. Check VAP information.
+[AC] display vap { ap-group ap-group-name | { ap-name ap-name | ap-id ap-id }[ radio radio-id ] }[
+ssid ssid
+ 
+|
+[AC] display vap { all | ssid ssid
+ 
+}
+Display information about service VAPs.
+Page55 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Command: display vap { ap-group ap-group-name
+ 
+| { ap-name ap-name
+ 
+| ap-id ap-id} [
+radio radio-id |} [ ssid ssid
+ 
+|
+2 ap-group-name: displays information about all service VAPs in a specified AP group.
+The AP group must exist.
+2 ap-name: displays information about service VAPs on the AP with a specified name.
+The AP name must exist.
+2 ap-id: displays information about service VAPs on the AP with a specified ID. The AP ID
+must exist.
+2 radio-id: Displays information about service VAPs of a specified radio. The value is an
+integer that ranges from 0 to 2.
+2 ssid: Displays information about service VAPs of a specified SSID. The SSID must exist.
+* Command: display vap { all | ssid ssid}
+2 all: displays information about all service VAPs.
+
+@ Example for Configuring Layer 2 Tunnel
+Forwarding in Off-Path Mode
+Management VLAN for APs VLAN 100
+Service VLAN for STAs VLAN 101
+The AC functions as a DHCP server to assign IP addresses to APs.
+DHCP server The aggregation switch S2 functions as a DHCP server to assign IP
+GE0/0/2 addresses to STAs. The default gateway address of STAs is 10.23.101.1.
+$2
+GE0/0/1 IP address pool for APs 10.23.100.2—10.23.100.254/24
+VLANIF 101 | GEO/0/1 VLANIF 100 IP address pool for STAs 10.23.101.2-10.23.101.254/24
+10.23.101.1/24 10.23.100.1/24 IP address of the AC's ;
+GE0/0/2 source interface WLANE: 100: 10.25-100-1/26
+Name: ap-group1
+$1 AP group Referenced profiles: VAP profile wlan-net and regulatory domain profile
+GEO0/0/1 Regulatory domain profile Name: default
+Country code: CN
+Name: wlan-net
+AP SSID profile SSID name: wlan-net
+Name: wlan-net
+e Security profile Security policy: WPA-WPA2+PSK+AES
+~~ Password: a1234567
+A Name: wlan-net
+Dy
+Forwarding mode: tunnel forwarding
+STA | (] VAP profile Service VLAN: VLAN 101
+Referenced profiles: SSID profile wlan-net and security profile wlan-net
+Page 56 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Service requirements
+a An enterprise wants to enable users to access the Internet through a WLAN, meeting
+the basic mobile office requirements.
+« Networking requirements
+2 AC networking mode: Layer 2 networking in off-path mode
+«2 DHCP deployment mode:
+= The AC functions as a DHCP server to assign IP addresses to APs.
+«= The aggregation switch S2 functions as a DHCP server to assign IP addresses to
+STAs.
+a Service data forwarding mode: tunnel forwarding
+¢ Configuration roadmap
+= Configure network connectivity between the AC, APs, and other network devices.
+« Configure the APs to go online.
+= Create an AP group and add APs that require the same configuration to the group
+for unified configuration.
+= Configure AC system parameters, including the country code and source interface
+used by the AC to communicate with the APs.
+= Configure the AP authentication mode and imports the APs in offline mode for
+them to go online.
+2 Configure WLAN service parameters for STAs to access the WLAN.
+
+Ga) ) Configuring Network Connectivity
+1. Create VLANs and interfaces on S1, S2, and AC.
+Cuernt 2. Configure DHCP servers to assign IP addresses to APs
+and STAs.
+GEO/0/S AC # Configure VLANIF 100 on the AC to assign IP address to APs.
+$2 GE0/0/2
+AC] dh bl
+VLANIF 104 GEO/0/1 [AC] dhcp enable
+10.23.101.1/24 GEO0/0/1 VLANIF 100 [AC] interface vlanif 100
+10.23.100.1/24 . .
+GE0/0/2 [AC-Vlanif100] ip address 10.23.100.1 24
+—_ [AC-Vlanif100] dhcp select interface
+- — # Configure VLANIF 101 on S2 to assign IP addresses to STAs and
+GEO/0/1 specify 10.23.101.1 as the default gateway address of the STAs.
+AP [S2] dhcp enable
+[S2] interface vlanif 101
+[S2-Vlanif101] ip address 10.23.101.1 24
+[S2-Vlanif101] dhcp select interface
+STA L J 0
+Page57 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ 1. Create VLANs and interfaces on $1, S2, and AC.
+2 $1 configuration:
+[S1] vlan batch 100
+[S1] interface gigabitethernet 0/0/1
+[S1-GigabitEthernet0/0/1 | port link-type trunk
+[S1-GigabitEthernet0/0/1] port trunk pvid vlan 100
+[S1-GigabitEthernet0/0/1] port trunk allow-pass vlan 100
+[S1-GigabitEthernet0/0/1 | quit
+[S1] interface gigabitethernet 0/0/2
+[S1-GigabitEthernet0/0/2] port link-type trunk
+[S1-GigabitEthernet0/0/2] port trunk allow-pass vlan 100
+[S1-GigabitEthernet0/0/2] quit
+a $2 configuration:
+[S2] vlan batch 100 101
+[S2] interface gigabitethernet 0/0/1
+[S2-GigabitEthernet0/0/1] port link-type trunk
+[S2-GigabitEthernet0/0/1 ] port trunk allow-pass vlan 100
+[S2-GigabitEthernet0/0/1 | quit
+[S2] interface gigabitethernet 0/0/2
+
+Page 58
+Ga) ) Configuring APs to Go Online (1)
+<>
+GE0/0/3 AC
+GE0/0/2
+$2
+VLANIF 101 GEO/O/1
+10.23.101.1/24 GEO/0/1 VLANIF 100
+10.23.100.1/24
+GE0/0/2
+$1 {il
+GEO/0/1
+AP (
+ 
+P)
+(
+STA L J 0
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Network - -
+‘Connectivity AP Onboarding WLAN Services
+1. Create an AP group.
+[AC] wlan
+[AC-wlan-view] ap-group name ap-group1
+[AC-wlan-ap-group-ap-group1] quit
+2. Create a regulatory domain profile and configure the
+country code.
+AC-wlan-view] regulatory-domain-profile name default
+[AC-wlan-regulate-domain-default] country-code cn
+[AC-wlan-regulate-domain-default] quit
+[AC-wlan-view] ap-group name ap-group1
+[AC-wlan-ap-group-ap-group1] regulatory-domain-profile default
+Warning: Modifying the country code will clear channel, power and
+antenna gain configurations of the radio and reset the AP. Continu
+e?[Y/N]:y
+[AC-wlan-ap-group-ap-group1] quit
+[AC-wlan-view] quit
+
+Network - -
+‘Connectivity AP Onboarding WLAN Services
+Ga) ) Configuring APs to Go Online (2)
+3. Configure the AC's source interface.
+[AC] capwap source interface vlanif 100
+GE0/0/3 AC
+4. Import an AP in offline mode on the AC.
+GE0/0/2
+s2 GE0/0/1
+VLANIF 101
+10.23.101.1/24 | GEO/O/1 VLANIF 100 [AC] wlan
+10.23.100.1/24 [AC-wlan-view] ap auth-mode mac-auth
+GE0/0/2
+[AC-wlan-view] ap-id 0 ap-mac 60de-4476-e360
+$1 [AC-wlan-ap-0] ap-name area_1
+{il
+GEO/0/1 Warning: This operation may cause AP reset. Continue? [Y/N]:y
+[AC-wlan-ap-0] ap-group ap-group1
+AP (
+ 
+Y) Warning: This operation may cause AP reset. If the country code
+changes, it will clear channel, power and antenna gain configurations
+of the radio, Whether to continue? [Y/N]:y
+[AC-wlan-ap-0] quit
+Sot
+mol O
+Page59 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Import an AP in offline mode on the AC.
+« Add the AP to the AP group ap-group1. Assume that an AP's MAC address is 60de-
+4476-e360. Configure a name for the AP based on the AP's deployment location, so that
+you can know where the AP is deployed from its name. For example, name the AP
+area_1 if it is deployed in area 1.
+
+A )) Verifying the AP Onboarding Configuration
+e After the AP is powered on, run the display ap all command to check the AP state. If the State field
+displays nor, the AP has gone online.
+[AC-wlan-view] display ap all
+Total AP information:
+nor : normal [1]
+Extra information:
+P : insufficient power supply
+ID MAC Name Group IP Type State STA Uptime — Extralnfo
+0 60de-4476-e360 area_1 ap-group1 10.23.100.254 AP5030DN nor O 10S
+Total: 1
+Page 60 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Description of the display ap command output:
+e ID: AP ID.
+a MAC: AP MAC address.
+«2 Name: AP name.
+2 Group: Name of the AP group to which an AP belongs.
+2 |IP: IP address of an AP. In NAT scenarios, APs are on the private network and the AC
+on the public network. This value is an AP's private IP address. To check the public IP
+address of an AP, run the display ap run-info command.
+o Type: AP type.
+2 State: AP state.
+= normal: An AP has gone online on an AC and is working properly.
+= commit-failed: WLAN service configurations
+ 
+fail to be delivered to an AP after it
+goes online on an AC.
+= download: An AP is in upgrade state.
+= fault: An AP fails to go online.
+» idle: It is the initialization state of an AP before it establishes a link with the AC for
+the first time.
+> STA: Number of STAs connected to an AP.
+2 Uptime: Online duration of an AP.
+= Extralnfo: Extra information. The value P indicates an AP has no sufficient power
+supply.
+
+Network -
+[AC-wlan-view] security-profile name wlan-net
+s2 GEO/O/2 [AC-wlan-sec-prof-wlan-net] security wpa-wpa2 psk pass-phrase
+VLANIF 101 GEO/O/1 41234567 aes
+10.23.101.1/24 GEO/0/1 VLANIF 100
+10.23.100.1/24 [AC-wlan-sec-prof-wlan-net] quit
+GE0/0/2
+s1 —
+mY 2. Create SSID profile wlan-net and set the SSID name to
+GEO/0/1 wlan-net.
+[AC-wlan-view] ssid-profile name wlan-net
+AP (
+ 
+P) [AC-wlan-ssid-prof-wlan-net] ssid wlan-net
+e
+[AC-wlan-ssid-prof-wlan-net] quit
+(
+STA L J 0
+Page 61 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+<>
+GE0/0/3 AC
+GE0/0/2
+$2
+VLANIF 101 GEO/O/1
+10.23.101.1/24 GEO/0/1 VLANIF 100
+10.23.100.1/24
+GE0/0/2
+$1 {il
+GEO/0/1
+AP (
+ 
+P)
+(
+STA L J 0
+Page 62 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Network
+Connectivity
+Configuring WLAN Service Parameters (2)
+3. Create VAP profile wlan-net, set the data forwarding mode
+and service VLAN, and bind the security profile and SSID
+profile to the VAP profile.
+[AC-wlan-view] vap-profile name wlan-net
+[AC-wlan-vap-prof-wlan-net] forward-mode tunnel
+[AC-wlan-vap-prof-wlan-net] service-vlan vian-id 101
+[AC-wlan-vap-prof-wlan-net] security-profile wian-net
+[AC-wlan-vap-prof-wlan-net] ssid-profile wlan-net
+[AC-wlan-vap-prof-wlan-net] quit
+4. Bind the VAP profile to the AP group and apply
+configurations in VAP profile wlan-net to radio 0 and radio 1
+of the APs in the AP group.
+[AC-wlan-view] ap-group name ap-group1
+[AC-wlan-ap-group-ap-group1] vap-profile wilan-net wlan 1 radio 0
+[AC-wlan-ap-group-ap-group1] vap-profile wilan-net wlan 1 radio 1
+[AC-wlan-ap-group-ap-group1] quit
+
+Network -
+Connectivity _/“P Onboarding D> wan services
+[=| ) Checking VAP Profile Information
+e The AC automatically delivers WLAN service configuration to the AP. After the service configuration is
+complete, run the display vap ssid wlan-net command. If Status in the command output is displayed as
+ON, the VAPs have been successfully created on AP radios.
+[AC-wlan-view] display vap ssid wlan-net
+WID : WLAN ID
+AP ID AP name RflD WID BSSID Status Auth type STA SSID
+0 area_1 0 1 60DE-4476-E360 ON WPA/WPA2-PSK 0 wian-net
+0 area_1 1 1 60DE-4476-E370 ON WPA/WPA2-PSK 0 wian-net
+Total:
+ 
+2
+Page 63 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Description of the display vap command output:
+2 AP ID: AP ID.
+2s AP name: AP name.
+« RflD: Radio ID.
+e WID: VAP ID.
+2 SSID: SSID name.
+2 BSSID: MAC address of a VAP.
+2 Status: Current status of a VAP.
+= ON: The VAP service is enabled.
+= OFF: The VAP service is disabled.
+« Auth type: VAP authentication mode.
+2 STA: Number of STAs connected to a VAP.
+
+Page 64
+) Contents
+WLAN Overview
+Basic Concepts of WLAN
+WLAN Fundamentals
+WLAN Configuration Implementation
+Next-Generation WLAN Solutions
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+G) Huawei WLAN Solutions Meet Future Wireless
+Network Construction Requirements
+« Use scenario-based customized solutions for complex and diversified application scenarios
+Complete WLAN deployment and management solutions for campus networks and branch networks
+All-scenario
+802.11ac Wave 2 protocol, dual-5G radio coverage, and up to 3.46 Gbps wireless access bandwidth
+. . Huawei is a key contributor
+ 
+to the next-generation 802.11ax standard (Wi-Fi 6) with a single 5 GHz radio
+High bandwidth
+rate of up to 9.6 Gbps.
+Roaming and multiple wireless QoS protocols such as Wi-Fi multimedia (WMM) to ensure QoS
+.
+Mainstream authentication and encryption modes, such as VWPA, VWPA2, VWWPAS, and WAP!
+H ig h secu rity * Wireless intrusion detection
+Portal and 802.1X authentication, protecting intranet security
+APs support plug-and-play, automatic upgrade, automatic channe! selection, dynamic rate and power
+adjustment, and load balancing.
+Easy deployment * lol APs and APs with built-in high-density antennas, simplifying installation and enabling fast deployment
+APs support cloud management and can work in dual-stack mode to smoothly switch between the cloud and
+local management modes.
+Page 65 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Dual Drivers (Technology Advances + Application
+Development) Promote the Arrival of the Wi-Fi 6 Era
+2014 2015 2016 2017 2018 2019 2020 2021
+Technology re ee ee ee ee ee oto ba ta ba ts bal -
+2011-* 802.11n * > 802.11ac <*> = 802.11ac 802.11ax >
+Wave 1 Wave 2
+oe October 2018
+Wi-Fi standards are New Wi-Fi namin
+upgraded every Wi-Fi 4 Wi-Fi 5 Wi-Fi 6 9
+four to five vears convention released
+yeas: by the WFA
+- Rs - |! . ,
+Appl ication wae mies) Cy Video 4K video Es Interactive
+eae wisiess Video E-classroom conferencing conferencing 3D diagnosis VR/AR
+| surveillance
+Bandwidth per user: 2
+to 4 Mbps
+Latency < 50 ms
+Page 66
+Bandwidth per user: 4 to 12 Mbps
+Latency < 30 ms
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Bandwidth per user > 50 Mbps
+Latency < 10 ms
+conferencing scenarios.
+latency of as low as 10 ms.
+Wi-Fi 5 cannot meet the low service latency and high bandwidth requirements of 4K/8K video
+Powered by Huawei SmartRadio intelligent application acceleration, Wi-Fi 6 achieves a
+
+High Bandwidth
+@ Rate of up to 9.6 Gbps
+@ Bandwidth increased by 4 times
+ry) ) Wi-Fi 6 Vs. Wi-Fi 5
+High Concurrency Rate
+Frequency
+A
+cee
+L [| {fT et)
+Pa _
+Time
+UL/DL OFDMA
+UL/DL MU-MIMO
+User
+ 
+2
+Access of 1024 STAs per AP
+Number of concurrent users
+increased by 4 times
+Page67 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Low Latency
+OFDMA
+Spatial Reuse
+@ Service latency reduced to 20 ms
+@ Average latency reduced by 30%
+Low Power
+Consumption
+5
+TWT
+20 MHz-Only
+@ Target wakeup time
+(TWT) mechanism
+@ STA power
+consumption reduced
+by 30%
+¢ Currently, the theoretical rate of all Wi-Fi 5 products (Wave 2) is 2.5 Gbit/s, and that of Wi-Fi 6
+products is 9.6 Gbit/s. Therefore, Wi-Fi 6 increases the rate by four folds compared with Wi-Fi
+5.
+« W/-Fi6 increases the number of concurrent users by four folds compared with Wi-Fi 5. In the
+actual test, at a per user bandwidth of 2 Mbit/s, the concurrent number of users supported by
+Wi-Fi 5 is 100, and that supported by Wi-Fi 6 is 400.
+« The average latency supported by Wi-Fi 6 is about 20 ms (about 30 ms in Wi-Fi 5). Huawei
+SmartRadio intelligent application acceleration technology further reduces the service latency
+to as low as 10 ms.
+¢« TWT is not supported by Wi-Fi 5.
+
+@ Next-Generation Campus Network: Intent-
+Driven Campus (Small- and Medium-Sized)
+Fy ef iMaster NCE
+Basic Concepts
+Internet * The cloud management platform allows centralized management
+and maintenance of devices at any place, greatly reducing network
+deployment and O&M costs.
+|
+« Applicable scope: small- and medium-sized enterprises
+Egress Gateway iuzci Branch Office
+Advantages (Compared with the AC + Fit AP Architecture)
+| Switch FY) Cloud AP * Plug-and-play and automatic deployment reduce network
+deployment costs.
+. ¢ All network elements (NEs) are monitored and managed on the
+Cloud . te
+AP STA cloud management platform in a unified manner.
+» ¢ Cloud solutions usually provide various tools on the cloud, reducing
+L [] STA costs.
+Campus HQ ( Campus Branch
+Page 68 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Disadvantages of traditional network solutions:
+2 Traditional network solutions have many network deployment problems, such as high
+deployment costs and O&M difficulties. These problems are obvious in enterprises with
+many branches or geographically dispersed branches.
+¢« Cloud management architecture:
+«= The cloud management architecture can solve the problems faced by traditional network
+solutions. The cloud management platform can manage and maintain devices in a
+centralized manner at any place, greatly reducing network deployment and O&M costs.
+« Aftera cloud AP is deployed, the network administrator does not need to go to the site
+for cloud AP software commissioning. After power-on, the cloud AP automatically
+connects to the specified cloud management platform to load system files such as the
+configuration file, software package, and patch file. In this manner, the cloud AP can go
+online with zero touch configuration. The network administrator can deliver
+configurations
+ 
+to the cloud APs through the cloud management platform at anytime and
+anywhere, facilitating batch service configurations.
+
+@ Next-Generation Campus Network: Intent-
+© ©
+ef iMaster NcE
+NMS O&M Zone
+Core Layer
+Aggregation Layer
+Access Layer
+— _ iStack/CSS Link
+Page 69 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Driven Campus (Medium- and Large-Sized)
+Architecture Characteristics
+« iMaster NCE manages and configures APs in a unified
+manner and provides various functions. By further
+integrating with wired networks and leveraging Big Data
+and Al technologies, this architecture implements
+simplified, intelligent, and secure campus networks.
+« Applicable scope: medium- and large-sized enterprises
+
+[Figura da Pag.1] Labels: eg Wha” 7; - wt; >; i " x CRALE C/ * -; soperne em Pe... a ee > < ee; Wie S 4) / > atcew kg >.. Caption: (errore caption)
+[Figura da Pag.1] Labels: sae ee ae eh: ays 6) ~~ A.B. 1308 es yy Ae rm 2; SD — <——=; Q M5) 4 UNIVERSITA DEGLI STUDI; MCCS DI PERUGIA. Caption: (errore caption)
+[Figura da Pag.1] Labels: Fondamenti di Internet; WLAN Overview; Page 0 Prof. Gianluca Reali. Caption: (errore caption)
+[Figura da Pag.2] Labels: ) Foreword; e¢ Wired LANs are expensive and lack mobility. The increasing demand for portability and; mobility requires wireless local area network (WLAN) technologies.. Caption: (errore caption)
+[Figura da Pag.2] Labels: ¢ WLAN is now the most cost-efficient and convenient network access mode.; ¢ This course introduces the development of WLAN in different phases, concepts related; to WLAN technologies, implementation and basic configurations of common WLAN; networking architectures, and WLAN development trends.. Caption: (errore caption)
+[Figura da Pag.2] Labels: Page 1 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.3] Labels: or ) Objectives; ¢ Oncompletion of this course, you will be able to:; « Understand basic concepts of WLAN and the history of the 802.11 protocol family.. Caption: (errore caption)
+[Figura da Pag.3] Labels: « Learn about different WLAN devices.; e Distinguish between different WLAN networking architectures.; e Understand the WLAN working process.; « Complete basic WLAN configurations.. Caption: (errore caption)
+[Figura da Pag.3] Labels: Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.4] Labels: Contents; 1. WLAN Overview; 2. Basic Concepts of WLAN. Caption: (errore caption)
+[Figura da Pag.4] Labels: 3. WLAN Fundamentals; 4. WLAN Configuration Implementation; 5. Next-Generation WLAN Solutions. Caption: (errore caption)
+[Figura da Pag.4] Labels: Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.5] Labels: Introduction to WLAN; ¢ Awireless local area network (WLAN) is constructed using wireless technologies. It uses high-frequency (2.4 GHz or 5; GHz) signals such as radio waves, lasers, and infrared rays to replace the traditional media used for transmission on a; wired LAN.. Caption: (errore caption)
+[Figura da Pag.5] Labels: ¢« WLAN technology allows users to easily access a wireless network and move around within the coverage of the wireless; network.; & Router; (29); Wired ve Wireless (yp) Access; Network aK Switch Network - . Radio. Caption: (errore caption)
+[Figura da Pag.5] Labels: y Ye ZZ signals; Switch LJ; LJ >; ry CJ; Ce CS !; PC; Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.6] Labels: IEEE 802.11, WLAN and Wi-Fi; e |EEE 802.11 suites are standards for WLANs which are definded WLAN; by the Institute of Electrical and Electronics Engineering (IEEE). [eee |; = AA ES Alive anew fawmcscad lecys coe mire: Gack seq eee viele ew Wi-Fi. Caption: (errore caption)
+[Figura da Pag.6] Labels: _ VVITET PATITGAIIVO Wao IVETOU My a yivupy MI ed bl THGAPIUraVelurleolo IEEE 802 11; and the logo "Wi-Fi" was created. The Wi-Fi standards are | Tease |; « JEEE 802.11 Standards and Wi-Fi Generations; i hae: 2.4GHz 2.4GHz 2.4GHz, 5GHz 2.4GHz & 5GHz 5GHz 5GHz 2.4GHz & 5GHz; an. Caption: (errore caption)
+[Figura da Pag.6] Labels: Throughput 2Mbit/s 11Mbit/s 54Mbit/s 300Mbit/s 1300Mbit/s 6.9Gbit/s 9.6Gbit/s; Standard | seyyh 802.11b 802.11a, 802.11g 802.11n 802.11ac wave1 802.11ac wave2 802.11ax; Wi-Fi Wi-Fi 1 Wi-Fi 2 Wi-Fi 3 Wi-Fi 4 Wi-Fi 5 Wi-Fi 6; >; Released In 1997 1999 2003 2009 2013 2015 2018; Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.7] Labels: Wi-Fi Development Trends in Office Scenarios; Early 1990s Late 1990s Today. Caption: (errore caption)
+[Figura da Pag.7] Labels: H H f eS 4K; ' ' J H Cwi-i); ! ' H VR/AR ves; ce All-wireless era; H H BYOD H a ;; H H i Diversified terminals:; = f ' ; : ' + Refined online service. Caption: (errore caption)
+[Figura da Pag.7] Labels: = Mobile phone, tablet, and Ultrabook: VINAIRviceo.; Laptop: + Video, voice, and data services; + Voice and data services + Alarge number of real-time services; * 802.11b/a/g * 802.11n -> 802.11ac; Desktop computer:; * Data service WibeIESS neiworks as a Wired and wireless integration All-wireless office, wireless-centric; supplement to wired networks; Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.8] Labels: Contents; 1. WLAN Overview; 2. Basic Concepts of WLAN. Caption: (errore caption)
+[Figura da Pag.8] Labels: 3. WLAN Fundamentals; 4. WLAN Configuration Implementation; 5. Next-Generation WLAN Solutions. Caption: (errore caption)
+[Figura da Pag.8] Labels: Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.9] Labels: Wired Network Wireless Network; WLAN Devices; Home : Enterprise; PoE Switch. Caption: (errore caption)
+[Figura da Pag.9] Labels: i — i a Se SHITE Network; - 5use vees eat; = = eo; Wireless Router aaa ae & ea ore TTT eee MMT TEE. Caption: (errore caption)
+[Figura da Pag.9] Labels: en mu en AC (Access Controller); ii wiih; AP (Access Point); Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.10] Labels: Basic WLAN Networking Architecture. Caption: (errore caption)
+[Figura da Pag.10] Labels: <> ates; Campers Egress Gateway; Campus; Wired Network Egiess Gateway Network; Ethernet Protocols Campus; Network; S/o \ AC; g Q; \2 ia; | > ey. Caption: (errore caption)
+[Figura da Pag.10] Labels: cp) @) cp) ( r; Fat AP 5) (cp) Fit AP; . <= Ss & Radio signal Ss SJ > Radio signal; Wireless Network — a ~— . — wa ~~ *; 802.11 Protocols 0 Cy i 0 on 0 i) i 0 can; Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.11] Labels: Agile Distributed Architecture. Caption: (errore caption)
+[Figura da Pag.11] Labels: Architecture Characteristics; * The agile distributed architecture divides an AP into a central AP; and remote units (RUs). The central AP can manage multiple; Central AP |e ==! Central AP [eo ==); entra entra RUs, which provides good coverage and reduces costs. RUs can; / . P 7 be used in the Fat AP, AC + Fit AP, and cloud management; RU RU; “Hoon Goon; e < a es . a - < e Annlication scone: densely distributed rooms. Caption: (errore caption)
+[Figura da Pag.11] Labels: Room1 | Room2 / Room3 Room N Room1  Room2 | Room3 Room N; Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.12] Labels: Transfer:. Caption: (errore caption)
+[Figura da Pag.12] Labels: | — ai A * Control And Provisioning of Wireless Access; ser data; — G \ —S Campus Points (CAPWAP): defines how to manage and; (re oN =a Network configure APs. That is, an AC manages and controls; cM; AP1 5) Zoo APs in a centralized manner through CAPWAP tunnels.; sur? Sf; 2 a; oP «3; AP2 KF) & ;; © CAPWAP Tunnel Functions; eo )). Caption: (errore caption)
+[Figura da Pag.12] Labels: _— ct a ¢ Maintains the running status of the AC and APs.; LJ =] * Allows the AC to manage APs and deliver service; STA LJ configurations to the APs.; * Allows APs to exchange data sent by STAs with the AC; STA through CAPWAP tunnels when the tunnel forwarding; mode is used.; Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.13] Labels: Basic Concepts D> wireanetwork Wireless Network; AP-AC Networking; ¢ The AP-AC networking modes are classified into Layer 2 networking and Layer 3 networking.. Caption: (errore caption)
+[Figura da Pag.13] Labels: * Layer 2 networking: APs are * Layer 3 networking: APs are; A connected to an AC directly or A connected to an AC across a; Cc across a Layer 2 network. Cc Layer 3 network.; * The Layer 2 networking * In the actual networking, an AC; Layer 2 features quick deployment. It is Layer 3 can connect to dozens or even; fe Network \ applicable to simple or J aaicaaal \ hundreds of APs, which is. Caption: (errore caption)
+[Figura da Pag.13] Labels: LSTIIPUIALy HOCUWUIAIIY VU TUL USUAHY VVITIVICA. HT TIUOl Uadoto,; (yp) ” (yp) large networking. (cy) = (cp) the Layer 3 networking is used; AP1 APn AP1 APn on a large network.; Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.14] Labels: Basic Concepts D> wireanetwork Wireless Network; AC Connection Mode; ¢ ACs can be connected in in-path or off-path mode.. Caption: (errore caption)
+[Figura da Pag.14] Labels: * In the off-path networking, the; Core * In the in-path networking, the Sore; Network Network AC connects to the network; APs, AC, and core network are; between APs and the core; connected in a chain. All data | .; ; A network, but does not directly; lestined for the core layer; A destined for th lay; C fa ——- IP connect to APs.; asses throu e AC.; Q g ° this netw ne the AC al Network * In this networking, the AC is; Ry IP a» MTHS: NEWOFKINg, Une also / “oO /Q canneacted tn APRe in nffenath. Caption: (errore caption)
+[Figura da Pag.14] Labels: ~/ Network \“¥ functions as an aggregation NN LY rs; SX, < ggreg ope e mode, the service data of APs; switch to forward and process iS) ;; reaches the uplink network; a data traffic and management oo . .; ; without passing through the; AP1 APn _ traffic of APs. AP1 APn AG; Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.15] Labels: Wireless Communications System; e In a wireless communications system, information may be an image, a text, a sound, or the like. The; transmit device first applies source coding to convert information into digital signals that allow for circuit; ssseat eee | Drea a ee ae: seeee all waGerdneer aes aa neater: bb becca Succ: peuecal Gaeeeeemeesuremas «beacs poeta: sac bese wc! waeosceda eu “eee moeweoeltaad wacker aece. Caption: (errore caption)
+[Figura da Pag.15] Labels: VAIVUIALIVITT ATI VIVES, ALI UPOrr THI MY Te allo VI VHA) GUMMY ALM PIVOTAL TT.; Modulation Demodulation Decoding Sink; media). Caption: (errore caption)
+[Figura da Pag.15] Labels: Transmit device Receive device; Wireless Communications System; Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.16] Labels: Radio Wave; e A radio wave is an electromagnetic wave whose frequency is between 3 Hz and about 300 GHz. Radio; technology converts sound signals or other signals and transmits them by using radio waves.. Caption: (errore caption)
+[Figura da Pag.16] Labels: e WLAN technology enables transmission of information by radio waves over the air. Currently, the WLAN; uses the following frequency bands:; ° 2.4 GHz frequency band (2.4—2.4835 GHz); ° 5 GHz frequency band (5.15-5.35 GHz, 5.725-5.85 GHz; 2.4 GHz frequency band 5 GHz frequency band; IEEE 802. 11b/g/n/ax IEEE 802. 11a/n/ac/ax; e Radio wave cnectriim:. Caption: (errore caption)
+[Figura da Pag.16] Labels: ee; Earomety Super low Ultralow Very low Low Intermediate High Very high Ultrahigh | Super high Tn; ‘ ow frequency frequency frequency frequency frequency — frequency —frequency | cau | rus 9); remeny: (SLF) (ULF) (VLF) (LF) (IF) (HF) (VHF) (UHF) (SHF) pele; (ELF) (EHF); 3 30 300 3 30 300 3 30 300 3 30 300 iitared iste; light, ultraviolet; Y Y Y Y light, and ray; Hz kHz MHz GHz; Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.17] Labels: a) Faeeaeais } eaten > wees 4; e Achannel transmits information, and a radio channel is a radio wave in space. Given that radio waves are; ubiquitous, the random use of spectrum resources will cause endless interference issues. Therefore, in; “ep acme ane wlacitawiecsm: iewme vate belies Ghecacaaswmemeamcs Lateran duces bees cen (enum ceeee aac oceeielle saccsued< ueleroe: wonuey pense lew:. Caption: (errore caption)
+[Figura da Pag.17] Labels: GUMMY TIE LEIS UO AANIS TOUS YyY NALIN, WIIG Oo VUETITIMIENGGAUUIT VIVES TIM Alo AUVUUIALOly; divide the frequency ranges. Each frequency range is a channel.; 2.4 GHz Frequency Band 5 GHz Frequency Band; 1 3 5 7 9 #11 «13 5170 5330 5490 Weather 5710 5735 5835; 2412, 2422 2452 2442 2482, 2462 2.472 a ue mem ls a i a; IEEE chamellD'g 232g | SS8SS8aRSse 88558; 2.417 | 2.427 | 2.437 | 2.447 | 2.457 vil 2.484 owt: PAAAAAAA AAAAAAATARA AnAAA; LOPS NSN 2.442: center frequency 20MHz {Vk fv 7) =z |:. Caption: (errore caption)
+[Figura da Pag.17] Labels: l ee y Y \ yyy \ \ \ Vivvo \ (GHz) - 160 MHz —————— a bo i; * The 2.4 GHz frequency band is divided into 14 channels with contiguous 60220 a i i oe i; overlapping or non-overlapping relationships, each with a ee cng : ii; bandwidth of 20 MHz. : : [| rr Sa a; 2 Overlapping channels, such as channels 1 and 2, interfere with each other. 7; ° Non-overlapping channels, such as channels 1 and 6, do not interfere with + The 5 GHz frequency band has richer spectrum resources. In addition to 20; each other. MHz channels, APs working on the 5 GHz frequency band support 40 MHz,; 80 MHz, and higher-bandwidth channels.; Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.18] Labels: Basic Concepts Wired Network > wees 4; BSS/SSIDIBSSID; e Basic service set (BSS):; _ - o An area covered bv an AP.. Caption: (errore caption)
+[Figura da Pag.18] Labels: viscover guest BR ‘; .; LJ e STAsina BSS can communicate with each other.; e Basic service set identifier (BSSID):; A (cy) SSID: ° An identifier of a WLAN, which is represented by the; Discover guest P Besih; Doeiio tesa) AP's MAC address.; e; LJ ~~ e Service set identifier (SSID):. Caption: (errore caption)
+[Figura da Pag.18] Labels: ° An identifier of a WLAN, which is represented by a; Discover guest string of characters.; LJ « S§SIDs can replace BSSIDs to help users identify; different WLANs.; Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.19] Labels: e In the early stage, APs support only one BSS. If; multiple BSSs are deployed in a space, we must; Discover guest Se eT es eS Fr a ae. Caption: (errore caption)
+[Figura da Pag.19] Labels: and internal AlOY MOPIVY TIMMINIG FAT 9, VWINGIT THIVreadotvo YVUotlo; LJ en and occupies channel resources. To resolve this; earth problem, APs now support creation of multiple; 00€0.fc45.24a0 virtual access points (VAPs).; . a GY; Discover guest .; and internal P ° VAP:; & = BSS2: VAP2; L ‘SSID: ° Aphysical AP can be virtualized into multiple VAPs,. Caption: (errore caption)
+[Figura da Pag.19] Labels: 0060 1645-249 each of which provides the same functions as the; Discover guest ;; and internal pinysical wife; LJ ° Each VAP corresponds to one BSS. In this way, one; AP may provide multiple BSSs that can have different; SSIDs specified.; Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.20] Labels: a) Basic Concepts Wired Network > wrcese; e The coverage of a BSS is limited. An extended. Caption: (errore caption)
+[Figura da Pag.20] Labels: ESS service set (ESS) can be used to expand the; a ae coverage. When a STA moves from one BSS to; (cy) BSSID: «p) BSSID:; _— 00e0.fc45.24a0 nee 00e0.fc45.3100 another BSS, an ESS ensures that the STA does; e@ e; = CJ = | not sense the change of the SSID.; Lo] SSID: huawei | SSID: huawei * ESS:. Caption: (errore caption)
+[Figura da Pag.20] Labels: © A larger-scale virtual BSs that consists of multiple; BSSs with the same SSID.; Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.21] Labels: Contents; 1. WLAN Overview; 2. Basic Concepts of WLAN. Caption: (errore caption)
+[Figura da Pag.21] Labels: 3. WLAN Fundamentals; 4. WLAN Configuration Implementation; 5. Next-Generation WLAN Solutions. Caption: (errore caption)
+[Figura da Pag.21] Labels: Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.22] Labels: WLAN Working Process Overview. Caption: (errore caption)
+[Figura da Pag.22] Labels: “ A; 4 3 AnAP obtains an IP address, discovers an AC,; and sets up a connection with the AC.; DHCP Server AC @  WLANservice configuration delivery; i A; =i The AC delivers WLAN service configurations to the AP.; © STAaccess; —_— STAs find the SSID transmitted by the AP, connect to. Caption: (errore caption)
+[Figura da Pag.22] Labels: the network, and go online.; AP AP @ WLANservice data forwarding; eee The WLAN starts to forward service data.; bY C o; Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.23] Labels: WLAN Working Process: Step 1; Network. Caption: (errore caption)
+[Figura da Pag.23] Labels: i —; +=; The AC can manage and control Fit APs in a centralized; manner and deliver services only after they go online. The; DHCP Server AC procedure is as follows:; 1. AnAP obtains an IP address.; i A; =i 2. The AP discovers the AC and establishes a CAPWAP tunnel; with it.; 3. AP access control; 4. AP upgrade; —_— 5. CAPWAP tunnel maintenance. Caption: (errore caption)
+[Figura da Pag.23] Labels: |; @ > WLANservice configuration delivery; AP AP; —_ @  STAaccess; DY SY i e; CI Cc] 0 @~  WLANservice data forwarding; Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.24] Labels: APs Obtain IP Addresses; ¢ AnAP can communicate with an AC only after obtaining an IP address.; *) IP address allocation. Caption: (errore caption)
+[Figura da Pag.24] Labels: aa; @ « AnAP can obtain an |P address in either of the following modes:; ° Static mode: A user logs in to the AP and configures its IP address.; ° DHCP mode: The AP serves as a DHCP client and requests an IP address; from a DHCP server.; © « Typical solutions:; ° Deploy a dedicated DHCP server to assign IP addresses to APs.; ° Configure the AC to assign IP addresses to APs.. Caption: (errore caption)
+[Figura da Pag.24] Labels: sb) ° Use a device on the network, such as a core switch, to assign IP addresses to; APs.; Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.25] Labels: DHCP IP Address Allocation; *) a ress allocation on wp _ ene. Caption: (errore caption)
+[Figura da Pag.25] Labels: (p; @ DHCP DHCP Discover (broadcast); Server AC Discover DHCP servers on the network; ——— _—*=:; Ez ee A Ei] DHCP Offer (unicast); oe = N » Select an available IP address from the; 0) % \ address pool and respond to the AP; DHCP packet } \ ST; } 2 \ DHCP Request (broadcast); Fa fee DHCP packet Notify the DHCP server of the IP address selected. Caption: (errore caption)
+[Figura da Pag.25] Labels: sb) AP upgrade oe ae >; (Optional) a“ Sos, DHCP Ack (unicast); Acknowledge address allocation; eco; @ CAPWAP; tunnel maintenance; Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.26] Labels: CAPWAP Tunnel Establishment; ¢ The AC manages and controls APs in a centralized manner through; @ CAPWAP tunnels. A A. Caption: (errore caption)
+[Figura da Pag.26] Labels: Step 1: AC Discovery; @ CAPWAP - 7 ;; tunnel establishment * AnAP sends a Discovery Request packet to find an available AC Iscovery Keques ,; * APs can discover an AC in either of the following ways: Di R; * Static: AC IP address list preconfigured on the APs vey Bes pense; 0) AP access control 2 Dynamic: DHCP, DNS, and broadcast; | Step 2: CAPWAP Tunnel Establishment. Caption: (errore caption)
+[Figura da Pag.26] Labels: sb) AP upgrade al; (Optional) + APs associate with the AC and establish CAPWAP tunnels; including data tunnels and control; * Data tunnel: transmits service data packets from APs to the AC; © CAPWAP for centralized forwarding.; tunnelimaintenance = Control tunnel: transmits control packets between the AC and; APs.; Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.27] Labels: Step 1: APs Dynamically Discover the AC; Q veer temin; rr i (|. Caption: (errore caption)
+[Figura da Pag.27] Labels: A DHCP server A; CAPWAP Layer 2 Campus E Layer 3 Campus A; @ tunnel Network Network =e; establishment; DHCP Discover t; —_—_sSE; DHCP Offer |; 0) AP access control (option 43) ;; | Broadcast query; DHCP Request ;; $<; ao DHCP Ack 1. Caption: (errore caption)
+[Figura da Pag.27] Labels: AP upgrade option 43; a] (Optional) 4 pte (cp); Discovery Request A; "=n; Discovery Response P; @ CAPWAP —; tunnel maintenance; Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.28] Labels: Step 2: CAPWAP Tunnel Establishment; *) IP address allocation. Caption: (errore caption)
+[Figura da Pag.28] Labels: sss...; CAPWAP * APs associate with the AC and establish CAPVWAP; DHCP; ® tunnel establishment Server AC tunnels, including data tunnels and control tunnels.; i A =i ° Data tunnel: transmits service data packets from APs to the; NTS AC for centralized forwarding. Datagram Transport Layer; 0) ope 8 Security (DTLS) encryption can be enabled over the data; 4 » tunnel to ensure security of CAPWAP data packets.; 2 1) Subsequently, CAPWAP data packets will be encrypted and; > decrypted using DTLS.. Caption: (errore caption)
+[Figura da Pag.28] Labels: sb) * Control tunnel: transmits control packets between the AC and; APs. DTLS encryption can be enabled over the control tunnel; eco to ensure security of CAPWAP control packets. Subsequently,; CAPWAP control packets will be encrypted and decrypted; © using DTLS.; Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.29] Labels: Sean STAAccess Data Forwarding; AP Access Control; *) IP address allocation. Caption: (errore caption)
+[Figura da Pag.29] Labels: AP Access Control o ny; @ CAPWAP; tunnel establishment . . .; + After discovering and AC, the AP sends a Join; Request packet to the AC. The AC then Discovery Request; © AP'Sccessieontral determines whether to allow the AP access Discovery Response; sends a Join Response packet to the AP. Join Request; —————; | + The AC supports three AP authentication modes: _ Join Response. Caption: (errore caption)
+[Figura da Pag.29] Labels: sb) MAC address authentication, SN authentication, | |; and non-authentication.; Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.30] Labels: Sean STAAccess Data Forwarding; *) IP address allocation; ee 7 7. Caption: (errore caption)
+[Figura da Pag.30] Labels: @ CAPWAP + The AP determines whether its system software; tunnel establishment; version is the same as that specified on the AC Discovery Request; according to parameters in the received Join ;; Discovery Response; 0) AP access control Response packet. If they are different, the AP; sends an Image Data Request packet to request Join Request; the software package and then upgrades its Join Response. Caption: (errore caption)
+[Figura da Pag.30] Labels:  ] AP upgrade software version INAC, FIP, or SF ITP mode. Image Data Request; (Optional) —E——————; + After the software version is updated, the AP Image Data Response; —; restarts and repeats steps 1 to 3.; Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.31] Labels: CAPWAP Tunnel Maintenance; A A; *) IP address allocation Gy Ei; Discovery Request. Caption: (errore caption)
+[Figura da Pag.31] Labels: @ CAPWAP; tunnel establishment + Data tunnel maintenance: Join Request; ° The AP and AC exchange Keepalive packets to Join Response; 2) AP 'accesscontiol detect the data tunnel connectivity. age DatEIRERUESt; + Control tunnel maintenance:; Image Data Response; ° The AP and AC exchange Echo packets to; J Keaanaliva. Caption: (errore caption)
+[Figura da Pag.31] Labels: sb) detect the control tunnel connectivity. | Data tunnel; Keepalive; —————_—_; Echo Request; —————— Control tunnel; © CAPWAP; tunnel maintenance Echo Response; Page 30 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.32] Labels: Sean STAAccess Data Forwarding; Preconfigurations on the AC for APs to Go Online; COnnaureinetworkiconnectivit _-» * Configure DHCP servers to assign IP addresses to APs and STAs. The AC can function as a DHCP server.; 9 y + Configure network connectivity between APs and the DHCP server, and between APs and the AC.. Caption: (errore caption)
+[Figura da Pag.32] Labels: CreninantAPlaratl _- + Each AP will be added and can be added to only one AP group. In most cases, we configure an AP group to; group provide the same configurations for multiple APs.; Configure the country code on the AC __-» Acountry code identifies the country in which the APs are deployed. Country codes regulate differentAP radio; (regulatory domain profile) attributes, including the transmit power and supported channels.; Configure a source interface or address _--» Specify a unique source IP address or source interface on each AC. APs must learn the specified source IP; (for establishing CAPWAP tunnels with APs) address or the IP address of the source interface to communicate with the AC and establish CAPWAP tunnels.. Caption: (errore caption)
+[Figura da Pag.32] Labels: ; ; ; In automatic upgrade mode, an AP checks whether its version is the same as that configured on the AC, SFTP; (Optional) Configure the automatic AP upgrade +---» server, or FTP server when going online. If the two versions are different, the AP upgrades its version, restarts, and; goes online again. If the two versions are the same, the AP does not upgrade its version.; AGnIAFS ---> Youcan add APs by importing them in offline mode, automatic discovery, and manual confirmation; (configure the AP authentication mode) yimp 9 , uh .; Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.33] Labels: WLAN Working Process: Step 2. Caption: (errore caption)
+[Figura da Pag.33] Labels: Maey; 2 >; Configuration Update Request @ AP onboarding; DHCP Server AC e WLAN service configuration delivery; E U “i aan. =| The AC sends a Configuration Update Request to an AP. If the; f @ contauation AC receives a Configuration Update Response from the AP, the; — x, Update Response AC then delivers service configuration to the AP.. Caption: (errore caption)
+[Figura da Pag.33] Labels: ap ~~ @  STAaccess; ase @  WLANservice data forwarding; Page 32 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.34] Labels: WLAN Profiles; e Various profiles are designed based on different functions and features of WLAN networks to help users; configure and maintain functions of WLAN networks. These profiles are called WLAN profiles.. Caption: (errore caption)
+[Figura da Pag.34] Labels: Bound to regulatory domain le Aregulatory domain profile provides configurations of country code,; profile calibration channel, and calibration bandwidth for an AP.; Bound to . . * Radio profiles are used to optimize radio parameters, and control the; Radio profile aan . ths :; in-service channel switching function.; Bound to . * Configure parameters in the VAP profile and reference the SSID profile,; AP or VAP profile aig : . _— ‘ :; AP group security profile, and authentication profile.. Caption: (errore caption)
+[Figura da Pag.34] Labels: Bound to; Other profiles --> *« AP System Profile, Location Profile, WIDS Profile, Mesh Profile and etc.; Configure radio col? Configure the bandwidth, channel, antenna gain, transmit power,; parameters coverage distance, and operating frequency band of a specified radio.; Page 33 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.35] Labels: ) AP Onboarding STAAccess Data Forwarding; * An SSID specifies a wireless network. When you search for available; Bound to Create an _-sl wireless networks on a STA, the displayed wireless network names are; | PGR oc pete. Caption: (errore caption)
+[Figura da Pag.35] Labels: Voll PIVIle volVS.; * An SSID profile is used to configure the SSID name of a WLAN.; Bound to Create a yl? You can configure WLAN security policies to authenticate STAs and; security profile encrypt user packets, protecting the security of the WLAN and users.; VAP Profile; Configure the data lhe Control packets (management packets) and data packets are; forwarding mode transmitted on a WLAN.. Caption: (errore caption)
+[Figura da Pag.35] Labels: | Configure service aw? Layer 2 data packets delivered from the VAP to an AP carry the service; VLANs VLAN IDs.; Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.36] Labels: AP Onboarding aa D> starccess 9 Data Forwarding; WLAN Working Process: Step 3. Caption: (errore caption)
+[Figura da Pag.36] Labels: “ee,; ?sey; a .; @ ~~ AP onboarding; DHCP Server AC @ > WLAN service configuration delivery; i A, =i 3] STA access; STAs can access a WLAN after CAPWAP tunnels are; established.; —_— Ss aa SOREN wen ny! Gu CNR en AN EE RR OE OR Le PONS S cc ESS MMU NC Onn aE hte eR ES A) pooEE Men. Caption: (errore caption)
+[Figura da Pag.36] Labels: PES VEN AUS PIUUE SS VUTIDIOlo VMI SIA PIdaove. SUGIHTINIY, HEN; authentication, association, access authentication, DHCP, and; user authentication.; AP AP; eee @ WLAN service data forwarding; Page 35 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.37] Labels: e Inactive scanning, a STA periodically searches for nearby wireless networks.; *) Scanning e The STA can send two types of Probe Request frames: probes containing an SSID. Caption: (errore caption)
+[Figura da Pag.37] Labels: and probes that do not contain an SSID.; (f) Link authentication Active Scanning by Sending a Probe Request Active Scanning by Sending a Probe Request; Frame Containing an SSID Frame Containing No SSID; 1; eave?; @ Association Probe Request prove nul) 9) AP1; (SSID: huawei) so onse; «)) prove RESP; Probe Response i LJ .; —$—_______.; Access authentication .; >) STA API - STA ~~ ——eE~. Caption: (errore caption)
+[Figura da Pag.37] Labels: {ovlU: NUaWel) “(Ssip,etuest SK” APn; ~ Null); 6 * The STA sends a Probe Request containing an * The STA periodically broadcasts a Probe Request; SSID on each channel to search for the AP with the frame that does not contain an SSID on the; same SSID. Only the AP with the same SSID will supported channels. The APs return Probe; cs) respond to the STA. Response frames to notify the STA of the wireless; services they can provide.; Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.38] Labels: WLAN Security Protocols; e As WLAN technologies use radio signals to transmit service data, service data can; ) be easily intercepted or tampered with by attackers when being transmitted on open; aces law: pebocwemben: | wewcacemeses Sd Po Mel cocewescrerer Sees SGeeeciecwe! abc Uae lieicweues tacweos: seul ocd euniie sae. Caption: (errore caption)
+[Figura da Pag.38] Labels: WHCIG OS VHGA. LOULITYy VV ESEAIN SeUUIILyY Io VIUUIAl bY MUMMY Sale AM CHOULIVe; @© Link authentication wireless networks.; ¢ Common security policy:; @ Association Link A; . : in ccess : —; Becurtiy Falicy Authentication Authentication Bate Ener pean; 0) Access‘auihentication Open system N/A No encryption or WEP Insecure policy; WEP. Caption: (errore caption)
+[Figura da Pag.38] Labels: onared-key Fs; ‘Authentication N/A WEP Insecure policy; 6 WPA/WPA2- Amore secure policy, applicable; 802.1X Open system 802.1X (EAP) TKIP or CCMP to large enterprises; More secure policy, applicable to; @ WPA/WPA2-PSK Open system PSK TKIP or CCMP small- and medium-sized; enterprises or household users; Page 37 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.39] Labels: ¢ To ensure wireless link security, an AP needs to authenticate STAs that attempt to access the AP.; ) Scanning ¢ IEEE 802.11 defines two authentication modes: open system authentication and shared key authentication.. Caption: (errore caption)
+[Figura da Pag.39] Labels: ) Linkaumenticaton Open System Authentication Shared Key Authentication; @ Association Authentication Request Authentication Request >; ee Authentication Response; LJ Authentication Response 5) (Challenge); —— ————; STA AP Authentication Response; 0) Access authentication (Encrypted Challenge); cee nnnmnmmiiiie. Caption: (errore caption)
+[Figura da Pag.39] Labels: Authentication Response.; (Success); 6 * caloatoneuies wat; + Open system authentication requires no authentication, + Shared key authentication requires that the STA and AP; allowing any STA to be successfully authenticated. have the same shared key preconfigured. The AP checks; whether a STA has the same shared key to determine the; @ authentication result. If the STA has the same shared key as; the AP, the STA is authenticated. Otherwise, STA; authentication fails.; Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.40] Labels: Association; e After link authentication is complete, a STA initiates link service negotiation using; ) Scanning Association packets.. Caption: (errore caption)
+[Figura da Pag.40] Labels: e The STA association process is actually a link service negotiation process, during; which the supported rate, channel, and the like are negotiated.; @ Association STA AP AG; © 1. Association Request; Ee; 2. Association Request. Caption: (errore caption)
+[Figura da Pag.40] Labels: el; 3. Association Response; 6 - —_—_—_—_———.; 4. Association Response; ——______; Page 39 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.41] Labels: Access Authentication; e User access authentication differentiates users and controls access rights of users.; ) Scanning Compared with link authentication, access authentication is more secure.. Caption: (errore caption)
+[Figura da Pag.41] Labels: e Major access authentication modes include PSK authentication and 802.1X; authentication.; Al AP 5); fe); —_; © Access authentication ~~”,. Caption: (errore caption)
+[Figura da Pag.41] Labels: Access authentication is performed on; STA LJ the wireless-side interface, allowing; 6 STAs to send data over wireless links.; Page 40 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.42] Labels: AP Onboarding aa D> starccess 9 Data Forwarding; STA Address Allocation; e The prerequisite for APs and STAs to go online properly is that they have obtained; ) Scanning IP addresses.. Caption: (errore caption)
+[Figura da Pag.42] Labels: e If STAs obtain IP addresses through DHCP, the AC or aggregation switch can; function as a DHCP server to assign IP addresses to the STAs. In most cases, the; aggregation switch is used as the DHCP server.; DHCP Server; ® STA A (Aggregation Switch); (:))) IP es; LJ ((- (yp Network; L?) | Dd ae > Be ee |. Caption: (errore caption)
+[Figura da Pag.42] Labels: Milwr WIovVUVer; Pg; DHCP Request; a _'’”",; © User authentication Ce; Page 41 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.43] Labels: User Authentication; e User authentication is an end-to-end security architecture, supporting 802.1X, MAC; i) Scanning address, and Portal authentication modes.. Caption: (errore caption)
+[Figura da Pag.43] Labels: Link authentication Portal Authentication =<“; ia; « Portal authentication is also known e@; @ Association as web authentication. Portal; authentication websites are Huawei-Guest; referred to as web portals. Just for Guest; 0) Access authentication ¢ To access the Internet, users must ra | | Romaine |; he aithenticated on weh nortale +86 Phone Number. Caption: (errore caption)
+[Figura da Pag.43] Labels: Mieiitemontes, | WmwaenomnnaDeee, | howe Nik Conc Marre eran amoaieee unwars Ban Teveens Senwettawnsanes | Qf iseienn-xGrenrenen me nen; The users can access network i; 6 pace resources only after successful; authentication.; © User authentication; Page 42 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.44] Labels: WLAN Working Process: Step 4. Caption: (errore caption)
+[Figura da Pag.44] Labels: +3; Z @_~ AP onboarding; DEICP Server ne @ > WLANservice configuration delivery; FI is > =i @) STAaccess; (4) WLAN service data forwarding; ym. Caption: (errore caption)
+[Figura da Pag.44] Labels: a Contro! packets (management packets) and data packets are; AP AP transmitted over CAPWAP tunnels.; * Control packets are forwarded through the CAPWAP; eee control tunnel.; * a « User data packets can be forwarded in tunnel forwarding; L_)} LJ UJ (centralized forwarding) or direct forwarding (local; forwarding) mode.; Page 43 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.45] Labels: AP Onboarding aa STAAccess; Data Forwarding Mode; Tunnel Forwarding Direct Forwarding; CAPWAP tunnel EG | CAPWAP tunnel Eg; Service data traffic Service data traffic t. Caption: (errore caption)
+[Figura da Pag.45] Labels: —=> ———; Management traffic Management traffic; qo ay. \ AC piace AC; OP és; (i ¢; 7 4; vA 4; f f; I I; 1 1; \ YN; SS N; “. SN.; AP SAP AP AP. Caption: (errore caption)
+[Figura da Pag.45] Labels: * In tunnel forwarding mode, APs encapsulate user data packets * In direct forwarding mode, an AP directly forwards user data; over a CAPWAP data tunnel and send them to an AC. The AC packets to an upper-layer network without encapsulating them; then forwards these packets to an upper-layer network. over a CAPWAP data tunnel.; Page 44 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.46] Labels: Contents; 1. WLAN Overview; 2. Basic Concepts of WLAN. Caption: (errore caption)
+[Figura da Pag.46] Labels: 3. WLAN Fundamentals; 4. WLAN Configuration Implementation; 5. Next-Generation WLAN Solutions. Caption: (errore caption)
+[Figura da Pag.46] Labels: Page 45 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.47] Labels: Basic WLAN Configuration Commands: =; Configuring an AP to Go Online (1); 1. Configure the AC as a DHCP server and configure the Option 43 field.; [AC-ip-pool-pool1] option code [ sub-option sub-code | { ascii ascii-string | hex hex-string | cipher cipher-string |; ip-address jp-address. Caption: (errore caption)
+[Figura da Pag.47] Labels: Configure the user-defined option that a DHCP server assigns to a DHCP client.; 2. Create a regulatory domain profile and configure the country code.; [AC] wlan; [AC-wlan-view]; Enter the WLAN view.; [AC -wlan-viaw] raqulatarv—damain_enrofila name nrofila-_namea. Caption: (errore caption)
+[Figura da Pag.47] Labels: nnn NE EE; [AC-wlan-regulate-domain-profile-name]; Create a regulatory domain profile and enter the regulatory domain profile view, or enter the view of an existing; regulatory domain profile.; [AC-wlan-regulate-domain-profile-name] country-code country-code; Configure the country code.; Page 46 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.48] Labels: Basic WLAN Configuration Commands:; Configuring an AP to Go Online (2); [AC-wlan-view] ap-group name group-name; [AC-wlan-ap-group-group-name]. Caption: (errore caption)
+[Figura da Pag.48] Labels: eae eh eta, eel ee nas ~ an ~ Reiandl Wie; [AC-wlan-ap-group-group-name] regulatory-domain-profile profile-name; Bind the regulatory domain profile to an AP or AP group.; 3. Configure a source interface or address.; [AC] capwap source interface { loopback /oopback-number | vilanif vian-id }; Specify a source interface on the AC for establishing CAPWAP tunnels with APs.. Caption: (errore caption)
+[Figura da Pag.48] Labels: [AC] capwap source ip-address /p-address; Configure the source IP address on the AC.; Page 47 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.49] Labels: Basic WLAN Configuration Commands:; Configuring an AP to Go Online (3); 4. Add APs in offline mode.; [AC-wlan-view] ap auth-mode { mac-auth | sn-auth }. Caption: (errore caption)
+[Figura da Pag.49] Labels: vet the AF authentication mode to WVIAC aaaress or oN authentication. by default, MAC address authentication Is; used.; [AC-wlan-view] ap-id ap-id [ [ type-id type-id | ap-type ap-type ] { ap-mac ap-mac | ap-sn ap-sn | ap-mac ap-mac; ap-sn ap-sn } ]; [AC-wlan-ap-ap-id] ap-name ap-name; Manually add an AP in offline mode or enter the AP view, and configure the name of a single AP.; [AC-wlan-view] ap-id 0. Caption: (errore caption)
+[Figura da Pag.49] Labels: LATEST ERTIES OR SSE; Add the AP to an AP group.; 5. Verify the configuration.; [AC] display ap { all | ap-group ap-group }}; Check AP information.; Page 48 — Copyright © 2020 Huawei Technologies Co., Ltd. Alll rights reserved.. Caption: (errore caption)
+[Figura da Pag.50] Labels: Basic WLAN Configuration Commands:; Configuring Radios (1); 1. Enter the radio view.; [AC-wlan-view] ap-id 0; [AC-wlan-ap-0O] radio radio-id. Caption: (errore caption)
+[Figura da Pag.50] Labels: [AC-wlan-radio-0]; 2. Configure the working bandwidth and channel for a radio.; [AC-wlan-radio-0/0] channel { 20mhz | 40mhz-minus | 40mhz-plus | 80mhz | 160mhz } channe/; Warning: This action may cause service interruption. Continue?[Y/Nly; [AC-wlan-radio-0/0] channel 80+80mhz channel1 channel2; Warning: This action may cause service interruption. Continue?[Y/Nly. Caption: (errore caption)
+[Figura da Pag.50] Labels: Configure the working bandwidth and channel for all APs in an AP group or for a specified radio of a single AP.; 3. Configure the antenna gain.; [AC-wlan-radio-0/0] antenna-gain antenna-gain; Configure the antenna gain for all APs in an AP group or for a specified radio of a single AP.; Page 49 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.51] Labels: Basic WLAN Configuration Commands: —=; Configuring Radios (2); 4. Configure the transmit power for a radio.; [AC-wlan-radio-0/0] eirp eirp. Caption: (errore caption)
+[Figura da Pag.51] Labels: Configure the transmit power for all APs In an AF group or for a specified radio of a single AP.; 5. Configure the radio coverage distance.; [AC-wlan-radio-0/0] coverage distance distance; Configure the radio coverage distance for all APs in an AP group or for a specified radio of a single AP.. Caption: (errore caption)
+[Figura da Pag.51] Labels: Ve VUMTITYUIe UIE UNSCTaliily HeQuellyy Vl a laud,; [AC-wlan-radio-0/0] frequency { 2.4g | 5g }; Page 50 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.52] Labels: Basic WLAN Configuration Commands:; Configuring Radios (3); 7. Create a radio profile.; [AC-wlan-view] radio-2g-profile name profile-name. Caption: (errore caption)
+[Figura da Pag.52] Labels: Create a 2G radio profile and enter the 2G radio profile view, or enter the view of an existing 2G radio profile.; 8. Bind the radio profile.; [AC-wlan-view] ap-group name group-name; [AC-wlan-ap-group-group-name] radio-2g-profile profile-name radio { radio-id | all }; Bind the specified 2G radio profile to the 2G radio in the AP group.. Caption: (errore caption)
+[Figura da Pag.52] Labels: Page 51 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.53] Labels: Basic WLAN Configuration Commands:; Configuring VAPs (1); 1. Create a VAP profile.; [AC-wlan-view] vap-profile name profile-name; [AC-wlan-vap-prof-profile-namel. Caption: (errore caption)
+[Figura da Pag.53] Labels: Create a VAP profile and enter the VAP profile view, or enter the view of an existing VAP profile.; 2. Configure the data forwarding mode.; [AC-wlan-vap-prof-profile-name] forward-mode { direct-forward | tunnel }; Set the data forwarding mode in the VAP profile to direct or tunnel.; 3. Configure service VLANs.. Caption: (errore caption)
+[Figura da Pag.53] Labels: [AC-wlan-vap-prof-profile-name] service-vian { vlan-id vian-id | vian-pool pool-name }; Configure service VLANs configured for the VAP.; Page 52 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.54] Labels: Basic WLAN Configuration Commands:; Configuring VAPs (2); 4. Configure a security profile.; [AC-wlan-view] security-profile name profile-name; [AC-wlan-sec-prof-profile-namel. Caption: (errore caption)
+[Figura da Pag.54] Labels: Create a security profile and enter the security profile view.; By default, security profiles , and are available in the system.; [AC-wlan-view] vap-profile name profile-name; [AC-wlan-vap-prof-profile-name] security-profile profile-name; Bind the security profile to the VAP profile.. Caption: (errore caption)
+[Figura da Pag.54] Labels: Page 53 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.55] Labels: Basic WLAN Configuration Commands:; Configuring VAPs (3); 5. Configure an SSID profile.; [AC-wlan-view] ssid-profile name profile-name; [AC-wlan-ssid-prof-profile-namel]l. Caption: (errore caption)
+[Figura da Pag.55] Labels: Create an SSID profile and enter the SSID profile view, or enter the view of an existing SSID profile.; By default, the system provides the SSID profile L; [AC-wlan-ssid-prof-profile-name] ssid ssid; Configure an SSID for the SSID profile.; By default, the SSID is configured in an SSID profile.; [AC-wlan-view] van-pnrofile name profile-name. Caption: (errore caption)
+[Figura da Pag.55] Labels: [AC-wlan-vap-prof-profile-name] ssid-profile profile-name; Bind the SSID profile to the VAP profile.; Page 54 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.56] Labels: Basic WLAN Configuration Commands:; Configuring VAPs (4); 6. Bind the VAP profile.; [AC-wlan-view] ap-group name group-name; [AC-wlan-ap-aroup-aroup-namel]l vap-profile brofile-name wlan wian-id radio { radio-id | all } | service-vlan {. Caption: (errore caption)
+[Figura da Pag.56] Labels: vian-id vian-id | vian-pool pootname }] ; : oe :; Bind the specified VAP profile to radios in an AP group.; 7. Check VAP information.; [AC] display vap { ap-group ap-group-name | { ap-name ap-name | ap-id ap-id }[ radio radio-id | }[; ssid ssid ]; [AC] displav vap { all | ssid ssid }. Caption: (errore caption)
+[Figura da Pag.56] Labels: Display information about service VAPs.; Page 55 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.57] Labels: Example for Configuring Layer 2 Tunnel; Forwarding in Off-Path Mode; Powe conten; ] Service VLAN for STAs VLAN 101. Caption: (errore caption)
+[Figura da Pag.57] Labels: GE0/0/3 AC The AC functions as a DHCP server to assign IP addresses to APs.; GEO/0/2 DHCP server The aggregation switch S2 functions as a DHCP server to assign IP; $2 addresses to STAs. The default gateway address of STAs is 10.23.101.1.; GE0/0/1 IP address pool for APs 10.23.100.2-10.23.100.254/24; VLANIF 101 | GEO/0/1 VLANIF 100 IP address pool for STAs 10.23.101.2-10.23.101.254/24; 10.23.101.1/24 10.23.100.1/24 IPRduiSSs OF INETAG'S aa; GE0/0/2 source interface cee; Name: ap-group1; $1 AP group Referenced profiles: VAP profile wlan-net and regulatory domain profile; GEO0/0/1 Regulatory domain profile Names default; Country code: CN. Caption: (errore caption)
+[Figura da Pag.57] Labels: Name: wlan-net; AP SsiP profile SSID name: wlan-net; Name: wlan-net; e Security profile Security policy: WRA-WPA2+PSK+AES; — Password: a1234567; — e Name: wlan-net; Forwarding mode: tunnel forwarding; STA LJ 0) VAP profile Service VLAN: VLAN 101; Referenced profiles: SSID profile wlan-net and security profile wlan-net; Page 56 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.58] Labels: AP Onboarding WLAN Services; Configuring Network Connectivity; 1. Create VLANs and interfaces on S1, S2, and AC.; E> 2. Configure DHCP servers to assign IP addresses to APs; | Ped =e Vise Fae 8 art and STAs.. Caption: (errore caption)
+[Figura da Pag.58] Labels: er aioe # Configure VLANIF 100 on the AC to assign IP address to APs.; 3 GE0/0/2; AC] dh bl; VLANIF 101 GE0/0/1 Ei] [AC] dhcp enable; 10.23.101.1/24 GEO0/0/1 VLANIF 100 [AC] interface vlanif 100; 10.23.100.1/24 : :; GEO/0/2 [AC-Vlanif100] ip address 10.23.100.1 24; [AC-Vlanif100] dhcp select interface; s1; # Configure VLANIF 101 on S2 to assign IP addresses to STAs and; | GEO/O/ specify 10.23.101.1 as the default gateway address of the STAs.. Caption: (errore caption)
+[Figura da Pag.58] Labels: ap (p) [$2] dhcp enable; [S2] interface vlanif 101; & [S2-Vlanif101] ip address 10.23.101.1 24; a; ny [S2-Vlanif101] dhcp select interface; mf] O; Page 57 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.59] Labels: erty WLAN Services; Configuring APs to Go Online (1); 1. Create an AP group.; [AC] wlan; | RENIN/2 mas [AC-wlan-view] ap-group name ap-group1. Caption: (errore caption)
+[Figura da Pag.59] Labels: Oo uiand [AC-wlan-ap-group-ap-group1] quit; GE0/0/2; $2 2. Create a regulatory domain profile and configure the; NUANIE 101 Groin country code; 10.23.101.1/24 | GEO/0/1 VLANIF 100 wp OEE:; GEO0/0/2 TOPS OGales AC-wlan-view] regulatory-domain-profile name default; = [AC-wlan-regulate-domain-default] country-code cn; [AC-wlan-regulate-domain-default] quit; | GEO/0/1 [AC-wlan-view] ap-group name ap-group1. Caption: (errore caption)
+[Figura da Pag.59] Labels: [AC-wlan-ap-group-ap-group1] regulatory-domain-profile default; AP Warning: Modifying the country code will clear channel, power and; antenna gain configurations of the radio and reset the AP. Continu; e; = e?[Y/N]:y; . [AC-wlan-ap-group-ap-group1] quit; STA | a . .; [AC-wlan-view] quit; Page 58 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.60] Labels: erty WLAN Services; Configuring APs to Go Online (2); 3. Configure the AC's source interface.; [AC] capwap source interface vlanif 100; | Ped =e Vise Fae 8 art. Caption: (errore caption)
+[Figura da Pag.60] Labels: = — 4. Import an AP in offline mode on the AC.; GE0/0/2; = GEO/0/1; VLANIF 101 AC] wlan; 10.23.101.1/24 | GEO/O/1 VLANIF 100 Be]; 10.23.100.1/24 [AC-wlan-view] ap auth-mode mac-auth; SEO [AC-wlan-view] ap-id 0 ap-mac 60de-4476-e360; $1 [AC-wlan-ap-0] ap-name area_1; | GEO/0/1 Warning: This operation may cause AP reset. Continue? [Y/N]:y; TAC _wilan_an_N] ancaraiin an_arniin4d. Caption: (errore caption)
+[Figura da Pag.60] Labels: brs On a ie rs is i. rs Tie; Warning: This operation may cause AP reset. If the country code; AP; changes, it will clear channel, power and antenna gain configurations; & of the radio, Whether to continue? [Y/N]:y; —,; ~ . [AC-wlan-ap-0] quit; mf] 0; Page 59 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.61] Labels: erty WLAN Services; Verifying the AP Onboarding Configuration; e After the AP is powered on, run the display ap all command to check the AP state. If the State field; displays nor, the AP has gone online.. Caption: (errore caption)
+[Figura da Pag.61] Labels: [AC-wlan-view] display ap all; Total AP information:; nor : normal [1]; Extra information:; P : insufficient power supply; ID MAC Name Group IP Type State STA Uptime —_ Extralnfo. Caption: (errore caption)
+[Figura da Pag.61] Labels: 0 60de-4476-e360 area_1 ap-group1 10.23.100.254 AP5030DN 0 10S -; Total: 1; Page 60 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.62] Labels: Configuring WLAN Service Parameters (1); 1. Create security profile wlan-net and configure a security; policy.. Caption: (errore caption)
+[Figura da Pag.62] Labels: Oo uiand [AC-wlan-view] security-profile name wlan-net; $2 GEO/O/2 [AC-wlan-sec-prof-wlan-net] security wpa-wpa2 psk pass-phrase; VLANIF 101 SFoO/ 41234567 aes; 10.23.101.1/24 GEO/0/1 VLANIF 100; 10.23.100.1/24 [AC-wlan-sec-prof-wlan-net] quit; GE0/0/2; S1 2. Create SSID profile wlan-net and set the SSID name to; | GEO/0/1 wlan-net.. Caption: (errore caption)
+[Figura da Pag.62] Labels: [AC-wlan-view] ssid-profile name wlan-net; AP [AC-wlan-ssid-prof-wlan-net] ssid wlan-net; [AC-wlan-ssid-prof-wlan-net] quit; &; wv; N; mf] 0; Page 61 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.63] Labels: erty AP Onboarding D> wan services; Configuring WLAN Service Parameters (2); 3. Create VAP profile wlan-net, set the data forwarding mode; E> and service VLAN, and bind the security profile and SSID; l profile to the VAP profile.; Ped =e Vise Fae 8 art. Caption: (errore caption)
+[Figura da Pag.63] Labels: ———— mw; GE0/0/2 [AC-wlan-view] vap-profile name wlan-net; VLANIF ict GEO/0/1 [AC-wlan-vap-prof-wlan-net] forward-mode tunnel; 10.23.101.1/24 GEO/0/1 VLANIF 100 [AC-wlan-vap-prof-wlan-net] service-vian vian-id 101; 10.23.100.1/24 [AC-wlan-vap-prof-wlan-net] security-profile wlan-net; GEO0/0/2 [AC-wlan-vap-prof-wlan-net] ssid-profile wlan-net; s1 [AC-wlan-vap-prof-wlan-net] quit; | GEO/0/1 4. Bind the VAP profile to the AP group and apply. Caption: (errore caption)
+[Figura da Pag.63] Labels: COMMNQGUIPAUOTTS Hl VAT PrOTe WidiIsHet lO Tal U did raulo ft; of the APs in the AP group.; AP; ° [AC-wlan-view] ap-group name ap-group1; a [AC-wlan-ap-group-ap-group1] vap-profile wian-net wlan 1 radio 0; y [AC-wlan-ap-group-ap-group1] vap-profile wian-net wlan 1 radio 1; STA | a [AC-wlan-ap-group-ap-group1] quit; Page 62 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.64] Labels: erty AP Onboarding D> wan services; Checking VAP Profile Information; e The AC automatically delivers WLAN service configuration to the AP. After the service configuration is; complete, run the display vap ssid wlan-net command. If Status in the command output is displayed as; Caw Ah VR PN beware lace: pi (eeaiacwetee: cl leccteeeceeed saceer: ofc 8 coerce. Caption: (errore caption)
+[Figura da Pag.64] Labels: WIN, LEIS VENT Oo TIAVEe MECH SUUYUEOSIUNY VICAleuU VITAL TAU...; [AC-wlan-view] display vap ssid wlan-net; WID: WLAN ID; AP ID APname RflD WID BSSID Status Auth type STA SSID. Caption: (errore caption)
+[Figura da Pag.64] Labels: 0 area_1 0 1 60DE-4476-E360 WPA/WPA2-PSK 0 wlan-net; 0 area_1 1] 1] 60DE-4476-E370 WPA/WPA2-PSK 0 wlan-net; Total: 2; Page 63 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.65] Labels: Contents; 1. WLAN Overview; 2. Basic Concepts of WLAN. Caption: (errore caption)
+[Figura da Pag.65] Labels: 3. WLAN Fundamentals; 4. WLAN Configuration Implementation; 5. Next-Generation WLAN Solutions. Caption: (errore caption)
+[Figura da Pag.65] Labels: Page 64 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.66] Labels: Huawei WLAN Solutions Meet Future Wireless; Network Construction Requirements. Caption: (errore caption)
+[Figura da Pag.66] Labels: * 802.11ac Wave 2 protocol, dual-5G radio coverage, and up to 3.46 Gbps wireless access bandwidth; . . + Huaweiis a key contributor to the next-generation 802.11ax standard (Wi-Fi 6) with a single 5 GHz radio; High bandwidth rate of up to 9.6 Gbps; + Roaming and multiple wireless QoS protocols such as Wi-Fi multimedia (WMM) to ensure QoS; + Mainstream authentication and encryption modes, such as WPA, VWPA2, WPAS, and WAPI; High secu rity + Wireless intrusion detection; + Portal and 802.1X authentication, protecting intranet security. Caption: (errore caption)
+[Figura da Pag.66] Labels: Ce); ¢ APs support plug-and-play, automatic upgrade, automatic channel selection, dynamic rate and power; adjustment, and load balancing.; Easy deployment * loT APs and APs with built-in high-density antennas, simplifying installation and enabling fast deployment; + APs support cloud management and can work in dual-stack mode to smoothly switch between the cloud and; local management modes.; Page 65 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.67] Labels: Dual Drivers (Technology Advances + Application; Development) Promote the Arrival of the Wi-Fi 6 Era; — ; ane as aS ayy aS ate) _ aves aval. Caption: (errore caption)
+[Figura da Pag.67] Labels: 2011 80211In <-> 802.11ae 4 > = 80211ac 802.11ax oe; Wave 1 Wave 2; Wi-Fi standards are October 2018; i-Fi standards a —_ :; _ _ New Wi-Fi namin; upgraded every Wi-Fi 4 WI-FIS WL-FI6 convention ae; four to five years. by the WFA. Caption: (errore caption)
+[Figura da Pag.67] Labels: Ld esa) a; — ® = ome = = a; Application / wa Hisuies C7 Video 4K video | Interactive; Social Wireless | ji conferencing conferencing . . VR/AR; networking office cune oe E-classroom 3D diagnosis; Bandwidth per user: 2 Bandwidth per user: 4 to 12 Mbps Bandwidth per user > 50 Mbps; to 4 Mbps Latency < 30 ms a; Latency < 50 ms Latency < 10 ms; Page 66 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.68] Labels: Wi-Fi 6 Vs. Wi-Fi 5; High Bandwidth High Concurrency Rate Low Latency Low Power; Consumption. Caption: (errore caption)
+[Figura da Pag.68] Labels: 1024-QAM UL/DL OFDMA OFDMA TWT. Caption: (errore caption)
+[Figura da Pag.68] Labels: 8x8 MU-MIMO UL/DL MU-MIMO Spatial Reuse 20 MHz-Only; @ Rate of up to Gbps @ Access of STAs per AP @ Service latency reduced to © Target wakeup time; TWT) mechanism; @ Bandwidth increased by 4 times © Number of concurrent users @ Average latency reduced by ¢ ); , an ; @ STA power; increased by umes consumption reduced; by; Page 67 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.69] Labels: Next-Generation Campus Network: Intent-; Driven Campus (Small- and Medium-Sized); ef iMaster NCE. Caption: (errore caption)
+[Figura da Pag.69] Labels: tenet * The cloud management platform allows centralized management; and maintenance of devices at any place, greatly reducing network; deployment and O&M costs.; a * Applicable scope: small- and medium-sized enterprises; 2 a@ Egress Gateway Branch Office; Advantages (Compared with the AC + Fit AP Architecture); —— (33; € Switch « i) Cloud AP * Plug-and-play and automatic deployment reduce network. Caption: (errore caption)
+[Figura da Pag.69] Labels: deployment costs.; y * All network elements (NEs) are monitored and managed on the; Cloud ‘ te; AP STA cloud management platform in a unified manner.; ny * Cloud solutions usually provide various tools on the cloud, reducing; LJ UJ STA costs.; Campus HQ Campus Branch; Page 68 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.70] Labels: Next-Generation Campus Network: Intent-; Driven Campus (Medium- and Large-Sized); |. Caption: (errore caption)
+[Figura da Pag.70] Labels: Egress Zone - - 7 ef iMaster NCE; \lY NI NMS O8M Zone; Native AC ba Se Native AC; a {> LZ Architecture Characteristics; ore Layer A; a. ye ye * iMaster NCE manages and configures APs in a unified; . as Asn awn awn; Aggregation Layer KA KA manner and provides various functions. By further. Caption: (errore caption)
+[Figura da Pag.70] Labels: q D D integrating with wired networks and leveraging Big Data; Ss 4 tx <4 g ig ; ; ging big; Access Layer owe owe and Al technologies, this architecture implements; simplified, intelligent, and secure campus networks.; * Applicable scope: medium- and large-sized enterprises; — _iStack/CSS Link; Page 69 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)

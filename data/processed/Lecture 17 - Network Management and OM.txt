@@ -1,0 +1,787 @@
+Page O
+A
+se a at pare
+Prey
+A.
+noel
+7
+
+Foreword
+e The ever expanding network and increasing network devices present a significant challenge in
+managing networks effectively and providing high-quality network services.
+e There are many network management and O&M methods, of which this course describes some
+of the most common.
+Page 1 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+oF ) Objectives
+e On completion of this course, you will be able to:
+Page 2
+oO
+Understand basic concepts of network management and O&M.
+Master common network management and O&M methods.
+Describe basic functions of network management and O&M.
+Understand the fundamentals of SNMP.
+Understand Huawei iMaster NCE and related technologies.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. Basic Concepts of Network Management and O&M
+2. SNMP Fundamentals and Configuration
+3. Network Management Based on Huawei iMaster NCE
+Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+|= | ) What Is Network Management and O&M?
+Network management and O&M plays an important role on a communications network. It ensures that
+devices work properly and the communications network runs properly to provide efficient, reliable, and
+secure communications services.
+The network administrator
+manages and maintains the
+network for stable
+operation.
+Network administrator
+Seo
+Common enterprise network architecture
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) Basic Network Management Functions
+Configuration Performance Fault Security Accounting
+management management management management management
+OSI defines five functional models for network management:
+© Configuration management: monitors network configuration information so that network administrators can generate, query,
+and modify hardware and software running parameters and conditions, and configure services.
+c Performance management: manages network performance so that the network can provide reliable, continuous, and low-
+latency communication capabilities with as few network resources as possible.
+c Fault management: ensures that the network is always available and rectifies faults as soon as possible.
+c Security management: protects networks and systems from unauthorized access and attacks.
+« Accounting management: records the network resource usage of users, charges users, and collects statistics on network resource
+usage.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Network Management Modes
+Traditional Network Management and O&M
+Web system CLI
+mode
+mode
+Network administrator
+SNMP-based
+centralized
+management
+Vv
+Network management station
+Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+iMaster NCE-based Network Management and O&M
+ERP Video Office OS Advertisement
+conferencing operations
+\
+VA
+. a 00
+Commercial application 00
+cc
+Network
+automation
+Management. ~——
+Northbound API >
+Analysis
+a
+Bl Bs Control
+Network
+intelligence
+iMaster NCE
+Cloud platform
+fal
+ 
+© th \
+Data center
+Campus WAN Branch
+
+) Contents
+1. Basic Concepts of Network Management and O&M
+2. Traditional Network Management
+3. Network Management Based on Huawei iMaster NCE
+Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 8
+|= | ) Management Through the CLI or Web System
+When the network scale is small, the CLI and web system are generally used for network management.
+oO
+Network administrators can log in to a device through HTTPS, Telnet, or the console port to manage the device.
+These network management modes do not require any program or server to be installed on the network, and the cost is low.
+Network administrators must have a good master of network knowledge and vendor-specific network configuration
+commands.
+These modes have great limitations when the network scale is large and the network topology is complex.
+Vendor A Vendor A Vendor A Vendor A Vendor B Vendor C Vendor D
+Switch Firewall AC Router Router Switch Switch
+Om El “S.
+SS
+ 
+| 4
+One-to-one management
+Network administrator
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 9
+[=| ) SNMP-based Centralized Management
+SNMP is a standard network management protocol widely used on TCP/IP networks. It provides a method for
+managing NEs through a central computer that runs network management software, that is, a network
+management station.
+¢ Network administrators can use the NMS to query
+information, modify information, and troubleshoot
+faults on any node on the network, improving work
+efficiency.
+ee ¢ Network devices of different types and vendors are
+packet exchange
+managed in a unified manner.
+One-to-many
+management ¢ SNMPv1, SNMPv2c, and SNMPv3
+NMS Network administrator
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 10
+Client
+Monitor
+SNMP message
+[rove a visualized interface.
+NMS
+Network management
+process
+A
+vw
+/ IP Network
+“ Vv |
+Agent Agent
+process process
+Managed device
+Managed device
+Agent
+process
+Managed device
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Typical SNMP Architecture
+On a network where SNMP is used for network management,
+a network management system (NMS) functions as a network
+management center and runs management processes. Each
+managed device needs to run an agent process. The
+management process and agent process communicate with
+each other through SNMP messages.
+An NMS is a system that uses SNMP to manage and monitor
+network devices. The NMS software runs on NMS servers.
+Managed devices are devices that are managed by the NMS
+on the network.
+The agent process runs on managed devices to maintain the
+information data of the managed devices, respond to the
+request from the NMS, and report the management data to
+the NMS that sends the request.
+
+Ga) ) SNMP Message Exchange
+NMs a Managed object e The NMS and managed devices exchange messages in the
+Network management following modes:
+- process ; so The NMS sends a request for modifying or querying configuration
+1) 2.) NN 3 J information to a managed device through SNMP. The agent process
+running on the managed device responds to the request from the
+ig NMS.
+5 The managed device can proactively report traps to the NMS so
+that the network administrator can detect faults in a timely
+manner.
+e Managed object: Each device may contain multiple managed
+: — objects. A managed object can be a hardware component or a
+Agent process
+set of parameters configured on the hardware or software
+Query/Modify
+ 
+Request
+Query/Modify
+ 
+response
+(such as a routing protocol).
+¢ SNMP uses management information bases (MIBs) to describe
+| a group of objects of a manageable entity.
+Managed device
+Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+@)) mie
+root
+_— co »)
+ccitt (0)
+|
+org (3)
+|
+dod (6)
+|
+internet (1)
+|
+mgmt (2)
+|
+mib (1)
+———— |
+system (1) interface (2)
+iI
+joint-iso-ccitt (2)
+OID:1.3.6.1.2
+Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+A MILB is a database containing the variables that are
+maintained by managed devices. (The variables can be
+queried or set by the agent processes.) The MIB defines the
+attributes of managed devices in the database.
+5 Object identifier (OID) of
+ 
+an object
+5 Status of an object
+o Access permission of an object
+o Data types of an object
+A MIB provides a structure that contains data on all NEs that
+may be managed on the network. Because the data structure
+is similar to the tree structure, a MIB is also called an object
+naming tree.
+
+|= | ) Common MIB Objects
+e Objects used for query or modification:
+Number of network interfaces in the
+1.3.6.1.2.1.2.1 ifNumber Integer read-only system (regardless of the current
+interface status)
+1.3.6.1.4.1.2011.5.25.41.1.
+3113 hwlpAdEntNetMask lpAddress read-create Subnet mask of an IP address
+¢ Objects used for alarm notification:
+iflndex It is detected that one of the communication links in the
+, ifAdminStatus ifOperStatus object has entered the down state from another
+.6.1.6.3.1.1.5. D a ,
+3.6.1.6.3.1.1.5.3 linkDown ifOperStatus state (but not the notPresent state). The original state is
+ifDesc indicated by the value of ifOperStatus.
+Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+NMS
+Network management
+process
+SNMP message exchange
+Page 14
+Agent process
+MIB
+Managed object
+Ce
+ 
+Ge WY Ed
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Managed devices
+Ga) ) SNMP Management Model
+e Query/Modify operation:
+sc The NMS sends an SNMP request message to an agent
+process.
+c The agent process searches the MIB on the device for
+information to be queried or modified and sends an SNMP
+response message to the NMS.
+e Trap operation:
+c |f the trap triggering conditions defined for a module are
+met, the agent process sends a message to notify the NMS
+that an event or trap has occurred on a managed object. This
+helps network administrators promptly process network
+faults.
+
+SNMPv1
+NMS [l= --- sss eee e eter IP Network
+Get What's the IP address ,:
+of GE 0/0/1 :
+i Response 10.0.1.1/24
+GetNext wher Ce OO :
+i Response 10.0.2.1/24
+Set Set the IP address of >i
+GE 0/0/3 to 10.0.3.1/24.
+< Response Setting succeeded.
+i tee The CPU usage is too
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+high.
+
+Page 16
+Ga) ) SNMPv2c
+NMS
+IP Network
+— cet ¥
+< Response —
+—— GetNext >:
+Response ———
+—_——— Set >i
+< Response —
+< Trap —S
+: GetBulk Query the IP addresses of .
+: all interfaces on the device :
+Response The IP address of GE 0/0/1 is...
+~ P The IP address of GE 0/0/2 is...
+< Inform The CPU usage is too high. —
+i———— Response Alarm received.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+=] ) SNMPv3
+e SNMPv3 has the same working mechanism as SNMPv1 and SNMPv2c, but adds header data and security parameters.
+e SNMPv3 messages can be authenticated and encrypted.
+e SNMPv3 is applicable to networks of various scales and has high security.
+Authenticates all exchanged
+messages
+and encrypts messages.
+Vv.a
+ 
+BEB
+ 
+B
+ 
+RRB
+ 
+ERE
+ 
+eee
+A
+Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 18
+|= | ) SNMP Summary
+SNMP has the following advantages:
+o Simplicity: SNMP is applicable to networks that require high speed and low cost because it uses a polling mechanism and provides basic network
+management functions. Moreover, SNMP uses UDP to exchange data and therefore is supported by most products.
+= Convenience: SNMP allows management information exchange between arbitrary devices on a network, so that a network administrator can
+query information and locate faults on any device.
+SNMPv1 applies to small-scale networks where security requirements are not high or the network environment is safe and stable,
+such as campus networks and small-sized enterprise networks.
+SNMPv2c applies to medium- and large-sized networks where security requirements are not high or the network environment is
+safe, but a large volume of traffic exists and traffic congestion may occur.
+SNMPv3 is the recommended version and applies to networks of various scales, especially those networks that have high security
+requirements and allow only authorized administrators to manage network devices.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) Basic SNMP Configuration (1)
+1. Enable the SNMP agent function.
+[Huawei] snmp-agent
+2. Set the SNMP version.
+[Huawei] snmp-agent sys-info version [v1 | v2c | v3]
+You can configure the SNMP version as required. However, the protocol version used on the device must be the same as that
+used on the NMS.
+3. Create or update MIB view information.
+[Huawei] snmp-agent mib-view view-name { exclude | include } subtree-name [mask mask]
+4. Add anew SNMP group and map users in this group to the SNMP view.
+[Huawei] snmp-agent group v3 group-name { authentication | noauth | privacy } [ read-view view-name | write-view view-
+name | notify-view view-name
+ 
+|]
+This command is used to create an SNMP group of the SNMPv3 version and specify the authentication and encryption mode
+and one or more of read-only view, read-write view, and notification view. It is a mandatory command on networks that
+require high security.
+Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) Basic SNMP Configuration (2)
+5. Add a user to the SNMP group.
+[Huawei] snmp-agent usm-user v3 user-name group group-name
+6. Configure an authentication mode for an SNMPv3 user.
+[Huawei] snmp-agent usm-user v3 user-name authentication-mode { md5 | sha | sha2-256 }
+7. Configure the SNMPv3 user encryption mode.
+[Huawei] snmp-agent usm-user v3 user-name privacy-mode { aes128 | des56 }
+8. Set parameters for sending trap messages.
+[Huawei] snmp-agent target-host trap-paramsname paramsname v3 securityname securityname { authentication |
+noauthnopriv | privacy
+ 
+}
+Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) Basic SNMP Configuration (3)
+9. Configure the target host of traps.
+[Huawei] snmp-agent target-host trap-hostname hostname address ipv4-address trap-paramsname paramsname
+10. Enable all trap functions.
+[Huawei] snmp-agent trap enable
+Note that this command is used only to enable the device to send traps. This command must be used together with the snmp-
+agent target-host command. The snmp-agent target-host command specifies the device to which traps are sent.
+11. Configure the source interface that sends traps.
+[Huawei] snmp-agent trap source interface-type interface-number
+Note that a source IP address must have been configured for the interface that sends traps.
+Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 22
+Side)
+GEO/O/1 21
+Managed device
+NMS EL
+192.168.1.10
+Enable SNMP on R1iand set the SNMP version to SNMPv3.
+Set the SNMPv3 group name to test and encryption
+authentication mode to privacy.
+Create an SNMPv3 user named R1 and set the
+authentication and encryption passwords to HCIA-
+Datacom123.
+Create a trap parameter named param and set securityname
+to sec.
+Set the IP address of the SNMP target host to 192.168.1.10.
+Enable the trap function and specify GE 0/0/1 as the source
+interface that sends traps.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+SNMP Configuration Example (Network Device
+Riconfiguration:
+[R1i]snmp-agent
+[R1i]snmp-agent sys-info version v3
+[Ri]snmp-agent group v3 test privacy
+[Ri]snmp-agent usm-user v3 R1 test authentication-mode md5
+HCIA@Datacom123 privacy-mode aes128 HCIA-Datacom123
+[R1]snmp-agent target-host trap-paramsname param v3
+securityname sec privacy
+[Ri]snmp-agent target-host trap-hostname nms address
+192.168.1.10 trap-paramsname param
+[R1]snmp-agent trap source GigabitEthernet 0/0/1
+[Ri]snmp-agent trap enable
+Info: All switches of SNMP trap/notification will be open.
+Continue? [Y/N]:y
+
+) Contents
+1. Basic Concepts of Network Management and O&M
+2. Traditional Network Management
+3. Network Management Based on Huawei iMaster NCE
+Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Transformation and Challenges of the Network
+Page 24
+Industry
+With the advent of the 5G and cloud era, innovative services such as VR/AR, live streaming, and autonomous driving are emerging,
+and the entire ICT industry is booming. At the same time, the traffic of the entire network also increases explosively. Huawei Global
+Industry Vision (GIV) predicts that the amount of new data will reach 180 ZB by 2025. Moreover, the dynamic complexity of
+services makes the entire network more complex.
+Such challenges can only be overcome by constructing automated and intelligent network systems centered on user experience.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Huawei iMaster NCE
+Page 25
+Huawei iMaster NCE is a network automation and intelligence platform that integrates management, control,
+analysis, and Al functions.
+Cloud platform & application
+A
+Vv
+iIMaster NCE
+Open API
+Intent engine
+Unified cloud-based platform
+CLI/SNMP NETCONF/YANG Telemetry
+Traditional
+SDN-capable network devices
+devices
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+In terms of management and control, iMaster NCE allows
+you to:
+s Manage and control traditional devices through traditional
+technologies such as CLI and SNMP.
+«1 Manage and control SDN-capable networks through NETCONF
+(based on the YANG model).
+iMaster NCE collects network data through protocols such
+as SNMP and telemetry, performs intelligent big data
+analysis based on Al algorithms, and displays device and
+network status in multiple dimensions through dashboards
+and reports, helping O&M personnel quickly detect and
+handle device and network exceptions and ensuring normal
+running of devices and networks.
+
+NETCONF Overview
+e NETCONF provides a network device management mechanism. You can use NETCONF to add, modify, or delete
+configurations of network devices, and obtain configurations and status of network devices.
+NETCONF has three objects:
+co NETCONF client
+© NETCONF server
+o NETCONF message
+NETCONF server reports the
+iMaster NCE
+— NETCONF client Pr
+$f
+Co
+NETCONF requires that
+messages exchanged between
+a client and server be encoded
+using XML.
+NETCONF message
+exchange
+A client and a server
+establish a secure
+connection based on
+SSH or TLS
+trap or event to the client
+through the Notification
+mechanism
+ZO
+NETCONF server
+Device
+AS
+ 
+&
+Device 1
+Device 2
+Device 3
+Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+NETCONF Advantages
+Page 27
+Machine-machine interface: The interface definition is complete
+Interface type , ;
+yP and standard, and the interface is easy to control and use.
+High: Object-based modeling is supported. Only one interaction is
+Operation required for object operations. Operations such as filtering and
+efficiency
+batch processing are supported.
+Scalability Proprietary protocol capabilities can be extended.
+Supports transaction processing mechanisms such as trial running,
+Transaction , .
+rollback upon errors, and configuration rollback.
+Secure Multiple security protocols: SSH, TLS, BEEP/TLS, and
+transmission SOAP/HTTP/TLS
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Machine-to-
+machine interface
+Medium
+Weak
+Not supported
+Only SNMPv3
+Supports secure
+transmission.
+Low
+Moderate
+Partially
+supported
+SSH
+
+a} ‘ea NETCONF Interaction
+SSH connection
+2 NCE
+RPC
+>
+<rpc xmins="urn:ietf:params:xml:ns:netconf:base:1.0" message-id=
+"101">
+<edit-config> , Ths operation is to meaty
+configuration.
+<?xml version="1.0" encoding="UTF-8"
+ 
+?>
+RPC-Reply
+<target>
+<running/> <=
+</target>
+¥ - 5 <?xml version="1.0" encoding="UTF-8"
+ 
+?>
+confi5 <rpc-reply message-id="101"
+xmIns="urn:ietf:params:xml:ns:netconf:base:1.0">
+</config> <ok/> > Modified successfully.
+</edit-config> </rpc-reply>
+Configuration content in XML format
+</rpc>
+Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Remote procedure Call
+e The programming of distributed applications is difficult. In addition to the usual tasks, programmers who build
+clients and servers must deal with the complex issues of communication. Although many of the needed functions
+are supplied by a standard API such as the socket interface, the socket calls require the programmer to specify many
+low level details as names ,addresses,protocols and ports.
+RPC model
+=! Remote Procedure Call Hides communications details behind
+; a ' procedure call and helps bridge
+Wait for result
+Client > a “ | heterogeneous platforms
+Call remote Return =! Sockets O.S level interface to the underlying
+procedure from call communications protocols TCP,UDP
+Request Reply =| TCP,UDP UDP transports data packets without
+Sener -------------
+ 
+eum © 2 guarantees, TCP verifies correct
+delivery of data streams
+Call local procedure Time ———_}»
+and return results
+= |Internet protocol (I P) | moves a packet of data from one node
+to another
+= As in conventional procedure calls, whenaclientcalls ppocaca programming abstraction that builds upon other
+a remote procedure, the client will block until areply is communication layers and hides them from the programmer
+returned
+
+Page 30
+YANG Language Overview
+Yet Another Next Generation (YANG) is a data modeling language that standardizes NETCONF data content.
+The YANG model defines the hierarchical structure of data and can be used for NETCONF-based operations. Modeling objects
+include configuration, status data, remote procedure calls, and notifications. This allows a complete description of all data
+exchanged between a NETCONF client and server.
+A model is an abstraction and expression of things.
+A data model is an abstraction and expression of data features.
+Interface, routing
+protocol, IP address,
+| routing table...
+cm) el ee
+Person Router
+Name, gender, height,
+weight, age, skin color...
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+YANG and XML (1)
+e A YANG file is loaded on the NETCONF client (such as the NMS or SDN controller).
+e The YANG file is used to convert data into XML-format NETCONF messages before they are sent to the device.
+jim ip=192.0.2.1 p</name>
+unique "ip port"; OES <ip>192.0.2.1</ip>
+leaf name { <port>25</port>
+type string; </server>
+} + name="http" <server>
+leaf ip { ip=192.0.2.1 — <name>http</name>
+type inet:ip-address; port= <ip>192.0.2.1</ip>
+} </server>
+leaf port { te <server>
+type inet:port-number; names ttp <name>ftp</name>
+\ Ip=192.0.2.1 <ip>192.0.2.1</ip>
+} Bot </server>
+YANG file Data XML
+Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+YANG and XML (2)
+Page 32
+<server>
+<name>smtp</name>
+<ip>192.0.2.1</ip>
+<port>25</port>
+</server>
+<server>
+<name>http</name>
+<ip>192.0.2.1</ip>
+</server>
+<server>
+<name>ftp</name>
+<ip>192.0.2.1</ip>
+</server>
+XML
++
+A YANG file is loaded on the NETCONF server (such as a router or switch).
+list server {
+key "name';
+unique ‘ip port";
+leaf name {
+type string;
+}
+leaf ip {
+type inet:ip-address;
+}
+leaf port {
+type inet:port-number;
+I
+I
+YANG file
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+The YANG file is used to convert received XML-format NETCONF messages into data for subsequent processing.
+name="smtp"
+ip=192.0.2.1
+port=25
+name="http"
+ip=192.0.2.1
+port=
+name="ftp"
+ip=192.0.2.1
+port=
+Data
+
+Telemetry Overview
+Page 33
+Telemetry, also called network telemetry, is a technology that remotely collects data from physical or virtual devices at a high
+speed.
+traditional pull mode, the push mode provides faster and more real-time data collection.
+SNMP
+ge 1.
+Request CPU usage 2.
+Time 2, Usage 9
+Request CPU usage 3.
+Ti
+oR sage
+- T>5min
+“Pull”
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+T<i1s
+"Subscription
+and push"
+Telemetry supports
+data collection
+at the level of subseconds.
+Telemetry
+e.
+subscribe xo the CPU usaé
+oe
+Ti
+Time 2, Usage >
+re Te
+Ti
+
+Comparison between Telemetry and conventional
+network monitoring modes
+Item Telemetry SNMP Get SNMP Trap CLI Syslog
+Working Push Pull Push Pull Push
+mode
+Precision Sub- Minutes Seconds Minutes Seconds
+seconds
+Whether Structured Structured Structured using Non-structured Non-structured
+structured using the using MIB MIB
+YANG
+model
+Page 34
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Telemetry Transport Protocol
+e Support for Google Remote Procedure Call Protocol (gRPC)
+« gRPC is a high-performance general RPC open-source software framework running over HTTP2
+protocols. Both communication parties perform secondary development based on the framework, so
+that they focus on services and do not need to pay attention to bottom-layer communication
+implemented by the gRPC software framework.
+e Telemetry uses the gRPC protocol to report the data encoded in GPB format to the collector.
+This layer defines the protocol interaction format for remote procedure calls.
+Data model Focusing on
+services
+gRPC
+HTTP2 gRPC
+encapsulation
+TLS
+TCP
+Page 35 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[Figura da Pag.1] Labels: ALE C, - ————; oct: hy — <& V/ ens ie Or ect; ent Se <a 2 in ates ee a; Cee ie ON A Nh Cr Se; Sao Ne re (7 eee Spt aes. OST. .; : Cy Ry —=<—<——= Se); e *; <> RNY ~~ UNIVERSITA DEGLI STUDI; “MCCS DI PERUGIA. Caption: (errore caption)
+[Figura da Pag.5] Labels: h. Caption: (errore caption)
+[Figura da Pag.5] Labels: Ve; aK. Caption: (errore caption)
+[Figura da Pag.5] Labels: > ad; >; a. Caption: (errore caption)
+[Figura da Pag.5] Labels: =?; ss. Caption: (errore caption)
+[Figura da Pag.5] Labels: Internet. Caption: (errore caption)
+[Figura da Pag.5] Labels: iL. Caption: (errore caption)
+[Figura da Pag.6] Labels: rN; UY. Caption: (errore caption)
+[Figura da Pag.7] Labels: &. Caption: (errore caption)
+[Figura da Pag.7] Labels: #,. Caption: (errore caption)
+[Figura da Pag.7] Labels: Ve; aK. Caption: (errore caption)
+[Figura da Pag.7] Labels: =?; ss. Caption: (errore caption)
+[Figura da Pag.7] Labels: ray. Caption: (errore caption)
+[Figura da Pag.7] Labels: nL. Caption: (errore caption)
+[Figura da Pag.7] Labels: ry); <S »; y a; S S; SS; Lorry AN. Caption: (errore caption)
+[Figura da Pag.7] Labels: Wy. Caption: (errore caption)
+[Figura da Pag.7] Labels: Jat,; (e):. Caption: (errore caption)
+[Figura da Pag.7] Caption: (errore caption)
+[Figura da Pag.9] Labels: ray. Caption: (errore caption)
+[Figura da Pag.9] Labels: <—_; Ss,. Caption: (errore caption)
+[Figura da Pag.9] Labels: > >; >; a. Caption: (errore caption)
+[Figura da Pag.9] Labels: ®. Caption: (errore caption)
+[Figura da Pag.9] Labels: =J. Caption: (errore caption)
+[Figura da Pag.10] Labels: &. Caption: (errore caption)
+[Figura da Pag.10] Labels: iL. Caption: (errore caption)
+[Figura da Pag.10] Labels: ray. Caption: (errore caption)
+[Figura da Pag.10] Labels: <_; Ss,. Caption: (errore caption)
+[Figura da Pag.10] Labels: iors; nq; a. Caption: (errore caption)
+[Figura da Pag.10] Labels: =i. Caption: (errore caption)
+[Figura da Pag.15] Labels: &. Caption: (errore caption)
+[Figura da Pag.15] Labels: <—_; Ss,. Caption: (errore caption)
+[Figura da Pag.15] Labels: > ad; >; a. Caption: (errore caption)
+[Figura da Pag.15] Labels: (59). Caption: (errore caption)
+[Figura da Pag.15] Labels: =J. Caption: (errore caption)
+[Figura da Pag.16] Labels: iL. Caption: (errore caption)
+[Figura da Pag.16] Labels: &. Caption: (errore caption)
+[Figura da Pag.17] Labels: iL. Caption: (errore caption)
+[Figura da Pag.17] Labels: &. Caption: (errore caption)
+[Figura da Pag.18] Labels: iL. Caption: (errore caption)
+[Figura da Pag.18] Labels: &. Caption: (errore caption)
+[Figura da Pag.23] Labels: iL. Caption: (errore caption)
+[Figura da Pag.23] Labels: &. Caption: (errore caption)
+[Figura da Pag.25] Caption: (errore caption)
+[Figura da Pag.25] Caption: (errore caption)
+[Figura da Pag.25] Caption: (errore caption)
+[Figura da Pag.25] Labels: a. Caption: (errore caption)
+[Figura da Pag.27] Labels: =?; ss. Caption: (errore caption)
+[Figura da Pag.27] Labels: @>. Caption: (errore caption)
+[Figura da Pag.27] Labels: $. Caption: (errore caption)
+[Figura da Pag.29] Labels: =?; ss. Caption: (errore caption)
+[Figura da Pag.29] Labels: $. Caption: (errore caption)
+[Figura da Pag.30] Labels: RPC model; Glient Wait for result; en o------- ee; ral x; Call remote Return; procedure from call; Request Reply; Sever SasesScessHs= TTS; Call local procedure Time ——_}»; and return results; " As in conventional procedure calls, when a client calls; a remote procedure, the client will block until a reply is; returned. Caption: (errore caption)
+[Figura da Pag.30] Labels: = |Remote Procedure Call Hides communications details behind; a procedure call and helps bridge; heterogeneous platforms; = Sockets O.S level interface to the underlying; communications protocols TCP,UDP; = | TCP, UDP | UDP transports data packets without; guarantees, TCP verifies correct; delivery of data streams; " iInternet protocol (I P) moves a packet of data from one node; . to another; RPC as a programming abstraction that builds upon other; communication layers and hides them from the programmer. Caption: (errore caption)
+[Figura da Pag.34] Labels: &. Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.35] Labels: Working Push Pull Push Pull Push; mode; Precision Sub- Minutes Seconds Minutes Seconds; seconds; Whether Structured Structured Structured using Non-structured Non-structured; structured using the using MIB MIB; YANG; model. Caption: (errore caption)
+[Figura da Pag.36] Caption: (errore caption)

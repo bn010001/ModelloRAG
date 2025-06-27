@@ -1,5 +1,14 @@
+cd /home/admin/Downloads/tesi_rag/ModelloRAG
+
 Creazione
 python3 -m venv .venv
 
 Attivazione
 source .venv/bin/activate
+
+python -m src.main query --k 3 "Cos’è la topologia BGP?"
+
+avvio interfaccia
+
+python -m src.ui.main_ui
+

@@ -1,0 +1,1411 @@
+Page 0
+Fondamenti di Internet
+SDN and NFV Overview
+Prof. Gianluca Reali
+
+Page 1
+) Foreword
+The open ecosystem of the computing industry brings booming development of multiple
+fields, such as Commercial Off-the-Shelf (COTS), operating
+system, virtualization, middleware, cloud computing, and software applications. The
+network industry is also seeking transformation and development. Software Defined
+Networking (SDN) and Network Functions Virtualization (NFV) are mainly used.
+This course aims to help engineers understand the development of SDN and NFV and
+introduce Huawei SDN and NFV solutions.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Objectives
+e Upon completion of this course, you will be able to:
+> Describe the development of SDN and NFV.
+> Understand basic principles of OpenFlow.
+«= Understand Huawei SDN solution.
+7 Understand the standard NFV architecture.
+> Understand Huawei NFV solution.
+Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. SDN Overview
+2. NEV Overview
+Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Evolution of the Computer Era
+Mainframe PC (compatible)
+App
+abi!
+iN
+— Dedicated application —— Open interface
+HE Windows | Mac
+Dedicated OS (cosy | Or) Linux jor) og
+—
+ 
+— Open interface
+Dedicated hardware
+Microprocessor |
+Vertical integration and closed interfaces Horizontal integration and open interfaces
+Small-scale industry applications Large-scale application across industries
+Page 4
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ In 1964, IBM spent US$5 billion on developing IBM System/360 (S/360), which started the
+history of mainframes. Mainframes typically use the centralized architecture. The
+architecture features excellent |/O processing capability and is the most suitable for
+processing large-scale transaction data. Compared with PCs, mainframes have dedicated
+hardware, operating systems, and applications.
+¢ PCs have undergone multiple innovations from hardware, operating systems, to
+applications. Every innovation has brought about great changes and development. The
+following three factors support rapid innovation of the entire PC ecosystem:
+o
+Hardware substrate: The PC industry has adapted a simple and universal hardware
+base, x86 instruction set.
+software-defined: The upper-layer applications and lower-layer basic software (OS
+and virtualization) are greatly innovated.
+Open-source: The flourishing development of Linux has verified the correctness of
+open source and bazaar model. Thousands of developers can quickly formulate
+standards to accelerate innovation.
+
+Page 5
+Network Industry Development: Implications
+from the IT Industry
+The transformation of the IT industry has triggered the thinking of the network industry. The industry has proposed the
+SDN concept and has made attempts to put SDN into commercial use, aiming to make networks more
+open, flexible, and simple.
+Computing Industry Openness Promotes Ecosystem Development
+FusionSphere
+x86/ARM server
+x86/ARM chip
+Virtualization
+Server, storage
+device, PC
+Universal
+hardware
+Comprehensive
+cloud services
+Various virtualization
+technologies, operatin
+g
+systems, middleware,
+database
+software, etc.
+Storage array PC °°"
+Memory
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Hard disk ---
+What About Network Industry Changes
+Network application
+SDN controller
+Hardware network device
+¢« Does the network industry build a
+hierarchical and open ecosystem
+according to the computing industry?
+
+Current Situation of the Network Industry:
+Typical IP Network - Distributed Network
+e The typical IP network is a distributed network with peer-to-peer control. Each network device has independent
+forwarding, control, and management planes. The control plane of a network device exchanges packets of a routing
+protocol to generate an independent data plane to guide packet forwarding.
+e The advantage of a typical IP network is that network devices are
+Management
+plane
+decoupled from protocols, devices from different vendors are compatible Sretiatel pletis
+with each other, and network convergence is ensured in fault scenarios. > Forwarding plane
+Router-A
+Forwarding
+table, protocol, and algorithm
+Control plane
+Unknown Forwarding
+data frame behavior
+Data forwarding
+Ietnel (eu ou Control plane Manage nen
+plane plane
+Control plane
+&® Forwarding plane RD Forwarding plane
+Router-B Router-C
+Management
+ 
+plane
+Configuration
+ 
+comands
+Forwarding plane
+[”
+Receive frames
+Send frames
+Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ The switch is used as an example to describe the forwarding plane, control plane, and
+management plane.
+¢ Forwarding plane: provides high-speed, non-blocking data channels for service switching
+between service modules. The basic task of a switch is to process and forward various
+types of data on its interfaces. Specific data processing and forwarding, such as Layer
+2, Layer 3, ACL, QoS, multicast, and security protection, occur on the forwarding plane.
+¢ Control plane: provides functions such as protocol processing, service processing, route
+calculation, forwarding control, service scheduling, traffic statistics collection, and system
+security. The control plane of a switch is used to control and manage the running of all
+network protocols. The control plane provides various network information and forwarding
+query entries required for data processing and forwarding on the data plane.
+¢ Management plane: provides functions such as system monitoring, environment
+monitoring, log and alarm processing, system software loading, and system upgrade. The
+management plane of a switch provides network management personnel with
+Telnet, web, SSH, SNMP, and RMON to manage devices, and supports, parses, and
+executes the commands for setting network protocols. On the management
+plane, parameters related to various protocols on the control plane must be pre-
+configured, and the running of the control plane can be intervened if necessary.
+¢ Some Huawei series products are divided into the data plane, management plane, and
+monitoring plane.
+
+Thinking in the Network Field: Problems
+Faced by Typical Networks
+Frequent network congestion
+Complex network technologies
+Difficult O&M
+Slow service deployment
+Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Frequent Network Complex Difficult O&M Slow Service
+Congestion Technologies Deployment
+Ga) ) Frequent Network Congestion
+Problem and Solution of Bandwidth-based Route Problem and Solution of Tunnel Establishment Based on Fixed
+Selection Sequence
+B
+Used bandwidth/Total D E
+bandwidth
+The network computes forwarding paths based on
+bandwidth. The link from router C to router D is the shortest
+forwarding path. The volume of service traffic from router C
+to router D exceeds the bandwidth, causing packet loss.
+Although other links are idle, the algorithm still selects the
+shortest path for forwarding. The optimal traffic forwarding
+path is C-A-D.
+Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Tunnels are established in sequence: 1. A-E; 2. A-G; 3. C-H. Tunnel 3 fails
+to be established due to insufficient bandwidth.
+
+Ga) ) Complex Network Technologies
+Many network protocols: Network technology Difficult network configuration: To be familiar with
+experts need to learn many RFCs related to network devices of a specific vendor, you need to master
+devices. Understanding the RFCs takes a long tens of thousands of commands. Additionally, the
+time, and the number of RFCs
+ 
+is still increasing. number of commands
+ 
+is still increasing.
+RFC increase trends
+79 I i
+i Pil
+2005 2006 2007 2008 2009 2010 2011 2012 2013
+Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+@ Difficulty in Locating and Analyzing Network
+Faults
+Difficult to Spot Faults Difficult to Locate Faults
+Manualtauii | Manual packet | ' Abnormal flows account for 3.65% of all flows on the network.
+entificalon obtaining for locating Manual fault diagnosis
+faults
+QO | The network faults
+(ib) (i) | that are found
+- ? upon user
+complaints are
+just the tip of the
+iceberg.
+¢ Traditional O&M networks rely on manual fault ¢ Traditional O&M only monitors device indicators. Some
+identification, location, and diagnosis. indicators are normal, but user experience is poor. There is no
+¢ More than 85% of network faults are found only after correlated analysis of users and networks.
+service complaints. Problems cannot be proactively « According to data center network (DCN) statistics, it takes 76
+identified or analyzed. minutes to locate a fault on average.
+Page10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Slow Network Service Deployment
+Network policy
+Complex and inflexible network policy changes:
+Network policies cannot be defined by user. Policy changes
+Access | Bandwidth! QoS Other are complex and cannot be flexibly adjusted.
+policy policy policy policies Ii IP address-based, fixed
+location, and CLI-based
+configuration
+Service network
+Long service deployment period:
+New service deployment involves E2E device configuration
+VN for office VN for scientific VN for video modification.
+purposes research surveillance
+End-to-end configuration using
+commands
+Low physical network deployment efficiency:
+The physical network does not support zero touch
+provisioning (ZTP).
+Command line-based
+configuration by device
+Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Vision of network service deployment:
+2 Free mobility based on network policies, regardless of physical locations
+2 Quick deployment of new service
+2 ZTP deployment on the physical network
+2 Plug-and-play of devices
+¢ Zero-touch provisioning (ZTP) is a method of setting up devices that automatically
+configures the device using a switch feature. ZTP helps IT teams quickly deploy network
+devices in a large-scale environment, eliminating most of the manual labor involved with
+adding them to a network.
+
+Page 12
+[=] ) SDN Origin
+SDN was developed by the Clean Slate Program at Stanford University as an innovative new network architecture. The
+core of SDN is to separate the control plane from the data plane of network devices to implement centralized control of
+the network control plane and provide good support for network application innovation.
+SDN has three characteristics in initial phase: forwarding-control separation, centralized control, and open
+programmable interfaces.
+SDN application
+The control plane functions are
+provided by the controller.
+OpenFlow controller Control
+plane
+Control
+lane
+i OpenFlow interconnection
+Forwarding
+plane »>
+& Forwarding
+plane
+OpenFlow switches
+OpenFlow switches have only the data plane.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=| ) Basic Concepts of OpenFlow
+¢ OpenFlow is an SBI protocol between a controller and a switch. It defines three types of messages:
+Controller-to-Switch, Asynchronous, and Symmetric. Each message contains more subtypes.
+Controller-to-Switch
+OpenFlow Controller ( | Controller-to-Switch
+This message is sent by the controller. It is used to manage
+and query switch information.
+Asynchronous
+OpenFlow ~ This message is initiated bya switch. When the status of the
+switch changes, the switch sends this message to notify the
+controller of the status change.
+This message can be initiated by a switch or controller.
+Symmetric messages include Hello, Echo, and Error
+OpenFlow switches | messages.
+Page13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Controller-to-Switch messages:
+o
+Features message: After an SSL/TCP session is established, the controller sends
+Features messages to a switch to request switch information. The switch must send
+a response, including the interface name, MAC address, and interface rate.
+Configuration message: The controller can set or query the switch status.
+Modify-State message: The controller sends this message to a switch to manage
+the switch status, that is, to add, delete, or modify the flow table and set interface
+attributes of the switch.
+Read-State message: The controller sends this message to collect statistics on the
+switch.
+send-Packet message: The controller sends the message to a specific interface of
+the switch.
+- Asynchronous messages:
+o
+Packet-in message: If no matching entry exists in the flow table or the action "send-
+to-controller" is matched, the switch sends a packet-in message to the controller.
+Packet-out message: The controller sends this message to respond to a switch.
+Flow-Removed message: When an entry is added to a switch, the timeout interval is
+set. When the timeout interval is reached, the entry is deleted. The switch then
+sends a Flow-Removed message to the controller. When an entry in the flow table
+needs to be deleted, the switch also sends this message to the controller.
+Port-status message: A switch sends this message to notify the controller when the
+interface configuration or state changes.
+¢ Symmetric messages:
+o
+Hello message: When an OpenFlow connection is established, the controller and
+switch immediately send an OFPT_HELLO message to each other. The version
+
+Page 14
+[= ) Flow Table Overview
+OpenFlow switches forward packets based on flow tables.
+Each flow entry includes the Match Fields, Priority, Counters, Instructions, Timeouts, Cookie, and Flags.
+The Match Fields and Instructions are key fields for packet forwarding.
+= The Match Fields is a field against which a packet is matched and can be customized.
+e The Instructions field indicates OpenFlow processing when a packet matches a flow entry.
+Flow table fields can be customized. The
+following table is an example.
+Ingress Ether VLAN TCP ele
+3 10 7 IP
+ 
+1 IP2
+MAC1 MAC2 0x8100 5321 8080
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Match Fields: a field against which a packet is matched. (OpenFlow 1.5.1 supports 45
+options). It can contain the inbound interface, inter-flow table data, Layer 2 packet
+header, Layer 3 packet header, and Layer 4 port number.
+¢ Priority: matching sequence of a flow entry. The flow entry with a higher priority is
+matched first.
+¢ Counters: number of packets and bytes that match a flow entry.
+¢ Instructions: OpenFlow processing when a packet matches a flow entry. When a packet
+matches a flow entry, an action defined in the Instructions field of each flow entry is
+executed. The Instructions field affects packets, action sets, and pipeline processing.
+¢ Timeouts: aging time of flow entries, including Idle Time and Hard Time.
+a Idle Time: If no packet matches a flow entry after Idle Time expires, the flow entry is
+deleted.
+2 Hard Time: After Hard Time expires, a flow entry is deleted regardless of whether a
+packet matches the flow entry.
+¢ Cookie: identifier of a flow entry delivered by the controller.
+¢ Flags: This field changes the management mode of flow entries.
+
+Ga) ) Comparison Between Forwarding Modes
+Typical Routing Protocol: OpenFlow:
+Packet Forwarding Based on Routing Tables Packet Forwarding Based on Flow Tables
+Routing protocol
+1.1.1.1 1.1.1.2 10.0.0.0/30
+TM=3 G0/0/1 > —>
+Routing Destination Outbound
+table Pieioeel Interface
+10.0.0.0/30 OSPF 1.1.1.2 GO0/0/1
+« In typical cases, network devices query routing tables to guide
+traffic forwarding.
+¢ Entries in a routing table are calculated by running a routing
+protocol between network devices.
+¢ The length of the routing table is fixed. Network devices
+Page 15
+forward packets based on the longest match rule. A network
+device has only one routing table.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+OpenFlow controller
+x aii
+o ~
+o* SA
+o* . 10.0.0.0/30
+ad ®
+Flow table
+matching
+ee! Tableo L—{ Taber |_J .... | Tablen [+
+¢ OpenFlow is a network protocol. Switches running OpenFlow
+forward traffic based on flow tables.
+¢ Flow tables are calculated by the OpenFlow controller and then
+delivered to switches.
+¢ A flow table has variable length and defines various matching and
+forwarding rules. A network device has multiple flow tables.
+¢ For tables 0-255, table 0 is first matched. In a flow table, flow entries are matched by
+priority. The flow entry with a higher priority is matched first.
+¢ Currently, OpenFlow is mainly used on software switches, such as OVSs and CE1800Vs,
+in DCs, but not on physical switches to separate forwarding and control planes.
+
+[=| ) Essential Requirements of SDN
+e The essence of SDN is to make networks more open, flexible, and simple. It builds a centralized brain for a
+network and implements fast service deployment, traffic optimization, or network service openness through
+centralized control in the global view.
+e SDN has the following benefits:
+Provides centralized management, simplifying network management and O&M.
+Shields technical differences, simplifies network configuration, and reduces O&M costs.
+Offers automatic optimization, improving network utilization.
+Deploys services rapidly, shortening the service rollout time.
+Builds an open network, supporting open and programmable third-party applications.
+SDN transforms network architecture.
+Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Forwarding-control separation is a method to implement SDN.
+
+[=| ) SDN Network Architecture
+e The SDN network architecture consists of the orchestration application layer, controller layer, and device layer. Different
+layers are connected through open interfaces. From the perspective of the controller layer, SBls oriented to the device
+layer and NBIs oriented to the orchestration application layer are distinguished. OpenFlow is one of SBI protocols.
+Orchestration application layer
+NBI
+Controller layer
+wee ; . me SBI
+- ~
+= < 4 \ ~ ~
+- 4 \ ~
+om 4 “\ >
+- i - ¢ ‘ ~ a ~
+Device layer & & & Data
+forwarding
+Page17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Orchestration application layer: provides various upper-layer applications for service
+intents, such as OSS and OpenStack. The OSS is responsible for service orchestration of
+the entire network, and OpenStack is used for service orchestration of
+network, compute, and storage resources in a DC. There are other orchestration-layer
+applications. For example, a user wants to deploy a security app. The security app is
+irrelevant to the user host location but invokes NBIs of the controller. Then the controller
+delivers instructions to each network device. The command varies according to the SBI
+protocol.
+¢ Controller layer: The SDN controller is deployed at this layer, which is the core of theSDN
+network architecture. The controller layer is the brain of the SDN system, and its core
+function is to implement network service orchestration.
+¢ Device layer: A network device receives instructions from the controller and performs
+forwarding.
+¢ NBI: NBIs are used by the controller to interconnect with the orchestration application
+layer, mainly RESTful.
+¢ SBI: SBIs used by the controller to interact with devices through protocols such as
+NETCONF, SNMP, OpenFlow, and OVSDB.
+
+[= ) Huawei SDN Network Architecture
+e Huawei SDN network architecture supports various SBIs and NBIs, including
+OpenFlow, OVSDB, NETCONF, PCEP, RESTful, SNMP, BGP, JSON-RPC, and RESTCONF interfaces.
+Network Cloud Wy ° , S
+Ww P) OY?
+Applications w piatonn Od EMS Orchestration ae Apps
+NBI plane RESTful |
+ 
+SNMP
+ 
+| MTOSI/CORBA Kafka/SFTP RESTCONF
+e~ iMaster NCE
+PCEP NETCONF OpenFlow BGP-LS OVSDB SNMP BGP Json-RPC Telemot
+Interface Interface Interface Interface Interface Interface Interface Interface ty
+Forwarding
+device
+Page18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Cloud platform: resource management platform in a cloud DC. The cloud platform
+manages network, compute, and storage resources. OpenStack is the most mainstream
+open-source cloud platform.
+¢ The Element Management System (EMS) manages one or more telecommunication
+network elements (NEs) of a specific type.
+¢ Orchestration (container orchestration): The container orchestration tool can also provide
+the network service orchestration function. Kubernetes is a mainstream tool.
+¢ MTOSI or CORBA is used to interconnect with the BSS or OSS.
+¢ Kafka or SFTP can be used to connect to a big data platform.
+In telecommunications, Multi- Technology Operations System Interface (MTOSI) is a
+standard for implementing interfaces between OSSs. Service providers (carriers) use
+multiple Operational Support Systems (OSS) to manage complex networks. Since the
+various parts of the network must interact, so must the OSSs. It is standardized by the
+Telemanagement ForuM (TM Forum)
+CORBA® is the acronym for Common Object Request Broker ArchitectureTM, OMG®'s
+open, vendor-independent architecture and infrastructure that computer applications use
+to work together over networks.
+
+Huawei SDN Solution - Integrating
+Ga) ) Management, Control, and Analysis to Build an Intent-
+Driven Network
+Application _ Cloud & Self-help 0 Mobile = Third-party
+layer platform portal app app
+Network of iMaster NCE
+management :
+and control
+layer
+Branch
+Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ IDN uses Artificial Intelligence (Al), Big Data analytics, and cloud technologies to build
+digital networks that automatically align with a user's ‘business intent.’
+¢ Huawei's Intent-Driven Network (IDN) leverages a simplified, ultra-broadband network
+infrastructure to achieve not only wider access but easier management as well. A digital
+twin is used to build a digital world, allowing the application of technologies such as Al
+and Big Data in the field of networks, creating "autonomous driving" networks. In 2019,
+Huawei clearly outlined smart IP networks, defining three core capabilities: intelligent
+connectivity, intelligent operations and maintenance (O&M), and intelligent learning.
+Huawei has also released an innovative three-tier Al architecture for smart IP networks:
+an Al-powered device layer, an Al-powered network layer, and an Al-powered cloud.
+
+A ) Introduction to iMaster NCE
+e Huawei iMaster NCE is the industry intelligent network automation platform that integrates
+management, control, analysis, and Al capabilities.
+SDN-based automatic service Unified data base Full lifecycle management
+configuration/deployment Detection, location, and Simulation verification and
+Al-based intelligent troubleshooting monitoring optimization
+analysis, prediction, and
+troubles
+Automation + Intelligence Manager + Controller + Analyzer Planning + Construction +
+Maintenance + Optimization
+a aos Os
+°
+2 & | C4)
+= QO
+NMS Controller Analyzer Network System
+sight Network ¢ CONTROLLER @ insight — of iMaster NCE
+Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+iMaster NCE converts service intents into physical network configurations. It manages,
+controls, and analyzes global networks in a centralized manner in the southbound
+direction. It enables resource cloudification, full-lifecycle network automation, and
+intelligent closed-loop driven by data analysis for business and service intents. It provides
+northbound open APIs for quick integration with IT systems.
+iMaster NCE can be used in the enterprise data center network (DCN), enterprise
+campus, and enterprise branch interconnection (SD-WAN) scenarios to make enterprise
+networks simple, smart, open, and secure, accelerating enterprise service transformation
+and innovation.
+Huawei eSight provides enterprises with a unified management platform for network,
+storage, monitoring, etc. to achieve automatic configuration deployment, visual fault
+diagnosis, intelligent capacity analysis and other functions.
+The Huawei Agile Controller is the core component of a next-generation network solution
+designed by Huawei for enterprise markets. It can be
+deployed on agile campus networks, agile branches, agile wired area networks (WANs),
+and agile data centers to control policies for
+accessing to these networks as well as interconnection between data centers. Following
+the centralized control principle of software-
+defined networking (SDN), the Agile Controller dynamically schedules network and
+security resources on the entire network to allow these resources to migrate with users.
+With the Agile Controller, networks will be more agile for services.
+
+iMaster NCE Application
+DC iMaster NCE-Fabric *
+{i1}0/
+ 
+0/0]WIGIEIET
+i Enterprise
+iMaster NCE-Campus *
+campus
+QHD SD-WAN __ iMaster NCE-WAN
+(s) IP WAN iMaster NCE-IP
+of IM aster NCE é3 transmission Master NCE-T
+* iMaster NCE-Fabric and iMaster NCE-
+Campus are introduced in this document.
+Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 22
+Enterprise
+Campus
+= Huawei CloudFabric DCN Autonomous
+Service Intent/Strategy
+Simplification elements
+e< iMaster nce
+Telemetry & ERSPAN
+SCE sare) NETCONF & SNMP
+Perry ve Peer TT ve
+G==== =) Gases =) Ge =) Gees =) Ge =) Geess a)
+VM VM VM
+VM VM VM & a, a, &
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Driving Network Solution
+Based on iMaster NCE-Fabric, DCNs provide full-lifecycle services from planning, construction, O&M, to optimization.
+Integrated planning and construction:
+¢ The planning tool interconnects with iMaster NCE-Fabric to implement
+integrated planning and construction.
+¢ Zero Touch Provisioning (ZTP)
+Simplified deployment
+* Service intent self-understanding and conversion
+¢ Network change simulation and evaluation, eliminating human errors
+Intelligent O&M:
+¢ Rapid fault detection and location based on knowledge graph and expert
+experience
+¢ Fast fault rectification based on expert experiences and simulation analysis
+Real-time optimization:
+¢ Al-Fabric-oriented local traffic inference and online model training and
+optimization
+¢ User behavior prediction and resource optimization suggestions
+
+Network administrator
+o |
+ef iMasterNcE @
+0, 9/9
+, Noa Nd
+Spine | “e e
+AK AK
+/ \ <> | NG
+J \ Se | x
+(_-AIXEANY
+Ae \ 7 NN. oN
+«&)
+ 
+&) &) SI
+Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Enterprise
+Campus
+Simplified ZTP Deployment
+ZIP deployment process:
+1.
+The network administrator clicks the icon on iMaster NCE to start
+the ZTP task.
+. Adevice automatically obtains an IP address to access iMaster
+NCE.
+. iMaster NCE determines the device role (spine or leaf node),
+delivers configurations such as the management IP address, SNMP
+configuration, and NETCONF configuration to online devices, and
+manages the devices through the management IP address.
+. iMaster NCE globally delivers interconnection configurations as well
+as OSPF or BGP configurations.
+. The device goes online successfully, and the administrator views
+network-wide information on iMaster NCE.
+Note: The DC uses the spine-leaf architecture.
+¢ Zero Touch Provisioning (ZTP) allows automatic deployment of unconfigured devices
+after power-on.
+
+Network Intent Self-understanding and Fast
+Service Deployment
+Network design Configuration delivery Service verification
+2 to 3 days 10 minutes 1 to 2 days
+ee
+iMaster NCE-Fabric
+| Verification result analysis
+x t x
+¥
+I
+Intent conversion > Network design Simulation verification » Network configuration
+|
+N
+proton
+ 
+e,
+a
+ 
+ors
+pmoeos
+Nees
+Ne
+ 
+e
+Work order |
+: Built-in model:
+Intent model v ACL deployment 10 minutes
+Vv Network provisioning
+\ J
+Huawei iMaster NCE-Fabric supports automatic and fast deployment of virtualization, cloud
+computing, and container networks.
+Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e iMaster NCE-Fabric can connect to a user's IT system to match the intent model for user
+intents and deliver configurations to devices through NETCONF to implement fast service
+deployment.
+e jiMaster NCE-Fabric can interconnect with the mainstream cloud platform
+(Openstack), virtualization platform (vCenter/System Center), and container orchestration
+platforms (Kubernetes).
+
+Enterprise
+Campus
+@ Network Change Simulation and Change
+configuration
+information
+Live network topology
+Live network resource
+information
+Risk Prediction
+Network Formal verification
+modeling algorithm
+Impact on original
+services
+Data collection/upload
+Modeling and Computing
+Establish physical, logical, and
+application network models.
+Use the formal verification algorithm
+for computing.
+Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Verification result
+Check whether resources on the live network
+are sufficient and whether the network is
+connected.
+Analyze and display the impact of changes
+on original services.
+
+Collection
+EI
+Continuous learning
+and training
+based on real site
+faults
+DC holographic data
+Service flow
+data/Telemetry data
+——
+Intelligent analysis engine
+Knowledge
+inference engine
+i aD
+Ss _
+»
+Root cause
+analysis
+Risk prediction
+4 Model application
+ON
+Data cleanin Al exception Network object
+identification modeling
+Y
+A
+»)
+Ga) ) Al-powered Intelligent O&M for DCNs
+Manual
+rectification
+Intent-based
+loop closing
+Recommended
+emergency plan:
+¢ Port isolation
+¢ Configuration rollback
+¢ Capacity expansion
+recommendation
+Enterprise
+Campus
+Page 26
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e iMaster NCE-Fabriclnsight provides Al-based intelligent O&M capabilities for DCs.
+
+Huawei CloudCampus Autonomous Driving
+Network Solution
+Analyzer
+| Fast network deployment, improving deployment efficiency by 600%
+One-stop management
+platform
+Manager) Controller
+» ae Dp
+ef iMaster nce
+« Device plug-and-play: simplified device deployment, scenario navigation, and
+template-based configuration
+¢ Simplified network deployment: Network resource pooling, multi-purpose
+network, and automatic service provisioning
+| Fast service provisioning, improving user experience by 100%
+« Free mobility: GUl-based policy configuration, allowing users to access the
+network anytime and anywhere without changing the roaming permission and
+Large- or medium- Small- or medium- ESer empellenze ; oo ; ; ; ;
+sized campus Campus sized campus * Intelligent terminal identification: Anti-spoofing for terminal access, with an
+interconnection
+intelligent terminal identification accuracy of over 95%
+a | a &® & ca . Intelligent HQoS: Application-based scheduling and shaping, and refined
+i VN foroffice purposes \ WAN bandwidth management, ensuring service experience of key users
+CY CY |
+ea B B Internet Fast intelligent O&M, improving network performance by over 50%
+VN for R&D \
+| — |
+i (y) (y) « Real-time experience visualization: Telemetry-based network experience
+visualization at each moment, for each user, and in each area
+~o.~ yo, ¢ Precise fault analysis: Proactively identifying 85% of typical network issues and
+VN for office providing suggestions, and comparing and analyzing real-time data to predict
+| services \ « Access control policy faults
+x 8 ¢ Bandwidth « Intelligent network optimization: Predictive optimization of wireless networks
+VN for R&D Saclay Seti © Priorit based on historical data, improving network-wide performance by over 50%
+| services group 5 y (Source: Tolly Certification)
+Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ https:/Awww.huawei.com/en/news/2021/4/autonomous-driving-network-white-paper-
+campuses-architecture
+¢ This is where iMaster NCE comes in as it supports intent-driven intelligent network
+planning and design. After a user
+enters the service intent and uploads the building blueprint, the system understands and
+converts the intent, and
+identifies the drawing on top of that.
+¢ A campus network typically contains many routing & switching devices
+and terminals (such as security cameras, office printers, and production
+line sensors). These devices are usually manually brought online, and their
+connections and policies are also configured manually, which is both
+time-consuming and error-prone. To address this issue, customers want to
+simplify network construction and slash labor costs by achieving
+« Network device plug-and-play
+2 Automatic generation and delivery of underlay and overlay network
+configurations
+2 Automatic terminal management after they go online
+2 Delivery of appropriate access permission policies to terminals on demand
+¢ With iMaster NCE, network configurations can be automatically generated based on the
+network design solution
+generated in the planning phase. After devices go online, it automatically pushes
+
+© ef iMaster NcE
+Ga) ) Device Plug-and-Play
+; : Deployment Through the Registration
+Deployment by Scanning Bar Codes DHCP-based Deployment Query Center
+© e¢ iMaster NcE
+pe
+Campus
+@ ef iMasternce @
+ms
+Registration
+: * ; \ query center
+I \ ! \
+I \ / \
+I \ ! 1 =
+0 0 | © ©
+I
+/
+\ / \ | DHCP server
+\ /
+ef 7 &
+; ; 1. Pre-configuration
+,; ; . Pre-configuration ; gs
+1. Pre-configuration ; , ; 2. Information synchronization
+; . Obtaining registration information through the . _ ;
+2. Deployment by scanning bar codes DHCP server 3. Obtaining registration information through the
+3. Automatic device registration and login , : ; , registration query center
+:; ; . Automatic device registration and login ; ; ; ; ;
+4. Automatic configuration delivery ; ; 4. Automatic device registration and login
+. Automatic configuration delivery
+5. Automatic configuration delivery
+Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Device plug-and-play includes but is not limited to deployment by scanning bar codes
+using an app, DHCP-based deployment, and deployment through the registration query
+center.
+¢ Inthe CloudCampus Solution, iMaster NCE-Campus can quickly provision network
+services to campus network devices through NETCONF only after the devices have gone
+online on iMaster NCE-Campus.
+¢ On large- or medium-sized campus networks, there are a large number of switches
+downstream from the core layer. In most cases, you need to first use command lines to
+connect core switches to iMaster NCE-Campus in the southbound direction, and then
+configure the core switches as the root devices of the management subnet and configure
+DHCP to allow switches downstream from the core layer to go online iMaster NCE-
+Campus. Then, these switches are plug-and-play, simplifying network deployment. See
+https://support.huawei.com/enterprise/en/doc/EDOC
+ 
+1 10016945 7/64333cb1/device-plug-
+and-play
+¢ Registration center: Huawei device registration query center, also called registration
+center, is one of the main components of Huawei CloudCampus solution. It is used to
+query the device management mode and registration ownership. A device determines
+whether to switch to the cloud-based management mode and which cloud management
+platform to register with based on the query result. The AP is used as an example.
+Huawei devices that support cloud-based management are pre-configured with the URL
+(register.naas.huawei.com) and port number (10020) of the Huawei device registration
+center.
+
+= Free Mobility:
+Policy Management Based on Security Groups
+e Free mobility: Enables users to have consistent network rights and security policies regardless of their
+locations and IP addresses.
+Sesmimrersun Security esp Security group 4) Use security groups. A security group is
+2) for sales users 2) for R&D users 2) oP BENE a GiGup of USers for which the same
+ae security policy is used.
+2 Define security group-based permission
+PugEROUGy Eu PeNenGe Pelley control policies and user experience policies
+and deliver the policies to network devices.
+Deliver security policies
+Vy © A security group is authorized to a user after
+the user passes access authentication.
+4) After user traffic enters a network, network
+Campus
+network
+al" 4x A devices enforce policies based on the source
+= \ and destination security groups of the traffic.
+Access authentication Access‘authentication Access authentication
+2) UserA 2) User B 2) User C
+Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Inthe free mobility solution, a security group is an entity unit for permission control.
+Different user terminals are allocated to different security groups, and access policies
+between security groups are configured to implement user terminal permission
+management on the network. Security groups are created on iMaster NCE-Campus. After
+user terminals are authenticated, iMaster NCE-Campus, functioning as the authentication
+server, authorizes security group information to the user terminals. After receiving the
+authorized security group information, the authentication control points dynamically
+generate |IP-security group entries based on IP addresses of the user terminals.
+¢ See https://support.huawei.com/enterprise/en/doc/EDOC1 100191961/9a430703/best-
+practices-for-free-mobility-solution-deployment
+
+pe
+Campus
+Ga) ) Wired and Wireless Convergence
+| WLAN Construction Mode 1: Standalone AC
+|
+VW/LAN Construction Mode 2: AC Card |
+¢ This mode poses a wireless
+traffic bottleneck and
+increases faulty nodes.
+¢ Wired and wireless
+management is independent.
+Independent AC
+¢ Wired and wireless
+* AnAC card is installed on a
+switch to provide AC functions.
+¢ Hardware-level convergence.
+authentication points are
+separated.
+Wired and Wireless Convergence (Native AC)
+The switch integrates the AC function, eliminating wireless traffic forwarding bottlenecks and reducing fault
+nodes. Wired and wireless devices are centrally managed.
+¢ Unified management and converged forwarding of wired and wireless services
+* Converged management for wired and wireless users and gateway convergence
+* Converged authentication points for wired and wireless access
+5 ¢ Unified wired and wireless policy execution
+Page 30 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ To support a mobile office, enterprises require a high-speed, flexible wireless network that
+can be converged with the existing wired network. Traditionally, wired and wireless
+networks are overlaid and managed separately, doubling the workload and increasing the
+complexity of Operations and Maintenance (O&M). However, in the Huawei Agile Campus
+solution, agile switches with native Access Controller (AC) functionality work with
+Wireless Local Area Network (WLAN) Access Points (APs) to implement wired and
+wireless convergence, with unified management of wired and wireless networks and high
+forwarding performance guaranteed. The entire campus network of core and aggregation
+switches, access switches, and APs can be virtualized into one device, simplifying
+management and reducing Operating Expenditure (OPEX) by 69%.
+
+@ Intelligent Terminal Identification,
+Ensuring Secure Access
+Requirements (7A of —
+and Challenges ( i) y — Huawei supports identification of
+Wht iMaster NCE = 1000+ office or loT terminals.
+A university
+. Built-in terminal
+50+ types of smart terminals fingerprint library
+Terminal information is | ee
+collected by IT
+departments of colleges: ss = — —= =
+MAC address collection is C wi-Fi_) Geese 5) Gi) Ges.
+ 
+5) Cw) aan nt
+difficult and error-prone.
+An enterprise Qo lea >> ALD
+EEE =—
+100+ authentication faults
+reported per day Terminal-type-based Terminal-type-based Terminal-type-based
+Hf feadl iter (be lemmas Automatic authentication Automatic authorization Spoofing detection
+fin Printer Camera IP phone and PC
+Rees REPO OUTS. MAC address authentication, without Is automatically added to the Report a terminal spoofing alarm.
+entering any MAC address video surveillance group.
+Is configured as the VIP user.
+Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Built-in terminal fingerprint library: Multiple intelligent identification methods are combined
+to accurately identify terminal types. Massive loT terminals are connected intelligently,
+and policies are automatically matched and delivered, making loT terminals plug-and-
+play.
+¢ Network devices collect the fingerprint of terminal packets and report it to the NMS, which
+then matches it against the built-in fingerprint database to identify the terminal types. In
+this situation, terminals can be identified through a MAC organizationally unique identifier
+(OUI), HTTP User-Agent, DHCP Option, LLDP, and multicast DNS (mDNS).
+¢ AMAC OUI is the leftmost three bytes in a MAC address that uniquely identifies an
+organization.
+¢ Terminals can be identified based on the User-Agent field in HTTP packets because the
+contents in the User-Agent field vary according to the terminal type. This method is well
+suited for identifying PCs and mobile terminals, because in most cases, the User-Agent
+field in HTTP packets sent by these terminals during website access through the browser
+contains comprehensive terminal information, including the terminal type, operating
+system, vendor, and browser type.
+¢ Terminal types can be identified based on options carried in DHCP messages, such as:
+—Option 55 (requested parameter list)
+—Option 60 (vendor id)
+—Option 12 (host name)
+Compared with other methods, terminal identification based on DHCP options is more
+accurate and ideal for identifying terminals that dynamically obtain IP addresses.
+
+Ga) ) HQoS: User- and Application-based QoS Policy
+User- and application-based QoS policies ensure experience of high-priority users and applications
+Requirements and of
+Challenges @
+iMaster NCE
+1. Define VIP users and
+common users, and
+application priorities.
+. Schedule users and
+application queues based on
+priorities of users and
+applications.
+. Support native AC or
+independent
+ 
+AC deployment.
+Traditional QoS
+policies are invalid
+for video services.
+(Example) Building o>
+surveillance scenario:
+Wireless video services
+of common users
+increase, occupying a
+large number of network
+resources and causing
+network congestion.
+users Camera Video
+surveillance
+a Cc
+Mobile phone and tablet
+Page 32 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+https://support.huawei.com/enterprise/en/doc/EDOC
+ 
+1 100055126/2ae9/afi/hgqos
+¢ Hierarchical Quality of Service (HQOS) is a technology that uses a queue scheduling
+mechanism to guarantee the bandwidth of multiple services of multiple users in the
+DiffServ model.
+¢ Traditional QoS performs 1-level traffic scheduling. The device can distinguish services
+on an interface but cannot identify users. Packets of the same priority are placed into the
+same queue on an interface and compete for the same queue resources.
+¢ HQoS uses multi-level scheduling to distinguish user-specific or service-specific traffic
+and provide differentiated bandwidth management.
+¢ HQoS uses a tree-shaped hierarchical scheduling model. The hierarchical scheduling
+model consists of three types of nodes:
+¢ Leaf node: is located at the bottom layer and identifies a queue. The leaf node is a
+scheduled object and can only be scheduled.
+¢ Transit node: is located at the medium layer and refers to both a scheduler and a
+scheduled object. When a transit node functions as a scheduled object, the transit node
+can be considered a virtual queue, which is only a layer in the scheduling architecture but
+not an actual queue that consumes buffers.
+¢ Root node: is located at the top layer and identifies the top-level scheduler. The root node
+is only a scheduler but not a scheduled object. The PIR is delivered to the root node to
+restrict the output bandwidth.
+« A scheduler can schedule multiple queues or schedulers. The scheduler can be
+
+:
+Ga) ) Al-Powered Intelligent O&M of Campus Networks
+As-ls: Device-Centered Network Management To-Be: User Experience-Centered Al-Powered Intelligent O&M
+of | Master NCE Intelligent network analyzer
+7 NMS Campusinsight * Visualized user experience
+Traditional , Topology management management
+NMS © Performance * User journey playback —
+management Telemetry - Potential fault identification
+SNMP + Alarm management Second-level network ° Root cause identification .
+Minute-level network - Configuration data collection Predictive network optimization
+data collection management
+Neo
+(YE ORSI::
+Experience visualization: Telemetry-based second-level data collection, visualized
+experience of each user and each application in real time
+* Device-centric O&M method: User experience cannot be Minute-level potential fault identification and root cause location
+detected. « Identify potential faults based on dynamic baselines and big data correlation
+* Fault-triggered responses: Potential faults cannot be afalysis.
+‘dentified > P « Accurately locate root causes of faults through KPI association analysis and protocol
+; tracing.
+= ely Of PreleesiGhial EhGInicets) I INCate)SaUIkS OMSIKs. Predictive network optimization: Al is used to intelligently analyze the AP load
+trend and implement predictive optimization on the wireless network.
+personnel from complex alarms and noises, making O&M more automated and intelligent.
+Page 33 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Traditional radio calibration
+cannot achieve
+expected results
+Phase 1: Manual Calibration
+Based on engineers’ experience, the
+calibration is time-consuming and
+error-prone, and the calibration result
+is unstable. PN
+(A
+Radio calibration
+simulation
+Al-powered
+intelligent radio
+calibration
+ef jiMaster NcE
+data collection
+Real-time and historical
+pe
+campus
+Ga) ) Al-Powered Intelligent Radio Calibration
+Tested and verified by PS)
+authoritative organizations Tolly.
+Average downlink rate per terminal:
+198 Mbit/s
+58%
+125 Mbit/s D
+Before radio After Al-powered
+> Pe nas .
+calibration smart radio
+| | Smart radio =~ calibration
+Calibration we calibration and Counter _ .
+Phase 2: Automatic Calibration ~~ closed-loop Average Wi-Fi channel interference
+Calibration based on real-time radio
+interference does not consider device 55%
+load changes, and the calibration 49%
+result cannot be ensured. 3 5 z YD 2.8%
+se 38 i= ®
+$2 98 E a
+Ef 38 8 O
+se us 3
+O 8 6 Before radio After Al-powered
+calibration smart radio
+calibration
+Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ The radio calibration function can dynamically adjust channels and transmit power of APs
+managed by the same AC to ensure that the APs work at the optimal performance.
+
+) Contents
+1. SDN Overview
+2. NEV Overview
+Page 35 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+NFV Background: Thinking from IT Industry
+Transformation
+e The IT industry transformation brings thinking on network architecture and device architecture in the
+network industry. The network architecture layer involves the SDN controller and the device architecture
+layer involves the device deployment mode.
+IT Industry Transformation
+¢ Inrecent years, IT technologies such as virtualization and
+cloud computing have been booming, and applications
+deployed on hardware have been gradually migrated to
+the cloud. Applications are deployed on private
+clouds, public clouds, or hybrid clouds as software.
+Network?
+¢ Thinking about the network industry: Can network
+pe ae applications be deployed in a software-based manner?
+Os OSs ¢ Inthe context, Network Functions Virtualization (NFV)
+App .
+is introduced.
+Virtualization/ | VM VM
+Os Cloudification
+Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Virtualized network functions (VNFs) are implemented by virtualizing traditional NEs such
+as IMSs and CPEs of carriers. After hardware is universalized, traditional NEs are no
+longer the products with embedded software and hardware. Instead, they are installed on
+universal hardware (NFVI) as software.
+
+[=] ) Origin of NFV
+e In October 2012, 13 top carriers (including AT&T, Verizon, VDF, DT, T-Mobile, BT, and Telefonica) released
+the first version of NFV White Paper at the SDN and OpenFlow World Congress. In addition, the Industry
+Specification Group (ISG) was founded to promote the definition of network virtualization requirements and
+the formulation of the system architecture.
+e In 2013, the ETSI NFV ISG conducted the first phase of research and completed the formulation of related
+standards. The ETSI NFV ISG defined NFV requirements and architecture and sorts out the
+standardization processes of different interfaces.
+ETS —y
+World Class Standards
+Page 37 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+In 2015, NFV research entered the second phase. The main research objective is to build
+an interoperable NFV ecosystem, promote wider industry participation, and ensure that
+the requirements defined in phase 1 are met. In addition, the ETSI NFV ISG (Industry
+Specification Group) specified the collaboration relationships between NFV and SDN
+standards and open source projects. Five working groups are involved in NFV phase 2:
+IFA (architecture and interface), EVE (ecosystem), REL (reliability), SEC (security), and
+TST (test, execution, and open source). Each working group mainly discusses the
+deliverable document framework and delivery plan.
+The ETSI NFV standard organization cooperates with the Linux Foundation to start the
+open source project OPNFV (NFV open source project, providing an integrated and open
+reference platform), integrate resources in the industry, and actively build the NFV
+industry ecosystem. In 2015, OPNFV released the first version, further promoting NFV
+commercial deployment.
+NFV-related standard organizations include:
+2 ETSINFV ISG: formulates NFV requirements and functional frameworks.
+a2 93GPP SA5 working group: focuses on technical standards and specifications of
+3GPP NE virtualization management (MANO-related).
+2 QOpen Platform for NFV (OPNFV): provides an open-source platform project that
+accelerates NFV marketization.
+
+[= ) NFV Value
+e NFV aims to address issues such as complex deployment and O&M and service innovation
+difficulties due to large numbers of telecom network hardware devices. NFV brings the following
+benefits to carriers while reconstructing telecom networks:
+« Shortened service rollout time
+« Reduced network construction cost
+2 Improved network O&M efficiency
+2 Open ecosystem
+Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Shortened service rollout time: In the NFV architecture, adding new service nodes
+becomes simple. No complex site survey or hardware installation is required. For service
+deployment, you only need to request virtual resources (compute, storage, and network
+resources) and software loading, simplifying network deployment. To update service
+logic, you simply need to add new software or load new service modules to complete
+service orchestration. Service innovations become simple.
+Reduced network construction cost: Virtualized NEs can be integrated into COTS devices
+to reduce the cost. Enhancing network resource utilization and lowering power
+consumption can lower overall network costs. NFV uses cloud computing technologies
+and universal hardware to build a unified resource pool. Resources are dynamically
+allocated on demand based on service requirements, implementing resource sharing and
+improving resource utilization. For example, automatic scale-in and scale-out can be used
+to solve the resource usage problem in the tidal effect.
+Enhanced network O&M efficiency: Automated and centralized management improves
+the operation efficiency and reduces the O&M cost. Automation includes DC-based
+hardware unit management automation, MANO application service life management
+automation, NFV- or SDN-based coordinated network automation.
+Open ecosystem: The legacy telecom network exclusive software/hardware model
+defines a closed system. NFV-based telecom networks use an architecture based on
+standard hardware platforms and virtual software. The architecture easily provides open
+platforms and open interfaces for
+ 
+third-party developers, and allows carriers to build open
+ecosystems together with third-party partners.
+
+Page 39
+[=| ) Key NFV Technologies: Virtualization
+Virtualization is the foundation of NFV, and cloudification is the key.
+On traditional telecom networks, each NE is implemented by dedicated hardware, resulting in high costs and difficult
+O&M. Virtualization features partition, isolation, encapsulation, and independence from hardware, which can meet NFV
+requirements. Carriers use virtualization to run software-based NEs on universal infrastructures.
+Partition Isolation
+<tr
+Multiple VMs can concurrently run on VMs that run on the same server are
+a single physical server. isolated from each other.
+Encapsulation Hardware independence
+All data of a VM is saved in files. A VM VMs can run on any servers without any
+can be moved and replicated by moving modifications.
+and replicating the files.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ On traditional telecom networks, each NE is implemented by dedicated hardware. A large
+number of hardware interoperability tests, installation, and configuration are required
+during network construction, which is time-consuming and labor-consuming. In
+addition, service innovation depends on the implementation of hardware vendors, which is
+time-consuming and cannot meet carriers’ service innovation requirements. In this
+context, carriers want to introduce the virtualization mode to provide software NEs and run
+them on universal infrastructures (including universal servers, storage devices, and
+switches).
+¢ Using universal hardware helps carriers reduce the cost of purchasing dedicated
+hardware. Service software can be rapidly developed through iteration, which enables
+carriers to innovate services quickly and improve their competitiveness. By dong
+this, carriers can enter the cloud computing market.
+
+A ) Introduction to the NFV Architecture
+e The NFV architecture includes the network functions virtualization infrastructure (NFVI), a virtualized network function
+(VNF), and management and orchestration (MANO). In addition, the NFV architecture needs to support the existing
+business support system (BSS) or operations support system (OSS).
+Page 40 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Each layer of the NFV architecture can be provided by different vendors, which improves
+system development but increases system integration complexity.
+NFV implements efficient resource utilization through device normalization and software
+and hardware decoupling, reducing carriers' TCO, shortening service rollout time, and
+building an open industry ecosystem.
+The NFVI consists of the hardware layer and virtualization layer, which are also called
+COTS ((Commercial) Off-the-Shelf component), and CloudOS in the industry.
+2 COTS: universal hardware, focusing on availability and universality, for
+example, Huawei FusionServer series hardware server.
+2 CloudOS: cloud-based platform software, which can be regarded as the operating
+system of the telecom industry. CloudOS virtualizes physical compute, storage, and
+network resources into virtual resources for upper-layer software to use, for
+example, Huawei FusionSphere.
+VNF: A VNE can be considered as an app with different network functions and is
+implemented by software of traditional NEs (such as IMS, EPC, BRAS, and CPE) of
+carriers.
+MANO: MANO is introduced to provision network services in the NFV multi-CT or multi-IT
+vendor environment, including allocating physical and virtual resources, vertically
+streamlining management layers, and quickly adapting to and interconnecting with new
+vendors' NEs. The MANO includes the Network Functions Virtualization Orchestrator
+(NFVO, responsible for lifecycle management of network services), Virtualized Network
+Function Manager (VNFM, responsible for lifecycle management of VNFs), and
+Virtualized Infrastructure Manager (VIM, responsible for resource management of the
+NFVI).
+
+[=| ) Standard NFV Architecture
+¢ ETSI defines the standard NFV architecture, which consists of the NFVI, VNF, and MANO. The NFVI includes the
+universal hardware layer and virtualization layer. The VNF is implemented using software, and the MANO implements
+management and orchestration of an NFV architecture. NEV Management and Orchestration
+Os-Ma
+a NFV
+Orchestrator
+ve-Mnnn Service, VNF, and
+Infrastructure
+VNF 2 Description
++ t t Vn-Nf L
+NFVI
+Virtualization Layer
+Virtual Virtual Virtual Nf-Vi Virtualized
+Computing Storage Network Infrastructure
+I Vi-Ha Manager(s)
+Hardware
+Computing Storage Network
+eo—e Execution reference point Other reference point — Main NFV reference points
+Page 41 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ The NFV architecture includes the_ network functions virtualization infrastructure
+(NFVI),, a virtualized network function (VNF), and management and orchestration
+(MANO). In addition, the NFV architecture needs to support the existing business support
+system (BSS) or operations support system (OSS).
+¢ ETSI defines the standard NFV architecture, which consists of NFVI, VNF, and MANO
+components. NFVI consists of common hardware facilities and virtualization. VNFs use
+software to implement virtualized network functions, and MANOs manage and orchestrate
+the NFV architecture.
+Functional Modules of the NFV Architecture
+¢ Main functional modules defined in the standard NFV architecture:
+¢ OSS or BSS: A management system for a Service provider. It is not a functional
+component in the NFV architecture, but the MANO must provide an interface for
+interoperation with the OSS or BSS.
+¢ MANO: NFV management and orchestration. The MANO includes the VIM, VNFM, and
+NFVO, and provides unified management and orchestration for VNFs and the NFVI.
+¢ VIM: NFVI management module that runs on an infrastructure site. The VIM provides
+functions such as resource discovery, virtual resource management and allocation, and
+fault handling.
+¢ VNFM: It controls the VNF lifecycle (including instantiation, configuration, and shutdown).
+
+[=] ) Functional Modules of the NFV Architecture
+Main functional modules defined in the standard NFV architecture:
+MANO
+Management system for a service provider. It is not a functional component in the NFV architecture, but the MANO must
+provide an interface for interoperation with the OSS or BSS.
+NFV management and orchestration. The MANO includes the VIM, VNFM, and NFVO, and provides unified management and
+orchestration for VNFs and the NFVI.
+VIM: NFVI management module that runs on an infrastructure site. The VIM provides functions such as resource
+discovery, virtual resource management and allocation, and fault handling.
+VNFM: It controls the VNF lifecycle (including instantiation, configuration, and shutdown).
+NFVO: It orchestrates and manages all the software resources and network services on an NFV network.
+- VNF VNEs refer to VMs as well as service NEs and network function software deployed on the VMs.
+Page 42
+NFVI
+NFV infrastructure, including required hardware and software. The NFVI provides a running environment for VNFs.
+Hardware layer: includes hardware devices that provide compute, network, and storage resources.
+Virtualization layer: abstracts hardware resources to form virtual resources, such as virtual compute, storage, and
+network resources. The virtualization function is implemented by Hypervisor!"),
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ BSS: business support system
+¢ OSS: operation support system
+¢ A hypervisor is a software layer between physical servers and OSs. It allows multiple OSs
+and applications to share the same set of physical hardware. It can be regarded as a
+meta operating system in the virtual environment, and can coordinate all physical
+resources and VMs on the server. It is also called virtual machine monitor (VMM). The
+hypervisor is the core of all virtualization technologies. Mainstream hypervisors include
+KVM, VMWare ESXi, Xen, and Hyper-V.
+
+Page 43
+[= ) NFV Architecture Interfaces
+Main interfaces of the standard NFV architecture:
+Vi-Ha
+Vn-Nf
+Nf-Vi
+Ve-Vnfm
+OS-Ma
+Vi-Vnfm
+Or-Vnfm
+Or-Vi
+Is used between the virtualization layer and hardware layer. The virtualization layer meets basic hardware compatibility
+requirements.
+Is used between a VM and the NF VI. It ensures that VMs can be deployed on the NFVI to meet performance, reliability, and
+scalability requirements. The NFVI meets VMs' OS compatibility requirements.
+Is used between the virtualization layer management software and NF VI. It provides management of virtual computing, storage,
+and network systems of NF
+ 
+VI, virtual infrastructure configuration and connections, as well as system usage, performance
+monitoring, and fault management.
+Is used between the VNFM and a VNF, implementing VNF lifecycle management, VNF configuration, VNF performance, and fault
+management.
+Manages lifecycles of network services and VNFs.
+ls used for interaction between the service application management system or service orchestration system and virtualization layer
+management software.
+Sends configuration information to the VNFM, configures the VNFM, and connects the orchestrator and VNFM. It exchanges
+information with the NFVI resources allocated to VNFs and information between VNFs.
+Is used to send resource reservation and resource allocation requests required by the orchestrator and exchange virtual hardware
+resource configurations and status information.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+A ) Huawei's NFV Solution
+e In the Huawei NFV architecture, functions of the virtualization layer and VIM are implemented by the HUAWEI CLOUD
+Stack NFVI platform. HUAWEI CLOUD Stack can virtualize compute, storage, and network resources and centrally
+manage, monitor, and optimize physical virtualization resources.
+e Huawei provides cloud-based solutions for carriers' wireless networks, bearer networks, transport networks, access
+CloudOpera
+NFVO
+Cloud
+CloudBB DSL/OLT CloudEdge CloudCore
+FusionCompute FusionStorage FusionNetwork
+Hardware
+VNFM
+NFVI
+FusionSphere
+OpenStack + OM
+Computing Storage Network
+Page 44 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ DSL: Digital Subscriber Line
+¢ OLT: Optical Line Terminal
+¢ Inthe Huawei NFV architecture, functions of the virtualization layer and VIM are
+implemented by the HUAWEI CLOUD Stack NFVI platform. HUAWEI CLOUD Stack can
+virtualize compute, storage, and network resources and centrally manage, monitor, and
+optimize physical virtualization resources.
+¢ Huawei provides cloud-based solutions for carriers' wireless networks, bearer
+networks, transport networks, access networks, and core networks.
+
+C-) ) More Information
+e For more information about OpenFlow, visit https:/Avww.opennetworking.org/ .
+e For more information about Huawei SDN solution, see the HCIP course.
+Page 45 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[Figura da Pag.1] Caption: (errore caption)
+[Figura da Pag.1] Caption: (errore caption)
+[Figura da Pag.1] Labels: Se ae ee ! . SP yaar Se ernie TO ae ee; viommedeies \. -unipge =; HER CV ; = - eK ,; LAN VS =>, .; ' .; n UNIVERSITA DEGLI STUDI. Caption: (errore caption)
+[Figura da Pag.1] Labels: - ee DI PERUGIA 7. Caption: (errore caption)
+[Figura da Pag.1] Caption: (errore caption)
+[Figura da Pag.1] Labels: EViIUGAEIGEiItl UE TILGCriict. Caption: (errore caption)
+[Figura da Pag.1] Labels: OWIN AllU INE V UVCIVICVW; Page 0 Prof. Gianluca Reali. Caption: (errore caption)
+[Figura da Pag.2] Labels: ) Foreword; e The open ecosystem of the computing industry brings booming development of multiple; fields, such as Commercial Off-the-Shelf (COTS), operating; system, virtualization, middleware, cloud computing, and software applications. The; network industry is also seeking transformation and development. Software Defined; Networking (SDN) and Network Functions Virtualization (NFV) are mainly used.; e This course aims to help engineers understand the development of SDN and NFV and; introduce Huawei SDN and NFV solutions.; Page 1 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.3] Labels: or ) Objectives; e Upon completion of this course, you will be able to:; ° Describe the development of SDN and NFV.; s Understand basic principles of OpenFlow.; co Understand Huawei SDN solution.; c Understand the standard NFV architecture.; o Understand Huawei NFV solution.; Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rignts reserved.. Caption: (errore caption)
+[Figura da Pag.4] Labels: ) Contents; 1. SDN Overview; 2. NFV Overview; Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.5] Labels: Evolution of the Computer Era; Mainframe PC (compatible); a ”; 9) _ Dedicated application —— pel Inlerace ——; | {I » Windows or IMINEIRGal or Mac; | Dedicated OS | (OS) OS; Dedicated hardware —— Open interface ———; Vertical integration and closed interfaces Horizontal integration and open interfaces; Small-scale industry applications Large-scale application across industries; Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.6] Labels: e The transformation of the IT industry has triggered the thinking of the network industry. The industry has proposed the; SDN concept and has made attempts to put SDN into commercial use, aiming to make networks more; open, flexible, and simple.; Computing Industry Openness Promotes Ecosystem Development What About Network Industry Changes; ECS EVS cloud services | y; : Qaeursx04 Various virtualization r | y; Middleware . technologies, operatin SK fo; — 3 :; FusionSphere yada Network application; Virtualization software, etc.; _ GSE SDN controller; Server, storage “ Storage array PC -"; device, PC x86/ARM server Hardware network device; Universal -E ¢ Does the network industry build a; hardware Memory — Hard disk --- hierarchical and open ecosystem; x86/ARM chip according to the computing industry?; Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.7] Labels: e The typical IP network is a distributed network with peer-to-peer control. Each network device has independent; forwarding, control, and management planes. The control plane of a network device exchanges packets of a routing; protocol to generate an independent data plane to guide packet forwarding.; e The advantage of a typical IP network is that network devices are; , , , M t; decoupled from protocols, devices from different vendors are compatible; with each other, and network convergence is ensured in fault scenarios. &; Router-A; Forwarding LJ; of; C e; Control plane < E; 5 : Management; Unk F di iS M t; 2 |2| &; Cc |] 6; [> Forwarding plane 4 s 7 — Router-B Router-C; Receive frames; Send frames; Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.8] Labels: Thinking in the Network Field: Problems; Faced by Typical Networks. Caption: (errore caption)
+[Figura da Pag.9] Labels: Problem and Solution of Bandwidth-based Route Problem and Solution of Tunnel Establishment Based on Fixed; Selection Sequence; Tunnels are established in sequence: 1. A-E; 2. A-G; 3. C-H. Tunnel 3 fails; A B to be established due to insufficient bandwidth.; 1G/5G > A 2 A; aN © At? -.0x; \; & bs 0G | ®; R> R; 6G/I5G SA oh ON WN; © © a £3—£; Used bandwidth/Total D E . . . ;; emdwiath Global path calculation and optimal tunnel path adjustment:; a 2) _— A; The network computes forwarding paths based on “ge Y Va; bandwidth. The link from router C to router D is the shortest 4; forwarding path. The volume of service traffic from router C :; to router D exceeds the bandwidth, causing packet loss. &> 3 <>; Although other links are idle, the algorithm still selects the ANS |; shortest path for forwarding. The optimal traffic forwarding R E; path is C-A-D. Oe ~&; Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.10] Labels: Complex Network Technologies; Many network protocols: Network technology Difficult network configuration: To be familiar with; experts need to learn many RFCs related to network devices of a specific vendor, you need to master; devices. Understanding the RFCs takes a long tens of thousands of commands. Additionally, the; time, and the number of RFCs is still increasing. number of commands is still increasing.; RFC increase trends; 212 Sy 205 195 [ee; 152 499 424 190 SS; : - : - ; “SSS; 2005 2006 2007 2008 2009 2010 2011 2012 2013; Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.11] Labels: Frequent Network Complex Slow Service; ) Congestion Technologies O&M Deployment; Difficult to Spot Faults Difficult to Locate Faults; Abnormal flows account for 3.65% of all flows on the network.; : gai obtaining for locating Manual fault diagnosis; identification; faults; QO The network faults; (iS) (i) that are found; ~*~ upon user; complaints are; just the tip of the; iceberg.; ¢ Traditional O&M networks rely on manual fault ¢ Traditional O&M only monitors device indicators. Some; identification, location, and diagnosis. indicators are normal, but user experience is poor. There is no; ¢ More than 85% of network faults are found only after correlated analysis of users and networks.; service complaints. Problems cannot be proactively ¢ According to data center network (DCN) statistics, it takes 76; identified or analyzed. minutes to locate a fault on average.; Page10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.12] Labels: Network policy; Complex and inflexible network policy changes:; Network policies cannot be defined by user. Policy changes; Access | Bandwidth! QoS Other are complex and cannot be flexibly adjusted.; policy policy policy policies Ii IP address-based, fixed; location, and CLI-based; configuration; Service network; Long service deployment period:; New service deployment involves E2E device configuration; VN for office VN for scientific VN for video modification.; purposes research surveillance; End-to-end configuration using; commands; Physical network; Low physical network deployment efficiency:; The physical network does not support zero touch; provisioning (ZTP).; Command line-based; configuration by device; Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.13] Labels: e SDN was developed by the Clean Slate Program at Stanford University as an innovative new network architecture. The; core of SDN is to separate the control plane from the data plane of network devices to implement centralized control of; the network control plane and provide good support for network application innovation.; e SDN has three characteristics in initial phase: forwarding-control separation, centralized control, and open; programmable interfaces.; SDN application; The control plane functions are; provided by the controller. z :; =(=|= ontro; OpenFlow controller ASE rmmrmmrmrmssssaasaae5 one; Control; | OpenFlo; i ane P “ OpenFlow interconnection; Forwarding ’; } Be 4 ye £ &; & & ss éFoorwarding; plane; OpenFlow switches; OpenFlow switches have only the data plane.; Page12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.14] Labels: ¢ OpenFlow is an SBI protocol between a controller and a switch. It defines three types of messages:; Controller-to-Switch, Asynchronous, and Symmetric. Each message contains more subtypes.; Controller-to-Switch; OpenFlow Controller; ski This message is sent by the controller. It is used to manage; F i and query switch information.; OpenFlow This message is initiated by a switch. When the status of the; switch changes, the switch sends this message to notify the; controller of the status change.; & & & & This message can be initiated by a switch or controller.; Symmetric messages include Hello, Echo, and Error; OpenFlow switches messages.; Page13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.15] Labels: Flow Table Overview; e OpenFlow switches forward packets based on flow tables.; e Each flow entry includes the Match Fields, Priority, Counters, Instructions, Timeouts, Cookie, and Flags.; The Match Fields and Instructions are key fields for packet forwarding.; c The Match Fields is a field against which a packet is matched and can be customized.; ° The Instructions field indicates OpenFlow processing when a packet matches a flow entry.; Lt | ey [ete an) tent | te | fo; Flow table fields can be customized. The; following table is an example.; Ingress Ether VLAN TCP TCP; fm source | Soo ype | YANO | monty | SE | TOM roe | outro; 3 MAC1 MAC2 0x8100 10 7 IP1 IP2 5321 8080; Page14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.16] Labels: Typical Routing Protocol: OpenFlow:; Packet Forwarding Based on Routing Tables Packet Forwarding Based on Flow Tables; OpenFlow controller; Routing protocol Prog i i ae; a ~; 1.4.4.4 1112 10.0.0.0/30 o7 . 10.0.0.0/30; Ss. eh  ——— Sm; Goo/1 > a lS; Flow table; matching; process:; Routing Destination Brotcol Outbound _ _ =a _; table Network Interface FI; OW 3 ae 5 F; « In typical cases, network devices query routing tables to guide ¢ OpenFlow is a network protocol. Switches running OpenFlow; traffic forwarding. forward traffic based on flow tables.; « Entries in a routing table are calculated by running a routing « Flow tables are calculated by the OpenFlow controller and then; protocol between network devices. delivered to switches.; ¢ The length of the routing table is fixed. Network devices ¢ A flow table has variable length and defines various matching and; forward packets based on the longest match rule. A network forwarding rules. A network device has multiple flow tables.; device has only one routing table.; Page15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.17] Labels: Essential Requirements of SDN; e The essence of SDN is to make networks more open, flexible, and simple. It builds a centralized brain for a; network and implements fast service deployment, traffic optimization, or network service openness through; centralized control in the global view.; e SDN has the following benefits:; c Provides centralized management, simplifying network management and O&M.; e Shields technical differences, simplifies network configuration, and reduces O&M costs.; © Offers automatic optimization, improving network utilization.; ¢ Deploys services rapidly, shortening the service rollout time.; ° Builds an open network, supporting open and programmable third-party applications.; SDN transforms network architecture.; Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.18] Labels: SDN Network Architecture; e The SDN network architecture consists of the orchestration application layer, controller layer, and device layer. Different; layers are connected through open interfaces. From the perspective of the controller layer, SBls oriented to the device; layer and NBIs oriented to the orchestration application layer are distinguished. OpenFlow is one of SBI protocols.; Orchestration application layer Service; collaboration; :; NBI; :; Controller layer eelvice); —_— orchestration; pee NN SBI; ~ “ ; - Data; Device layer; er Ky & & © J forwarding; Page17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.19] Labels: Huawei SDN Network Architecture; e Huawei SDN network architecture supports various SBIs and NBIs, including; OpenFlow, OVSDB, NETCONF, PCEP, RESTful, SNMP, BGP, JSON-RPC, and RESTCONF interfaces.; Network Cloud Wa ° . <>; Applications ® petonn Ged EMS Orchestration ae Apps; A$ Open NEI ARAN; < iMast; es iMaster NCE; ——_—$——_$— ANA m ODen SB —_oimo rr; PCEP NETCONF OpenFlow BGP-LS OVSDB SNMP BGP Json-RPC Telemet; Interface Interface Interface Interface Interface Interface Interface Interface ry; \7aP aeea Switch GA cee =§EEES Router «= SB peuey VNF; Page18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.20] Labels: Huawei SDN Solution - Integrating; Ga) Management, Control, and Analysis to Build an Intent-; Driven Network; layer platform portal app app; Network of iMaster NCE; management; ayer Manager Controller Analyzer; AP AP; ell, a DC Fabric mie Bell,; vampus a= ope | Es S cPpeE. 4 eames; YK~ — : DC Fabric La; = —om—& —, : = ERX; Eat eS Sp-WAN =s wy Os; CPE ne > Gs SS CPE Branch; Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.21] Labels: e Huawei iMaster NCE is the industry intelligent network automation platform that integrates; management, control, analysis, and Al capabilities.; SDN-based automatic service Unified data base Full lifecycle management; configuration/deployment Detection, location, and Simulation verification and; Al-based intelligent troubleshooting monitoring optimization; analysis, prediction, and; troubl ti i i; Automation + Intelligence Manager + Controller + Analyzer Planning * onstruction *; Maintenance + Optimization; / < all d; 2 ( 3 ( 4); Autonomous Driving; NMS Controller Analyzer Network System; eG oh coon Sinsight = ef iMasterNce; S)a\0 Network ~_) CONTROLLER we 'Nsig; Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.22] Labels: iMaster NCE Application; DC ——_—iMaster NCE-Fabric *; ~Talalels le Finl| Frterprise ——imaster NCE-Campus *; | mm me campus; ao ee Ci ~—s« SD-WAN _siMaster NCE-WAN; ————— © IP WAN iMaster NCE-IP; @- WAN.; eo IM aster NCE é3 transmission Master NCE-T; * jMaster NCE-Fabric and iMaster NCE-; Campus are introduced in this document.; Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.23] Labels: > x F Enterprise; ) Campus; e Based on iMaster NCE-Fabric, DCNs provide full-lifecycle services from planning, construction, O&M, to optimization.; Service Intent/Strategy ; ;; Integrated planning and construction:; Simplification elements ° The planning tool interconnects with iMaster NCE-Fabric to implement; integrated planning and construction.; e iMaster NCE Zero Touch Provisioning (ZTP); Analyzer; lill a; Simplified deployment; * Service intent self-understanding and conversion; Al ¢ Network change simulation and evaluation, eliminating human errors; Controller Manager; Intelligent O&M:; ¢ Rapid fault detection and location based on knowledge graph and expert; CLCIrEs [saaaa re experience; Pease ti] [Gass2 =} Telemetry & ERSPAN * Fast fault rectification based on expert experiences and simulation analysis; [=sss= | [a=saas |; coos faaaem}) NETCONF & SNMP; ‘i = Real-time optimization:; ¢ Al-Fabric-oriented local traffic inference and online model training and; - — — Ss Fis Fis S * User behavior prediction and resource optimization suggestions; VM VM VM ay ay rg &; Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.24] Labels: Enterprise; Network administrator ZTP deployment process:; 1) | 1. The network administrator clicks the icon on iMaster NCE to start; the ZTP task.; @- 2. Adevice automatically obtains an IP address to access iMaster; ! ex iMasterNcE @ ! 4; I NCE.; Me a a ee ee ee ee a; 3. iMaster NCE determines the device role (spine or leaf node),; (2) © 4) delivers configurations such as the management IP address, SNMP; en Se configuration, and NETCONF configuration to online devices, and; . NY “OY manages the devices through the management IP address.; Spine zeK cee !; 4. iMaster NCE globally delivers interconnection configurations as well; as OSPF or BGP configurations.; 5. The device goes online successfully, and the administrator views; =~ — — — network-wide information on iMaster NCE.; i Leaf | SS | SIS] [S; Note: The DC uses the spine-leaf architecture.; Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.25] Labels: > x F Enterprise; Campus; Network Intent Self-understanding and Fast; Service Deployment; Network design Configuration delivery : Service verification; 2 to 3 days : 10 minutes : 1 to 2 days; iMaster NCE-Fabric; Fo paeeeceeenneel Verification result analysis; | Intent conversion ») Network design | >! Simulation verification >! Network configuration; a ar; Work order :; i Built-in model:; Intent model v ACL deployment 40 minutes; Vv Network provisioning; Huawei iMaster NCE-Fabric supports automatic and fast deployment of virtualization, cloud; computing, and container networks.; Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.26] Labels: > « 4 Enterprise; —@) Network Ch Simulati d Ch ~; changed :; sufficiency; Live network; configuration Access; connectivit; Live network topology y; information; : Network Formal verification Impact SUL original; modeling algorithm services; information; Data collection/upload Modeling and Computing Verification result; ¢ Establish physical, logical, and ¢ Check whether resources on the live network; application network models. are sufficient and whether the network is; ¢ Use the formal verification algorithm connected.; for computing. ¢« Analyze and display the impact of changes; on original services.; Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.27] Labels: > « J Enterprise; Campus; L; Al-powered Intelligent O&M for DCNs; Collection Analysis Decision; E =; Intelligent analysis engine; _ Knowledge cr ae Geers >; Huawei's 30+ years inference engine Cee; of O&M IS-IS SK; expert experience -. \ Ve ae Manual; — rectification; ») » Exception; Continuous learning » eere lett »» Intent-based; and training Root cause loop closing; pane en real site Knowledge Knowledge Knowledge Wf Knowledge analysis; Risk prediction; a Recommended; ea DC holographic data ¢ Port isolation; wee Service flow Patalceanmn Al exception Network object ¢ Configuration rollback; data/Telemetry data g identification modeling ° Capacity expansion; recommendation; Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.28] Labels: Enterpri; ;; Huawei CloudCampus Autonomous Driving; &) Network Solution; Fast network deployment, improving deployment efficiency by 600%; Analyzer One-stop management; platform « Device plug-and-play: simplified device deployment, scenario navigation, and; template-based configuration; Manager Controller ae ; ;; ¢ Simplified network deployment: Network resource pooling, multi-purpose; network, and automatic service provisioning; =o >= »; a Fast service provisioning, improving user experience by 100%; ef, iMaster NCE; « Free mobility: GUl-based policy configuration, allowing users to access the; =TCONE/VAN network anytime and anywhere without changing the roaming permission and; Large- or medium- Small- or medium- USED SxPerence; sized campus Campus sized campus * Intelligent terminal identification: Anti-spoofing for terminal access, with an; . o- intelligent terminal identification accuracy of over 95%; A, B, & & eRe ¢ Intelligent HQo0S: Application-based scheduling and shaping, and refined; _AINtonoffice pirposes y, bandwidth management, ensuring service experience of key users; _ vt WAN/; rate aI cs ane , r\ r\ Fast intelligent O&M, improving network performance by over 50%; VN for R&D; ey (y) « Real-time experience visualization: Telemetry-based network experience; visualization at each moment, for each user, and in each area; ~o., ~o~, ¢ Precise fault analysis: Proactively identifying 85% of typical network issues and; VN for office providing suggestions, and comparing and analyzing real-time data to predict; services « Access control policy faults; -_ O-, ¢ Bandwidth « Intelligent network optimization: Predictive optimization of wireless networks; VN for R&D © Priorit based on historical data, improving network-wide performance by over 50%; | services \ lority (Source: Tolly Certification); Page27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.29] Labels: .; Device Plug-and-Play; : Deployment Through the Registration; Deployment by Scanning Bar Codes DHCP-based Deployment ploy Query Center g; ci i {iMasternce ©; © e< iMaster NCE @ ef iMaster NcE @ es iMaster NCE «*; ra Registration; ' A F im - \ query center; ; ' : 7 & , : \; I \ 2|=|5 I; ‘0 '@ 'O | @ ‘0 |; I 1; /; A " ' DHCP server ' 1 I; \ / \ : Vv i] /; Vv i \ & ra i or i @; ») \ ‘ I 7” ® /; 2 | OU} => ra 24 ($Y) = (>); ($9) —k==4q 1G) 1b) ee oe “A; 4. Pre-confiquration 1. Pre-configuration; 1. Pre-configuration omigura’ , ; 2. Information synchronization; ; 2. Obtaining registration information through the . _ ;; 2. Deployment by scanning bar codes DHCP server 3. Obtaining registration information through the; 3. Automatic device registration and login , , ; registration query center; ; ; 3. Automatic device registration and login ; .; ; ; ;; 4. Automatic configuration delivery ; ; 4. Automatic device registration and login; = SulSiiatesseniigubalish GeIUery 5. Automatic configuration delivery; Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.30] Labels: e Free mobility: Enables users to have consistent network rights and security policies regardless of their; locations and IP addresses.; Seemiremaus Secnny amaun Security group 4) Use security groups. A security group is; 2) for sales users 2) for R&D users 2) le SEINE a group of Users for which the same; FESOUICES security policy is used.; Puig ih Pane} EnpenEnsS Palle? control policies and user experience policies; a ee and deliver the policies to network devices.; eliver_security policies; VV @) A security group is authorized to a user after; the user passes access authentication.; Campus; network A) After user traffic enters a network, network; y a 4x ~*~) devices enforce policies based on the source; : and destination security groups of the traffic.; Access authentication Accessauthentication Access authentication; 2) UserA 2) User B 2) User C; Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.31] Labels: .; Wired and Wireless Convergence; WLAN Construction Mode 1: Standalone AC WLAN Construction Mode 2: AC Card; ¢ This mode poses a wireless; traffic bottleneck and; increases faulty nodes. |AC Card|; * Wired and wireless * AnAC card is installed on a; * Wired and wireless * Hardware-level convergence.; authentication points are; Ci cy separated. Ci cy; Wired and wireless authentication point separation, distributed policy control, separation of control and data traffic forwarding, and troubleshooting and; management difficulties.; Wired and Wireless Convergence (Native AC); : The switch integrates the AC function, eliminating wireless traffic forwarding bottlenecks and reducing fault; nodes. Wired and wireless devices are centrally managed.; ¢ Unified management and converged forwarding of wired and wireless services; * Converged management for wired and wireless users and gateway convergence; * Converged authentication points for wired and wireless access; Ch cq ¢ Unified wired and wireless policy execution; Page 30 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.32] Labels: .; campus; Intelligent Terminal Identification,; . Crs; Requirements (GN of = coos; and Challenges ( fm) = —— —— Huawei supports identification of; . . iMaster NCE J 1000+ office or loT terminals.; A university |; . Built-in terminal; 50+ types of smart terminals (sss. 7) 7; Terminal information is | ee; collected by IT; departments of colleges: >> — —_—__—_— — —; MAC address collection is Cwi-Fi_) Gesee 5) Gi Gass* 5) Gi Gess* 5); difficult and error-prone.; An enterprise Qo Nea >> ALD; EEG —; 100+ authentication faults; reported per day Terminal-type-based Terminal-type-based Terminal-type-based; Hf eviifieuliiedowatc Automatic authentication Automatic authorization Spoofing detection; fin Printer Camera IP phone and PC; saves Ree NS MAC address authentication, withou Is automatically added to the Report a terminal spoofing alarm.; entering any MAC address video surveillance group.; Is configured as the VIP user.; Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.33] Labels: .; campus; HQoS: User- and Application-based QoS Policy; User- and application-based QoS policies ensure experience of high-priority users and applications; Requirements and #; eg; Challenges 0 |; Traditional QoS iMaster NCE 1. Define VIP users and; policies are invalid casas i) spplication prities; for video services. ae; Is 3 ] 2. Schedule users and; application queues based on; (Example) Building >> e A Gs, ico:; Wireless vid 0 servic ve % 3. Support native AC or; IISIESS VIGEO SEIWICES | independent AC deployment.; of common users; increase, occupying a — -; large number of network =; resources and causing Cwi-Fi_) 47; network congestion.; aS) isers,; users Camera Video users; surveillance Mobile phone and tablet; Page 32 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.34] Labels: As-ls: Device-Centered Network Management To-Be: User Experience-Centered Al-Powered Intelligent O&M; j Intelligent network analyzer; e \iMaster NCE telligent network analyze; 7 NMS ) Campusinsight  * Visualized user experience; Traditional, Topology management management; NMS © Performance * User journey playback; management Telemetry - Potential fault identification; SNMP + Alarm management Second-level network ° Root cause identification .; Minute-level network » Configuration data collection ¢ Predictive network optimization; data collection management; =; _ woke:; WY Ed Eg; Experience visualization: Telemetry-based second-level data collection, visualized; experience of each user and each application in real time; * Device-centric O&M method: User experience cannot be Minute-level potential fault identification and root cause location; detected. « Identify potential faults based on dynamic baselines and big data correlation; . tri analysis.; neers responses: Potential faulls cannot be « Accurately locate root causes of faults through KPI association analysis and protocol; , . . . tracing.; Rely Of Brolsssiahal Ehigineeks!lo locate faults Onsite. Predictive network optimization: Al is used to intelligently analyze the AP load; trend and implement predictive optimization on the wireless network.; The efficiency is improved by using algorithms. With scenario-based continuous learning and expert experience, intelligent O&M frees O&M; personnel from complex alarms and noises, making O&M more automated and intelligent.; Page 33 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.35] Labels: =; L L L Ld; Al-Powered Intelligent Radio Calibration; Traditional radio calibration . =»; , Tested and verified b ‘ ); FAO RASKAYE Al-powered authoritative organizations; expected results intelligent radio Tolly; Phase 1: Manual Calibration calibration Average downlink rate per terminal:; Based on engineers’ experience, the of °; calibration is time-consuming and % IM aster NCE 58% 198 Mbit/s; error-prone, and the calibration result - 4hr ars 425 Mbit/s; is unstable. PN 0) Dd; Radio calibration Real-time and historical; AN simulation data collection ——.; — >> Before radio After Al-powered; calibration smart radio; = LE Smart radio —~ calibration; Calibration we calibration and Counter; Phase 2: Automatic Calibration ~~ closed-loop Average Wi-Fi channel interference; Calibration based on real-time radio; interference does not consider device —— = 4, 55%; load changes, and the calibration iInglowset penormance 49%; result cannot be ensured. 5 5 7 Y Number of users ‘Ny 2.8%; Fe 38 z o; $3 5° g roy; ao os sz oO; ES 3 5 ——; 8 to) : 8 Channel/Frequency ha Before radio After Al-powered; bandwidth/Power calibration smart radio; nn | calibration; Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.36] Labels: ) Contents; 1. SDN Overview; 2. NFV Overview; Page 35 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.37] Labels: NFV Background: Thinking from IT Industry; Transformation; e The IT industry transformation brings thinking on network architecture and device architecture in the; network industry. The network architecture layer involves the SDN controller and the device architecture; layer involves the device deployment mode.; IT Industry Transformation; ¢ Inrecent years, IT technologies such as virtualization and; ; . gs Network?; cloud computing have been booming, and applications; deployed on hardware have been gradually migrated to; the cloud. Applications are deployed on private; clouds, public clouds, or hybrid clouds as software.; ¢ Thinking about the network industry: Can network; Hele wee applications be deployed in a software-based manner?; Os Os ¢ Inthe context, Network Functions Virtualization (NFV); App; ' is introduced.; Virtualization/ VM VM; Os Cloudification »; Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.38] Labels: Origin of NFV; e In October 2012, 13 top carriers (including AT&T, Verizon, VDF, DT, T-Mobile, BT, and Telefonica) released; the first version of NFV White Paper at the SDN and OpenFlow World Congress. In addition, the Industry; Specification Group (ISG) was founded to promote the definition of network virtualization requirements and; the formulation of the system architecture.; ¢ In 2013, the ETSI NFV ISG conducted the first phase of research and completed the formulation of related; standards. The ETSI NFV ISG defined NFV requirements and architecture and sorts out the; standardization processes of different interfaces.; World Class Standards; Page 37 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.39] Labels: e NFV aims to address issues such as complex deployment and O&M and service innovation; difficulties due to large numbers of telecom network hardware devices. NFV brings the following; benefits to carriers while reconstructing telecom networks:; 2 Shortened service rollout time; «= Reduced network construction cost; 2 Improved network O&M efficiency; 2 Open ecosystem; Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.40] Labels: L : Ld Ld L; Key NFV Technologies: Virtualization; e Virtualization is the foundation of NFV, and cloudification is the key.; e On traditional telecom networks, each NE is implemented by dedicated hardware, resulting in high costs and difficult; O&M. Virtualization features partition, isolation, encapsulation, and independence from hardware, which can meet NFV; requirements. Carriers use virtualization to run software-based NEs on universal infrastructures.; Partition Isolation; Waa> | Bp |; Multiple VMs can concurrently run on VMs that run on the same server are; a single physical server. isolated from each other.; Encapsulation Hardware independence; = kek “>; = BS; All data of a VM is saved in files. A VM VMs can run on any servers without any; can be moved and replicated by moving modifications.; and replicating the files.; Page 39 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.41] Labels: Introduction to the NFV Architecture; e The NFV architecture includes the network functions virtualization infrastructure (NFVI), a virtualized network function; (VNF), and management and orchestration (MANO). In addition, the NFV architecture needs to support the existing; business support system (BSS) or operations support system (OSS).; OSS/BSS: is an existing operation/O&M support; system.; uses cloud resources to construct software NEs. __ Provides functions; such as service; orchestration, service; management, and; . ; resource management.; provides cloud-based resource pools.; Page 40 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.42] Labels: ¢ ETSI defines the standard NFV architecture, which consists of the NFVI, VNF, and MANO. The NFVI includes the; universal hardware layer and virtualization layer. The VNF is implemented using software, and the MANO implements; management and orchestration of an NFV architecture. NEV Management and Orchestration; MANO; Os-Ma; — OSS/BSS —_——_ NFV; | Orchestrator; | au EM2 EMS Ve-Vnfm Service, VNF, and; VNF Infrastructure; | VNF 1 VNF 2 VNF 3 Manager(s) Description; | NFVI Vi-Vnfm; | Virtualization Layer; | Virtual Virtual Virtual Nf-Vi Virtualized Or-Vi; | Computing Storage Network ——————___ Infrastructure ~; : if Vi-Ha Manager(s); | Hardware; Computing Storage Network; eo—e Execution reference point Other reference point —— Main NFV reference points; Page 41 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.43] Labels: e Main functional modules defined in the standard NFV architecture:; OSS or Management system for a service provider. It is not a functional component in the NFV architecture, but the MANO must; BSS provide an interface for interoperation with the OSS or BSS.; MANO NFV management and orchestration. The MANO includes the VIM, VNFM, and NFVO, and provides unified management and; orchestration for VNFs and the NFVI.; ¢ VIM: NFVI management module that runs on an infrastructure site. The VIM provides functions such as resource; discovery, virtual resource management and allocation, and fault handling.; ¢ VNFM«: It controls the VNF lifecycle (including instantiation, configuration, and shutdown).; ¢ NFVO: It orchestrates and manages all the software resources and network services on an NFV network.; VNF VNEs refer to VMs as well as service NEs and network function software deployed on the VMs.; NFVI NFV infrastructure, including required hardware and software. The NF VI provides a running environment for VNFs.; ¢ Hardware layer: includes hardware devices that provide compute, network, and storage resources.; ¢ Virtualization layer: abstracts hardware resources to form virtual resources, such as virtual compute, storage, and; network resources. The virtualization function is implemented by Hypervisor!"),; Page 42 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.44] Labels: NFV Architecture Interfaces; e Main interfaces of the standard NFV architecture:; Vi-Ha Is used between the virtualization layer and hardware layer. The virtualization layer meets basic hardware compatibility; requirements.; Vn-Nf Is used between a VM and the NF VI. It ensures that VMs can be deployed on the NFVI to meet performance, reliability, and; o- scalability requirements. The NFVI meets VMs' OS compatibility requirements.; Is used between the virtualization layer management software and NF VI. It provides management of virtual computing, storage,; Nf-Vi and network systems of NF VI, virtual infrastructure configuration and connections, as well as system usage, performance; monitoring, and fault management.; Ve-Vnfm Is used between the VNFM and a VNF, implementing VNF lifecycle management, VNF configuration, VNF performance, and fault; management.; OS-Ma Manages lifecycles of network services and VNFs.; WiAfatn Is used for interaction between the service application management system or service orchestration system and virtualization layer; management software.; Sends configuration information to the VNFM, configures the VNFM, and connects the orchestrator and VNFM. It exchanges; Or-Vnfm information with the NFVI resources allocated to VNFs and information between VNFs.; Or-Vi Is used to send resource reservation and resource allocation requests required by the orchestrator and exchange virtual hardware; resource configurations and status information.; Page 43 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.45] Labels: a | |_|; Huawei's NFV Solution; e In the Huawei NFV architecture, functions of the virtualization layer and VIM are implemented by the HUAWEI CLOUD; Stack NFVI platform. HUAWEI CLOUD Stack can virtualize compute, storage, and network resources and centrally; manage, monitor, and optimize physical virtualization resources.; e Huawei provides cloud-based solutions for carriers' wireless networks, bearer networks, transport networks, access; networks, and core networks.; VNF MANO; Cloud CloudOpera; CloudBB DSL/OLT CloudEdge CloudCore 5G Core Nevo; VNFM; NFVI; HUAWEI CLOUD Stack; FusionSphere; FusionCompute FusionStorage FusionNetwork OpenStack + OM; Hardware; Computing Storage Network; Page 44 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.46] Labels: More Information; e For more information about OpenFlow, visit https:/Avww.opennetworking.org/ .; e For more information about Huawei SDN solution, see the HCIP course.; Page 45 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)

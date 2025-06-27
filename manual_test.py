@@ -22,10 +22,15 @@ if __name__ == "__main__":
     raw_dir = "data/raw"
     # Prova sample.txt e il PDF
     #  test_file(os.path.join(raw_dir, "sample.txt"))
-    test_file(os.path.join(raw_dir, "Lecture 02 - Error Control Protocols .pdf"))
+    #  test_file(os.path.join(raw_dir, "Lecture 02 - Error Control Protocols .pdf"))
 
     # Testa automaticamente tutte le immagini in data/raw
     # for fname in os.listdir(raw_dir):
     #    if fname.lower().endswith((".jpg", ".jpeg", ".png")):
     #        test_file(os.path.join(raw_dir, fname), save_to_disk=True)
+
+    # Testa automaticamente tutte i files supportati in data/raw
+    for fname in os.listdir(raw_dir):
+       if fname.lower().endswith((".jpg", ".jpeg", ".png", ".txt", ".pdf")):
+          test_file(os.path.join(raw_dir, fname), save_to_disk=True)
 

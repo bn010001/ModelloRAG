@@ -1,0 +1,995 @@
+Page O
+Fondamenti di Internet
+IP Routing Basics
+
+Foreword
+¢ There are typically multiple IP subnets on a typical data communication network. Layer 3
+devices are required to exchange data between these IP subnets. These devices have the
+routing capability and can forward data across subnets.
+¢ Routing is the basic element of data communication networks. It is the process of selecting
+paths on a network along which packets are sent from a source to a destination.
+¢ This course introduces the basic concepts of routing.
+Page 1 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Objectives
+¢ On completion of this course, you will be able to:
+Oo Understand the basic principles of routers.
+Oo Know how routers select optimal routes.
+Oo Understand the contents of routing tables.
+Oo Master advanced routing features.
+Page 2
+
+) Contents
+1. Overview of IP Routing
+= Basic Concepts of Routing
+2 Generation of Routing Entries
+2 Optimal Route Selection
+2 Route-based Forwarding
+2. Static Routing
+3. Dynamic Routing
+4. Advanced Routing Features
+Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Background: Inter-Subnet Communication
+* An IP address uniquely identifies anode ona
+network. Each IP address belongs to a unique
+subnet, and each subnet may belong to a different
+area of the network.
+N
+* To implement IP networking, subnets in different
+areas need to communicate with each other.
+How to communicate with
+the network M?
+Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e A unique network node can be found based ona specific IP address. Each IP address belongs to a
+unique subnet. These subnets may be distributed around the world and constitute a global
+network.
+¢ To implement communication between different subnets, network devices need to forward IP
+packets from different subnets to their destination IP subnets.
+
+>) Routes
+* Routes are the path information used to guide packet forwarding.
+* A routing device is a network device that forwards packets to a destination subnet based on routes. The most common routing
+device is a router.
+* Arouting device maintains an IP routing table that stores routing information.
+Route-based Packet Forwarding
+Router R4
+%
+Data R1
+_ _ >
+N M
+Gateway | Gateway
+| Destination-based forwarding |
+Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e A gateway and an intermediate node (a router) select a proper path according to the destination
+address of a received IP packet, and forward the packet to the next router. The last-hop router on
+the path performs Layer 2 addressing and forwards the packet to the destination host. This
+process is called route-based forwarding.
+e The intermediate node selects the best path from its IP routing table to forward packets.
+e A routing entry contains a specific outbound interface and next hop, which are used to forward IP
+packets to the corresponding next-hop device.
+
+A) Routing Information
+¢ A route contains the following information:
+Oo ~©Destination: identifies a destination subnet.
+10.1.1.0/24 o ©6Mask: identifies a subnet together with a destination IP
+address.
+GEO/0/0 —§__ Ky
+1.1.1.3
+o §Qutbound interface: indicates the interface through which a
+data packet is sent out of the local router.
+y o =Next hop: indicates the next-hop address used by the router
+IP routing table to forward the data packet to the destination subnet.
+}Desination/mask | Ombound | extn. | ¢ The information identifies the destination subnet and
+10.1.1.0/24 GE0/0/0 1.1.1.2 specifies the path for forwarding data packets.
+Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e Based on the information contained in a route, a router can forward IP packets to the destination
+along the required path.
+e The destination address and mask identify the destination address of an IP packet. After an IP
+packet matches a specific route, the router determines the forwarding path according to the
+outbound interface and next hop of the route.
+e The next-hop device for forwarding the IP packet cannot be determined based only on the
+outbound interface. Therefore, the next-hop device address must be specified.
+
+(y) IP Routing Table
+14.0.0.0/8 Destination/Mask Outbound
+RA Interface
+¢ Routers discover routes using multiple methods.
+1.1.1.2/30 11.0.0.0/8 2.2.2.2 GEO/O
+13.0.0.0/8 3.3.3.2 GEO/1 * Arouter selects the optimal route and installs it in
+= di 14.0.0.0/8 1112 GEO/2 its IP routing table.
+GEO/2 “ ;
+1.1.1.1/30 1.1.1.0/30 1.1.11 GEO/2 ¢ The router forwards IP packets based on routes in
+the IP routing table.
+GEO/O GEO/1
+2.2.2.1/30 3.3.3.1/30 ¢ Routers manage path information by managing
+their IP routing tables.
+2.2.2.2/30 3.3.3.2/30
+11.0.0.0/8 13.0.0.0/8
+Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e A router forwards packets based on its IP routing table.
+e An IP routing table contains many routing entries.
+e An IP routing table contains only optimal routes but not all routes.
+e A router manages routing information by managing the routing entries in its IP routing table.
+
+) Contents
+1. Overview of IP Routing
+2 Basic Concepts of Routing
+= Generation of Routing Entries
+2 Optimal Route Selection
+2 Route-based Forwarding
+2. Static Routing
+3. Dynamic Routing
+4. Advanced Routing Features
+Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+How to Obtain Routing Information
+¢ A router forwards packets based on its IP routing table. To implement route-based packet forwarding, the router needs to
+obtain routes. The following describes the common methods of obtaining routes.
+Direct Routes Static Routes Dynamic Routes
+Direct routes are automatically generated by ¢ Static routes are manually configured by network Dynamic routes are learned by dynamic routing
+devices and point to local directly connected administrators. protocols running on routers.
+20.1.1.0/24
+GEO/0/1
+30.1.1.0/24 & ®
+10.1.1.0/24
+Destination/Mask Sadan = 2 . |
+oe utboun
+Destination/Mask Protocol Destination/Mask Outbound
+10.1.1.0/24 GEO/0/0 Stele Interface
+Dynamic routing
+protocol
+GEO/0/2 OSPF
+Direct
+Direct 20.1.1.0/24 GEO/0/1 Static 30.1.1.0/24 GEO/0/1 OSPF 40.1.1.0/24 GEO/0/2
+Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e Direct routes are the routes destined for the subnets to which directly connected interfaces
+belong. They are automatically generated by devices.
+e Static routes are manually configured by network administrators.
+e Dynamic routes are learned by dynamic routing protocols, such as OSPF, IS-IS, and BGP.
+
+(y) Direct Routes (1)
+Direct Routes
+* Adirect route is automatically generated by a device
+and points to a local directly-connected network.
+GEO/0/0 * When a router is the last hop router, IP packets to be
+10.0.0.2/24
+10.0.0.0/24 GEO/0/1 20.1.1.0/24 forwarded will match a direct route and the router will
+RTB 20.1.1.2/24
+directly forward the IP packet to the destination host.
+* When a direct route is used for packet forwarding, the
+destination IP address of a packet to be forwarded and
+Direct routes in the IP routing table of RTB the IP address of the router‘’s outbound interface are in
+Destination/Ma| 9. col Outbound the same subnet.
+sk Interface
+10.0.0.0/24 Direct 10.0.0.2 GE0/0/0
+20.1.1.0/24 Direct 20.1.1.2 GEO/0/1
+Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e When a packet matches a direct route, a router checks its ARP entries and forwards the packet to
+the destination address based on the ARP entry for this destination address. In this case, the
+router is the last hop router.
+e The next-hop address of a direct route is not an interface address of another device. The
+destination subnet of the direct route is the subnet to which the local outbound interface
+belongs. The local outbound interface is the last hop interface and does not need to forward the
+packet to any other next hop. Therefore, the next-hop address of a direct route in the IP routing
+table is the address of the local outbound interface.
+e When a router forwards packets using a direct route, it does not deliver packets to the next hop.
+Instead, the router checks its ARP entries and forwards packets to the destination IP address
+based on the required ARP entry.
+
+(y) Direct Routes (2)
+Direct routes
+GE0/0/0 GEO/0/1
+10.0.0.2/24 20.1.1.3/24 . .
+/ * Not all the direct routes generated for interfaces are
+GE0/0/0 GEO/0/1
+RTA 10.0.0.1/24 RTB 20.1.1.2/24 RTC installed in the IP routing table. Only the direct routes of
+which the physical status and protocol status of
+interfaces are up are installed in the IP routing table.
+Direct routes in the IP routing table of RTB
+_ Outbound
+Destination/Mask Protocol
+Interface
+20.1.1.0/24 Direct 20.1.1.2 G0/0/1
+* When GEO/0/0 goes down, the direct route for this interface is not
+installed in the IP routing table.
+Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. Overview of IP Routing
+2 Basic Concepts of Routing
+2 Generation of Routing Entries
+= Optimal Route Selection
+2 Route-based Forwarding
+2. Static Routing
+3. Dynamic Routing
+4. Advanced Routing Features
+Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Examining the IP Routing Table
+<Quidway> display ip routing-table
+Route Flags: R - relay, D - download to fib
+Routing Tables: Public
+Destinations : 6 Routes : 6
+Destination/Mask Proto Pre Cost Flags NextHop Interface
+1.1.1.1/32 Static 60 0 D 0.0.0.0 NULLO
+2.2.2.2/32 Static 60 0 D 100.0.0.2 Vlanif100
+100.0.0.0/24 Direct 0 60 D 100.0.0.1 Vlanif100
+100.0.0.1/32 Direct 0 60 D 127.0.0.1 Vlanif100
+127.0.0.0/8 Direct 0 0 D 127.0.0.1 InLoopBackO
+127.0.0.1/32 Direct 0 0 D 127.0.0.1 InLoopBackO
+Destination/Mask Protocol | | Flag Next-hop Outbound
+address interface
+Route Cost
+preference (Metric)
+Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+= Fields
+ 
+in the IP Routing Table
+Page 14
+Destination/Mask: indicates the destination network address and mask of a specific route. The subnet address of a destination host
+or router is obtained through the AND operation on the destination address and mask. For example, if the destination address is
+1.1.1.1 and the mask is 255.255.255.0, the IP address of the subnet to which the host or router belongs is 1.1.1.0.
+Proto (Protocol): indicates the protocol type of the route, that is, the protocol through which a router learns the route.
+Pre (Preference): indicates the routing protocol preference of the route. There may be multiple routes to the same destination,
+which have different next hops and outbound interfaces. These routes may be discovered by different routing protocols or be
+manually configured. A router selects the route with the highest preference (with the lowest preference value) as the optimal route.
+Cost: indicates the cost of the route. When multiple routes to the same destination have the same preference, the route with the
+lowest cost is selected as the optimal route.
+NextHop: indicates the local router’s next-hop address of the route to the destination network. This field specifies the next-hop
+device to which packets are forwarded.
+Interface: indicates the outbound interface of the route. This field specifies the local interface through which the local router
+forwards packets.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e The Preference field is used to compare routes from different routing protocols, while the Cost
+field is used to compare routes from the same routing protocol. In the industry, the cost is also
+known as the metric.
+
+(*) Route Preference - Basic Concepts
+Comparing Route Preferences * When a router obtains routes to the same destination
+subnet from different routing protocols (these routes
+Routes have the same destination network address and mask),
+| the router compares the preferences of these routes and
+prefers the route with the lowest preference value.
+Destination Different Installed in the IP
+Subnet/mask routing table * A lower preference value indicates a higher preference.
+Same . . oe .
+| * The route with the highest preference is installed in the IP
+Higher Preference routing table.
+Preference
+Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+(*) Route Preference - Comparison Process
+Comparing Route Preferences
+Dynamic routing
+protocol 20,1.1.2/30
+OSPF
+* RTA discovers two routes to 10.0.0.0/30, one is an
+10.0.0.0/30
+mA LAVED OSPF route and the other a static route. In this case,
+RTA compares the preferences of the two routes and
+30.1.1.1/30 30.1.1.2/30
+selects the route with the lowest preference value.
+» * Each routing protocol has a unique preference.
+IP routing table of RTA * OSPF has a higher preference. Therefore, the OSPF
+route is installed in the IP routing table.
+osm | rotet | mee | neton |
+10.0.0.0/30 Static 60 30.1.1.2 installed in
+the IP
+10.0.0.0/30 OSPF 10 20.1.1.2 < routing
+table
+Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e RTA learns two routes to the same destination, one is a static route and the other an OSPF route.
+It then compares the preferences of the two routes, and prefers the OSPF route because this
+route has a higher preference. RTA installs the OSPF route in the IP routing table.
+
+(*) ) Metric - Comparison Process
+Metric comparison
+Dynamic routing * RTA learns two routes with the same destination
+ee, ADs 2y/Si0 address (10.0.0.0/30) and preference through OSPF.
+Cost=10
+20.1.1.1/30 In this case, RTA needs to compare the metrics of
+Cost=10
+the two routes.
+30.1.1.1/30 30.1.1.2/30
+* The two routes have different metrics. The OSPF
+Nw route with the next hop being 30.1.1.2 has a lower
+; metric (with the cost 10}, so it is installed in the IP
+IP routing table of RTA
+routing table.
+10.0.0.0/30 OSPF 20 20.1.1.2 Installed in
+the IP
+10.0.0.0/30 OSPF 10 30.1.1.2 < routing
+table
+Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=] Route Preference - Common Default Values
+¢ The following table lists the default preference values of common route types:
+Direct Direct route 0
+Static Static route 60
+OSPF internal route 10
+Dynamic routing protocol
+OSPF external route 150
+Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e The table lists the preferences of some common routing protocols. Actually, there are multiple
+types of dynamic routes. We will learn these routes in subsequent courses.
+
+Page 19
+(*) ) Metric - Basic Concepts
+Comparing Metrics
+Different Installed in the IP
+routing table
+Higher preference
+Same preference
+Lower metric
+Metric
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+When a router discovers multiple routes to the same
+destination network through the same routing
+protocol, the router selects the optimal route based on
+the metrics of these routes if these routes have the
+same preference.
+The metric of a route indicates the cost of reaching the
+destination address of the route.
+Common metrics include the hop count, bandwidth,
+delay, cost, load, and reliability.
+The route with the lowest metric is installed in the IP
+routing table.
+The metric is also known as the cost.
+
+) Contents
+1. Overview of IP Routing
+2 Basic Concepts of Routing
+2 Generation of Routing Entries
+2 Optimal Route Selection
+= Route-based Forwarding
+2. Static Routing
+3. Dynamic Routing
+4. Advanced Routing Features
+Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Longest Matching
+¢ When a router receives an IP packet, it compares the destination IP address of the packet with all routing entries in
+the local routing table bit by bit until the longest matching entry is found. This is the longest matching mechanism.
+Bit-by-bit matching
+Destination IP address
+172.16.2.1
+172. 16. 00000010 00000001
+%,
+172.16.1.0 Sm
+Routing entry 1 172. 00000001 Rog
+255.255.255.0
+$e
+172.16.2.0 My
+Routing entry 2 172. 00000010 "ran,
+255.255.255.0
+~ b
+172.16.0.0 4.
+Routing entry 3 we "ia,
+ 
+"ee,
+255.255.0.0
+Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Example of Longest Matching (1)
+Example of Longest Matching
+Destination IP 10.1.1.2/30
+address:
+192.168.2.2
+ww 30.1.1.2/30
+IP routing table of RTA
+Destination/Mask | NextHop |
+192.168.0.0/16 10.1.1.2
+192.168.2.0/24 20.1.1.2 < Match
+192.168.3.0/24 30.1.1.2
+Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+There are two routes to 192.168.2.2 in the IP routing
+table of RTA, one has the 16-bit mask and the other has
+the 24-bit mask. According to the longest matching
+rule, the route with the 24-bit mask is preferred to
+guide the forwarding of packets destined for
+192.168.2.2.
+
+Example of Longest Matching (2)
+Example of Longest Matching
+Destination IP
+address:
+192.168.3.2
+10.1.1.2/30
+~4—_- & * According to the longest matching rule, only the route to
+192.168.3.0/24 in the IP routing table matches the
+~ a destination IP address 192.168.3.2. Therefore, this route is
+30.1.1.2/30
+IP routing table of RTA used to forward packets destined for 192.168.3.2.
+Pe
+ 
+cestnaton/Mesk
+ 
+| Nexton
+192.168.0.0/24 10.1.1.2
+192.168.2.0/24 20.1.1.2
+192.168.3.0/24 30.1.1.2 < Match
+Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+(*) Route-based Forwarding Process
+Destination/Mask Outbound
+Interface
+Destination IP 20.0.1.0/24 20.0.1.2 GEO/O
+address:
+40.0.1.2 30.0.1.0/24 30.0.1.1 GEO/1
+10.0.1.0/24 20.0.1.1 GEO/O
+MY] 40.0.1.0/24 30.0.1.2 GEO/1
+IP routing table of R2
+Data
+Gateway Gateway
+GEO/1 GEO/O GEO/O GEO/1 GEO/0 GEO/1
+10.0.1.0/24 20.0.1.0/24 30.0.1.0/24 40.0.1.0/24
+_kk 10.0.1.1 20.0.1.1 20.0.1.2 30.0.1.1 30.0.1.2 40.0.1.1 =
+= R1 R2 R3 ik
+—_— ———. —_—>
+IP routing table of R1 IP routing table of R3
+| cesintovek | nestor | tee |
+ 
+ossnenea
+ 
+| wen | ee
+10.0.1.0/24 10.0.1.1 GEO/1 40.0.1.0/24 40.0.1.1 GEO/1
+20.0.1.0/24 20.0.1.1 GEO/O 30.0.1.0/24 30.0.1.2 GEO/O
+30.0.1.0/24 20.0.1.2 GEO/O 10.0.1.0/24 30.0.1.1 GEO/O
+40.0.1.0/24 20.0.1.2 GEO/O 20.0.1.0/24 30.0.1.1 GEO/O
+Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e The IP packets from 10.0.1.0/24 need to reach 40.0.1.0/24. After receiving these packets, the
+gateway R1 searches its IP routing table for the next hop and outbound interface and forwards
+the packets to R2. After the packets reach R2, R2 forwards the packets to R3 by searching its IP
+routing table. Upon receipt of the packets, R3 searches its IP routing table, finding that the
+destination IP address of the packets belongs to the subnet where a local interface resides.
+Therefore, R3 directly forwards the packets to the destination subnet 40.0.1.0/24.
+
+[=] ) Summary of the IP Routing Table
+* When a router obtains routes to the same destination subnet with the same mask from different routing protocols,
+the router prefers the route with the lowest preference value of these routing protocols. If these routes are learned
+from the same routing protocol, the router prefers the route with the lowest cost. In summary, only the optimal
+route is installed in the IP routing table.
+* When a router receives a packet, it searches its IP routing table for the outbound interface and next hop based on
+the destination IP address of the packet. If it finds a matching routing entry, it forwards the packet according to the
+outbound interface and next hop specified by this entry. Otherwise, it discards the packet.
+* Packets are forwarded hop by hop. Therefore, all the routers along the path from the source to the destination must
+have routes destined for the destination. Otherwise, packet loss occurs.
+* Data communication is bidirectional. Therefore, both forward and backward routes must be available.
+Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. Overview of IP Routing
+2. Static Routing
+3. Dynamic Routing
+4. Advanced Routing Features
+Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Application Scenarios of Static Routes
+Static Routes * Static routes are manually configured by network
+administrators, have low system requirements, and apply
+O—— to simple, stable, and small networks.
+Destined f . . .
+301.1.0/24 GE0/0/0 GE0/0/1 * The disadvantage of static routes is that they cannot
+10.0.0.2/24 20.1.1.3/24 .
+ween eee eee ee eee ee eee eee automatically adapt to network topology changes and so
+GEOQ/0/0 GEO/0/1
+RTA 10.0.0.1/24 RTB _20.1.1.2/24 RTC require manual intervention.
+* RTA needs to forward the packets with the destination
+NG | Destination | Protocol | Next Hop | network address 20.1.1.0/24. However, the IP routing
+20.1.1.0 Static 10.0.02 table of RTA has only one direct route, which does not
+10.0.0.0 Direct 10.0.0.1 match 20.1.1.0/24. In this case, a static route needs to be
+manually configured so that the packets sent from RTA to
+20.1.1.0/24 can be forwarded to the next hop 10.0.0.2.
+Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+(*) ) Static Route Configuration
+Specify a next-hop IP address for a static route.
+[Huawei] ip route-static jp-address { mask | mask-length } nexthop-address
+Specify an outbound interface for a static route.
+[Huawei] ip route-static ip-address { mask | mask-length } interface-type interface-number
+Specify both the outbound interface and next hop for a static route.
+[Huawei] ip route-static jp-address { mask | mask-length } interface-type interface-number [ nexthop-address ]
+When creating a static route, you can specify both the outbound interface and next hop. Alternatively, you can specify either
+the outbound interface or next hop, depending on the interface type:
+For a point-to-point interface (such as a serial interface), you must specify the outbound interface.
+For a broadcast interface (for example, an Ethernet interface) or a virtual template (VT) interface, you must specify the next
+hop.
+Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+A VT interface is used in VPN applications. The system creates and deletes VT interfaces and the
+process is transparent to users.
+e The link layer of VT interfaces only supports the PPP protocol, and the network layer only
+supports IP.
+
+[=] ) Configuration Example
+GEO/0/0 $1/0/0
+Ke 10.0.0.2/24 1 &) 20.1.1.3/24 &
+GEO/0/0 $1/0/0
+RTA = 10.0.0.1/24 RTB 20.1.1.2/24 RTC
+Destined for Destined for
+20.1.1.0/24 10.1.1.0/24
+* Configure static routes on RTA and RTC for communication between
+10.0.0.0/24 and 20.1.1.0/24.
+¢ Packets are forwarded hop by hop. Therefore, all the routers along the
+path from the source to the destination must have routes destined for
+the destination.
+* Data communication is bidirectional. Therefore, both forward and
+backward routes must be available.
+Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Configure RTA.
+[RTA] ip route-static 20.1.1.0 255.255.255.0 10.0.0.2
+Configure RTC.
+[RTC] ip route-static 10.0.0.0 255.255.255.0 $1/0/0
+
+Default Routes
+Page 30
+Default routes are used only when packets to be forwarded do not match any routing entry in an IP routing table.
+In an IP routing table, a default route is the route to network 0.0.0.0 (with the mask 0.0.0.0), namely, 0.0.0.0/0.
+RTA needs to forward packets to
+a subnet that is not directly
+connected to it and forwards the
+packets to 10.0.0.2.
+RTA
+GE0/0/0
+10.0.0.0/24
+192.168.1.0/24
+RTB | 192.168.2.0/24
+GEO/0/0 & 192.168.3.0/24
+10.0.0.2 :
+192.168.254.0/24
+[RTA] ip route-static 0.0.0.0 0 10.0.0.2
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Application Scenarios of Default Routes
+¢ Default routes are typically used at the egress of an enterprise network. For example, you can configure a default
+route on an egress device to enable the device to forward IP packets destined for any address on the Internet.
+Enterprise
+network RTA
+oe GE0/0/1 GE0/0/0 1.2.3.254
+PC 192.168.1.254 1.2.3.4
+192.168.1.100
+Gateway: 192.168.1.254
+Xe
+[RTA] ip route-static 0.0.0.0 0 1.2.3.254
+Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. Overview of IP Routing
+2. Static Routing
+3. Dynamic Routing
+4. Advanced Routing Features
+Page 32 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+(y) ) Overview of Dynamic Routing
+. : * To use static routes on any Dynamic routing OSPF * Dynamic routes can be
+Static routing NY device, you must manually Y e SY automatically discovered
+configure them. and learned.
+¢ Static routes cannot adapt
+to link changes.
+* Dynamic routes can adapt
+to topology changes.
+Be
+ 
+& &
+¢ When the network scale expands, it becomes increasingly complex to * Dynamic routing protocols automatically discover and generate
+manually configure static routes. In addition, when the network routes, and update routes when the topology changes. These
+topology changes, static routes cannot adapt to these changes ina protocols effectively reduce the workload of network
+timely and flexible manner. administrators and are widely used on large networks.
+Page 33 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e The disadvantage of static routes is that they cannot automatically adapt to network topology
+changes and so require manual intervention.
+e Dynamic routing protocols provide different routing algorithms to adapt to network topology
+changes. Therefore, they are applicable to networks on which many Layer 3 devices are deployed.
+
+[=] ) Autonomous Systems
+¢ An IP network, or networks, controlled by one or more operators with a
+clear policy that governs how routing decisions are made.
+Page 34
+e An enterprise network generally can be understood as an instance of an autonomous system. As
+defined within RFC 1030, an autonomous system or AS, as it is also commonly known, is a
+connected group of one or more IP prefixes run by one or more network operators which has a
+SINGLE and CLEARLY DEFINED routing policy.
+e The concept of autonomous systems originally considered the existence of a single routing
+protocol, however as networks have evolved, it is possible to support multiple routing protocols
+that interoperate through the injection of routes from one protocol to another. A routing policy
+can be understood to be a set of rules that determine how traffic is managed within an
+autonomous system, to which a single, or multiple operator(s) must adhere to.
+
+Internet Routing
+Inter-AS border oe | gateway)
+N “SN
+CA.a>
+<a}
+/
+a
+(ASB
+4
+ 
+Ewe
+Itra-AS interior router (gateway)
+
+(y) ) Classification of Dynamic Routing Protocols
+Classification by the application scope
+Interior Gateway Protocol (IGP) Exterior Gateway Protocol (EGP)
+Classification by working mechanism and routing algorithm
+Distance-vector routing protocol Link-state routing protocol
+Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e Dynamic routing protocols are classified into two types based on the routing algorithm:
+« Distance-vector routing protocol
+» RIP
+a Link-state routing protocol
+= OSPF
+» IS-IS
+« BGP uses a path vector algorithm, which is modified based on the distance-vector
+algorithm. Therefore, BGP is also called a path-vector routing protocol in some scenarios.
+e Dynamic routing protocols are classified into the following types by their application scope:
+2 IGPs run within an autonomous system (AS), including RIP, OSPF, and IS-IS.
+o EGP runs between different ASs, among which BGP is the most frequently used.
+
+) Contents
+1. Overview of IP Routing
+2. Static Routing
+3. Dynamic Routing
+4. Advanced Routing Features
+Page 37 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+; , Route
+Route Recursion Equal-Cost Route Floating Route a
+Summarization
+A) Route Recursion (1)
+Route recursion is a recursive search process of the IP routing table where the next-hop IP address is
+wanted to route packets towards its destination but when found it is not part of any directly connected
+network.
+GEO/0/1
+GEO/0/0
+10.0.0.2/24 20.1.1.3/24
+30.1.2.0/24
+GEO/0/0 GEO/0/1
+RTA _—-10.0.0.1/24 RTB —-.20.1.1.2/24 RTC
+Ne
+[RTA] ip route-static 30.1.2.0 24 20.1.1.3
+The next hop of the route to 30.1.2.0/24 is 20.1.1.3, which
+is not ona directly connected network of RTA. If the IP
+routing table does not have a route to 20.1.1.3, this static
+route does not take effect and cannot be installed in the IP
+routing table.
+Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 39
+Equal-Cost Route Floating Route
+Route Recursion (2)
+GE0/0/0 GEO/0/1
+10.0.0.2/24 20.1.1.3/24
+30.1.2.0/24
+GE0/0/0 GEO/0/1
+RTA _—«10.0.0.1/24 RTB —202.1.1.2/24
+RTC
+[RTA] ip route-static 30.1.2.0 24 20.1.1.3
+Destination/Ma Outbound
+sk Interface
+>— Recursion >
+[RTA] ip route-static 20.1.1.0 24 10.0.0.2
+30.1.2.0/24 20.1.1.3 GEO/0/0
+20.1.1.0/24 10.0.0.2 GEO/0/0
+Configure a route to 20.1.1.3, with the next hop pointing to 10.0.0.2 on the directly connected network.
+In this way, RTA can recurse the route with the destination 30.1.2.0/24 to the route with the destination 10.0.0.2.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Route
+Summarization
+
+Route Recursion Equal-Cost Route Floating Route LenS .
+Summarization
+[=] ) Equal-Cost Route
+¢ When there are equal-cost routes in the IP routing table, a router forwards IP packets to be sent to the destination
+subnet through all valid outbound interfaces and next hops in the equal-cost routes, achieving load balancing.
+RTA —_GE0/0/0 GE0/0/O RTB
+20.1.1.1/30 - ©ost=10 20.1.1.2/30
+& & 10.0.0.0/30
+GEO/0/1 Cost=10 GEO/0/1
+30.1.1.1/30 30.1.1.2/30
+If there are multiple routes to the same
+RTA's IP routing table destination from the same source, with the same
+cost, but pointing to different next hops, the
+Destination/Mask | NextHop | routes are installed in the IP routing table as
+20.1.1.2 aN equal-cost routes. Traffic to be sent to the
+10.0.0.0/30 30.112 destination will be distributed to these equal-cost
+— routes.
+Page 40 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Floating Route - Basic Concepts
+Floating Route
+* Different preferences can be manually configured for
+static routes. Therefore, you can configure two static
+routes with the same destination address/mask but
+different preferences and next hops to implement
+20.0.0.0/30 backup of forwarding paths.
+10.1.1.1/30 * A backup route is known as a floating route, which is
+used only when the primary route is unavailable. That
+10.1.2.1/30 10.1.2.2/30
+RTA RTC . . we . .
+is, a floating route is installed in the IP routing table
+> a only when the next hop of the primary route is
+Configure a floating route on RTA. unreachable.
+[RTA] ip route-static 20.0.0.0 30 10.1.1.2
+[RTA] ip route-static 20.0.0.0 30 10.1.2.2 preference 70
+Page 41 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Floating Route - Example
+Floating Route Switching
+20.0.0.0/30 20.0.0.0/30
+RTA's IP routing table when the primary link is available RTA's IP routing table when the primary link fails
+| Destination | NextHop | Preference | Fbestination
+ 
+| NextHop | Preference |
+20.0.0.0 10.1.1.2 60 20.0.0.0 10.1.2.2 70
+Page 42 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e When the link between RTA and RTB is normal, the two routes to 20.0.0.0/30 are both valid. In
+this case, RTA compares the preferences of the two routes, which are 60 and 70 respectively.
+Therefore, the route with the preference value 60 is installed in the IP routing table, and RTA
+forwards traffic to the next hop 10.1.1.2.
+e Ifthe link between RTA and RTB is faulty, the next hop 10.1.1.2 is unreachable, which causes the
+corresponding route invalid. In this case, the backup route to 20.0.0.0/30 is installed in the IP
+routing table. RTA forwards traffic destined for 20.0.0.1 to the next hop 10.1.2.2.
+
+A , Route
+Route Recursion Equal-Cost Route Floating Route a
+Summarization
+(*) ) CIDR
+¢ Classless Inter-Domain Routing (CIDR) uses IP addresses and masks to identify networks and subnets. CIDR replaces the previous
+addressing architecture of classful network design (such as classes A, B, and C addresses).
+¢ CIDR is based on variable length subnet mask (VLSM). CIDR uses prefixes of any lengths to divide the address space with continuous
+IP addresses. Multiple address segments with continuous prefixes can be summarized into a network, effectively reducing the
+number of routing entries.
+192. 168. jolo}o}o}a 1}0}o|/o]o]o]0}o}o}o|o| 192.168.12.0/22
+192. 168. jolo}o}o}a o|1]0|{0]o{o{o]o]o]o]o| 192.168.10.0/23
++> 192.168,8.0/21
+192. 168. jolo}o}o}a o|0|1||0]0{o{o]o]o]o]o| 192.168.9.0/21
+192. 168. }o|o|olola 1}1]0|{o]o|o]o]o}o}o]o| 192.168.14.0/23
+Page 43 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+A , Route
+Route Recursion Equal-Cost Route Floating Route a
+Summarization
+Background of Route Summarization
+* Subnet division and VLSM resolve the problem of address space waste, but also bring a new challenge: increasing
+routing entries in the IP routing table.
+* Route summarization can minimize routing entries.
+192.168.3.0/24 192.168.4.0/24 } (192.168.5.0/24 192.168.6.0/24
+192.168.2.0/24 | |
+RTB's IP routing table
+RTA
+192.168.1.0/24
+192.168.1.0/24 To route traffic to the directly connected network segments of
+192.168.2.0/24 RTA, RTB must have routes to these network segments. If a
+192.168.3.0/24 “~~ static route is manually configured for each network segment,
+& DAV 192.168.4.0/24 the configuration workload will be heavy and RTB's IP routing
+RTB 192.168.5.0/24 table will have a large number of routing entries.
+192.168.6.0/24
+Page 44 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e Ona large-scale network, routers or other routing-capable devices need to maintain a large
+number of routing entries, which will consume a large amount of device resources. In addition,
+the IP routing table size is increasing, resulting in a low efficiency of routing entry lookup.
+Therefore, we need to minimize the size of IP routing tables on routers while ensuring IP
+reachability between the routers and different network segments. If a network has scientific IP
+addressing and proper planning, we can achieve this goal by using different methods. A common
+and effective method is route summarization, which is also known as route aggregation.
+
+A , Route
+Route Recursion Equal-Cost Route Floating Route a
+Summarization
+(y) ) Overview of Route Summarization
+10.1.1.0/24
+RTA RTB 10.1.2.0/24 oo 7
+12.112 ” ¢ Route summarization is an approach of summarizing routes
+12111 & . with the same prefix into one summary route to minimize the
+10.1.10.0/24 IP routing table size and improve device resource usage.
+Vv ¢ Route summarization uses CIDR to summarize network
+segments with the same prefix into a single one.
+[RTA] ip route-static 10.1.0.0 16 12.1.1.2
+| ¢ The routes before being summarized are known as specific
+routes, and the routes created after summarization are known
+On RTA, configure static routes to the directly as summarized routes or summary routes.
+connected network segments 10.1.1.0/24,
+10.1.2.0/24, ..., and 10.1.10.0/24 of RTB, with the
+same next hop. Therefore, these routes can be
+summarized into one route.
+Page 45 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e To enable RTA to reach remote network segments, we need to configure a specific route to each
+network segment. In this example, the routes to 10.1.1.0/24, 10.1.2.0/24, and 10.1.3.0/24 have
+the same next hop, that is, 12.1.1.2. Therefore, we can summarize these routes into a single one.
+e This effectively reduces the size of RTA's IP routing table.
+
+A , Route
+Route Recursion Equal-Cost Route Floating Route a
+Summarization
+Summarization and Calculation
+192 168 X 0
+192.168.1.0/24 11000000 10101000 000000:01/00000000
+192.168.2.0/24 11000000 10101000 00000 0:10)|00000000
+192.168.3.0/24 11000000 10101000 000000:11/00000000
+Network address Host address
+Ww
+192.168.0.0/22 11000000 10101000 000000:00 00000000
+To summarize routes to multiple continuous network segments into one summary route that just includes these network
+segments, ensure that the mask length of the summary route is as long as possible.
+The key to achieve this is to convert the destination addresses of specific routes into binary numbers and then find out the
+identical bits in these binary numbers.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Route Recursion Equal-Cost Route Floating Route
+ry) ) Problems Caused by Route Summarization (1)
+Page 47
+Routing Loop
+[RTB] ip route-static 0.0.0.0 0 12.1.1.2 [RTA] ip route-static 10.1.0.0 16 12.1.1.1
+10.1.1.0/24
+10.1.2.0/24 RTB RTA
+& 12.1.1.2 & Internet
+12.1.1.1
+10.1.10.0/24 O e 2) O
+Routes are summarized on RTA.
+Therefore, RTA forwards the traffic back
+to RTB according to the summary route
+Loop to 10.1.0.0/16.
+RTB receives traffic destined for
+10.1.20.0/24 and forwards the
+traffic to RTA according to the
+default route.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+A , Route
+Route Recursion Equal-Cost Route Floating Route a
+Summarization
+Problems Caused by Route Summarization (2)
+Solution for Preventing Routing Loops
+[RTB] ip route-static 0.0.0.0 0 12.1.1.2 [RTA] ip route-static 10.1.0.0 16 12.1.1.1
+10.1.1.0/24
+10.1.2.0/24 RTB RTA
+& 12.1.1.2 & Internet
+12.1.1.1
+v
+[RTB] ip route-static 10.1.0.0 16 0 NULLO
+10.1.10.0/24
+Configure a route pointing to Null0 on RTB to prevent
+routing loops when summarizing routes.
+Page 48 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+e In most cases, both static and dynamic routes need to be associated with an outbound interface.
+This interface is the egress through which the device is connected to a destination network. The
+outbound interface in a route can be a physical interface such as a 100M or GE interface, ora
+logical interface such as a VLANIF or tunnel interface. There is a special interface, that is, Null
+interface. It has only one interface number, that is, 0. NullO is a logical interface and is always up.
+When NullO is used as the outbound interface in a route, data packets matching this route are
+discarded, like being dumped into a black-hole. Therefore, such a route is called a black-hole
+route.
+e In routing table:
+Destination/Mask Proto Pre Cost Flags NextHop Interface 1
+0.1.1.1/32 Static60
+ 
+0 D 0.0.0.0 NULLO
+
+A , Route
+Route Recursion Equal-Cost Route Floating Route a
+Summarization
+Accurate Route Summarization (1)
+172.16.1.0/24
+172.16.2.0/24
+172.16.31.0/24
+172.16.32.0/24
+172.16.33.0/24
+a 172.16.63.0/24
+[RTA] ip route-static 172.16.0.0 16 10.0.0.2
+¢ To simplify the configuration, an administrator may configure a static summary route on RTA to allow RTA to reach network segments
+172.16.1.0/24 to 172.16.31.0/24 of RTB. However, this summary route also includes the network segments of RTC. As a result, RTA forwards
+the traffic destined for network segments of RTC to RTB, causing data packet loss. This problem is caused by inaccurate route summarization.
+To resolve this problem, the summary route must be as accurate as possible; that is, it just covers all specific routes that are to be
+summarized, with no extra route included.
+Page 49 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+A , Route
+Route Recursion Equal-Cost Route Floating Route a
+Summarization
+(*) Accurate Route Summarization (2)
+10 1 0 0
+10.1.1.0/24 00001010 00000001 00000001 00000000
+10.1.2.0/24 00001010 00000001 00000010 00000000
+10.1.3.0/24 00001010 00000001 00000011 00000000
+ip route-static 10.1.1.0 24 12.1.1.2
+ip route-static 10.1.2.0 24 12.1.1.2 >»
+ip route-static 10.1.3.0 24 12.1.1.2 Ip route-static 10.1.1.0 22 12.1.1.2
+Accurately calculate the summarized network
+address and mask to ensure accurate route
+summarization.
+Page 50 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+(*) ) Summarization rules
+In general, the rules to follow for summarization are:
+* Groups of contiguous networks that have the same next-hop can be aggregated.
+Obviously, the number of networks must be a power of 2 (groups of 2, 4, 8, ... networks).
+The group is replaced by a single row containing the aggregate (obtained by shortening the
+netmask)
+* Contiguous networks can be aggregated as in the first rule, even if for some the next-hop
+is different. In this case, the group is replaced by a single row containing the aggregate,
+plus a row for each of the rows of the group with a different next-hop (exceptions) that
+are left unchanged.
+* Contiguous networks can be aggregated as in the first rule, even if some networks are
+missing from the table. In this case, the group is replaced by a single row containing the
+aggregate, plus a row for each of the missing networks with a next-hop equal to that of
+the default route. If the missing networks do not exist, enter a route to a black hole for
+each of them or an aggregate of them.
+¢ You can delete all networks with next-hop equal to the default route.
+
+[Figura da Pag.1] Labels: silane KS eam C/N alan —; ee en ey eS KD YS hig Soe rr; figs: a a BR LP pipet an pe oe! Je; PRBS + oz ns Sie *; Cy > Seana en; ° °; we RS » ~ UNIVERSITA DEGLI STUDI; MCCS DI PERUGIA. Caption: (errore caption)
+[Figura da Pag.5] Labels: &. Caption: (errore caption)
+[Figura da Pag.5] Labels: i,; -. Caption: (errore caption)
+[Figura da Pag.6] Labels: i,; -. Caption: (errore caption)
+[Figura da Pag.6] Labels: &. Caption: (errore caption)
+[Figura da Pag.7] Labels: &. Caption: (errore caption)
+[Figura da Pag.7] Labels: i,; -. Caption: (errore caption)
+[Figura da Pag.8] Labels: &. Caption: (errore caption)
+[Figura da Pag.10] Labels: &. Caption: (errore caption)
+[Figura da Pag.10] Caption: (errore caption)
+[Figura da Pag.11] Labels: &. Caption: (errore caption)
+[Figura da Pag.12] Labels: &. Caption: (errore caption)
+[Figura da Pag.17] Labels: &. Caption: (errore caption)
+[Figura da Pag.18] Labels: &. Caption: (errore caption)
+[Figura da Pag.23] Labels: &. Caption: (errore caption)
+[Figura da Pag.24] Labels: &. Caption: (errore caption)
+[Figura da Pag.25] Caption: (errore caption)
+[Figura da Pag.25] Labels: &. Caption: (errore caption)
+[Figura da Pag.28] Labels: &. Caption: (errore caption)
+[Figura da Pag.30] Labels: &. Caption: (errore caption)
+[Figura da Pag.31] Labels: &. Caption: (errore caption)
+[Figura da Pag.32] Caption: (errore caption)
+[Figura da Pag.32] Labels: &. Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Labels: &. Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Labels: =; Ss. Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.34] Caption: (errore caption)
+[Figura da Pag.35] Caption: (errore caption)
+[Figura da Pag.35] Labels: &. Caption: (errore caption)
+[Figura da Pag.36] Labels: =; Cbg Ac Ce B; aye a a OB. Caption: (errore caption)
+[Figura da Pag.39] Labels: &. Caption: (errore caption)
+[Figura da Pag.40] Labels: &. Caption: (errore caption)
+[Figura da Pag.41] Labels: &. Caption: (errore caption)
+[Figura da Pag.42] Labels: &. Caption: (errore caption)
+[Figura da Pag.43] Labels: &. Caption: (errore caption)
+[Figura da Pag.45] Labels: &. Caption: (errore caption)
+[Figura da Pag.46] Labels: &. Caption: (errore caption)
+[Figura da Pag.48] Labels: &. Caption: (errore caption)
+[Figura da Pag.49] Labels: &. Caption: (errore caption)
+[Figura da Pag.50] Labels: &. Caption: (errore caption)

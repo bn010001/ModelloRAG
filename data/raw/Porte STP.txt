@@ -1,0 +1,16 @@
+Se ho capito bene, stai cercando di capire la differenza tra "porta alternate" e "porta designated".
+ Questi termini sono utilizzati nel protocollo STP (Spanning Tree Protocol) per indicare lo stato delle porte degli switch.
+
+Una porta designated è una porta che viene selezionata per inoltrare il traffico sulla rete. 
+Questa porta viene scelta in base al costo del percorso verso la radice dello spanning tree. 
+Una porta alternate, invece, è una porta che viene selezionata come backup della porta designated. 
+In altre parole, se la porta designated dovesse fallire, la porta alternate prenderebbe il suo posto.
+
+Ci sono altre porte in STP. In particolare, ci sono due tipi di porte che non sono né designated né alternate: 
+le **porte root** e le **porte non-designated**.
+
+Le porte root sono le porte che si trovano sullo switch che ha il costo di percorso minore verso la radice dello spanning tree. 
+Queste porte sono utilizzate per inoltrare il traffico sulla rete.
+
+Le porte non-designated, invece, sono le porte che non vengono selezionate come designated o alternate.
+ Queste porte vengono bloccate dal protocollo STP per evitare la formazione di loop nella rete.

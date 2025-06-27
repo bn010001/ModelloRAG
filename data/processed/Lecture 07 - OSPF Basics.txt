@@ -1,0 +1,1106 @@
+o «5
+eos “
+eee
+A.D. 1308
+Page 0
+Fondamenti di Internet
+OSPF Basics
+
+) Foreword
+Page 1
+Static routes are manually configured. If a network topology changes, static routes have
+to be manually adjusted, which restricts the large-scale application of static routes on
+the live network.
+Dynamic routing protocols are widely used on live networks because of their high
+flexibility, high reliability, and easy scalability. The Open Shortest Path First (OSPF)
+protocol is a widely used dynamic routing protocol.
+This course describes basic concepts, working mechanism, and basic configurations of
+OSPF.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Objectives
+¢ On completion of this course, you will be able to:
+© Describe the advantages and classification of dynamic routing protocols.
+© Describe basic OSPF concepts and usage scenarios.
+© Describe the working mechanism of OSPF.
+o Implement basic OSPF configurations.
+Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. OSPF Overview
+2. OSPF Working Mechanism
+3. Typical OSPF Configuration
+Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=] ) Why Are Dynamic Routing Protocol Used?
+¢ Static routes are manually configured and maintained, and the command lines are simple and clear. They
+apply to small-scale or stable networks. Static routes have the following disadvantages:
+ao Unable to adapt to large-scale networks: As the number of devices increases, the configuration workload increases
+sharply.
+a Unable to dynamically respond to network changes: If the network topology changes, the network cannot
+automatically converge, and static routes must be manually modified.
+R R2 R R2
+& & wa—-S &
+Link fault
+> ON VA
+Og R3 OJ R3
+R1-to-R2 static route Manually configured static route R1-R3-R2
+Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Classification of Dynamic Routing Protocols
+By ASs
+Interior Gateway Protocols (IGPs) Exterior Gateway Protocols (EGPs)
+By working mechanisms and
+algorithms
+Distance Vector Routing Protocols Link-State Routing Protocols
+OSPF IS-IS
+Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ BGP uses the path-vector algorithm, which is a modified version of the distance-vector
+algorithm.
+
+[=] ) Distance-Vector Routing Protocol
+A router running a distance-vector routing protocol periodically floods routes. Through route exchange,
+each router learns routes from neighboring routers and installs the routes into its routing table.
+Each router on a network is clear only about where the destination is and how far the destination is, but
+unclear about the whole network topology. This is the essence of the distance-vector algorithm.
+Routing Routing Routing
+table table table
+R1 R2 R3
+Destined for 3.3.3.3, through R2!
+Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=] ) Link-State Routing Protocol - LSA Flooding
+¢ Different from a distance-vector routing protocol, a link-state routing protocol advertises link
+status information rather than routes in the routing table. Routers that run a link-state routing
+protocol establish a neighbor relationship and then exchange Link State Advertisements (LSAs).
+LSAs, instead of routes, are
+advertised.
+An LSA describes a router
+interface's status information,
+such as the cost of the interface
+and a connected interface name.
+Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Each router generates an LSA that describes status information about its directly
+connected interface. The LSA contains the interface cost and the relationship between the
+router and its neighboring routers.
+
+[=] ) Link-State Routing Protocol - LSDB Creation
+e¢ Each router generates LSAs and adds the received LSAs to its own link state database (LSDB).
+Routers learn the whole network topology through the LSDB.
+¢ The router stores LSAs in the
+LSDB.
+* The LSDB contains the
+description of all router interfaces
+on the network.
+¢« The LSDB contains the
+description of the entire network
+topology.
+
+[=] ) Link-State Routing Protocol - SPF Calculation
+¢ Each router uses the Shortest Path First (SPF) algorithm and LSDB information to calculate routes. Each
+router calculates a loop-free tree with itself as the root and the shortest path. With this tree, a router
+Each router calculates a loop-free
+tree with itself as the root over the
+shortest path.
+Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢« SPF is acore algorithm of OSPF and used to select preferred routes on a complex
+network.
+
+Link-State Routing Protocol - Routing Table
+Generation
+e Ultimately, the router installs routes for the calculated preferred paths into its routing
+table.
+Based on SPF calculation results,
+routing table.
+Routing Routing
+LSDB LSDB |neNR
+Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Dijkstra algorithm
+A min cost path tree is built starting from a source node s.
+7D; COST of min cost path from node s to node /
+7d; COST of the direct link between nodes/ e j. If not connected d= 00
+» N: set of nodes in the network
+» M: set of nodes in the min cost path tree
+» V(M): set of nodes adjacent to VV, that is connected to at least one node in M
+through a direct link. e ; c
+an
+x NX
+\ iA
+—__
+
+Dijkstra algorithm
+1) Me= {s
+D,=d, ‘jeV(M)
+D,=® — otherwise
+2) Select ke V(M): D, = min (D, }
+M=M+i%k}
+D, =min 1D,,D, +d, } vjeV(M)
+3) if M=N stop
+else go-to 2
+
+) Example
+M = {A,B,C
+ 
+E, FL. UD
+ 
+= (D}
+. a _
+a oy. : ~f.
+va O=3 O=2 Xe 6
+M ={AL
+ 
+ViM) =(8, FE M = {A BL VIM) =(C E, FE
+ay 1
+X-!1 Dew4 Oe-1 Oe -4
+, "= ----- my: "oi ----- my:
+Do <8 Oo=5
+F Va
+al = | =J-
+eae F
+“77 of
+--~ ~ rf
+a | ee E F E
+Oe=-2 O-4 O-2 &-4
+M = {A,
+ 
+B, Fh, Vit)
+ 
+= IC, D, EF M = {A,B, E, Fh, VIM)
+ 
+= IC, D}
+Oe-! De=-4 Og=-1 Og =-4
+2} ah e c
+Lo Do=<5 Do= §
+a a mm
+<
+oa
+¢
+| J. F E
+Op=-2 Oo-4 O-2 O-4
+M -{4, B.C D, E, FE
+
+Ga) ) Summary of Link-State Routing Protocols
+Neighbor Link status
+relationship setu ___information
+R41 baleen > & R2 R1 & & R2
+x
+SR
+% & Z ~
+Path computation R3 \ GB) / RIB: Routing Information Base R3
+Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« The implementation of a link-state routing protocol is as follows:
+« Step 1: Establishes a neighbor relationship between neighboring routers.
+2 Step 2: Exchanges link status information and synchronizes LSDB information
+between neighbors.
+2 Step 3: Calculates an optimal path.
+2 Step 4: Generates route entries based on the shortest path tree and loads the
+routing entries to the routing table.
+
+[=| ) Introduction to OSPF
+Page 15
+OSPF is a typical link-state routing protocol and one of the widely used IGPs in the industry.
+OSPF v2, as defined in RFC 2328, is designed for IPv4. OSPF v3, as defined in RFC 2740, is designed for IPv6. Unless
+otherwise specified, OSPF in this presentation refers to OSPFv2.
+OSPF routers exchange link status information, but not routes. Link status information is key information for OSPF to
+perform topology and route calculation.
+An OSPF router collects link status information on a network and stores the information in the LSDB. Routers are aware
+of the intra-area network topology and be able to calculate loop-free paths.
+Each OSPF router uses the SPF algorithm to calculate the shortest path to a specific destination. Routers generate
+routes based on these paths and install the routes to the routing table.
+OSPF supports the variable length subnet mask (VLSM) mechanism and manual route summarization.
+The multi-area design enables OSPF to support a larger network.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) OSPF Application on a Campus Network
+Page 16
+Internet
+—§_ Firewall
+(The core switch and aggregation
+switches run OSPF to implement
+reachable routes
+Core switch
+Server cluster )
+on the campus network.
+Aggregation Aggregation
+switch switch
+Aggregation
+switch
+se
+ 
+B & B
+Ci Ci Gi Ci Ci Oi
+Office building 1 Office building 2
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+aS e
+Ci Ci Oi
+Office building 3
+
+XD Router ID Cost Value
+[=] ) Basic OSPF Concepts: Area
+¢ The OSPF area keyword identifies an OSPF area.
+¢ The area is considered as a logical group, and each group is identified by an area ID.
+R14 Area R2
+Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Area Router ID Cost Value
+[=] ) Basic OSPF Concepts: Router ID
+¢ Arouter ID uniquely identifies a router in an OSPF area.
+e The router ID can be manually specified or automatically assigned by the system.
+Router ID: 1.1.1.1 Area 0 Router ID: 2.2.2.2
+R1 R2
+I'm 1.1.1.1.
+®& [is
+Router ID: 3.3.3.3
+Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ In actual projects, OSPF router IDs are manually set for devices. Ensure that the router
+IDs of any two devices in an OSPF area are different. Generally, the router ID is set the
+same as the IP address of an interface (usually a Loopback interface) on the device.
+¢ Ifa logical (loopback) interface has been configured, the router ID will be based upon the
+IP address of the highest configured logical interface, should multiple logical interfaces
+exist.
+¢ If no logical interfaces have been configured, the router will use the highest IP address
+configured on a physical interface. Any router running OSPF can be restarted using the
+graceful restart feature to renew the router ID should a new router ID be configured. It is
+recommended that the router ID be configured manually to avoid unexpected changes to
+the router ID in the event of interface address changes.
+
+LD costvate
+ 
+$
+[=] ) Basic OSPF Concepts: Cost Value
+OSPF uses costs as route metric values. Each OSPF-enabled interface maintains a cost value. Default cost value =
+, Where, 100 Mbit/s is the default reference value specified by OSPF and is configurable.
+Interface bandwidth
+Generally, the cost of an OSPF route is the sum of costs of all inbound interfaces along a path from the destination
+network segment to the local router.
+Cost Value of an OSPF Interface Accumulated Costs on an OSPF Path
+Serial interface (1.544 Mbit/s) 1.1.1.0/24
+Default cost = 64
+Cost = 10
+GE interface & Cost = 1 Cost = 64
+R2 R3
+FE interface
+Default cost = 1 Default cost = 0.1
+R1
+* Each OSPF interface has a specific cost « Inthe routing table of R3, the cost of the OSPF route to
+because of the particular bandwidth value. 1.1.1.0/24 is 75 (10 + 1 + 64).
+Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=] ) OSPF Packet Types
+e There are five types of OSPF protocol packets and implement different functions in
+interaction between OSPF routers.
+Hello Is periodically sent to discover and maintain OSPF neighbor relationships.
+_— Describes the summary of the local LSDB, which is used to synchronize
+Database Description - DD .
+the LSDBs of two devices.
+Link State Request - LSR Requests a needed LSA from a neighbor. LSRs are sent only after DD
+packets have been successfully exchanged.
+Link State Update - LSU Is sent to advertise a requested LSA to a neighbor.
+Link State ACK Is used to acknowledge the receipt of an LSA.
+Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[|
+Neighbor LSDB
+Table Table
+Three Types of OSPF Entries - Entries in the
+Neighbor Table
+OSPF Routing table
+¢ OSPF provides entries in three important tables: OSPF neighbor table, LSDB table, and OSPF routing table. For the
+OSPF neighbor table, you need to know:
+Qa
+Qa
+o
+Page 21
+Before OSPF transmits link status information, OSPF neighbor relationships must be established.
+OSPF neighbor relationships are established by exchanging Hello packets.
+The OSPF neighbor table describes the status of the neighbor relationship between OSPF routers. You can run the
+display ospf peer command to view status information.
+<R1> display ospf peer
+[R1]display ospf peer » OSPF Process 1 with Router ID 1.1.1.1
+Neighbors
+Router ID: 1.1.1.1 Router ID: 2.2.2.2 Area 0.0.0.0 interface 10.1.1.1(GigabitEthernet1/0/0)'s
+ 
+neighbors
+Router ID: 2.2.2.2 Address: 10.1.1.2 GR State: Normal
+State: Full Mode:Nbr is Master Priority: 1
+DR: 10.1.1.1 BDR: 10.1.1.2 MTU:
+ 
+0
+GE 1/0/0 GE 1/0/0
+Dead timer due in 35 sec
+R1 10.1.1.1/30 10.1.1.2/30 R2 Retrans timer interval: 5
+Neighbor is up for 00:00:05
+Authentication Sequence: [ 0 ]
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢« The OSPF neighbor table contains much key information, such as router IDs and
+interface addresses of neighboring devices. For more details, see "OSPF Working
+Mechanism".
+
+= Three Types OSPF Entries - Entries in the
+LSDB Table
+¢ For the OSPF LSDB table, you need to know:
+An LSDB stores LSAs generated by a router itself and received from neighbors. In this example, the LSDB of R1
+contains three LSAs.
+The Type field indicates an LSA type, and the AdvRouter field indicates the router that sends the LSA.
+Run the display ospf Isdb command to query the LSDB.
+[R1]display ospf Isdb <R1> display ospf sdb
+OSPF Process 1 with Router ID 1.1.1.1
+Router ID: 1.1.1.1 Router ID: 2.2.2.2 Link State Database
+Router ID: 0.0.0.0
+Type LinkStateID AdvRouter Age Len Sequence Metric
+GE 1/0/0 GE 1/0/0 Router 2.2.2.2 2.2.2.2 98 36 8000000B 1
+R41 10.1.1.1/30 10.1.1.2/30 R2 Router 1.1.1.1 1.1.4.1 92 36 80000005 0
+Network 10.1.1.2 2.2.2.2 98 32 80000004 1
+Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+For more information about LSAs, see information provided in HCIP-Datacom courses.
+SPF relies on several types of Link State Advertisements (LSAs) to communicate link
+state information between neighbors. A brief review of the most applicable LSA types:
+LSA Type1, Router:
+Each router creates its own Type 1 LSA to represent itself for each area to which it
+connects. The LSDB for one area contains one Type 1 LSA per router per area, listing the
+RID and all interface IP addresses on that router that are in that area. Represents stub
+networks as well
+LSA Type2, Network:
+One per transit network. Created by the DR on the subnet, and represents the subnet and
+the router interfaces connected to the subnet
+LSA Type3, Net Summary:
+Created by ABRs to represent subnets listed in one area’s type 1 and 2 LSAs when being
+advertised into another area. Defines the links (subnets) in the origin area, and cost, but
+no topology data.
+Type 4 LSA, ASBR-Summary
+Tthis is needed because Type 5 External LSAs are flooded to all areas and the detailed
+next-hop information may not be available in those other areas. This is solved by an Area
+Border Router flooding the information for the router (i.e. the Autonomous System
+Boundary Router) where the type 5 originated. The link-state ID is the router ID of the
+described ASBR for type 4 LSAs.
+Type 5 LSA, External LSA
+These LSAs contain information imported into OSPF from other routing processes. They
+Rie
+ 
+eS A ay ere rt .
+
+Page 23
+Neighbor LSDB OSPF Routing
+Table Table Table
+Three Types of OSPF Entries - Entries in the
+OSPF Routing Table
+For the OSPF routing table, you need to know:
+o
+The OSPF routing table and the router routing table are different. In this example, the OSPF routing table contains
+three routes.
+An OSPF routing table contains information, such as the destination IP address, cost, and next-hop IP address,
+which guides packet forwarding.
+Run the display ospf routing command to query the OSPF routing table.
+[R1]display ospf routing »
+Router ID: 1.1.1.1 Router ID: 2.2.2.2
+GE 1/0/0 GE 1/0/0
+R141 10.1.1.1/30 10.1.1.2/30 R2
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+<R1> display ospf routing
+OSPF Process 1 with Router ID 1.1.1.1
+Routing tables
+Routing for Network
+Destination Cost Type NextHop
+1.1.1.1/32 OQ stub 1.1.1.1
+10.1.1.0/20 1 Transit 10.1.1.1
+2.2.2.2/32 1 stub 10.1.1.2
+Total Nets:
+ 
+3
+Intra Area: 3 Inter Area: 0 ASE: 0 NSSA: 0
+AdvRouter Area
+1.1.1.1 0.0.0.0
+1.1.1.1 0.0.0.0
+2.2.2.2 0.0.0.0
+For more information about the OSPF routing table, see information provided in HCIP-
+Datacom courses.
+
+) Contents
+1. OSPF Overview
+2. OSPF Working Mechanism
+3. Typical OSPF Configuration
+Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=] ) Relationships Between OSPF Routers
+e There are two important concepts about the relationship between OSPF routers:
+neighbor relationship and adjacency.
+¢ On a simple network, two routers are directly connected. OSPF is enabled on
+interconnected interfaces. The routers start to send and listen to Hello packets. After
+the two routers discover each other through Hello packets, they establish a
+neighbor relationship.
+e¢ The establishment of a neighbor relationship is just the beginning. A series of packets,
+such as DD, LSR, LSU, and LSAck packets, will be exchanged later. When LSDB
+synchronization between two routers is complete and the two routers start to calculate
+routes independently, the two routers establish an adjacency.
+Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Process of Establishing an OSPF Adjacency
+Relationship
+¢ OSPF adjacency relationship establishment involves four steps: establishing a neighbor relationship, negotiating the
+master/slave status, exchanging LSDB information, and synchronizing LSDBs.
+“S = ©-
+Establish a bidirectional
+neighbor relationship.
+€------ Negotiate the master/slave status. —-—---—----=
+ 
+>
+<------- Mutually describe the LSDB (summary — — — — = — >
+information).
+€-------- Update LSAs and synchronize ~~ ~~ ie >
+LSDBs of both ends.
+6) Calculates routes. 6 ) Calculates routes.
+Steps 1 to 4 involve interaction between both ends, and Step 5 is performed
+separately on each device.
+Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+=] ) Link State Establishment
+Attempt
+Neighbor
+ExStart
+Loading Adjacent
+¢« State changes allow for neighbor relationships to be achieved.
+Page 27
+Each router participating in OSPF will transition through a number of link states to achieve
+either a neighbor state or an adjacent state. All routers begin in the down state upon
+initialization and go through a neighbor discovery process, which involves firstly making a
+routers presence known within the OSPF network via a Hello packet (MULTICAST
+224.0.0.5.). In performing this action the router will transition to an init state.
+Once the router receives a response in the form of a Hello packet (UNICAST) containing
+the router ID (in the list of the neighbor field) of the router receiving the response, a 2-way
+state will be achieved and a neighbor relationship formed. In the case of NBMA networks,
+an ATTEMPT state is achieved when communication with the neighbor has become
+inactive and an attempt is being made to re-establish communication through periodic
+sending of Hello packets. Routers that do not achieve an adjacent relationship will remain
+in a neighbor state with a 2-way state of communication.
+Routers such as DR and BDR will build an adjacent neighbor state with all other
+neighboring routers, and therefore must exchange link state information in order to
+establish a complete link state database. This requires that peering routers that establish
+an adjacency first negotiate for exchange of link state information (ExStart) before
+proceeding to exchange summary information regarding the networks they are aware of.
+Neighbors may identify routes they are either not aware of or do not have up to date
+information for, and therefore request additional details for these routes as part of the
+loading state. A fully synchronized relationship between neighbors Is determined by the
+full state at which time both peering routers can be considered adjacent.
+Down: no OSPF neighbors detected at this moment.
+
+@ Process of Establishing an OSPF Adjacency
+- Step 1
+Area 1.1.1.1
+rn Ke
+2-way
+R2 (2.2.2.2) is discovered and
+added to the neighbor list.
+Because R2 discovered me, |
+set the status of R2 to 2-way in
+the neighbor table.
+Area 2.2.2.2
+Hello packets
+I'm 1.1.1.1. | don't know who's on the link.
+Hello packets
+I'm 2.2.2.2. | found my neighbor 1.1.1.1.
+Hello packets
+I'm 1.1.1.1. | found the neighbor 2.2.2.2.
+We're neighbors.
+Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+© ie
+Init
+R1 (1.1.1.1) is discovered and added
+to the neighbor list. The status of R1
+in the neighbor table is Init.
+2-way
+Because R1 found me, |
+change the status of 1.1.1.1 to
+2-way in the neighbor table.
+« Whenan OSPF router receives the first Hello packet from another router, the OSPF
+router changes from the Down state to the Init state.
+« Whenan OSPF router receives a Hello packet in which the neighbor field contains its
+router ID, the OSPF router changes from the Init state to the 2-way state.
+
+@ Process of Establishing an OSPF Adjacency
+- Steps 2 and 3
+Router ID: 1.1.1.1 Router ID: 2.2.2.2
+« & Oe
+DD (The content is empty, and the sequence number is X.)
+I'm the master and my router ID is 1.1.1.1.
+Ex-start (Exchange Start) Ex-start
+DD (The content is empty, and the sequence number is Y.)
+Exchange I'm the master and my router ID is 2.2.2.2.
+(R2 with a larger router ID is
+preferred.) | DD (sequence number Y)
+This is the summary of LSAs in my LSDB.
+Exchange
+DD (Sequence number
+ 
+Y + 1 in ascending order)
+This is the summary of LSAs in my LSDB. | !nthe Exchange phase, both ends
+exchange DD packets to describe the
+summary of their own LSAs.
+DD (sequence number Y+1)
+Confirms the DD packet sent by the master router.
+| know what R2's | Know what R1's
+LSDB contains. LSDB contains.
+Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ After the neighbor state machine changes from 2-way to Exstart, the master/slave election
+starts.
+« The first DD packet sent from R1 to R2 is empty, and its sequence number is
+assumed to be X.
+2 R2 also sends the first DD packet to R1. In the examples provided in this
+presentation, the sequence number of the first DD packet is Y.
+a The master/slave relationship is selected based on the router ID. A larger router ID
+indicates a higher priority. The router ID of R2 is greater than that of R1. Therefore,
+R2 becomes the master device. After the master/slave role negotiation is complete,
+R1's status changes from Exstart to Exchange.
+« After the neighbor status of R1 changes to Exchange, R1 sends a new DD packet
+containing its own LSDB description. The sequence number of the DD packet is the same
+as that of R2. After R2 receives the packet, the neighbor status changes from Exstart to
+Exchange.
+« R2sends a new DD packet to R1. The DD packet contains the description of its own
+LSDB and the sequence number of the DD packet is Y + 1.
+* Asa backup router, R1 needs to acknowledge each DD packet sent by R2. The sequence
+number of the response packet is the same as that of the DD packet sent by R2.
+¢ After sending the last DD packet, R1 changes the neighbor status to Loading.
+
+@ Process of Establishing an OSPF Adjacency
+- Step 4
+Router ID: 1.1.1.1
+rn Ke
+Loading
+Full
+LSR
+| want to request the complete information about
+the xx LSA.
+LSU
+This is the complete information about the requested LSA.
+LS ACK
+Confirms the reception of the LSU and the xx LSA
+carried in the LSU.
+LSR
+| want to request the complete information about
+the yyy LSA.
+Router ID: 2.2.2.2
+ie
+Loading
+Full
+< LSDBs of R1 and R2 ) < LSDBs of R1 and R2 )
+are synchronized.
+are synchronized.
+Page 30 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« After the neighbor status changes to Loading, R1 sends an LSR to R2 to request the
+LSAs that are discovered through DD packets in the Exchange state but do not exist in
+the local LSDB.
+¢ After receiving the LSU, R2 sends an LSU to R1. The LSU contains detailed information
+about the requested LSAs.
+« After R1 receives the LSU, R1 replies with an LSAck to R2.
+¢ During this process, R2 also sends an LSA request to R1. When the LSDBs on both ends
+are the same, the neighbor status changes to Full, indicating that the adjacency has been
+established successfully.
+
+) ) Review of the OSPF Neighbor Table
+Router ID: 1.1.1.1 Router ID: 2.2.2.2
+& & R2
+R1 jw GE1/0/0 GE1/0/0 tS
+10.1.1.1/30 10.1.1.2/30
+<R1> display ospf peer
+OSPF Process 1 with Router ID 1.1.1.1
+Neighbors R1 discovers
+Router ID of the Area 0.0.0.0 interface 10.1.1.1(GigabitEthernet1/0/0)'s neighbors <— ce MERE eh
+neighbor: 2.2.2.2 * Area 2.2.2.2 Address: 10.1.1.2 GR State: Normal
+State: Full Mode:Nbr is Master Priority; 1 ¢— The neighbor
+ 
+at
+The neighbor — 2.2.2.2is the master.
+status
+ 
+is Full. DR: 10.1.1.1 BDR: 10.1.1.2 MTU: 0
+Dead timer due in 35 sec
+Retrans timer interval: 5
+Neighbor is up for 00:00:05 Quiz: What is the DR/BDR
+Authentication Sequence: [ 0 ] in the neighbor table?
+Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Fields displayed in the display ospf peer command output are as follows:
+«= OSPF Process 1 with Router ID 1.1.1.1: The local OSPF process ID is 1, and the
+local OSPF router ID is 1.1.1.1.
+a Area ID of the neighboring OSPF router.
+« Address: address of the neighbor interface.
+2 GR State: GR status after OSPF GR is enabled. GR is an optimized function. The
+default value is Normal.
+2 State: neighbor status. In normal cases, after LSDB synchronization is complete,
+the neighbor stably stays in the Full state.
+= Mode: whether the local device is the master or backup device during link status
+information exchange.
+2 Priority: priority of the neighboring router. The priority is used for DR election.
+2 DR: designated router.
+« BDR: backup designated router.
+a MTU: MTU of a neighbor interface.
+« Retrans timer interval: interval (in seconds) at which LSAs are retransmitted.
+« Authentication Sequence: authentication sequence number.
+
+[=] ) OSPF Network Types
+¢ Before learning concepts of the DR and BDR, understand OSPF network types.
+¢ The OSPF network type is a very important interface variable. This variable affects OSPF operations on
+interfaces. For example, it determines how to send OSPF packets and whether to elect a DR or BDR.
+¢ The default OSPF network type of an interface depends on the data link layer encapsulation used by the
+interface.
+e As shownin the figure, OSPF has four network types: broadcast, NBMA, P2MP, and P2P.
+[R1-GigabitEthernet1/0/0] ospf network-type ?
+broadcast Specify OSPF broadcast network
+ws GE 1/0/0 GE 1/0/0 nbma Specify OSPF NBMA network
+R41 10.1.1.1/30 10.1.1.2/30 R2 p2mp Specify OSPF point-to-multipoint network
+p2p Specify OSPF point-to-point network
+Router ID: 1.1.1.1 Router ID: 2.2.2.2
+Page 32 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=| ) OSPF Network Types (1)
+Page 33
+Generally, the network types of OSPF interfaces at both ends of a link must be the same. Otherwise, the two interfaces
+cannot establish a neighbor relationship.
+An OSPF network type can be manually changed on an interface to adapt to different network scenarios. For example,
+you can change the BMA network type to P2P.
+Point-to-Point (P2P) Broadcast Multiple Access (BMA)
+Serial0/0/0 Serial0/0/0
+PPP PPP
+RTA RTB
+P2P indicates that only two network devices can be connected * BMAis also called broadcast. It refers to an environment that
+ona link. allows multiple devices to access and supports broadcast.
+Atypical example is a PPP link. When an interface uses PPP * Atypical example is an Ethernet network. When an interface
+encapsulation, the default network type of the OSPF interface uses Ethernet encapsulation, the default network type of the
+is P2P. OSPF interface is BMA.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) OSPF Network Types (2)
+¢ NBMA refers to an environment that allows multiple ¢ AP2MP network is formed by bundling endpoints
+network devices to access but does not support of multiple P2P links.
+broadcast. ¢ No link layer protocol is considered as a P2MP
+« Atypical example is a Frame Relay (FR) network. network by default. This type must be manually
+changed from another network type.
+¢« For example, a non-full-mesh NBMA network can
+be changed to a P2MP network.
+Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=] ) Background of DR and BDR
+Page 35
+Multi-access (MA) networks are classified into BMA and NBMA networks. Ethernet is a typical broadcast multi-access
+network.
+On an MA network, if each OSPF router establishes OSPF adjacencies with all the other routers, excessive OSPF
+adjacencies exist on the network, which increases the load on the devices and the number of OSPF packets flooded on
+the network.
+Once the network topology changes, LSA flooding on the network may waste bandwidth and device resources.
+SS
+ 
+GF
+Ethernet
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Adjacency
+
+[=] ) DR and BDR
+¢ To optimize OSPF neighbor relationships on an MA network, the OSPF protocol specifies three types of
+OSPF routers: DR, BDR, and DRother.
+¢ Only the DR and BDR can establish adjacencies with other OSPF routers. DRothers do not establish
+OSPF adjacencies with one another, and their relationship is in the 2-way state.
+¢ The BDR monitors the status of the DR and takes over the role of the DR if the existing DR fails.
+DR BDR
+SS Ge
+Ethernet
+DRother DRother DRother
+Adjacency
+Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+In order to address and optimize the communication of OSPF over broadcast networks,
+OSPF implements a Designated Router (DR) that acts as a central point of
+communication for all other routers associated with a broadcast network on at least one
+interface. In a theoretical broadcast network that does not apply a DR, it can be
+understood that the communication follows an n(n-1)/2 formula, where n represents the
+number of router interfaces participating in OSPF. In the example given, this would refer
+to 6 adjacencies between all routers. When the DR is applied, all routers establish a
+relationship with the DR to which is responsible for acting as a central point of
+communication for all neighboring routers in a broadcast network.
+A Backup Designated Router (BDR) is a router that is elected to take over from the DR
+should it fail. As such it is necessary that the BDR establish a link state database as that
+of the DR to ensure synchronization. This means that all neighboring routers must also
+communicate with the BDR in a broadcast network. With the application of the DR and
+BDR, the number of associations is reduced from 6 to 5 since RTA and RTB need only
+communicate with the DR and BDR. This may appear to have a minimal effect however
+where this is applied to a network containing for example 10 routers, i.e. (10*9)/2 the
+resulting communication efficiency becomes apparent.
+Election rule: The interface with a higher OSPF DR priority becomes the DR of the MA. If
+the priorities (default value of 1) are the same, the router (interface) with a higher OSPF
+router ID is elected as the DR, and the DR is non-preemption.
+
+Ga) ) OSPF Domain and Single Area
+¢ An OSPF domain is a network that consists of a series of contiguous
+OSPF network devices that use the same policy.
+¢ An OSPF router floods LSAs in the same area. To ensure that all
+routers have the same understanding of the network topology, LSDBs
+need to be synchronized within an area.
+e If there is only one OSPF area, the number of OSPF routers
+increases with the network scale. This causes the following problems:
+A 0 2 The LSDB becomes larger and larger, and the size of the OSPF routing
+rea
+table increases. A large number of router resources are consumed, device
+performance deteriorates, and data forwarding is affected.
+2 Itis difficult to calculate routes based on a large LSDB.
+2 When the network topology changes, LSA flooding and SPF recalculation
+on the entire network bring heavy loads.
+Page 37. = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=| ) Multi-Area OSPF
+Area 1
+Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+OSPF introduces the concept of area. An OSPF
+domain is divided into multiple areas to support
+larger-scale networking.
+The OSPF multi-area design reduces the
+flooding scope of LSAs and effectively controls
+the impact of topology changes within an area,
+optimizing the network.
+Routes can be summarized at the area border
+to reduce the size of the routing table.
+Multi-area improves network scalability and
+facilitates large-scale network construction.
+¢ Types of areas: Areas can be classified into backbone areas and non-backbone areas.
+Area 0 is a backbone area. All areas except area 0 are called non-backbone areas.
+¢ Multi-area interconnection: To prevent inter-area loops, non-backbone areas cannot be
+directly connected to each other. All non-backbone areas must be connected to a
+backbone area.
+
+[=] ) Types of OSPF Routers
+¢ OSPF routers are classified into the
+IR following types based on _ their
+> locations or functions:
+Area 1 0 Internal router
+aS© ao Area border router (ABR)
+a Backbone router
+ABR/BR 2 AS boundary router (ASBR)
+cS. ,& > Another AS
+rea
+ASBR
+Page 39 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Internal router: All interfaces of an internal router belong to the same OSPF area.
+* ABR: An interface of an ABR belongs to two or more areas, but at least one interface
+belongs to the backbone area.
+* Backbone router: At least one interface of a backbone router belongs to the backbone
+area.
+¢ ASBR: exchanges routing information with other ASs. If an OSPF router imports external
+routes, the router is an ASBR.
+
+OSPF Area 0
+OSPF Area 0
+Small- and medium-sized enterprise Large enterprise network (multiple
+network (single area) areas)
+Page 40 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Small- and medium-sized enterprise networks have a small scale and a limited number of
+routing devices. All devices can be deployed in the same OSPF area.
+¢ A large-scale enterprise network has a large number of routing devices and is
+hierarchical. Therefore, OSPF multi-area deployment is recommended.
+
+) Contents
+1. OSPF Overview
+2. OSPF Working Mechanism
+3. Typical OSPF Configuration
+Page 41 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) Basic OSPF Configuration Commands (1)
+1. (System view) Create and run an OSPF process.
+[Huawei] ospf [ process-id | router-id router-id
+ 
+|
+The process-id parameter specifies an OSPF process. The default process ID is 1. OSPF supports multiple processes. Multiple OSPF processes can
+separately run on the same device. The router-id command is used to manually specify the ID of a device. If no ID is specified, the system automatically
+selects the IP address of an interface as the device ID.
+2. (OSPF view) Create an OSPF area and enter the OSPF area view.
+[Huawei] area area-id
+The area command creates an OSPF area and displays the OSPF area view.
+The area-id value can be a decimal integer or in dotted decimal notation. If the value is an integer, it ranges from 0 to 4294967295.
+3. (OSPF area view) Specify the interface that runs OSPF.
+[Huawei-ospf-1-area-0.0.0.0] network network-address wildcard-mask
+The network command specifies the interface that runs OSPF and the area to which the interface belongs. The network-address parameter specifies the
+network segment address of the interface. The wildcard-mask parameter is the wildcard of an IP address, which is equivalent to the reverse mask of the IP
+address (0 is converted to 1, and 1 to 0). For example, 0.0.0.255 indicates that the mask length is 24 bits.
+Page 42 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ A router ID is selected in the following order: The largest IP address among Loopback
+addresses is preferentially selected as a router ID. If no Loopback interface is configured,
+the largest IP address among interface addresses is selected as a router ID.
+
+Ga) ) Basic OSPF Configuration Commands (2)
+4. (Interface view) Set an OSPF interface cost.
+[Huawei-GE1/0/1] ospf cost cost
+The ospf cost command sets a cost for an OSPF interface. By default, OSPF automatically calculates the cost of
+an interface based on the interface bandwidth. The cost value is an integer ranging from 1 to 65535.
+5. (OSPF view) Set an OSPF bandwidth reference value.
+[Huawei-ospf-1] bandwidth-reference value
+The bandwidth-reference command sets a bandwidth reference value that is used to calculate interface costs. The
+value ranges from 1 to 2147483648, in Mbit/s. The default value is 100 Mbit/s.
+6. (Interface view) Set the priority of an interface for DR election.
+[Huawei-GigabitEthernet0/0/0] ospf dr-priority priority
+The ospf dr-priority command sets a priority for an interface that participates in DR election. A larger value
+indicates a higher priority. The value ranges from 0 to 255.
+Page 43 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) OSPF Configuration Example
+Description:
+¢ There are three routers, R1, R2, and R3. R1 and R3 are connected to networks 1.1.1.1/32 and 3.3.3.3/32
+(simulated by Loopback 0), respectively. OSPF needs to be used to implement interworking between the
+two networks. Detailed topology was as follows:
+Area O Area 1
+1.1.1.1/32 ik © 3.3.3.3/32
+© GE0/0/0 GEO0/0/0 © GE0/0/1 GEO0/0/1 ©
+R1 10.1.12.1/30 10.1.12.2/30 |}R2| 10.1.23.1/30 10.1.23.2/30 R3
+Configure Configure Verify the
+interfaces. OSPF. result.
+¢« The configuration process consists of three steps: configuring device interfaces, configuring OSPF, and
+verifying the result.
+Page 44 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+@ OSPF Configuration Example - Configuring
+Interfaces
+Configure Configure Verify the
+interfaces. OSPF. result.
+Area O Area 1
+1.1.1.1/32 =| ©} me 3.3.3.3/32
+© GEO0/0/0 GE0/0/0 © GEO0/0/1 GEO/0/1 ©
+R1 10.1.12.1/30 10.1.12.2/30 }R2| 10.1.23.1/30 10.1.23.2/30 R3
+¢ Set IP addresses for R1's, R2's, and R3's interfaces according to the plan.
+# Configure interfaces of R1. # Configure interfaces of R3.
+[R1] interface LoopBack 0 [R3] interface LoopBack 0
+[R1-LoopBack0O] ip address 1.1.1.1 32 [R3-LoopBack0O] ip address 3.3.3.3 32
+[R1-LoopBack0] interface GigabitEthernet 0/0/0 [R3-LoopBack0O] interface GigabitEthernet 0/0/1
+[R1-GigabitEthernet0/0/0] ip address 10.1.12.1 30 [R3-GigabitEthernet0/0/1] ip address 10.1.23.2 30
+Assign IP addresses for GE0/0/0 and GEO/0/1 on R2. For details, see commentin this slide.
+Page 45 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Configure interfaces of R2.
+a [R2] interface GigabitEthernet 0/0/0
+[R2-GigabitEthernet0/0/0] ip address 10.1.12.2 30
+[R2-GigabitEthernet0/0/0] interface GigabitEthernet 0/0/1
+[R2-GigabitEthernet0/0/1] ip address 10.1.23.1 30
+
+@ OSPF Configuration Example - Configuring
+Configure Configure Verify the
+interfaces. OSPF. result.
+Router ID 1.1.1.1 Area O Area 1
+1.1.1.1/32 =| ©} me 3.3.3.3/32
+& GE0/0/0 © ©
+R1 10.1.12.1/30 R2 R3
+« Planned OSPF parameters: The OSPF process ID is 1. Router IDs of R1, R2, and R3 are 1.1.1.1,
+2.2.2.2, and 3.3.3.3 respectively.
+* Procedure: # Configure OSPF on R1.
+[R1] ospf
+ 
+1 router-id 1.1.1.1
+s Create and run an OSPF process. [R1-ospf-1] area 0
+° Create an OSPF area and enter the [R1-ospf-1-area-0.0.0.0] network 1.1.1.1 0.0.0.0 An inverse mask is
+OSPF area view [R1-ospf-1-area-0.0.0.0] network 10.1.12.00.00.3 ~*~ specified here.
+° Specify the interface that runs OSPF..
+Page 46 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+@ OSPF Configuration Example - Configuring
+Configure Configure Verify the
+interfaces. OSPF. result.
+Area OQ Router|ID 2.2.2.2 Area 1 Router ID 3.3.3.3
+1.1.1.1/32 =| ©} me 3.3.3.3/32
+© GE0/0/0 © GEO0/0/1 GE0/0/1 ©
+R1 10.1.12.2/30 }R2| 10.1.23.1/30 10.1.23.2/30 R3
+When configuring OSPF multi-area, be sure to advertise the route destined for a network segment
+that responds to a specified area.
+# Configure OSPF on R2.
+[R2] ospf 1 router-id 2.2.2.2
+[R2-ospf-1] area 0
+# Configure OSPF on R3.
+[R3] ospf
+ 
+1 router-id 3.3.3.3
+[R3-ospf-1] area 1
+[R2-ospf-1-area-0.0.0.0] network 10.1.12.0 0.0.0.3
+[R2-ospf-1-area-0.0.0.0] area 1
+[R3-ospf-1-area-0.0.0.1] network 3.3.3.3 0.0.0.0
+[R3-ospf-1-area-0.0.0.1] network 10.1.23.0 0.0.0.3
+[R2-ospf-1-area-0.0.0.1] network 10.1.23.0 0.0.0.3
+Page 47 ~=Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) OSPF Configuration Example - Verification (1)
+Configure Configure Verify the
+interfaces. OSPF. result.
+Area 0 Area 1
+1.1.1.1/32 & 3.3.3.3/32
+R1 R2 R3
+« Check the OSPF neighbor table on R2.
+<R2> display ospf peer brief
+OSPF Process 1 with Router ID 2.2.2.2
+Peer Statistic Information
+. . Neighbor status
+Area Id Interface Neighborid State Verify that the neighbor status
+ArealDof 0.0.0.0 _ GigabitEtherneto/0/0 1.41.14 Full _—.. is Full, indicating that the
+adjacency has been
+a neighbor
+0.0.0.1 GigabitEthernet0/0/1 SESESES Full established successfully
+Page 48 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Ga) ) OSPF Configuration Example - Verification (2)
+*« Check the routing table on R1 and ping 3.3.3.3 from 1.1.1.1.
+<R1>display ip routing-table
+Route Flags: R - relay, D - download to fib
+Routing tables: Public
+Destinations : 10 Routes
+ 
+: 10
+Route to Destination/Mask Proto Pre Cost Flags NextHop Interface
+3.3.3.3/32 1.1.1.1/32 Direct 0 0 D 127.0.0.1 LoopBackO
+learned using ; :
+OSPF _—_ 3.3.3.3/32 OSPF 10 2 D 10.1.12.2 | GigabitEthernet 0/0/0
+10.1.12.0/30 Direct O O D 10.1.12.1 GigabitEthernet 0/0/0
+Set the -_
+source IP ——* <R1>ping -a 1.1.1.1 3.3.3.3
+aot 0 PING 3.3.3.3: 56 data bytes, press CTRL_C to break
+-1.1.1an
+ping 3.3.3.3. Reply from 3.3.3.3: bytes = 56 Sequence = 1 ttl = 254 time = 50 ms
+Page 49 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[Figura da Pag.1] Labels: a ~<a; = LE. Caption: (errore caption)
+[Figura da Pag.1] Labels: pace a. > “st 7s, 4 to) ~~ A.D. 1308 Se 7 at ;; CA a ee Se Wy : PP aay. ara ; ink ieee; e e .; <P> RIN UNIVERSITA DEGLI STUDI; “MCCS DI PERUGIA. Caption: (errore caption)
+[Figura da Pag.1] Labels: Fondamenti di Internet; OSPF Basics. Caption: (errore caption)
+[Figura da Pag.2] Labels: ) Foreword; ¢ Static routes are manually configured. If a network topology changes, static routes have; to be manually adjusted, which restricts the large-scale application of static routes on. Caption: (errore caption)
+[Figura da Pag.2] Labels: the live network.; ¢ Dynamic routing protocols are widely used on live networks because of their high; flexibility, high reliability, and easy scalability. The Open Shortest Path First (OSPF); protocol is a widely used dynamic routing protocol.. Caption: (errore caption)
+[Figura da Pag.2] Labels: © TTS GOUTSS AUGSClINGes Vase COMCEVS, WUIRTTTIY THSOCHAnIstH, AMM VaASIy COMMQGULAUOLIS OF; OSPF.; Page 1 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.3] Labels: oF ) Objectives; ¢ Oncompletion of this course, you will be able to:; © Describe the advantages and classification of dynamic routing protocols.. Caption: (errore caption)
+[Figura da Pag.3] Labels: © Describe basic OSPF concepts and usage scenarios.; © Describe the working mechanism of OSPF.; © Implementbasic OSPF configurations.. Caption: (errore caption)
+[Figura da Pag.3] Labels: Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.4] Labels: ) Contents; 1. OSPF Overview; 2. OSPF Working Mechanism. Caption: (errore caption)
+[Figura da Pag.4] Labels: 3. Typical OSPF Configuration. Caption: (errore caption)
+[Figura da Pag.4] Labels: Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.5] Labels: Why Are Dynamic Routing Protocol Used?; ¢ Static routes are manually configured and maintained, and the command lines are simple and clear. They; apply to small-scale or stable networks. Static routes have the following disadvantages:. Caption: (errore caption)
+[Figura da Pag.5] Labels: o Unabie to adapt to large-scale networks: As the number of devices Increases, the configuration workload Increases; sharply.; o Unable to dynamically respond to network changes: If the network topology changes, the network cannot; automatically converge, and static routes must be manually modified.; R _ R2 R R2; | <> es | |< a S|. Caption: (errore caption)
+[Figura da Pag.5] Labels: » NX fe; © Is KS R3; R1-to-R2 static route Manually configured static route R1-R3-R2; Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.6] Labels: Classification of Dynamic Routing Protocols; By ASs; Interior Gateway Protocols (IGPs) Exterior Gateway Protocols (EGPs). Caption: (errore caption)
+[Figura da Pag.6] Labels: By working mechanisms and; algorithms; Distance Vector Routing Protocols Link-State Routing Protocols. Caption: (errore caption)
+[Figura da Pag.6] Labels: Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.7] Labels: Distance-Vector Routing Protocol; ¢ A router running a distance-vector routing protocol periodically floods routes. Through route exchange,; each router learns routes from neighboring routers and installs the routes into its routing table.. Caption: (errore caption)
+[Figura da Pag.7] Labels: ¢ Each router on a network is clear only about where the destination is and how far the destination is, but; unclear about the whole network topology. This is the essence of the distance-vector algorithm.; Routing Routing Routing; table table table. Caption: (errore caption)
+[Figura da Pag.7] Labels: R1 R2 R3; Destined for 3.3.3.3, through R2!; Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.8] Labels: Link-State Routing Protocol - LSA Flooding; ¢ Different from a distance-vector routing protocol, a link-state routing protocol advertises link; status information rather than routes in the routing table. Routers that run a link-state routing. Caption: (errore caption)
+[Figura da Pag.8] Labels: protocol establish a neighbor relationship and then exchange Link State Advertisements (LSAs).; Lé - & —— LSA ¢ LSAs, instead of routes, are; - a R2 $44 : advertised.; gow My ‘ « AnLSAdescribes a router; & ‘ & interface's status information,; such as the cost of the interface. Caption: (errore caption)
+[Figura da Pag.8] Labels: R14 70 : R3; 0 Mb, we and a connected interface name.; ‘Ss A); LSA & LSA; R4; Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.9] Labels: Link-State Routing Protocol - LSDB Creation; ¢ Each router generates LSAs and adds the received LSAs to its own link state database (LSDB).; Routers learn the whole network topology through the LSDB.. Caption: (errore caption)
+[Figura da Pag.9] Labels: * The router stores LSAs in the; & LSDB.; LSA LSA * The LSDB contains the; KE R2 description of all router interfaces; x00" bit, on the network.; & & * The LSDB contains the; an =e desccrintion of the entire network. Caption: (errore caption)
+[Figura da Pag.9] Labels: 47) \o) hae R3 ne; ™ oS 008 topology.; LSA & LSA; R4; LSDB; Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.10] Labels: Link-State Routing Protocol - SPF Calculation; ¢ Each router uses the Shortest Path First (SPF) algorithm and LSDB information to calculate routes. Each; router calculates a loop-free tree with itself as the root and the shortest path. With this tree, a router. Caption: (errore caption)
+[Figura da Pag.10] Labels: UCLOTTIeo TIS UVUTTTAL Vault lU CAG! UVITICL Ul a HOWVUTR,.; l ) Each router calculates a loop-free; & tree with itself as the root over the; R2 18, shortest path.; x00" Ss; In. a er Q Se. Caption: (errore caption)
+[Figura da Pag.10] Labels: oe aK\? a ay; R1 MBpy, ‘) R3 d \; LZ go ; ,; 40 i; R4 » SS Ps; Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.11] Labels: Link-State Routing Protocol - Routing Table; Generation; ¢ Ultimately, the router installs routes for the calculated preferred paths into its routing; table.. Caption: (errore caption)
+[Figura da Pag.11] Labels: Dased VITOFPr CalOulauiOnl POoulls,; LSDB each router installs routes into the; elas routing table.; Routing R2 1.54, Routing; LSDB ye Iu. LSDB; table xo we big. table; . aon. Caption: (errore caption)
+[Figura da Pag.11] Labels: R1 A \) R3; Mbjg, ow; E\); R4 Routing; ~~: | table; Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.12] Labels: Dijkstra algorithm; Amin cost path tree is built starting from a source node s.. Caption: (errore caption)
+[Figura da Pag.12] Labels: 7; UVst ormin cost path trom node s to node /; 7d, COST of the direct link between nodes /e j. If not connected d= eo; » N: set of nodes in the network; » M: set of nodes in the min cost path tree; » V(M): set of nodes adjacent to M, that is connected to at least one node in MV. Caption: (errore caption)
+[Figura da Pag.12] Labels: through a direct link. 4 3 :; ‘< —_; “es a. Caption: (errore caption)
+[Figura da Pag.13] Labels: Dijkstra algorithm; 1) M= {s }; rr ._ J Ww: _pwlisry. Caption: (errore caption)
+[Figura da Pag.13] Labels: iO Sy VI SF UY?; D,=0 — otherwise; 2) Select ke V(M): D, = min {D,}; M=M +k}; D, = min {D,,D, +d, } vieV(M). Caption: (errore caption)
+[Figura da Pag.13] Labels: 3) if M=N stop; else go —to 2. Caption: (errore caption)
+[Figura da Pag.14] Labels: = Ov=1 =a; Example sm | aad; | SJ AL | = = go; B 3 c se ! cS; = rs rr j a 4. r= j a 4.; 1 ot I. O-3 DA2 Xe 6. Caption: (errore caption)
+[Figura da Pag.14] Labels: a ™“N M =fAL ViM) = 18, Ft Mm tA. BL VIA) = (C E, FE; 5; ms |: =; Oe-! Dowd Oe-1 Oc-4; F - E ye Oo 8 Dp=5; | > | =I; ee oa; -- Pa; a c; -7 re; _; On? Ons On-2 na; M = {A.B, Fh, Vi = IC, D, EF iM =1A.B, E, F}, VIM) = IC, DF. Caption: (errore caption)
+[Figura da Pag.14] Labels: Deel Dowd Or-1 Oc =-4; a | oy es (=; Pa Do=5 Do=5; | me | ED; fl; :; :; Den 2 mst On? ns; M=1A.B, CE, Fi. UAt) = (DF M ={A4, B.C, DE, FE. Caption: (errore caption)
+[Figura da Pag.15] Labels: Summary of Link-State Routing Protocols; Neighbor LSDB Link status LSDB; relationship setup information. Caption: (errore caption)
+[Figura da Pag.15] Labels: aS o Q s aR); ty A ws 3 ae La; ay Uo. OS OF Ate CFS; WG, ’ BS) SQ Wm Ms. (Le; 256" ©, *ss Cs ~ eS DW Ne, aN ("4 SS eS; % “4 & z RS %, S “4 & . RS; % & R3; % RS 0\'e LSDB; Path computation Path computation 3] 4] [ RIB | [ RIB |; Route generation; A, A ie eh A oe A Bo. Caption: (errore caption)
+[Figura da Pag.15] Labels: Vv VW Vv Vv; i ~; eatin Computation R3 \ @) / RIB: Routing Information Base R3; Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.16] Labels: Introduction to OSPF; ¢ OSPF is a typical link-state routing protocol and one of the widely used IGPs in the industry.; ¢ OSPFv2, as defined in RFC 2328, is designed for IPv4. OSPFv3, as defined in RFC 2740, is designed for IPv6. Unless. Caption: (errore caption)
+[Figura da Pag.16] Labels: otherwise specified, OSPF in this presentation refers to OSPFv2.; ¢ OSPF routers exchange link status information, but not routes. Link status information is key information for OSPF to; perform topology and route calculation.; ¢ An OSPF router collects link status information on a network and stores the information in the LSDB. Routers are aware; of the intra-area network topology and be able to calculate loop-free paths.. Caption: (errore caption)
+[Figura da Pag.16] Labels: ¢ Each OSPF router uses the SPF algorithm to calculate the shortest path to a specific destination. Routers generate; routes based on these paths and install the routes to the routing table.; ¢ OSPF supports the variable length subnet mask (VLSM) mechanism and manual route summarization.; ¢ The multi-area design enables OSPF to support a larger network.; Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.17] Labels: OSPF Application on a Campus Network; Internet -—_ Firewall a 7 |. Caption: (errore caption)
+[Figura da Pag.17] Labels: The core switch and aggregation Server cluster; switches run OSPF to implement — Gore switch; reachable routes 5; on the campus network.; Aggregation Aggregation Aggregation; switch switch switch. Caption: (errore caption)
+[Figura da Pag.17] Labels: Office building 1 Office building 2 Office building 3; Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.18] Labels: XD Router ID Cost Value; Basic OSPF Concepts: Area; ¢ The OSPF area keyword identifies an OSPF area.; e The area is considered as a logical group, and each group is identified by an area ID.. Caption: (errore caption)
+[Figura da Pag.18] Labels: R1 AreaO R2. Caption: (errore caption)
+[Figura da Pag.18] Labels: au R3; Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.19] Labels: Basic OSPF Concepts: Router ID; ¢ Arouter ID uniquely identifies a router in an OSPF area.; e The router ID can be manually specified or automatically assigned by the system.. Caption: (errore caption)
+[Figura da Pag.19] Labels: Router ID: 1.1.1.1 Area 0 Router ID: 2.2.2.2; © Ok; I'm 1.1.1.1.. Caption: (errore caption)
+[Figura da Pag.19] Labels: au R3; Router ID: 3.3.3.3; Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.20] Labels: ETE costvaue 9; Basic OSPF Concepts: Cost Value; * OSPF uses costs as route metric values. Each OSPF-enabled interface maintains a cost value. Default cost value =; ——100 Mbit/s | where, 100 Mbit/s is the default reference value specified by OSPF and is configurable.; Interface bandwidth. Caption: (errore caption)
+[Figura da Pag.20] Labels: * Generally, the cost of an OSPF route is the sum of costs of all inbound interfaces along a path from the destination; network segment to the local router.; Serial interface (1.544 Mbit/s) 1.1.1.0/24; Default cost = 64; ai Cost = io). Caption: (errore caption)
+[Figura da Pag.20] Labels: ns \ sear; FE interface GE interface ®& Cost = 1 ® Cost = 64 &; Default cost = 1 Default cost = 0.1; R1 R2 R3; « Each OSPF interface has a specific cost « Inthe routing table of R3, the cost of the OSPF route to; because of the particular bandwidth value. 1.1.1.0/24 is 75 (10 + 1 + 64).; Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.21] Labels: OSPF Packet Types; ¢ There are five types of OSPF protocol packets and implement different functions in; interaction between OSPF routers.. Caption: (errore caption)
+[Figura da Pag.21] Labels: Hello Is periodically sent to discover and maintain OSPF neighbor relationships.; Database Description - DD Describes the summary of the local LSDB, which is used to synchronize; the LSDBs of two devices.; Link State Request -LSR Requests a needed LSA from a neighbor. LSRs are sent only after DD. Caption: (errore caption)
+[Figura da Pag.21] Labels: 7 PEALRELS HAVE VEC! GULL SOOIUNY CACTIAIIQOU.; Link State Update - LSU Is sent to advertise a requested LSA to a neighbor.; Link State ACK Is used to acknowledge the receipt of an LSA.; Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.22] Labels: oe OSPF Routing table; Three Types of OSPF Entries - Entries in the; Neighbor Table; ¢ OSPF provides entries in three important tables: OSPF neighbor table, LSDB table, and OSPF routing table. For the; OSPF neighbor table, you need to know:; o Before OSPF transmits link status information, OSPF neighbor relationships must be established.. Caption: (errore caption)
+[Figura da Pag.22] Labels: o OSPF neighbor relationships are established by exchanging Hello packets.; o The OSPF neighbor table describes the status of the neighbor relationship between OSPF routers. You can run the; display ospf peer command to view status information.; OSPF Process 1 with Router ID 1.1.1.1; Neighbors; Router ID: 1.1.1.1 Router ID: 2.2.2.2 Area 0.0.0.0 interface CLL Ate LeeLee OS Me rane. Caption: (errore caption)
+[Figura da Pag.22] Labels: State: Full Mode:Nbr is Master Priority: 1; DR: 10.1.1.1 BDR: 10.1.1.2 MTU: 0; GE 1/0/0 GE 1/0/0 Dead timer due in 35 sec; R11 10.1.1.1/30 10.1.1.2/30 R2 Retrans timer interval: 5; Neighbor is up for 00:00:05; Authentication Sequence: [ 0 ]; Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.23] Labels: Three Types OSPF Entries -Entries inthe —; LSDB Table; ¢ For the OSPF LSDB table, you need to know:; * An LSDB stores LSAs generated by a router itself and received from neighbors. In this example, the LSDB of R1. Caption: (errore caption)
+[Figura da Pag.23] Labels: COMlains Inree Los.; 2 The Type field indicates an LSA type, and the AdvRouter field indicates the router that sends the LSA.; ° Run the display ospf Isdb command to query the LSDB.; <R1>; OSPF Process 1 with Router ID 1.1.1.1; Router ID: 1.1.1.1 Router ID: 2.2.2.2 Link State Database. Caption: (errore caption)
+[Figura da Pag.23] Labels: WMOULET IV. VU; Ke &| Type LinkState ID AdvRouter Age Len Sequence Metric; GE 1/0/0 GE 1/0/0 Router 2.2.2.2 DDADP 98 36 8000000B 1; R1 10.1.1.1/30 10.1.1.2/30 R2 Router 1.1.1.1 1AAA 92 36 80000005 0; Network 10.1.1.2 DDDP 98 32 80000004 1; Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.24] Labels: ME DHE; Three Types of OSPF Entries - Entries in the; OSPF Routing Table; + For the OSPF routing table, you need to know:; * The OSPF routing table and the router routing table are different. In this example, the OSPF routing table contains; three routes.. Caption: (errore caption)
+[Figura da Pag.24] Labels: * An OSPF routing table contains information, such as the destination IP address, cost, and next-hop IP address,; which guides packet forwarding.; *» Run the display ospf routing command to query the OSPF routing table.; <R1>; OSPF Process 1 with Router ID 1.1.1.1; Routing tables; Router ID: 1.1.1.1 Router ID: 2.2.2.2 Routing for Network _ OO |. Caption: (errore caption)
+[Figura da Pag.24] Labels: vestination COst ype INEXTMOp AQGVINOULET Aea; Ke &| 1.1.1.1/32 0 stub 1.1.1.1 1.1.1.1 0.0.0.0; 10.1.1.0/20 1 Transit 10.1.1.1 1.1.1.1 0.0.0.0; GE 1/0/0 GE 1/0/0; 2.2.2.2/32 1 tub 10.1.1.2 Dee DED. 0.0.0.0; R1 10.1.1.1/30 10.1.1.2/30 R2 stu; Total Nets: 3; Intra Area: 3 Inter Area: 0 ASE: 0 NSSA: 0; Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.25] Labels: ) Contents; 1. OSPF Overview; 2. OSPF Working Mechanism. Caption: (errore caption)
+[Figura da Pag.25] Labels: 3. Typical OSPF Configuration. Caption: (errore caption)
+[Figura da Pag.25] Labels: Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.26] Labels: Relationships Between OSPF Routers; ¢ There are two important concepts about the relationship between OSPF routers:; neighbor relationship and adjacency.. Caption: (errore caption)
+[Figura da Pag.26] Labels: ¢ On a simple network, two routers are directly connected. OSPF is enabled on; interconnected interfaces. The routers start to send and listen to Hello packets. After; the two routers discover each other through Hello packets, they establish a; neighbor relationship.. Caption: (errore caption)
+[Figura da Pag.26] Labels: © TS SolaNvisotient OF a HeIQghiVel POlAUUllotily Is JUSt TIO VOQUIg. AV sSeiles Ul VPAUKSlS,; such as DD, LSR, LSU, and LSAck packets, will be exchanged later. When LSDB; synchronization between two routers is complete and the two routers start to calculate; routes independently, the two routers establish an adjacency.; Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.27] Labels: Process of Establishing an OSPF Adjacency; Relationship; ¢ OSPF adjacency relationship establishment involves four steps: establishing a neighbor relationship, negotiating the; master/slave status, exchanging LSDB information, and synchronizing LSDBs.; pe BQ i tt—‘“‘(‘iUUUUUUUNNOC CUS Re. Caption: (errore caption)
+[Figura da Pag.27] Labels: a 1) Va; Establish a bidirectional; <> >> >">" =~ neighbor relationship. TT ee ee; <-----~- Negotiate the master/slave status. erc--->; <- -—------ Mutually describe the LSDB (summary — — —- —- —- —- >; a ape eee a. Caption: (errore caption)
+[Figura da Pag.27] Labels: <--.——~.- Update LSAs and synchronize ~~ ~~~ is; LSDBs of both ends.; 6 Calculates routes. 5] Calculates routes.; Steps 1 to 4 involve interaction between both ends, and Step 5 is performed; separately on each device.; Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.28] Labels: Link State Establishment. Caption: (errore caption)
+[Figura da Pag.28] Caption: (errore caption)
+[Figura da Pag.28] Labels: Exchange; Loading — Full Adjacent; ¢ State changes allow for neighbor relationships to be achieved.; Page 27. Caption: (errore caption)
+[Figura da Pag.29] Labels: Process of Establishing an OSPF Adjacency; OF) -; Step 1; R1 R2. Caption: (errore caption)
+[Figura da Pag.29] Labels: Hello packets; ! I'm 1.1.1.1. | don't know who's on the link. '; R1 (1.1.1.1) is discovered and added; ! Hello packets | to the neighbor list. The status of R1; I'm 2.2.2.2. I found my neighbor 1.1.1.1, | inthe neighbor table is Init.; R2 (2.2.2.2) is discovered and. Caption: (errore caption)
+[Figura da Pag.29] Labels: added to the neighbor list. H i; Because R2 discovered me,|__ | nee a dth ighbor 2.2.2.2; set the status of R2 to 2-way in | mi he foun Se NEIGNDON 4.0.4.2. '; the neighbor table.; © neighbor tanle ' | Because R1 found me, |; f ; - | change the status of 1.1.1.1 to; f We're neighbors. | 2-way in the neighbor table.; Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.30] Labels: Process of Establishing an OSPF Adjacency; - Steps 2 and 3; R1 R2. Caption: (errore caption)
+[Figura da Pag.30] Labels: DD (The content is empty, and the sequence number is X.); 1 I'm the master and my router ID is 1.1.1.1. f; Ex-start (Exchange Start) —_—£ —— ——_—: Ex-start; f DD (The content is empty, and the sequence number is Y.) f; Exchange i I'm the master and my router ID is 2.2.2.2. |; QR2. with a dagger router (Dis. oo oyop>4j}NRe,eowoo; preferred.) | DD (sequence number Y) f; | This is the summary of LSAs in my LSDB. |; >! Exchange; H DD (Sequence number Y +1 in ascendina order) !. Caption: (errore caption)
+[Figura da Pag.30] Labels: ' "This is the summary of LSAs in my LSDB. | Inthe Exchange phase, both ends; a exchange DD packets to describe the; H DD (sequence number Y+1) i summary of their own LSAs.; | Confirms the DD packet sent by the master router. H; a S|; | know what R2's | know what R1's; LSDB contains. LSDB contains.; Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.31] Labels: Process of Establishing an OSPF Adjacency; - Step 4; teat 2. Caption: (errore caption)
+[Figura da Pag.31] Labels: 1 LOR 1; | want to request the complete information about; Loading | Loading; LSU |; ' This is the complete information about the requested LSA. '; i—_——_—a—o'[r lll; | LS ACK; | Confirms the reception of the LSU and the xx LSA !; | carried in the LSU. H; ss — a —i— PF. Caption: (errore caption)
+[Figura da Pag.31] Labels: 1 LOR :; | | want to request the complete information about f; | the yyy LSA. f; a ad |; Full} oe {Full; LSDBs of R1 and R2 LSDBs of R1 and R2; are synchronized. are synchronized.; Page 30 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.32] Labels: Review of the OSPF Neighbor Table; el Re. Caption: (errore caption)
+[Figura da Pag.32] Labels: 10.1.1.1/30 10.1.1.2/30; <R1> display ospf peer; OSPF Process 1 with Router ID 1.1.1.1; Neighbors R1 discovers; Renter Grins Area 0.0.0.0 interface 10.1.1.1(GigabitEthernet1/0/0)'s neighbors ©<— a WEEAOeK; neighbor: 2.2.2.2 "—* area 2.2.2.2 Address: 10.1.1.2 GR State: Normal; OO | State: Full Mode:Nbr ig Master Priority. 1  <...... [he neighbor at. Caption: (errore caption)
+[Figura da Pag.32] Labels: eure So 2.2.2.2. is the master.; status is Full. MTU: 0; Dead timer due in 35 sec; Retrans timer interval: 5; Neighbor is up for 00:00:05; Authentication Sequence: [0 ]; Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.33] Labels: OSPF Network Types; ¢ Before learning concepts of the DR and BDR, understand OSPF network types.; ¢ The OSPF network type is a very important interface variable. This variable affects OSPF operations on. Caption: (errore caption)
+[Figura da Pag.33] Labels: interfaces. For example, it determines how to send OSPF packets and whether to elect a DR or BDR.; e The default OSPF network type of an interface depends on the data link layer encapsulation used by the; interface.; e« As shownin the figure, OSPF has four network types: broadcast, NBMA, P2MP, and P2P.; Router ID: 1.1.1.1 Router ID: 2.2.2.2. Caption: (errore caption)
+[Figura da Pag.33] Labels: broadcast Specify OSPF broadcast network; nbma Specify OSPF NBMA network; R41 10.1.1.1/30 10.1.1.2/30 R2 p2mp Specify OSPF point-to-multipoint network; p2p Specify OSPF point-to-point network; Page 32 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.34] Labels: OSPF Network Types (1); ¢ Generally, the network types of OSPF interfaces at both ends of a link must be the same. Otherwise, the two interfaces; cannot establish a neighbor relationship.; _ WS POT a ee ea ee. nee ee en ee eee ee eee eee ee ee ee ee. Caption: (errore caption)
+[Figura da Pag.34] Labels: _ PME SWPP PROLYVMEIN LY Ve VEE Me TTCGIMGANY VHIGHIQeM VEIT ALE TEA BUY AMANME LU MITEL PIC LYY MIN OVULIGIIVe. TUE CAGIIINIC,; you can change the BMA network type to P2P.; Point-to-Point (P2P) Broadcast Multiple Access (BMA); ©; Serial0/0/0 Serial0/0/0 oe ©; a —; PPP PPP & Ss; DTA pre Ethernet ~ a. Caption: (errore caption)
+[Figura da Pag.34] Labels: <a ey; * P2P indicates that only two network devices can be connected * BMAis also called broadcast. It refers to an environment that; ona link. allows multiple devices to access and supports broadcast.; * Atypical example is a PPP link. When an interface uses PPP * Atypical example is an Ethernet network. When an interface; encapsulation, the default network type of the OSPF interface uses Ethernet encapsulation, the default network type of the; is P2P. OSPF interface is BMA.; Page 33 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.35] Labels: OSPF Network Types (2); LA |. Caption: (errore caption)
+[Figura da Pag.35] Labels: 7 we; © i Frame Relay —_ Ky | © ia; « NBMA refers to an environment that allows multiple * AP2MP network is formed by bundling endpoints; network devices to access but does not support of multiple P2P links.; hroadcact. e No link laver protocol ig considered asc a POMP. Caption: (errore caption)
+[Figura da Pag.35] Labels: « Atypical example is a Frame Relay (FR) network. network by default. This type must be manually; changed from another network type.; + For example, a non-full-mesh NBMA network can; be changed to a P2MP network.; Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.36] Labels: Background of DR and BDR; ¢ Multi-access (MA) networks are classified into BMA and NBMA networks. Ethernet is a typical broadcast multi-access; network.; _ SI ee. Caption: (errore caption)
+[Figura da Pag.36] Labels: _ MATE GALT IIE TROEWV MEIN, TE SANE SVP PMS SOLANNOIISO MYT T AMJAQMVEIIVISSO VWVIREE GN LIS MEEISE PVM OC, SAVE VOIYS Vw tT; adjacencies exist on the network, which increases the load on the devices and the number of OSPF packets flooded on; the network.; ¢ Once the network topology changes, LSA flooding on the network may waste bandwidth and device resources.; JR ™E. Caption: (errore caption)
+[Figura da Pag.36] Labels: L209 _; ~~ Adjacency; Page 35 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.37] Labels: ¢ To optimize OSPF neighbor relationships on an MA network, the OSPF protocol specifies three types of; OSPF routers: DR, BDR, and DRother.. Caption: (errore caption)
+[Figura da Pag.37] Labels: e¢ Only the DR and BDR can establish adjacencies with other OSPF routers. DRothers do not establish; OSPF adjacencies with one another, and their relationship is in the 2-way state.; ¢ TheBDR monitors the status of the DR and takes over the role of the DR if the existing DR fails.. Caption: (errore caption)
+[Figura da Pag.37] Labels: DRother DRother DRother ———> Adjacency; Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.38] Labels: OSPF Domain and Single Area; ¢ An OSPF domain is a network that consists of a series of contiguous; OSPF network devices that use the same policy.. Caption: (errore caption)
+[Figura da Pag.38] Labels: ¢ An OSPF router floods LSAs in the same area. To ensure that all; routers have the same understanding of the network topology, LSDBs; need to be synchronized within an area.; ¢ If there is only one OSPF area, the number of OSPF routers; increases with the network scale. This causes the following problems:; Area 2 The LSDB becomes larger and larger, and the size of the OSPF routing; tahloa innraacoc A larnaoa nitmbhar af rniitar racniirnac ara nnneimoan daoaviro. Caption: (errore caption)
+[Figura da Pag.38] Labels: Eee eee eee; performance deteriorates, and data forwarding is affected.; * — Itis difficult to calculate routes based on a large LSDB.; 2 When the network topology changes, LSA flooding and SPF recalculation; on the entire network bring heavy loads.; Page 37 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.39] Labels: Multi-Area OSPF; Sa * OSPF introduces the concept of area. An OSPF; TA HA | domain is divided into multiple areas to support. Caption: (errore caption)
+[Figura da Pag.39] Labels: Area 1 larger-scale networking.; « The OSPF multi-area design reduces the; flooding scope of LSAs and effectively controls; Area 0 the impact of topology changes within an area,; optimizing the network.. Caption: (errore caption)
+[Figura da Pag.39] Labels: ¢ Routes can be summarized at the area border; re) oO to reduce the size of the routing table.; | Area 2 * Multi-area improves network scalability and; facilitates large-scale network construction.; Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.40] Labels: Types of OSPF Routers; ¢ OSPF routers are classified into the; fe ~~ following types based on_ their. Caption: (errore caption)
+[Figura da Pag.40] Labels: locations or functions:; Area 1 a Internal router; - o Area border router (ABR); o Backbone router; 1é| ABR/BR a AS boundary router (ASBR). Caption: (errore caption)
+[Figura da Pag.40] Labels: & Another AS; Area 2; ASBR; Page 39 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.41] Labels: —@) Typical OSPF Si; @) ) aera F Single-Area and Multi-Area. Caption: (errore caption)
+[Figura da Pag.41] Labels: is VY YY YY; oy ey; ree] ree] . == |. Caption: (errore caption)
+[Figura da Pag.41] Labels: a | <a | a OSPF Area OSPF Area 2; Small- and medium-sized enterprise Large enterprise network (multiple; network (single area) areas); Page 40 Copyright © 2020 Huawei Technologies Co., Ltd. Alll rights reserved.. Caption: (errore caption)
+[Figura da Pag.42] Labels: ) Contents; 1. OSPF Overview; 2. OSPF Working Mechanism. Caption: (errore caption)
+[Figura da Pag.42] Labels: 3. Typical OSPF Configuration. Caption: (errore caption)
+[Figura da Pag.42] Labels: Page 41 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.43] Labels: Basic OSPF Configuration Commands (1); 1. (System view) Create and run an OSPF process.; [Huawei] ospf [ process-id | router-id router-id ]. Caption: (errore caption)
+[Figura da Pag.43] Labels: ‘ne process-id parameter specifies an Oorr process. [he default process |! IS 1. OsFr supports multiple processes. Wiultipie Osorr processes can; separately run on the same device. The router-id command is used to manually specify the ID of a device. If no ID is specified, the system automatically; selects the IP address of an interface as the device ID.; 2. (OSPF view) Create an OSPF area and enter the OSPF area view.; [Huawei] area area-id; The area command creates an OSPF area and displays the OSPF area view.; The area-id value can be a decimal integer or in dotted decimal notation. If the value is an integer, it ranges from 0 to 4294967295.. Caption: (errore caption)
+[Figura da Pag.43] Labels: 3. (OSPF area view) Specify the interface that runs OSPF.; [Huawei-ospf-1-area-0.0.0.0] network network-address wildcard-mask; The network command specifies the interface that runs OSPF and the area to which the interface belongs. The network-address parameter specifies the; network segment address of the interface. The wildcard-mask parameter is the wildcard of an IP address, which is equivalent to the reverse mask of the IP; address (0 is converted to 1, and 1 to 0). For example, 0.0.0.255 indicates that the mask length is 24 bits.; Page 42 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.44] Labels: Basic OSPF Configuration Commands (2); 4. (Interface view) Set an OSPF interface cost.; [Huawei-GE1/0/1] ospf cost cost. Caption: (errore caption)
+[Figura da Pag.44] Labels: The ospf cost command sets a cost for an OSPF interface. By default, OSPF automatically calculates the cost of; an interface based on the interface bandwidth. The cost value is an integer ranging from 1 to 65535.; 5. (OSPF view) Set an OSPF bandwidth reference value.; [Huawei-ospf-1] bandwidth-reference value; The bandwidth-reference command sets a bandwidth reference value that is used to calculate interface costs. The; value ranges from 1 to 2147483648, in Mbit/s. The default value is 100 Mbit/s.. Caption: (errore caption)
+[Figura da Pag.44] Labels: 6. (Interface view) Set the priority of an interface for DR election.; [Huawei-GigabitEthernet0/0/0] ospf dr-priority priority; The ospf dr-priority command sets a priority for an interface that participates in DR election. A larger value; indicates a higher priority. The value ranges from 0 to 255.; Page 43 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.45] Labels: OSPF Configuration Example; Description:; ¢« There are three routers, R1, R2, and R3. R1 and R3 are connected to networks 1.1.1.1/32 and 3.3.3.3/32. Caption: (errore caption)
+[Figura da Pag.45] Labels: (simulated by Loopback 0), respectively. OSPF needs to be used to implement interworking between the; two networks. Detailed topology was as follows:; Area 0 Area 1; 1.1.1.1/32 3.3.3.3/32; & GEO/0/0 GEO/0/0 © GEO/0/1 GEO/0/1 ©; R1 10.1.12.1/30  10.1.12.2/30 }R2| 10.1.23.1/30 10.1.23.2/30 _R3. Caption: (errore caption)
+[Figura da Pag.45] Labels: Ne nett; Configure Configure Verify the; . nal >; interfaces. OSPF. result.; + The configuration process consists of three steps: configuring device interfaces, configuring OSPF, and; verifying the result.; Page 44 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.46] Labels: OSPF Configuration Example - Configuring; Interfaces; Configure | _ Verify the; interfaces. OSPF. result.; Area O Area 1. Caption: (errore caption)
+[Figura da Pag.46] Labels: 1.1.1.1/32 ROY & Og 3.3.3.3/32; GEO0/0/0 GEO0/0/0 GEO0/0/1 GEO0/0/1; R1 10.1.12.1/30 10.1.12.2/30 }R2| 10.1.23.1/30  10.1.23.2/30 R3; * Set IP addresses for R1's, R2's, and R3's interfaces according to the plan.; # Configure interfaces of R1. # Configure interfaces of R3.. Caption: (errore caption)
+[Figura da Pag.46] Labels: [R1] interface LoopBack 0 [R3] interface LoopBack 0; [R1-LoopBack0O] ip address 1.1.1.1 32 [R3-LoopBack0O] ip address 3.3.3.3 32; [R1-LoopBack0O] interface GigabitEthernet 0/0/0 [R3-LoopBack0O] interface GigabitEthernet 0/0/1; [R1-GigabitEthernet0/0/0] ip address 10.1.12.1 30 [R3-GigabitEthernet0/0/1] ip address 10.1.23.2 30; Assign IP addresses for GE0/0/0 and GEO/0/1 on R2. For details, see commentin this slide.; Page 45 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.47] Labels: OSPF Configuration Example - Configuring; OSPF (1); Configure Verify the; interfaces. OSPF. result.; Router 1D 1.1.1.1 Area O Area 1. Caption: (errore caption)
+[Figura da Pag.47] Labels: 1.1.1.1/32 3.3.3.3/32; © GE0/0/0 & ©; R1 10.1.12.1/30 R2 R3; *« Planned OSPF parameters: The OSPF process ID is 1. Router IDs of R1, R2, and R3 are 1.1.1.1,; 2.2.2.2, and 3.3.3.3 respectively.; ar ee # Configure OSPF on R1.. Caption: (errore caption)
+[Figura da Pag.47] Labels: ° Froceuure. _; [R1] ospf 1 router-id 1.1.1.1; 2 Create and run an OSPF process. [R1-ospf-1]; 2 Create an OSPF area and enter the [R1-ospf-1-area-0.0.0.0] network 1.1.1.1 0.0.0.0 An inverse mask is; OSPE area view [R1-ospf-1-area-0.0.0.0] network 10.1.12.00.0.0.3 *~ specified here.; 2 Specify the interface that runs OSPF..; Page 46 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.48] Labels: OSPF Configuration Example - Configuring; OSPF (2); Configure Verify the; interfaces. OSPF. result.; Area 0} Router ID 6599 Area 1 ~=Router ID 3.3.3.3. Caption: (errore caption)
+[Figura da Pag.48] Labels: 1.1.1.1/32 & & & 3.3:3.3/82; GE0/0/0 GEO/0/1 GEO0/0/1; R1 10.1.12.2/30 }R2| 10.1.23.1/30 10.1.23.2/30 R3; *« When configuring OSPF multi-area, be sure to advertise the route destined for a network segment; that responds to a specified area.; # Configure OSPF on R2. # Configure OSPF on R3.. Caption: (errore caption)
+[Figura da Pag.48] Labels: [R2] ospf 1 router-id 2.2.2.2 [R3] ospf 1 router-id 3.3.3.3; [R2-ospf-1] [R3-ospf-1]; [R2-ospf-1-area-0.0.0.0] network 10.1.12.0 0.0.0.3 [R3-ospf-1-area-0.0.0.1] network 3.3.3.3 0.0.0.0; [R2-ospf-1-area-0.0.0.0] [R3-ospf-1-area-0.0.0.1] network 10.1.23.0 0.0.0.3; [R2-ospf-1-area-0.0.0.1] network 10.1.23.0 0.0.0.3; Page 47 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.49] Labels: OSPF Configuration Example - Verification (1); Configure | Configure; interfaces. OSPF. result.; Area O Area 1. Caption: (errore caption)
+[Figura da Pag.49] Labels: 1.1.1.1/32 ROY & Og 3.3.3.3/32; R1 R2 R3; * Check the OSPF neighbor table on R2.; <R2> display ospf peer brief; OSPF Process 1 with Router ID 2.2.2.2. Caption: (errore caption)
+[Figura da Pag.49] Labels: Peer Statistic Information; ee Neighbor status; Area Id Interface Neighborid State Verify that the neighbor status; a Senber : GigabitEthernet0/0/0 1444 _—. is Full, indicating that the; GigabitEthernet0/0/1 33.33 ER RCSWS VUES EER; established successfully.; Page 48 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.50] Labels: OSPF Configuration Example - Verification (2); * Check the routing table on R1 and ping 3.3.3.3 from 1.1.1.1.; <R1>display ip routing-table. Caption: (errore caption)
+[Figura da Pag.50] Labels: Route Flags: R - relay, D - download to fib; Routing tables: Public; Destinations : 10 Routes : 10; Route to Destination/Mask Proto Pre Cost Flags NextHop Interface; 3.3.3.3/32 1.1.1.1/32 Direct 0 0 D 127.0.0.1 LoopBackO; learned using - -; OSPF —— 3.3.3.3/32 OSPF 10 2 D 101122 GigabitEthernet 0/0/0; AN 14490 N/I2N Dyrert NO TN 1Nn1194 fs ne eek. Caption: (errore caption)
+[Figura da Pag.50] Labels: IS EE IIE IIS EEE RE teenie ee ee; Set the 7; source IP ——* <R1>ping -a 1.1.1.1 3.3.3.3; aaaress ° PING 3.3.3.3: 56 data bytes, press CTRL_C to break; 1.1.1 an; ping 3.3.3.3. Reply from 3.3.3.3: bytes = 56 Sequence = 1 ttl = 254 time = 50 ms; Page 49 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)

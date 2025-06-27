@@ -1,18 +1,24 @@
-from transformers import BlipProcessor, BlipForConditionalGeneration
+# src/ingestion/pdf_images.py
 from PIL import Image
-import pytesseract, fitz, cv2, os, json, numpy as np
+import os, json, fitz, pytesseract, cv2, numpy as np, io
+from transformers import BlipProcessor, BlipForConditionalGeneration
 
-# Inizializza BLIP-base
-_blip_p = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
+# Inizializza BLIP una volta
+_blip_p = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base",  use_fast=True)
 _blip_m = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
 
 def is_diagram(path, line_thresh=10):
+    import cv2, numpy as np
     img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
     edges = cv2.Canny(img, 50, 150)
-    lines = cv2.HoughLinesP(edges, 1, np.pi/180, threshold=50, minLineLength=40, maxLineGap=5)
+    lines = cv2.HoughLinesP(edges,1, np.pi/180, threshold=50, minLineLength=40, maxLineGap=5)
     return lines is not None and len(lines) > line_thresh
 
-def extract_pdf_images_with_caption(pdf_path, out_dir="data/processed/images", output_json="data/processed/image_map.json"):
+def extract_pdf_images_with_caption(pdf_path, out_dir="data/processed/images"):
+    """
+    Estrae tutte le immagini dal PDF, salva su disco e ritorna 
+    una lista di dict con caption & metadata. NON scrive il JSON.
+    """
     os.makedirs(out_dir, exist_ok=True)
     image_map = []
     doc = fitz.open(pdf_path)
@@ -26,19 +32,27 @@ def extract_pdf_images_with_caption(pdf_path, out_dir="data/processed/images", o
             out_path = os.path.join(out_dir, fname)
             pix.save(out_path); pix = None
 
-            # OCR interno
-            ocr_labels = pytesseract.image_to_string(
-                Image.open(out_path).convert("L"), lang="ita+eng", config="--psm 6"
-            ).splitlines()
-            ocr_labels = [l for l in ocr_labels if l.strip()]
+            # OCR labels
+            try:
+                ocr_lines = pytesseract.image_to_string(
+                    Image.open(out_path).convert("L"),
+                    lang="ita+eng", config="--psm 6"
+                ).splitlines()
+                ocr_labels = [l for l in ocr_lines if l.strip()]
+            except:
+                ocr_labels = []
 
-            # Caption BLIP-base
-            img = Image.open(out_path).convert("RGB")
-            inputs = _blip_p(images=img, return_tensors="pt")
-            out_ids = _blip_m.generate(**inputs, max_new_tokens=50)
-            caption = _blip_p.decode(out_ids[0], skip_special_tokens=True).strip()
+            # BLIP caption
+            caption = ""
+            if _blip_p and _blip_m:
+                try:
+                    img = Image.open(out_path).convert("RGB")
+                    inputs = _blip_p(images=img, return_tensors="pt", input_data_format="HWC")
+                    out_ids = _blip_m.generate(**inputs, max_new_tokens=50)
+                    caption = _blip_p.decode(out_ids[0], skip_special_tokens=True).strip()
+                except:
+                    caption = "(errore caption)"
 
-            # Componi descrizione
             desc = ""
             if ocr_labels:
                 desc += "Labels: " + "; ".join(ocr_labels) + ". "
@@ -52,6 +66,4 @@ def extract_pdf_images_with_caption(pdf_path, out_dir="data/processed/images", o
                 "caption": desc
             })
 
-    with open(output_json, "w", encoding="utf-8") as f:
-        json.dump(image_map, f, indent=2, ensure_ascii=False)
     return image_map

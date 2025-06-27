@@ -1,0 +1,1251 @@
+Page 0
+A.D. 1308
+Fondamenti di Internet
+VRP Basics
+Prof. Gianluca Reali
+
+Page 1
+) Foreword
+The Versatile Routing Platform (VRP) is a universal operating system (OS) platform for
+Huawei datacom products. It is based on IP and adopts a component-based
+architecture. It provides rich features and functions, including application-based
+tailorable and extensible functions, greatly improving the running efficiency of the
+devices that use this OS. To efficiently manage such devices, you must be familiar with
+VRP and VRP-based configuration.
+This course describes the basic concepts, common commands, and command line
+interface (CLI) of VRP.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Objectives
+¢ Oncompletion of this course, you will be able to:
+o Understand VRP basics.
+o Learn how to use CLI.
+o Master basic CLI commands.
+Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Contents
+1. VRP Overview
+2. Command Line Basics
+Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 4
+[= ) What Is VRP?
+foo » Security
+Routing
+VRP |
+f
+XK y Wireless
+Switching
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+VRP is a universal OS platform for Huawei datacom
+products. It serves as the software core engine of
+Huawei's full series of routers from low-end to core ones,
+Ethernet switches, service gateways, and so on.
+VRP provides the following functions:
+o ~=6©Provides a unified user interface and a unified
+management interface.
+a Implements the functions of the control plane and
+defines the interface specifications of the forwarding
+plane.
+a Implements communication between the device
+forwarding plane and VRP control plane.
+
+VR P1 price me cette memes m cerns -
+*Centralizeddesign —
+Ca "Applicable to low-
+e end and mid-range
+VRP2 devices !
+"Low performance AR series
+routers
+=Distributed design 1998-2001 ;
+ae
+ 
+eee ee
+1999-2000 i S series
+VRP3 ; switches
+*Distributed platform
+=*Supportfor various 1 VRPS
+features
+«Support for core Component-based
+routers i| design
+=Applicable to
+various Huawei
+2000-2004 products
+Page 5
+ry) ) Development of the VRP
+*High performance
+2004-Now
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+VRP8
+=Multi-process
+=Component- i
+based design
+=*Supportfor multi-
+CPU and multi-
+chassis
+ulti-pro
+S,
+process, mu 1
+chassi and multi-core
+2009-Now
+
+[=| ) File System
+e The file system manages files and directories in storage media, allowing users to view, create, rename, and
+delete directories and copy, move, rename, and delete files.
+e Mastering the basic operations of the file system is crucial for network engineers to efficiently manage the
+configuration files and VRP system files of devices.
+The system software is a must for device
+startup and operation, providing support,
+management, and services for a device. The System
+common file name extension is .cc. Software
+Aconfiguration file stores configuration
+commands, enabling a device to start with
+Configuration the configurations in the file. The common
+File file name extensions are .cfg, zip, and .dat.
+A patch is a kind of software compatible with
+the system software. It is used to fix bugs in Patch File
+system software. The common file name
+extension is .pat.
+A PAF file effectively controls product
+features and resources. The common file
+name extension is .bin.
+Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+A configuration file is a collection of command lines. Current configurations are stored in a
+configuration file so that the configurations are still effective after the device restarts. Users
+can view configurations in the configuration file and upload the configuration file to other
+devices to implement batch configuration.
+A patch is a kind of software compatible with the system software. It is used to fix bugs in
+system software. Patches can also fix system defects and optimize some functions to meet
+service requirements.
+To manage files on a device, log in to the device through either of the following modes:
+2 Local login through the console port or Telnet
+= Remote login through FTP, TFTP, or SFTP
+
+[=| ) Storage Media
+¢ Storage media include SDRAM, flash memory, NVRAM, SD card, and USB.
+NVRAM
+NVRAM is nonvolatile random
+access memory. It is used to store
+log buffer files. Logs will be written
+into the flash memory after the timer
+i the buffer is full.
+Flash expires or
+SD Card
+The flash memory is nonvolatile and can
+avoid data loss in case of power-off. It is The SD card can avoid data loss data in
+used to store system software, configuration case of power-off. The SD card has a
+files, and so on. Patch files and PAF files are large storage capacity and is generally
+uploaded by maintenance personnel and installed on a main control board. It is used
+generally stored in the flash memory or SD to store system files, configuration files,
+card. log files, and so on.
+SDRAM USB
+SDRAM is synchronous dynamic random Sto rage The USB is considered an interface. It is
+access memory, which is equivalent to a Medi used to connect to a large-capacity
+computer's memory. It stores the system edla storage medium for device upgrade and
+running information and parameters. data transmission.
+Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« Storage media include SDRAM, flash memory, NVRAM, SD card, and USB.
+«2 SDRAM stores the system running information and parameters. It is equivalent to a
+computer's memory.
+2 NVRAM is nonvolatile. Writing logs to the flash memory consumes CPU resources and
+is time-consuming. Therefore, the buffer mechanism is used. Specifically, logs are first
+saved to the buffer after being generated, and then written to the flash memory after the
+timer expires or the buffer is full.
+= The flash memory and SD card are nonvolatile. Configuration files and system files are
+stored in the flash memory or SD card. For details, see the product documentation.
+« SD cards are external memory media used for memory expansion. The USB is
+considered an interface. It is used to connect to a large-capacity storage medium for
+device upgrade and data transmission.
+2 Patch and PAF files are uploaded by maintenance personnel and can be stored ina
+specified directory.
+
+[=| ) Device Initialization Process
+e After a device is powered on, it runs the BootROM software to initialize the hardware and display hardware
+parameters. Then, it runs the system software and reads the configuration file from the default storage path
+to perform initialization.
+BIOS Creation Date : Jan 5 2013, 18:00:24
+DDR DRAM init : OK
+Start Memory Test ? ('t' or 'T' is test):skip
+Copying Data : Done
+Uncompressing : Done
+Press Ctrl+B to break auto startup ... 1
+Now boot from flash:/AR2220E-V200R007COOSPC600.cc,
+Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢« Boot Read-Only Memory (BootROM) is a set of programs added to the ROM chip of a device.
+BootROM stores the device's most important input and output programs, system settings,
+startup self-check program, and system automatic startup program.
+« The startup interface provides the information about the running program of the system, the
+running VRP version, and the loading path.
+
+[= ) Device Management
+e There are two commonly used device management modes: CLI and web system.
+e To use a device management mode, you must first log in to a device through a login mode supported by
+this device management mode.
+Web System CLI
+* The web system provides a graphical user * The CLI requires users to use commands
+interface (GUI) for easy device provided by a device to manage and
+management and maintenance. This maintain the device. This mode implements
+method, however, can be used to manage refined device management but requires
+and maintain only some, not all, device users to be familiar with the commands.
+functions.
+¢ The CLI supports the console port, Telnet,
+The web system supports the HTTP and and SSH login modes.
+HTTPS login modes.
+Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=| ) VRP User Interfaces
+e When a user logs in to a device through a CLI-supported mode, the system allocates a user interface to
+manage and monitor the current session between the user terminal and device.
+e Such a user interface can be a console user interface or virtual type terminal (VTY) user interface.
+Console User Interface VTY User Interface
+¢ Aconsole user interface is used to « The VTY user interface is used to manage
+manage and monitor users who log in to and monitor users who log in to a device by
+a device through the console port. means of VTY.
+¢ The serial port of a user terminal can be ¢ After a Telnet or STelnet connection is
+directly connected to the console port of a established between a user terminal and a
+device for local access. device, a VTY channel is established to
+implement remote access to the device.
+Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) VRP User Levels
+¢ VRP provides basic permission control functions. It defines the levels of commands that each
+level of users can execute to restrict the operations of users at different levels.
+User Level Command Name Available Command
+Level
+Network diagnosis commands (such as ping and tracert), commands for
+0 0 Visit level accessing external devices irom the local device (such as ‘Telnet client
+commands), and some display commands
+Monitoring
+1 O and 1 level
+System maintenance commands, including display commands
+Configuratio Service configuration commands, including routing commands and IP
+2 0,1, and 2 n level configuration commands, to directly provide users with network services
+Commands for controlling basic system operations and providing support
+0,1, 2,and Manageme for services, including the file system, FTP, TFTP download, user
+3 nt level management, and command level commands, as well as debugging
+commands for fault diagnosis
+3-15
+Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ To limit users’ access permissions to a device, the device manages users by level and
+establishes a mapping between user levels and command levels. After a user logs in toa
+device, the user can use only commands of the corresponding levels or lower. By default, the
+user command level ranges from 0 to 3, and the user level ranges from 0 to 15. The mapping
+between user levels and command levels is shown in the table.
+
+[=| ) Login to the Web System
+Take the web system for a Huawei AR router as an
+example. Start a browser on a PC, enter &
+J
+https://192.168.1.1 in the address bar, and press Enter. @ a an
+Then, the web system login page is displayed. @ / (ee ” mone
+1 1 = 4 t
+AR WebSBFA «= BFE: admin
+192.168.1.
+1
+Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Note: The login page, mode, and IP address may vary according to devices. For details, see
+the product documentation.
+
+Ga) ) CLI - Local Login (1)
+M HUAWe
+You can log in to a device in local or remote © ag. ; ;
+mode. Local login mode: os: bate mw me ew.
+« Use this mode when you need to configure a
+device that is powered on for the first time. You
+can use the console port of the device for a
+local login.
+AR2220 Console
+port
+(QPIN-23°% jE EBS
+(8PIN-RU45
+oR ag
+a = =
+The console port is a serial port provided by the
+main control board of a device.
+To implement the login, directly connect your
+terminal's serial port to the device's console
+port, and use PuTTY to log in to the device. You
+can then configure the device after the login
+succeeds. Console cable
+X2
+Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Use a console cable to connect the console port of a device with the COM port of a computer.
+You can then use PuTTY on the computer
+ 
+to log in to the device and perform local
+commissioning and maintenance. A console port is an RJ45 port that complies with the
+RS232 serial port standard. At present, the COM ports provided by most desktop computers
+can be connected to console ports. In most cases, a laptop does not provide a COM port.
+Therefore, a USB-to-RS232 conversion port is required if you use a laptop.
+The console port login function is enabled by default and does not need to be pre-configured.
+
+Ga) ) CLI - Local Login (2)
+. . . 88 PuTTY Configuration ? x
+PuTTY is a connection software for login through
+Telnet, SSH, serial interfaces, and so on category
+einet, , , . E Session Basic options for your PUTTY session
+In local login, the terminal is connected to the console Leama Specify the destination you want to connect to
+port of the Huawei device through a serial port. Keyboard Serial line Speed
+- g 9 el COM1 9600
+Therefore, set Connection type to Serial. Set Serial Features
+- Q A Cc ti 2
+line based on the actually used port on the terminal. = Window One tet ORban OSSH @senal
+Appearance U U UU) Riogin ©
+Set Speed to 9600. Behaviour -
+Transtation Load, save or delete a stored session
+Selection Saved Sessions
+Colours
+=) Connection -
+Data Default Settings Load
+Proxy
+Telnet Save
+Rlogin
+$.SSH Delete
+Serial
+Close window on exit:
+COaAtays (©)Never (@) Only onclean exit
+About Help Cancel
+Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Many terminal simulators can initiate console connections. PuTTY is one of the options for
+connecting to VRP. If PUTTY is used for access to VRP, you must set port parameters. The
+figure in the slide shows examples of port parameter settings. If the parameter values were
+ever changed, you need to restore the default values.
+« After the settings are complete, click Open. The connection with VRP is then set up.
+
+[= ) CLI - Remote Login
+. . . PuTTY Configuration ? x
+Remote login means that you log in to a device that can &
+Category:
+function as a remote login server, allowing you to centrally = Session Basic options for your PuTTY session
+, A q : Logging
+manage and maintain network devices. Remote login methods = Terminal Specify the destination you want to connect to
+. Keyboard Host Name (or IP address) Port
+include Telnet and SSH. Bell [192.168.10. 1] ||22
+Features -
+. . =. Window Connection type:
+¢ Ifyou use the SSH login mode, set Connection type to Appearance ORaw (©velnet C)Rlogin @SSH (C)Serial
+. Behaviour Load delet fered .
+SSH, enter the IP address of the remote login server, and Translation TERETE
+Selection Saved Sessions
+use the default port number 22. Colours
+=) Connection
+. . Data Default Settings Load
+¢ Ifyou use the Telnet login mode, set Connection type to Proxy
+. Telnet Save
+Telnet, enter the IP address of the remote login server, and Rlogin
++: SSH Delete
+use the default port number 23. Serial
+Close window on exit:
+= O O)Never = @) Only onclean exit
+LAN set
+192.168.10.1 About Heb Cancel
+Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ By default, the SSH login function is disabled on a device. You need to log in to the device
+through the console port and configure mandatory parameters for SSH login before using the
+SSH login function.
+
+[=| ) cu
+e After
+ 
+a login succeeds, the command line interface (CLI) is displayed.
+¢ The CLI is a common tool for engineers to interact with network devices.
+& 127.0.0.1 - PuTTy - oO xX
+=
+° i
+ 
+|
+’
+D> a» Li
+|
+|
+1 4
+AR2220 Console port
+8PIN-RJ45
+{ |}~ m+
+Console cable
+Lk COM port
+PC
+Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ The CLI is an interface through which users can interact with a device. When the command
+prompt is displayed after a user logs in to a device, it means that the user has entered the CLI
+successfully.
+
+) Contents
+1. VRP Basics
+2. Command Line Basics
+= Command Line Overview
+s Basic Configuration Commands
+so Case Analysis
+Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=| ) Basic Command Structure
+¢ CLI commands follow a unified structure. After a command is entered on the CLI, the CLI parses the command and
+executes it to implement the function of the command, such as query, configuration, or management.
+Parameter List
+Command Word
+L Keyword | a Parameter |__.; Parameter a
+‘name: -: value
+Command word: specifies the operation to be executed in a command, such as display (device status query) or reboot (device restart).
+Keyword: a special character string that is used to further restrict a command. It is an extension of a command and can also be used to express the command
+composition logic.
+Parameter list: is composed of parameter names and values to further restrict the command function. It can contain one or more pairs of parameter names and
+values.
+Example 1: Example 2:
+display ip interface GEO/0/0: displays interface reboot: restarts a device.
+information. Command word: reboot
+Command word: display Each operation command must start with a
+Keyword: ip command word, and the command word is
+Parameter name: interface selected from the standard command word list.
+Parameter value: GEO/0/0
+Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢« Each command must contain a maximum of one command word and can contain multiple
+keywords and parameters. A parameter must be composed of a parameter name and a
+parameter value.
+¢« The command word, keywords, parameter names, and parameter values in a command are
+separated by spaces.
+
+[=| ) Command Views (1)
+¢ A device provides various configuration and query commands. To facilitate the use of these commands, VRP registers
+the commands in different views according to their functions.
+Interface views:
+GigabitEthernet
+interface view « User view: In this view, you can check the
+Ethernet interface view
+Serial interface view running status and statistics of a device.
+* System view: In this view, you can set
+system parameters and enter the
+Protocol views: . . .
+System OSPF view ————— OSPF area view configuration views of other commands.
+User view ——> view | IS-IS vi
+BGP vow * Other views: In other views, such as the
+interface view and protocol view, you can
+set interface parameters and protocol
+parameters.
+Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« The user view is the first view displayed after you log in to a device. Only query and tool
+commands are provided in the user view.
+« Inthe user view, only the system view can be accessed. Global configuration commands are
+provided in the system view. If the system has a lower-level configuration view, the command
+for entering the lower-level configuration view is provided in the system view.
+
+View
+name
+View prompt
+system-view
+[=| ) Command Views (2)
+[Huawei-GigabitEthernet0/0/1]
+Interface
+view
+4
+piremernt old!
+. Gig@
+[Huawei] ntertace 9
+User view
+quit
+Command examples:
+<Huawei>system-view
+a System
+view
+return
+Ospf 7 [Huawei-ospf-1]
+Protocol
+view
+#This command is used to enter the system view from the user view. The user view is the
+first view that is displayed after you log in to a device.
+[Huaweilinterface GigabitEthernet 0/0/1
+view.
+[Huawei-GigabitEthernet0/0/1]ip address 192.168.1.1 24
+[Huawei-GigabitEthernet0/0/1 ]quit
+#This command is used to enter the interface view from the system
+#This command is used to set an IP address.
+#This command is used to return to the previous view.
+[Huaweilospf 1
+[Huawei-ospf-1]area 0
+#This command is used to enter the protocol view from the system view.
+#This command is used to enter the OSPF area view from the OSPF view.
+[Huawei-ospf-1-area-0.0.0.0]return
+#This command is used to return to the user view.
+Page 20
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+After you log in to the system, the user view is displayed first. This view provides only display
+commands and tool commands, such as ping and telnet. It does not provide any
+configuration commands.
+You can run the system-view command in the user view to enter the system view. The
+system view provides some simple global configuration commands.
+In a complex configuration scenario, for example, multiple parameters need to be configured
+for an Ethernet interface, you can run the interface GigabitEthernet X command (X
+ 
+indicates
+the number of the interface) to enter the GE interface view. Configurations performed in this
+view take effect only on the specified GE interface.
+
+[=| ) Editing a Command (1)
+¢ The CLI of a device provides basic command editing functions. Common editing functions are as follows:
+1. Command editing through function keys
+o Backspace: deletes the character before the cursor and moves the cursor to the left. When the cursor reaches the beginning of the
+command, an alarm is generated.
+o Left cursor key < or Ctrl+B: moves the cursor one character to the left. When the cursor reaches the beginning of the command, an
+alarm is generated.
+o Right cursor key — or Ctrl+F: moves the cursor one character to the right. When the cursor reaches the end of the command, an
+alarm is generated.
+2. Incomplete keyword input
+o 6A device allows the input of incomplete keywords. Specifically, if an entered character string can match a unique keyword, you do not
+need to enter the remaining characters of the keyword.
+<Huawei>d cu
+<Huawei>di cu
+<Huawei>dis cu
+<Huawei>d c when you enter d cu, di cu, or dis cu.
+A
+For example, the display current-
+configuration command
+ 
+is identified
+However, the command cannot be
+Error:Ambiguous command found at '"' position.
+<Huawei>dis c
+A the character string d c or dis c matches
+Error:Ambiguous command found at '"' position. more than one command.
+identified if you enter d c or dis c because
+Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Note: "keyword" mentioned in this section means any character string except a parameter
+value string in a command. The meaning is different from that of "keyword" in the command
+format.
+
+o
+o
+o
+Page 22
+[=| ) Editing a Command (2)
+3. Command editing through the Tab key
+If an entered character string matches a unique keyword, the system automatically supplements the keyword after you press Tab. If
+the keyword is complete, it remains unchanged even if you press Tab repeatedly.
+[Huawei] info- #Press Tab.
+[Huawei] info-center
+If an entered character string matches more than one keyword, you can press Tab repeatedly. The system will then circularly display
+the keywords beginning with the entered character string to help you find the desired keyword.
+[Huawei] info-center log #Press Tab.
+[Huawei] info-center logbuffer #Press Tab repeatedly to circularly display all matched keywords.
+[Huawei] info-center logfile
+[Huawei] info-center loghost
+If an entered character string cannot identify any keyword, the entered string remains unchanged after you press Tab.
+[Huawei] info-center loglog #Enter an incorrect keyword and press Tab.
+[Huawei] info-center loglog
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=| ) Using Command Line Online Help
+« You can use command line online help to obtain real-time help without memorizing a large number of complex
+commands.
+¢ The online help can be classified into full help and partial help. To obtain the online help, enter a question mark (?) when
+using a command.
+Full Help Partial Help
+* To obtain full help, press ? after a view displayed. The system will * To obtain partial help, press ? after you enter the start character or
+then display all commands in the view and their descriptions. character string of a command. The system will then display all
+the commands that start with this character or character string.
+<Huawei> ?
+User view commands: <Huawei> d?
+arp-ping ANAT Ite debugging <Group> debugging command group
+autosave <Group> autosave command group delete Delete a file
+backup Backup information dialer Dialer
+cd Change current directory dir List files on a filesystem
+clear aa display Display information
+clock Specify the system clock
+Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢« The command help information displayed in this slide is for reference only, which varies
+according to devices.
+
+[=| ) Interpreting Command Line Error Messages
+¢ lfacommand passes the syntax check, the system executes it. Otherwise, the system reports an error message.
+[Huawei] sysname
+A
+Error:Incomplete command found at “’ position. #A supplement needs to be made at the position pointed by the
+arrow.
+[Huawei] router if 1.1.1.1
+A
+Error: Unrecognized command found at ‘’ position. #An identification failure occurs at the position pointed by the
+arrow. Check whether the command is correct.
+[Huawei] a
+A
+Error: Ambiguous command found at '"' position. _#More than one command matches the keyword at the position
+pointed by the arrow. In this example, it indicates that there are multiple keywords starting with a.
+[Huawei-GigabitEthernet0/0/Ojospf cost 800000 #The parameter value at the position pointed by the arrow is
+invalid.
+A
+Error: Wrong parameter found at 'TM' position.
+Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=| ) Using Undo Command Lines
+e If acommand begins with the keyword undo, it is an undo command. An undo command is generally used
+to restore a default configuration, disable a function, or delete a configuration. For example:
+» Run an undo command to restore a default configuration.
+<Huawei> system-view
+[Huawei] sysname Server
+[Server] undo sysname
+[Huawei]
+» Run an undo command disable a function.
+<Huawei> system-view
+[Huawei] ftp server enable
+[Huawei] undo ftp server
+» Run an undo commandto delete a configuration.
+[Huaweil]interface g0/0/1
+[Huawei-GigabitEthernet0/0/1]ip address 192.168.1.1 24
+[Huawei-GigabitEthernet0/0/1]undo ip address
+Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Page 26
+There are four user-defined shortcut keys: Ctrl+G,
+Ctrl+L, Ctri+O, and Ctrl+U.
+You can associate a user-defined shortcut key with any
+command. After you press a shortcut key, the system
+will automatically run the command associated with the
+shortcut key.
+<Huawei> system-view
+[Huawei] hotkey ctrl_| "display tcp status"
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+[=] ) Using Command Line Shortcut Keys
+e Adevice provides command shortcut keys to speed up and simplify command input.
+¢ Command shortcut keys are classified into user-defined shortcut keys and system shortcut keys.
+User-defined Shortcut Keys System Shortcut Keys
+CTRL_A: moves the cursor to the beginning of the
+current line.
+CTRL_B: moves the cursor one character to the left.
+CTRL_C: stops the running of the current command.
+CTRL_E: moves the cursor to the end of the current
+line.
+CTRL_X: deletes all characters on the left of the cursor.
+CTRL_Y: deletes the character at the cursor and all
+characters on the right of the cursor.
+CTRL_Z: returns to the user view.
+CTRL+]: terminates the current connection or switches
+to another connection.
+
+) Contents
+1. VRP Basics
+2. Command Line Basics
+«= Command Views and Use of Command Views
+« Basic Configuration Commands
+ao Case Analysis
+Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+ry) ) Common File System Operation Commands (1)
+1. Check the current directory.
+<Huawei>pwd
+2. Display information about files in the current directory.
+<Huawei>dir
+3. Display the content of a text file.
+<Huawei>more
+4. Change the current working directory.
+<Huawei>acd
+5. Create a directory.
+<Huawei>makdir
+Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* VRP uses the file system to manages files and directories on a device. To manage files and
+directories, you often need to run basic commands to query file or directory information. Such
+commonly used basic commands include pwd, dir [/all] [ filename | directory
+ 
+|, and more [
+/binary | filename
+ 
+| offset] [ all ].
+«= The pwd command displays the current working directory.
+2 The dir [/all] [ filename | directory | command displays information about files in the
+current directory.
+« The more [/binary] filename
+ 
+[ offset] [ all ] command displays the content of a text file.
+2 In this example, the dir command is run in the user view to display information about
+files in the flash memory.
+« Common commands for operating directories include cd directory, mkdir directory, and rmdir
+directory.
+2 The cd directory command changes the current working directory.
+« The mkdir directory command creates a directory. A directory name can contain 1 to 64
+characters.
+
+ry) ) Common File System Operation Commands (2)
+6. Delete a directory.
+<Huawei>rmdir
+7. Copy a file.
+<Huawei>copy
+8. Move a file.
+<Huawei>move
+9. Rename a file.
+<Huawei>rename
+10. Delete a file.
+<Huawei>delete
+Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢« The rmdir directory command deletes a directory from the file system. A directory to be
+deleted must be empty; otherwise, it cannot be deleted using this command.
+¢« The copy source-filename destination-filename command copiesa file. If the target file
+already exists, the system displays a message indicating that the target file will be replaced.
+The target file name cannot be the same as the system startup file name. Otherwise, the
+system displays an error message.
+« The move source-filename destination-filename command moves a file to another directory.
+The move command can be used to move files only within the same storage medium.
+*« The rename o/d-name new-name command renames a directory or file.
+« The delete [/unreserved] [ /force
+ 
+] { filename
+ 
+| devicename} command deletes a file. If the
+unreserved parameter is not specified, the deleted file is moved to the recycle bin. A file in the
+recycle bin can be restored using the undelete command. However, if the /unreserved
+parameter is specified, the file is permanently deleted and cannot be restored any more. If the
+/force parameter is not specified in the delete command, the system displays a message
+asking you whether
+ 
+to delete the file. However, if the /force parameter is specified, the system
+does not display the message. filename specifies the name of the file to be deleted, and
+devicename specifies the name of the storage medium.
+
+ry) ) Common File System Operation Commands (3)
+11. Restore a deleted file.
+<Huawei>undelete
+12. Permanently delete a file in the recycle bin.
+<Huawei>reset recycle-bin
+Page 30
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+The reset recycle-bin [ filename | devicename
+ 
+| command permanently deletes all or a
+specified file in the recycle bin. filename specifies the name of the file to be permanently
+deleted, and devicename specifies the name of the storage medium.
+
+Ga) ) Basic Configuration Commands (1)
+1. Configure a system name.
+[Huawei] sysname name
+2. Configure a system clock.
+<Huawei> clock timezone time-zone-name { add | minus } offset
+This command configures a local time Zone.
+<Huawei> clock datetime [ utc ] HH:MM:SS YYYY-MM-DD
+This command configures the current or UTC date and time.
+<Huawei> clock daylight-saving-time
+This command configures the daylight saving time.
+Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+* Generally, more than one device is deployed on a network, and the administrator needs to
+manage all devices in a unified manner. The first task of device commissioning is to set a
+system name. A system name uniquely identifies a device. The default system name of an AR
+series router is Huawei, and that of an S series switch is HUAWEI. A system name takes
+effect immediately after being set.
+¢ To ensure successful coordination with other devices, you need to correctly set the system
+clock. System clock = Coordinated Universal Time (UTC) + Time difference between the
+UTC and the time of the local time zone. Generally, a device has default UTC and time
+difference settings.
+«= Youcan run the clock datetime command to set the system clock of the device. The
+date and time format is HH:MM:SS YYYY-MM-DD. If this command is run, the UTC is
+the system time minus the time difference.
+2 You can also change the UTC and the system time zone to change the system clock.
+= The clock datetime ute HH:MM:SS YYYY-MM-DD changes the UTC.
+= The clock timezone time-zone-name
+ 
+{ add | minus } offset command configures
+the local time zone. The UTC is the local time plus or minus the offset.
+a If aregion adopts the daylight saving time, the system time is adjusted according to the
+user setting at the moment when the daylight saving time starts. VRP supports the
+daylight saving time function.
+
+Ga) ) Basic Configuration Commands (2)
+3. Configure a command level.
+[Huawei] command-privilege level /eve/ view view-name command-key
+This command configures a level for commands in a specified view. Command levels are classified into visit, monitoring,
+configuration, and management, which are identified by the numbers 0, 1, 2, and 3, respectively.
+4. Configure the password-based login mode.
+[Huawei]user-interface vty 0 4
+[Huawei-ui-vty0-4]set authentication password cipher information
+This user-interface vty command displays the virtual type terminal (VTY) user interface view, and the set authentication password
+command configures the password authentication mode. The system supports the console user interface and VTY user interface.
+The console user interface is used for local login, and the VTY user interface is used for remote login. By default, a device supports a
+maximum of 15 concurrent VTY-based user accesses.
+5. Configure user interface parameters.
+[Huawei] idle-timeout minutes [ seconds ]
+This command sets a timeout period to disconnect from the user interface. If no command is entered within the specified period, the
+system tears down the current connection. The default timeout period is 10 minutes.
+Page 32 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Each type of user interface has a corresponding user interface view. A user interface view is a
+command line view provided by the system for you to configure and manage all physical and
+logical interfaces working in asynchronous interaction mode, implementing unified
+management of different user interfaces. Before accessing a device, you need to set user
+interface parameters. The system supports console and VTY user interfaces. The console
+port is a serial port provided by the main control board of a device. A VTY is a virtual line port.
+A VTY connection is set up after a Telnet or SSH connection is established between a user
+terminal and a device, allowing the user to access the device in VTY mode. Generally, a
+maximum of 15 users can log in to a device through VTY at the same time. You can run the
+user-interface maximum-vty number command to set the maximum number of users that
+can concurrently access a device in VTY mode. If the maximum number of login users is set
+to 0, no user can log in to the device through Telnet or SSH. The display user-interface
+command displays information about a user interface.
+The maximum number of VTY interfaces may vary according to the device type and used
+VRP version.
+
+Ga) ) Basic Configuration Commands (3)
+6. Configure an IP address for an interface.
+[Huawei]interface interface-number
+[Huawei-interface-numberlip address ip address
+This command configures an IP address for a physical or logical interface on a device.
+7. Display currently effective configurations.
+<Huawei>display current-configuration
+8. Save a configuration file.
+<Huawei>save
+9. Check saved configurations.
+<Huawei>display saved-configuration
+Page 33 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ Torun the IP service on an interface, you must configure an IP address for the interface.
+Generally, an interface requires only one IP address. For the same interface, a newly
+configured primary IP address replaces the original primary IP address.
+« You can run the ip address { mask
+ 
+| mask-length} command to configure an IP address for
+an interface. In this command, mask indicates a 32-bit subnet mask, for example,
+255.255.255.0; mask-length indicates a mask length, for example, 24. Specify either of them
+when configuring an IP address.
+¢ A loopback interface is a logical interface that can be used to simulate a network or an IP
+host. The loopback interface is stable and reliable, and can also be used as the management
+interface if multiple protocols are deployed.
+¢ Whenconfiguring an IP address for a physical interface, check the physical status of the
+interface. By default, interfaces are up on Huawei routers and switches. If an interface is
+manually disabled, run the undo shutdown command to enable the interface after configuring
+an IP address for it.
+
+Ga) ) Basic Configuration Commands (4)
+10. Clear saved configurations.
+<Huawei>reset saved-configuration
+11. Check system startup configuration parameters.
+<Huawei> display startup
+This command displays the system software for the current and next startup, backup system software, configuration
+file, license file, and patch file, as well as voice file.
+12. Configure the configuration file for next startup.
+<Huawei>startup saved-configuration configuration-file
+During a device upgrade, you can run this command to configure the device to load the specified configuration file
+for the next startup.
+13. Restart a device.
+<Huawei>reboot
+Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« The reset saved-configuration command deletes the configurations saved in a configuration
+file or the configuration file. After this
+ 
+command is run, if you do not run the startup saved-
+configuration command to specify the configuration file for the next startup or the save
+command to save current configurations, the device uses the default parameter settings
+during system initialization when it restarts.
+« The display startup command displays the system software for the current and next startup,
+backup system software, configuration file, license file, and patch file, as well as voice file.
+¢ The startup saved-configuration configuration-file command configures the configuration file
+for the next startup. The configuration-file parameter specifies the name of the configuration
+file for the next startup.
+« The reboot command restarts a device. Before the device reboots, you are prompted to save
+configurations.
+
+) Contents
+1. VRP Basics
+2. Command Line Basics
+s Command Views and Use of Command Views
+« Basic Configuration Commands
+= Case Analysis
+Page 35 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+Case 1: File Query Commands and Directory
+Operations
+<Huawei>pwd
+Requirement description: fash:
+* Check information about files and <Huawei>dir
+Directory of flash:/
+directories in the current directory Idx Attr Size(Byte) Date § Time(LMT) FileName
+0 drw- - Dec 27 2019 02:54:09 dhcp
+1 -rw- 121,802 May 26 2014 09:20:58 portalpage.zip
+2 -rw- 2,263 Dec 27 2019 02:53:59 statemach.efs
+3 -rw- 828,482 May 26 2014 09:20:58 sslvpn.zip
+and then delete the directory. 1,090,732 KB total (784,464 KB free)
+<Huawei>mkdir test
+<Huawei>dir
+Directory of flash:/
+Idx Attr Size(Byte) Date Time(LMT) FileName
+drw- - Dec 27 2019 02:54:39 test
+drw- - Dec 27 2019 02:54:09 dhcp
+-rw- = 121,802 May 26 2014 09:20:58 _ portalpage.zip
+-rw- 2,263 Dec 27 2019 02:53:59 statemach.efs
+-rw- 828,482 May 26 2014 09:20:58 — sslvpn.zip
+& 1,090,732 KB total (784,460 KB free)
+RT <Huawei>rmdir test
+A
+Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+of a router named RTA.
+* Create a directory named test,
+RWN-O
+
+Requirement description:
+* Rename the huawei.txt
+ 
+file
+save.zip.
+¢ Make a copy for the save.zip file
+and name the copy file.txt.
+RT
+A
+Page 37 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Ga) ) Case 2: File Operations (1)
+<Huawei>rename huawei.txt save.zip
+<Huawei>dir
+Directory of flash:/
+Idx Attr Size(Byte) Date Time(LMT) FileName
+drw-
+-TW-
+-TW-
+-TW-
+-TW-
+RWN-O
+- Mar 04 2020 04:39:52 dhcp
+121,802 May 26 2014 09:20:58 portalpage.zip
+828,482 Mar 04 2020 04:51:45 save.zip
+2,263 Mar 04 2020 04:39:45 statemach.efs
+828,482 May 26 2014 09:20:58 sslvpn.zip
+1,090,732 KB total (784,464 KB free)
+<Huawei>copy save.zip file.txt
+<Huawei>dir
+Directory of flash:/
+Idx Attr Size(Byte) Date Time(LMT) FileName
+drw-
+-TW-
+-TW-
+-TW-
+-TW-
+-TW-
+akwWN-OoO
+- Mar 04 2020 04:39:52 dhcp
+121,802 May 26 2014 09:20:58 portalpage.zip
+828,482 Mar 04 2020 04:51:45 save.zip
+2,263 Mar 04 2020 04:39:45 statemach.efs
+828,482 May 26 2014 09:20:58 sslvpn.zip
+828,482 Mar 04 2020 04:56:05 _file.txt
+1,090,732 KB total (784,340 KB free)
+
+Requirement description:
+¢ Move the file.txt file to the dhcp
+directory.
+¢ Delete the file.txt file.
+« Restore the deleted file file.txt.
+RT
+A
+Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Ga) ) Case 2: File Operations (2)
+<Huawei>move file.txt flash:/dhcp/
+<Huawei>cd dhcp
+<Huawei>dir
+Directory of flash:/dhcp/
+Idx Attr Size(Byte) Date Time(LMT)
+0 -rw- 98 Dec 27 2019 02:54:09
+1 -rw- 121,802 Dec 27 2019 03:13:50
+1,090,732 KB total (784,344 KB free)
+<Huawei>delete file.txt
+<Huawei>dir
+Directory of flash:/dhcp/
+Idx Attr Size(Byte) Date Time(LMT)
+0 -rw- 98 Dec 27 2019 02:54:09
+1,090,732 KB total (784,340 KB free)
+<Huawei>undelete file.txt
+<Huawei>dir
+Directory of flash:/dhcp/
+Idx Attr Size(Byte) Date Time(LMT)
+0 -rw- 98 Dec 27 2019 02:54:09
+1 -rw- 121,802 Dec 27 2019 03:13:50
+1,090,732 KB total (784,340 KB free)
+FileName
+dhcp-duid.txt
+file.txt
+FileName
+dhcp-duid.txt
+FileName
+dhcp-duid.txt
+file.txt
+
+Page 39
+[=| ) Case 3: VRP Basic Configuration Commands
+As shown in the figure, an engineer needs to configure a router. The requirements are as
+follows:
+o Connect the router and PC. Assign the IP addresses shown in the figure to the router and PC.
+o Allow other employees of the company to use the password huawei123 to remotely log in to the router
+through the PC. Allow them to view configurations but disable them from modifying configurations.
+Save current configurations and name the configuration file huawei.zip. Configure this file as the
+configuration file for the next startup.
+& GEO/0/1 [lk
+192.168.1.1/24 J) 192.168.1.2/24
+ARI PC1
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+[=] ) Configuration Procedure (1)
+& GEO/0/1 _|k
+192.168.1.1/24 mae) 192.168.1.2/24
+AR1 PC1
+Configure an interface IP address. Configuring a user level and a user authentication mode.
+<Huawei>system-view [AR1]user-interface vty 0 4
+[Huawei]sysname AR1 [Huawei-ui-vty0-4]Jauthentication-mode password
+[AR1]interface GigabitEthernet 0/0/1 Please configure the login password (maximum length
+[AR1-GigabitEthernet0/0/1]ip address 192.168.1.1 24 16):huawei123
+[AR1-GigabitEthernet0/0/1 Jquit [AR1-ui-vty0O-4]user privilege level 1
+[AR1-ui-vty0-4]quit
+The password configuration command may vary according to
+devices. For details, see the product documentation.
+Page 40 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+For some devices, after the authentication-mode password command is entered, the
+password setting page will be displayed automatically. You can then enter the password at
+the page that is displayed. For some devices, you need to run the set authentication-mode
+password passwordcommand to set a password.
+
+Configuration Procedure (2)
+& GEO/0/1 _\k
+192.168.1.1/24 mm) 192.168.1.2/24
+AR1 PC1
+Specify the configuration file for next startup.
+<HUAWEl>save huawei.zip
+Are you sure to save the configuration to huawei.zip? (y/n)[n]:y
+It will take several minutes to save configuration file, please wait.........
+Configuration file had been saved successfully
+Note: The configuration file will take effect after being activated
+<HUAWE|>startup saved-configuration huawei.zip
+By default, configurations are saved in the vrpcfg.cfg file. You can also create a file
+for saving the configurations. VRPv5 and VRPv8 have the same command that is
+used to specify the configuration file for the next startup, but different directories for
+saving the file.
+Page 41 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+¢ To save configurations, run the save command. By default, configurations are saved in the
+vrpcfg.cfg file. You can also create a file for saving the configurations. In VRPv5, the
+configuration file is stored in the flash: directory by default.
+
+Ga) ) Checking Configurations
+& GEO/0/1 _|k
+= 192.168.1.1/24 mm} 192.168.1.2/24
+AR1 PC1
+<AR1>display startup
+MainBoard:
+Startup system software: null
+Next startup system software: null
+Backup system software for next startup: null
+Startup saved-configuration file: flash:/vrpcfg.Zip
+Next startup saved-configuration file: flash:/huawei.zip
+Startup license file: null
+Next startup license file: null
+Startup patch package: null
+Next startup patch package: null
+Startup voice-files: null
+Next startup voice-files: null
+Page 42 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+« The display startup command displays the system software for the current and next startup,
+backup system software, configuration file, license file, and patch file, as well as voice file.
+« Startup system software indicates the VRP file used for the current startup.
+> Next startup system software indicates the VRP file to be used for the next startup.
+« Startup saved-configuration file indicates the configuration file used for the current
+system startup.
+2 Next startup saved-configuration file indicates the configuration file to be used for the
+next startup.
+2 Whena device starts, it loads the configuration file from the storage medium and
+initializes the configuration file. If no configuration file exists in the storage medium, the
+device uses the default parameter settings for initialization.
+« The startup saved-configuration [| configuration-file |
+ 
+command sets the configuration file for
+the next startup, where the configuration-file parameter specifies the name of the configuration
+file.
+
+Page 43
+VRPv ——
+VRPS|-—~
+Candidate
+configuration
+database
+<candidate>
+fr Running
+configuration
+database
+<running>
+Startup
+configuration
+database
+UT <startup>
+»
+>
+So) ) More Information
+<Huawei>display configuration candidate
+This command displays the commands that have been configured but not committed.
+If a series of configurations are completed but not committed, the command
+configurations are stored in the candidate configuration database.
+<Huawei>display current-configuration
+This command displays the effective parameter settings.
+After configuration commands are committed, they are saved in the running
+configuration database.
+<Huawei>display startup
+The command displays the names of the system software, configuration files, PAF files,
+and patch files used for the current startup and to be used for the next startup.
+After configurations are saved, the command configurations are stored in the startup
+configuration database.
+VRPVv5 has the running and startup configuration databases but does not have the candidate configuration database. Therefore, a command
+configuration takes effect immediately after the command is executed, without being committed. However, in VRPv8, the configuration command takes
+effect only after the command committed.
+Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+) Quiz
+1. Whatis the VRP version currently used by Huawei datacom devices?
+2. Whatis the maximum number of users that are allowed to log in to a Huawei device through
+the console port concurrently?
+3. How do | specify the configuration file for next startup if a device has multiple configuration
+files?
+Page 44 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+Currently, most Huawei datacom products use VRPv5, and a few products such as NE series
+routers use VRPv8.
+2. A Huawei device allows only one user to log in through the console interface at a time.
+Therefore, the console user ID is fixed at 0.
+3. To specify a configuration file for next startup, run the startup saved-configuration |
+contiguration-file |
+ 
+command. The value of configuration-file should contain both the file name
+and extension.
+
+) Summary
+e VRP is a Huawei proprietary network OS that can run on various hardware platforms.
+VRP has unified network, user, and management interfaces. To efficiently manage
+Huawei devices, you need to be familiar with VRP commands and configurations.
+e You also need to understand some common commands and shortcut keys and learn
+how to use them.
+e After learning this course, you need to know basic VRP concepts, functions of common
+commands, and CLI.
+Page 45 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.
+
+WWw.auawel.Gom
+
+[Figura da Pag.1] Labels: eg Wha” 7; - wt; >; i " x CRALE C/ * -; soperne em Pe... a ee > < ee; Wie S 4) / > atcew kg >.. Caption: (errore caption)
+[Figura da Pag.1] Labels: sae ee ae eh: ays 6) ~~ A.B. 1308 es yy Ae rm 2; SD — <——=; Q M5) 4 UNIVERSITA DEGLI STUDI; MCCS DI PERUGIA. Caption: (errore caption)
+[Figura da Pag.1] Labels: Fondamenti di Internet; VRP Basics; Page 0 Prof. Gianluca Reali. Caption: (errore caption)
+[Figura da Pag.2] Labels: ) Foreword; ¢ The Versatile Routing Platform (VRP) is a universal operating system (OS) platform for; Huawei datacom products. It is based on IP and adopts a component-based. Caption: (errore caption)
+[Figura da Pag.2] Labels: architecture. It provides rich features and functions, including application-based; tailorable and extensible functions, greatly improving the running efficiency of the; devices that use this OS. To efficiently manage such devices, you must be familiar with; VRP and VRP-based configuration.; e Thie course deccrihesc the hacic conceante COMMON cOMmMand« and command line. Caption: (errore caption)
+[Figura da Pag.2] Labels: EE; interface (CLI) of VRP.; Page 1 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.3] Labels: oF ) Objectives; ¢ Oncompletion of this course, you will be able to:; o Understand VRP basics.. Caption: (errore caption)
+[Figura da Pag.3] Labels: o Learn how to use CLI.; ao Master basic CLI commands.. Caption: (errore caption)
+[Figura da Pag.3] Labels: Page 2 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.4] Labels: Contents; 1. VRP Overview; 2. Command Line Basics. Caption: (errore caption)
+[Figura da Pag.4] Caption: (errore caption)
+[Figura da Pag.4] Labels: Page 3 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.5] Labels: ¢ VRP is a universal OS platform for Huawei datacom; products. It serves as the software core engine of; Security Huawei's full series of routers from low-end to core ones,. Caption: (errore caption)
+[Figura da Pag.5] Labels: Routing Ethernet switches, service gateways, and so on.; VRP ¢ VRP provides the following functions:; ao Provides a unified user interface and a unified; Wireless management interface.; a Implements the functions of the control plane and; defines the interface snecifications of the forwarding. Caption: (errore caption)
+[Figura da Pag.5] Labels: plane.; a Implements communication between the device; forwarding plane and VRP control plane.; Page 4 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.6] Labels: Development of the VRP. Caption: (errore caption)
+[Figura da Pag.6] Labels: VRP2 “A devices ——————E— ' Some NE series routers:; «Low performance i AR series : icciaaccam :; : routers i : ete| i; "Distributed design 1998-2001 i ; : i ,; 1999-2000 i S series ; i . ad; 2, VRP3 switches erie CE series switches; %, i ; i :; bys i i i i; «Distributed platform VRP8; ~) «support for various i VRPS : i :; faatirac i) ¢ tf 9p gs .. Caption: (errore caption)
+[Figura da Pag.6] Labels: PO, ! sComponent-based | ' (el re i; =Supportfor core i design i ' sComponent- i; routers High relianii., WS 2 ! ’ i '; ig! reliability «Applicable to : i based design ;; | various Huawei BP mait-process, mult sou pportfor multisa; 2000-2004 | products : Dey” | cpu and multi-; ; "High performance | | chassis; 2004-Now 2009-Now; Page 5 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.7] Labels: File System; e The file system manages files and directories in storage media, allowing users to view, create, rename, and; delete directories and copy, move, rename, and delete files.. Caption: (errore caption)
+[Figura da Pag.7] Labels: e¢ Mastering the basic operations of the file system is crucial for network engineers to efficiently manage the; configuration files and VRP system files of devices.; The system software is a must for device Aconfiguration file stores configuration; startup and operation, providing support, commands, enabling a device to start with; management, and services for a device. The System Configuration the configurations in the file. The common; common file name extension is .cc. Software File file name extensions are .cfg, zip, and .dat.. Caption: (errore caption)
+[Figura da Pag.7] Labels: A patch is a kind of software compatible with Patch Fil PAF APAF file effectively controls product; the sVetei softwate, 1 Is eed fo fx bugs in _ File features and resources. The common file; system software. The common file name name extension is bin .; extension is .pat. ~; Common File Types; Page 6 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.8] Labels: Storage Media; e Storage media include SDRAM, flash memory, NVRAM, SD card, and USB.; NVRAM. Caption: (errore caption)
+[Figura da Pag.8] Labels: NVRAM is nonvolatile random; access memory. It is used to store; log buffer files. Logs will be written; into the flash memory after the timer; expires or the buffer is full.; Flash SD Card; The flash memory is nonvolatile and can . .; avoid data loss in case of power-off. It is The SD card can avoid data loss data in; used to store system software, configuration case of power-off. The SD card has a; files, and so on. Patch files and PAF files are large storage capacity and is generally; uploaded by maintenance personnel and installedona main control board. Itis used; generally stored in the flash memory or SD to store system files, configuration files,; card. log files, and so on.. Caption: (errore caption)
+[Figura da Pag.8] Labels: SDRAM USB; SDRAM is synchronous dynamic random Storage The USB is considered an interface. It is; access memory, which is equivalent to a : used to connect to a large-capacity; computer's memory. It stores the system Media storage medium for device upgrade and; running information and parameters. data transmission.; Page 7 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.9] Labels: Device Initialization Process; e After a device is powered on, it runs the BootROM software to initialize the hardware and display hardware; parameters. Then, it runs the system software and reads the configuration file from the default storage path; Uva: tupac een ace | oe ol ee. Caption: (errore caption)
+[Figura da Pag.9] Labels: LM PEEIVETEL TTI Caui it.; BIOS Creation Date : Jan 5 2013, 18:00:24; DDR DRAM init : OK; Start Memory Test ? (‘t' or 'T' is test):skip; Copying Data : Done; Uncompressing : Done. Caption: (errore caption)
+[Figura da Pag.9] Labels: Press Ctrl+B to break auto startup ... 1; Now boot from flash:/AR2220E-V200RO07COOSPC600.cc,; Page 8 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.10] Labels: Device Management; e There are two commonly used device management modes: CLI and web system.; e To use a device management mode, you must first log in to a device through a login mode supported by. Caption: (errore caption)
+[Figura da Pag.10] Labels: this device management mode.; Web System; * The web system provides a graphical user * The CLI requires users to use commands; interface (GUI) for easy device provided by a device to manage and; management and maintenance. This maintain the device. This mode implements; method, however, can be used to manage refined device management but requires. Caption: (errore caption)
+[Figura da Pag.10] Labels: and maintain only some, not all, device users to be familiar with the commands.; functions. * The CLI supports the console port, Telnet,; * The web system supports the HTTP and and SSH login modes.; HTTPS login modes.; Page 9 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.11] Labels: VRP User Interfaces; e When a user logs in to a device through a CLI-supported mode, the system allocates a user interface to; manage and monitor the current session between the user terminal and device.. Caption: (errore caption)
+[Figura da Pag.11] Labels: e¢ Such a user interface can be a console user interface or virtual type terminal (VTY) user interface.; Console User Interface VTY User Interface; « Aconsole user interface is used to * The VTY user interface is used to manage; manage and monitor users who log in to and monitor users who log in to a device by; a device through the console port. means of VTY.. Caption: (errore caption)
+[Figura da Pag.11] Labels: * The serial port of a user terminal can be « After a Telnet or STelnet connection is; directly connected to the console port of a established between a user terminal and a; device for local access. device, a VTY channel is established to; implement remote access to the device.; Page 10 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.12] Labels: VRP User Levels; e¢ VRP provides basic permission control functions. It defines the levels of commands that each; level of users can execute to restrict the operations of users at different levels.. Caption: (errore caption)
+[Figura da Pag.12] Labels: User Level Gomimane Available Command; Level; Network diagnosis commands (such as ping and tracert), commands for; (0) 0 Visit level | accessing external devices from the local device (such as Telnet client; commands), and some display commands; 1 O and 1 ee System maintenance commands, including display commands; ; na 4 2.45 Configuratio Service configuration commands, including routing commands and IP. Caption: (errore caption)
+[Figura da Pag.12] Labels: “ aoe n level configuration commands, to directly provide users with network services; Commands for controlling basic system operations and providing support; 315 0,1,2,and Manageme for services, including the file system, FTP, TFTP download, user; ~ 3 nt level management, and command level commands, as well as debugging; commands for fault diagnosis; Page 11 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.13] Labels: Login to the Web System; Take the web system for a Huawei AR router as an. Caption: (errore caption)
+[Figura da Pag.13] Labels: example. Start a browser on a PC, enter; https://192.168.1.1 in the address bar, and press Enter.; Then, the web system login page is displayed. enone; AR WebBHB#S& = BRE: admin *; = ams English; oN af, 5 eon. Caption: (errore caption)
+[Figura da Pag.13] Labels: awe a ell; 192.168.1.; Page 12 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.14] Labels: CLI - Local Login (1); You can log in to a device in local or remote fi ° og. ji A a; mode. Local login mode: : - . Etta .-« co . we.. Caption: (errore caption)
+[Figura da Pag.14] Labels: « Use this mode when you need to configure a; device that is powered on for the first time. You AR2220 Console; can use the console port of the device for a Duties port; local login. (OPIN); * The console port is a serial port provided by the Pos.95 -Pos.5 ie palais; main control board of a device. é _——_ 0; * To implement the login, directly connect your ()- o—— «&; terminal's serial port to the device's console nN a 7 x2 18; port, and use PuTTY to log in to the device. You Pos.6-]Upos.1 x1; oe | ee ee eee, See eee eee x mae, : Seewmeay perme fey. Caption: (errore caption)
+[Figura da Pag.14] Labels: eee ————_ OEE TO; succeeds. Console cable; |]; COM port; =m!; PC; Page 13 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.15] Labels: .; CLI - Local Login (2); . : . & PuTTY Configuration 2 x; PuTTY is a connection software for login through; Telnet, SSH, serial interfaces, and so on eee; , , , . | = Session | Basic options for your PUTTY session; In lacal laqin the terminal ie cannected to the cancola _~ Logging ee ene. Caption: (errore caption)
+[Figura da Pag.15] Labels: EE ET a = terminal I; ort of the Huawei device through a serial port. Keyboard Serialline Speed; P 4 g a P . Bell COM1 9600; Therefore, set Connection type to Serial. Set Serial Factives joo; a . Cc ti; line based on the actually used port on the terminal. pn ae Che OTeOR IOS @eet; Set Speed to 9600. Behaviour; Translation Load, save or delete a stored session; Selection Saved Sessions; Colours; =} Connection _———SSSSSSSSSS——; Data Default Settings Load; Proxy; Telnet Save; Rlogin. Caption: (errore caption)
+[Figura da Pag.15] Labels: SSH Delete; Serial; Close window on exit:; COAmays (©)Never @) Only on clean exit; About Help Cancel; Page 14 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.16] Labels: 1; CLI - Remote Login; 4 " SB PuTTY Configuration ? x; Remote login means that you log in to a device that can; Category:; function as a remote login server, allowing you to centrally & Session Basic options for your PuTTY session; Logging =; a ee CS CONS Re EE SEG eRe ERR See eure Stee heel Pot nant 2 Sees Nace a Snecify the destination voi want to connect to. Caption: (errore caption)
+[Figura da Pag.16] Labels: Mallayge QIIO THAIIali PeWVOIR GeVvIves. Menmlole Wylll HHeUlouds terminal I; . Keyboard Host Name (or IP address) Port; include Telnet and SSH. Bell 192.168.10.1] 22; . 7 4 Feit iad Connection type. _ _ _; ¢ Ifyou use the SSH login mode, set Connection type to Appearance ORaw COvTelnet CRlogin @SSH © Serial; F Behaviour |; SSH, enter the IP address of the remote login server, and Translation Load, save or dele 2 sipred cession; Selection Saved Sessions; use the default port number 22. Colours; . . ~ Gennection Default Settings Load; ¢ Ifyou use the Telnet login mode, set Connection type to Proxy; + Telnet Save; Telnet, enter the IP address of the remote login server, and Rlogin. Caption: (errore caption)
+[Figura da Pag.16] Labels: SSH Delete; use the default port number 23. Serial; Close window on exit:; i Calways (©)Never (@) Only onclean exit; LAN; 192.168.10.1 ee = Cancel; Page 15 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.17] Labels: ¢ After a login succeeds, the command line interface (CLI) is displayed.; ¢ The CLI is a common tool for engineers to interact with network devices.. Caption: (errore caption)
+[Figura da Pag.17] Labels: #P 127.0.0.1 - Putly - ao xX; <Huawei>s: -; ys ve og. an .; sys a | | |) np; Enter system view, return user view with Ctrl+Z.; : Y Z AR2220 Console port; [Huawei] fj; faa 5 t SPIN-RJ45; fs, smo 4 ln wg. Caption: (errore caption)
+[Figura da Pag.17] Labels: 3) i, ——Ir “Wa; ae 2; =; = 7 COM port; PC; Page 16 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.18] Labels: Contents; 1. VRP Basics; 2. Command Line Basics. Caption: (errore caption)
+[Figura da Pag.18] Labels: = Command Line Overview; » Basic Configuration Commands; » Case Analysis. Caption: (errore caption)
+[Figura da Pag.18] Labels: Page 17 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.19] Labels: Basic Command Structure; ¢ CLI commands follow a unified structure. After a command is entered on the CLI, the CLI parses the command and; executes it to implement the function of the command, such as query, configuration, or management.; Parameter | ict. Caption: (errore caption)
+[Figura da Pag.19] Labels: Command Word 1; Parameter Parameter; Keyword —>; name value; + Command word: specifies the operation to be executed in a command, such as display (device status query) or reboot (device restart).; + Keyword: a special character string that is used to further restrict a command. It is an extension of a command and can also be used to express the command; composition logic.; + Parameter list: is composed of parameter names and values to further restrict the command function. It can contain one or more pairs of parameter names and; values.; —- og K- ot .,,. Caption: (errore caption)
+[Figura da Pag.19] Labels: CXallIpie tf. CXAlIPle 2.; display ip interface GEO/0/0: displays interface reboot: restarts a device.; information. Command word: reboot; Command word: display Each operation command must start with a; Keyword: ip command word, and the command word is; Parameter name: interface selected from the standard command word list.; Parameter value: GEO/0/0; Page 18 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.20] Labels: Command Views (1); ¢ Adevice provides various configuration and query commands. To facilitate the use of these commands, VRP registers; the commands in different views according to their functions.. Caption: (errore caption)
+[Figura da Pag.20] Labels: Interface views:; GigabitEthernet; interface view « User view: In this view, you can check the; Ethernet interface view; Serial interface view running status and statistics of a device.; ~ + System view: In this view, you can set; system parameters and enter the; Protocol views: ; . .; 7 ; System OSPF view ————— OSPF area view configuration views of other commands.; carvan —_—_—-> et!. Caption: (errore caption)
+[Figura da Pag.20] Labels: view Pleven + Other views: In other views, such as the; BGP view; interface view and protocol view, you can; set interface parameters and protocol; “ parameters.; Page 19 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.21] Labels: Command Views (2); a New View prompt [Huawei-GigabitEthernet0/0/1]; iol" Interface; a agabiteanerne view. Caption: (errore caption)
+[Figura da Pag.21] Labels: <Huawei> [Huawei] ee; : system-view System quit; Ea view Os [Huawei-ospf-1]; > Protocol; ui :; quit view; return; Command examples:; <Huawei>svstem-view #This command is used to enter the system view from the user view. The user view is the. Caption: (errore caption)
+[Figura da Pag.21] Labels: first view that is displayed after you log in to a device. :; [Huaweilinterface GigabitEthernet 0/0/1 #This command is used to enter the interface view from the system; view.; [Huawei-GigabitEthernet0/0/1]ip address 192.168.1.1 24 #This command is used to set an IP address.; [Huawei-GigabitEthernet0/0/1]quit #This command is used to return to the previous view.; [Huaweilospf 1 #This command is used to enter the protocol view from the system view.; [Huawei-ospf-1]area 0 #This command is used to enter the OSPF area view from the OSPF view.; [Huawei-ospf-1-area-0.0.0.0]return #This command is used to return to the user view.; Page 20 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.22] Labels: ¢ The CLI of a device provides basic command editing functions. Common editing functions are as follows:; 1. Command editing through function keys; o Backspace: deletes the character before the cursor and moves the cursor to the left. When the cursor reaches the beginning of the; ee ee a ee oe |. Caption: (errore caption)
+[Figura da Pag.22] Labels: tee tee ~ ieee; o Left cursor key <— or Ctrl+B: moves the cursor one character to the left. When the cursor reaches the beginning of the command, an; alarm is generated.; o Right cursor key — or Ctrl+F: moves the cursor one character to the right. When the cursor reaches the end of the command, an; alarm is generated.; 2. Incomplete keyword input; o Adevice allows the input of incomplete keywords. Specifically, if an entered character string can match a unique keyword, you do not; need to enter the remaining characters of the keyword.; <Huawei>d cu For example. the display current-. Caption: (errore caption)
+[Figura da Pag.22] Labels: <Huawei>di cu —_———- _—; Roti configuration command is identified; <Huawei>dis cu; <Huawei>d c when you enter d cu, di cu, or dis cu.; a However, the command cannot be; SUC ti Tele (Uelits Sone Vel eh pest identified if you enter d c or dis c because; <Huawei>dis c ; ;; A the character string d c or dis c matches; Error:Ambiguous command found at '*' position. more than one command.; Page 21 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.23] Labels: 3. Command editing through the Tab key; o If an entered character string matches a unique keyword, the system automatically supplements the keyword after you press Tab. If; the keyword is complete, it remains unchanged even if you press Tab repeatedly.. Caption: (errore caption)
+[Figura da Pag.23] Labels: [Huawei] info- #Press Tab.; [Huawei] info-center; o If an entered character string matches more than one keyword, you can press Tab repeatedly. The system will then circularly display; the keywords beginning with the entered character string to help you find the desired keyword.; [Huawei] info-center log #Press Tab.; [Huawei] info-center logbuffer #Press Tab repeatedly to circularly display all matched keywords.; [Huawei] info-center loafile. Caption: (errore caption)
+[Figura da Pag.23] Labels: [Huawei] info-center loghost; o If an entered character string cannot identify any keyword, the entered string remains unchanged after you press Tab.; [Huawei] info-center loglog #Enter an incorrect keyword and press Tab.; [Huawei] info-center loglog; Page 22 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.24] Labels: Using Command Line Online Help; « You can use command line online help to obtain real-time help without memorizing a large number of complex; commands.; ¢ The online help can be classified into full help and partial help. To obtain the online help, enter a question mark (?) when; Heingq a camMmmand. Caption: (errore caption)
+[Figura da Pag.24] Labels: EEE SAD aaa: | eres fomeiminnni «oh Dictn fern aumew oar wart a; Full Help Partial Help; * To obtain full help, press ? after a view displayed. The system will * To obtain partial help, press ? after you enter the start character or; then display all commands in the view and their descriptions. character string of a command. The system will then display all; the commands that start with this character or character string.; <Huawei> ?; User view commands: ane gp; elipaeins, ARIE DING debugging <Group> debugging command group. Caption: (errore caption)
+[Figura da Pag.24] Labels: aulosave sGroup= autosave command group delete Delete a file; backup Backup information dialer Dialer; cd Changelc irre nuditectony) dir List files on a filesystem; clear Clear display Display information; clock Specify the system clock; Page 23 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.25] Labels: Interpreting Command Line Error Messages; ¢ lfacommand passes the syntax check, the system executes it. Otherwise, the system reports an error message.; [Huawei] sysname .. Caption: (errore caption)
+[Figura da Pag.25] Labels: Error:Incomplete command found at ‘”’ position. #A supplement needs to be made at the position pointed by the; arrow.; [Huawei] router if 1.1.1.1; AN; Error: Unrecognized command found at ‘”’ position. #An identification failure occurs at the position pointed by the; arrow. Check whether the command is correct.; [Huawei] a; A. Caption: (errore caption)
+[Figura da Pag.25] Labels: EIMrOr. AMTIDIQGUOUS COMMMANG TOUNG al — POSMIOM. = FINIOTSe Ulall ONG COMMMANG MatChes We KEYWOrG at Ule POsSUOn; pointed by the arrow. In this example, it indicates that there are multiple keywords starting with a.; [Huawei-GigabitEthernet0/0/OJospf cost 800000 #The parameter value at the position pointed by the arrow is; invalid.; AN; Error: Wrong parameter found at '*' position.; Page 24 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.26] Labels: Using Undo Command Lines; e |facommand begins with the keyword undo, it is an undo command. An undo command is generally used; to restore a default configuration, disable a function, or delete a configuration. For example:. Caption: (errore caption)
+[Figura da Pag.26] Labels: » Run an undo command to restore a default configuration.; <Huawei> system-view; [Huawei] sysname Server; [Server] undo sysname; [Huawei]; » Run an undo command disable a function.; <Huawei> system-view; [Huawei] ftp server enable. Caption: (errore caption)
+[Figura da Pag.26] Labels: [Huawei] undo ftp server; » Run an undo command to delete a configuration.; [Huawei]interface g0/0/1; [Huawei-GigabitEthernet0/0/1]ip address 192.168.1.1 24; [Huawei-GigabitEthernet0/0/1]undo ip address; Page 25 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.27] Labels: Using Command Line Shortcut Keys; e Adevice provides command shortcut keys to speed up and simplify command input.; ¢ Command shortcut keys are classified into user-defined shortcut keys and system shortcut keys.. Caption: (errore caption)
+[Figura da Pag.27] Labels: User-defined Shortcut Keys System Shortcut Keys; * There are four user-defined shortcut keys: Ctrl+G, * CTRL_A: moves the cursor to the beginning of the; Ctrl+L, Ctrl+O, and Ctrl+U. current line.; * You can associate a user-defined shortcut key with any * CTRL_B: moves the cursor one character to the left.; command. After you press a shortcut key, the system * CTRL_C: stops the running of the current command.; will automatically run the command associated with the; shortcut key. * CTRL_E: moves the cursor to the end of the current; line.; e CTRI Y: doaletec all charactere nn the laft af the cirreor. Caption: (errore caption)
+[Figura da Pag.27] Labels: - . * CTRL_Y: deletes the character at the cursor and all; <Huawei> system-view characters on the right of the cursor.; [Huawei] hotkey ctrl_l "display tcp status" * CTRL Z: returns to the user view.; * CTRL+]: terminates the current connection or switches; to another connection.; Page 26 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.28] Labels: Contents; 1. VRP Basics; 2. Command Line Basics. Caption: (errore caption)
+[Figura da Pag.28] Labels: 2 Command Views and Use of Command Views; « Basic Configuration Commands; » Case Analysis. Caption: (errore caption)
+[Figura da Pag.28] Labels: Page 27 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.29] Labels: Common File System Operation Commands (1); 1. Check the current directory.; <Huawei>pwd. Caption: (errore caption)
+[Figura da Pag.29] Labels: 2. Display information about files in the current directory.; <Huawei>dir; 3. Display the content of a text file.; <Huawei>more; A Channe the currant working diractoryv. Caption: (errore caption)
+[Figura da Pag.29] Labels: ee, a, a Ae; <Huawei>acd; 5. Create a directory.; <Huawei>makdir; Page 28 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.30] Labels: Common File System Operation Commands (2); 6. Delete a directory.; <Huawei>rmdir. Caption: (errore caption)
+[Figura da Pag.30] Labels: 7. Copy a file.; <Huawei>copy; 8. Move a file.; <Huawei>move; Q Raname a fila. Caption: (errore caption)
+[Figura da Pag.30] Labels: <Huawei>rename; 10. Delete a file.; <Huawei>delete; Page 29 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.31] Labels: Common File System Operation Commands (3); 11. Restore a deleted file.; <Huawei>undelete. Caption: (errore caption)
+[Figura da Pag.31] Labels: 12. Permanently delete a file in the recycle bin.; <Huawei>reset recycle-bin. Caption: (errore caption)
+[Figura da Pag.31] Labels: Page 30 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.32] Labels: Basic Configuration Commands (1); 1. Configure a system name.; [Huawei] sysname name. Caption: (errore caption)
+[Figura da Pag.32] Labels: 2. Configure a system clock.; <Huawei> clock timezone time-zone-name { add | minus } offset; This command configures a local time Zone.; <Huawei> clock datetime [ utc ] HH:MM:SS YYYY-MM-DD; This command configures the current or UTC date and time.. Caption: (errore caption)
+[Figura da Pag.32] Labels: <Huawei> clock daylight-saving-time; This command configures the daylight saving time.; Page 31 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.33] Labels: Basic Configuration Commands (2); 3. Configure a command level.; [Huawei] command-privilege level /eve/ view view-name command-key. Caption: (errore caption)
+[Figura da Pag.33] Labels: EEE eC ee Sy ee Se See Tr ee Se ee Le See ee ee ee ee ee a ee Lee hee ce; configuration, and management, which are identified by the numbers 0, 1, 2, and 3, respectively.; 4. Configure the password-based login mode.; [Huawei]user-interface vty 0 4; [Huawei-ui-vty0-4]set authentication password cipher information; This user-interface vty command displays the virtual type terminal (VTY) user interface view, and the set authentication password; command configures the password authentication mode. The system supports the console user interface and VTY user interface.; The console user interface is used for local login, and the VTY user interface is used for remote login. By default, a device supports a. Caption: (errore caption)
+[Figura da Pag.33] Labels: maximum of 15 concurrent VTY-based user accesses.; 5. Configure user interface parameters.; [Huawei] idle-timeout minutes [ seconds ]; This command sets a timeout period to disconnect from the user interface. If no command is entered within the specified period, the; system tears down the current connection. The default timeout period is 10 minutes.; Page 32 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.34] Labels: Basic Configuration Commands (3); 6. Configure an IP address for an interface.; [Huaweilinterface interface-number. Caption: (errore caption)
+[Figura da Pag.34] Labels: LP TUGWeITeraueriiGiiinG! iP QUULG SS IH AUTOS; This command configures an IP address for a physical or logical interface on a device.; 7. Display currently effective configurations.; <Huawei>display current-configuration; 8. Save a configuration file.. Caption: (errore caption)
+[Figura da Pag.34] Labels: <Huawei>save; 9. Check saved configurations.; <Huawei>display saved-configuration; Page 33 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.35] Labels: Basic Configuration Commands (4); 10. Clear saved configurations.; <Huawei>reset saved-configuration. Caption: (errore caption)
+[Figura da Pag.35] Labels: 11. Check system startup configuration parameters.; <Huawei> display startup; This command displays the system software for the current and next startup, backup system software, configuration; file, license file, and patch file, as well as voice file.; 12. Configure the configuration file for next startup.; <Huawei>startup saved-configuration configuration-file. Caption: (errore caption)
+[Figura da Pag.35] Labels: During a device upgrade, you can run this command to configure the device to load the specified configuration file; for the next startup.; 13. Restart a device.; <Huawei>reboot; Page 34 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.36] Labels: Contents; 1. VRP Basics; 2. Command Line Basics. Caption: (errore caption)
+[Figura da Pag.36] Labels: « Command Views and Use of Command Views; » Basic Configuration Commands; « Case Analysis. Caption: (errore caption)
+[Figura da Pag.36] Labels: Page 35 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.37] Labels: Case 1: File Query Commands and Directory; Operations; Requirement description: paler ail dil; * Check information about files and eee ach. Caption: (errore caption)
+[Figura da Pag.37] Labels: MIPOULYVIICS TE LUIS CUTTOTIL MITCULUTy TOA FALL ei2e\Pyw) Hvale THEIO\RIVET } PF HEIN; 0 drw- - Dec 27 2019 02:54:09 dhcp; of a router named RTA. 1 -w- 121,802 May 26 2014 09:20:58 portalpage.zip; . 2 -rw- 2,263 Dec 27 2019 02:53:59 statemach.efs; * Create a directory named test, 3 -1w- 828,482 May 26 2014 09:20:58 sslvpn.zip; and then delete the directory. 1,090,732 KB total (784,464 KB free); <Huawei>mkdir test; <Huawei>dir; Directory of flash:/; Idx Attr Size(Byte) Date Time(LMT) FileName. Caption: (errore caption)
+[Figura da Pag.37] Labels: Odmw- - Dec 27 2019 02:54:39 test; 1 drw- - Dec 27 2019 02:54:09 dhcp; 2 -rw- 121,802 May 26 2014 09:20:58 _ portalpage.zip; 3 -rw- = 2,263 Dec 27 2019 02:53:59 statemach.efs; é) 4 -rw- 828,482 May 26 2014 09:20:58 ssivpn.zip; 1,090,732 KB total (784,460 KB free); RT <Huawei>rmdir test; A; Page 36 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.38] Labels: Case 2: File Operations (1); Requirement description: See HERG 2 CATSZATE; + Rename the huawei.txt file Directory of flash:/; ; Idx Attr Size(Byte) Date Time(LMT) FileName. Caption: (errore caption)
+[Figura da Pag.38] Labels: vaVve.Ziyp. vMIW= 7 WIAD Ut 2 LU UT. VE UTI; . 1 -rw- 121,802 May 26 2014 09:20:58 portalpage.zip; + Make a copy for the save.zip file 2 -rw- _—-828,482 Mar 04 2020 04:51:45 save.zip; . 3 -rw- 2,263 Mar 04 2020 04:39:45 statemach.efs; and name the copy file.txt. 4 -rw- 828,482 May 26 2014 09:20:58 sslvpn.zip; 1,090,732 KB total (784,464 KB free); <Huawei>copy save.zip file.txt; <Huawei>dir; Directory of flash:/; Idx Attr Size(Byte) Date Time(LMT) FileName. Caption: (errore caption)
+[Figura da Pag.38] Labels: O drw- - Mar 04 2020 04:39:52 dhcp; 1 -rw- 121,802 May 26 2014 09:20:58 portalpage.zip; 2 -rw- 828,482 Mar 04 2020 04:51:45 save.zip; 3 -rw- 2,263 Mar 04 2020 04:39:45 statemach.efs; 4 -rw- 828,482 May 26 2014 09:20:58 sslvpn.zip; 5 -rw- 828,482 Mar 04 2020 04:56:05 file.txt; RT 1,090,732 KB total (784,340 KB free); A; Page 37 = Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.39] Labels: Case 2: File Operations (2); Requirement description: eke flash:/dhcp/; , <Huawei>dir; Directory of flash:/dhcp/. Caption: (errore caption)
+[Figura da Pag.39] Labels: QA FAUT ViZe\ (Pyle) Wale PHTIOVEIVE TT ) THINGS; 0 -rw- 98 Dec 27 2019 02:54:09 dhcp-duid.txt; 1 -rw- 121,802 Dec 27 2019 03:13:50 _ file.txt; 1,090,732 KB total (784,344 KB free); - Move the file.txt file to the dhep sTuawerr delete file-txt; <Huawei>dir; directory. Directory of flash:/dhcp/; Idx Attr Size(Byte) Date Time(LMT) FileName; ¢ Delete the file.txt file. 0 -rw- 98 Dec 27 2019 02:54:09 = dhcp-duid.txt. Caption: (errore caption)
+[Figura da Pag.39] Labels: e IKE SLOTe Ue Gerelted Te TMHe.cAt. 1,090,732 KB total (784,340 KB free); <Huawei>undelete file.txt; <Huawei>dir; Directory of flash:/dhcp/; Idx Attr Size(Byte) Date Time(LMT) FileName; & 0 -rw- 98 Dec 27 2019 02:54:09 dhcp-duid.txt; 1 -rw- 121,802 Dec 27 2019 03:13:50 _ file.txt; RT 1,090,732 KB total (784,340 KB free); A; Page 38 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.40] Labels: Case 3: VRP Basic Configuration Commands; ¢ As shown in the figure, an engineer needs to configure a router. The requirements are as; follows:. Caption: (errore caption)
+[Figura da Pag.40] Labels: o Connect the router and PC. Assign the IP addresses shown in the figure to the router and PC.; no Allow other employees of the company to use the password huawei123 to remotely log in to the router; through the PC. Allow them to view configurations but disable them from modifying configurations.; o Save current configurations and name the configuration file huawei.zip. Configure this file as the; configuration file for the next startup.. Caption: (errore caption)
+[Figura da Pag.40] Labels: Q GE0/0/1 i; 192.168.1.1/24 — 192.168.1.2/24; AR( PC1; Page 39 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.41] Labels: Configuration Procedure (1); > GEO0/0/1 {ik; & 192.168.1.1/24 hk 192.168.1.2/24. Caption: (errore caption)
+[Figura da Pag.41] Labels: AR1 rOl; Configure an interface IP address. Configuring a user level and a user authentication mode.; <Huawei>system-view [AR1]user-interface vty 0 4; [Huawei]sysname AR1 [Huawei-ui-vty0-4]authentication-mode password; [AR (interface GigabitEthernet 0/0/1 Please configure the login password (maximum length; [AR1-GigabitEthernet0/0/1]ip address 192.168.1.1 24 16):huawei123. Caption: (errore caption)
+[Figura da Pag.41] Labels: [AR1-GigabitEthernet0/0/1 Jquit [AR1-ui-vtyO-4]user privilege level 1; [AR 1-ui-vty0-4]quit; The password configuration command may vary according to; devices. For details, see the product documentation.; Page 40 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.42] Labels: Configuration Procedure (2); >| GE0/0/1 {ik; & 192.168.1.1/24 ih 192.168.1.2/24. Caption: (errore caption)
+[Figura da Pag.42] Labels: AR1 PC1; Specify the configuration file for next startup.; <HUAWE|>save huawei.zip; Are you sure to save the configuration to huawei.zip? (y/n)[n]:y; It will take several minutes to save configuration file, please wait.........; Configuration file had been saved successfully; Note: The configuration file will take effect after being activated; <HUAWE|>startup saved-configquration huawei.zip. Caption: (errore caption)
+[Figura da Pag.42] Labels: By default, configurations are saved in the vrpcfg.cfg file. You can also create a file; for saving the configurations. VRPv5 and VRPv8 have the same command that is; used to specify the configuration file for the next startup, but different directories for; saving the file.; Page 41 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.43] Labels: Checking Configurations; GE0/0/1 =. Caption: (errore caption)
+[Figura da Pag.43] Labels: ARI PC1; <AR1>display startup; MainBoard:; Startup system software: null; Next startup system software: null; Backup system software for next startup: null; Startup saved-configuration file: flash:/vrpcfg.zip. Caption: (errore caption)
+[Figura da Pag.43] Labels: IND AL SICGILUP SAVOCUSUCVETIQUIGtiVir Tt. Hao Ua WehLeip; Startup license file: null; Next startup license file: null; Startup patch package: null; Next startup patch package: null; Startup voice-files: null; Next startup voice-files: null; Page 42 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.44] Labels: <Huawei>display configuration candidate; » This command displays the commands that have been configured but not committed.; Candidate; configuration; pe: ce ey Eanes Lk fg eas CETTE, Te «Ee Lek ee eyes Ve eee Ol OR MPa ae eae ee. bE ME | ARONSON eiaee eee ef. Caption: (errore caption)
+[Figura da Pag.44] Labels: oN Ha otilveo Vi ee eee alive ee eee MUL TIVE UMTEEEETIER A, CEI EEE ERAT; <candidate> configurations are stored in the candidate configuration database.; <Huawei>display current-configuration; VRPv aunt P This command displays the effective parameter settings.; 8 unning —; pil aie After configuration commands are committed, they are saved in the running; ease configuration database.; running>; VRP5 <Huawei>display startup. Caption: (errore caption)
+[Figura da Pag.44] Labels: > THe COMMA Ulspiayo UWle Tales Ul lle SYotelll SUMWale, CUOMMYUIAUOIL HIGs, FAA Heo,; Startup and patch files used for the current startup and to be used for the next startup.; configuration . . .; database After configurations are saved, the command configurations are stored in the startup; <startup> configuration database.; VRPv5 has the running and startup configuration databases but does not have the candidate configuration database. Therefore, a command; configuration takes effect immediately after the command is executed, without being committed. However, in VRPv8, the configuration command takes; effect only after the command committed.; Page 43 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.45] Labels: ©)) auiz; 1. Whatis the VRP version currently used by Huawei datacom devices?; 2. Whatis the maximum number of users that are allowed to log in to a Huawei device through. Caption: (errore caption)
+[Figura da Pag.45] Labels: the console port concurrently?; 3. How do | specify the configuration file for next startup if a device has multiple configuration; files?. Caption: (errore caption)
+[Figura da Pag.45] Labels: Page 44 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.46] Labels: e VRP is a Huawei proprietary network OS that can run on various hardware platforms.; VRP has unified network, user, and management interfaces. To efficiently manage. Caption: (errore caption)
+[Figura da Pag.46] Labels: Huawei devices, you need to be familiar with VRP commands and configurations.; e You also need to understand some common commands and shortcut keys and learn; how to use them.; e After learning this course, you need to Know basic VRP concepts, functions of common; i Reece Me. meee FYl I. Caption: (errore caption)
+[Figura da Pag.46] Labels: VMITTTIGTIMYG, SII Yh.; Page 45 Copyright © 2020 Huawei Technologies Co., Ltd. All rights reserved.. Caption: (errore caption)
+[Figura da Pag.47] Labels: ‘De... |. @e_ok Oo |. Caption: (errore caption)
+[Figura da Pag.47] Caption: (errore caption)
+[Figura da Pag.47] Labels: ‘ ie hin iL; Copynohiii 2 babies’ Ber tpolosies Co., Ltd. All Bi fe on » Pre ". Caption: (errore caption)
